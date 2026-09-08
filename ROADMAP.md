@@ -27,7 +27,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | # | Étape | Statut |
 |---|---|---|
 | 1 | Init projet (Vite / TS strict / Vitest / lint) + arborescence + tokens.css | ✅ 2026-09-08 |
-| 2 | types.ts (modèle §3 complet) + dates.ts + tests exhaustifs | ⬜ |
+| 2 | types.ts (modèle §3 complet) + dates.ts + tests exhaustifs | ✅ 2026-09-08 |
 | 3 | StorageProvider / Dexie + RefDataProvider + fixtures de démo | ⬜ |
 | 4 | i18n (fr, en) + thème clair/sombre/système + squelette App | ⬜ |
 | 5 | Accueil : tuiles, compteur J-X, codes couleur, grille/liste | ⬜ |
@@ -37,15 +37,15 @@ Déroulé en 8 étapes (un commit validé par étape) :
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
-| §3 | Modèle de données complet (Abonnement, MoyenPaiement, Service, formules, champs techniques §3.5) | ⬜ |
-| EF-03 [M] | Moteur d'échéances : toutes périodicités (dont perso et 28 j), mois courts, date locale, passage d'échéance, compteur J-X | ⬜ |
-| EF-04b [S] | Montant estimé « ~X € » et régularisation (modèle + affichage ; alerte au lot 3) | ⬜ |
+| §3 | Modèle de données complet (Abonnement, MoyenPaiement, Service, formules, champs techniques §3.5) | ✅ étape 2 |
+| EF-03 [M] | Moteur d'échéances : toutes périodicités (dont perso et 28 j), mois courts, date locale, passage d'échéance, compteur J-X | ✅ étape 2 (56 tests) |
+| EF-04b [S] | Montant estimé « ~X € » et régularisation (modèle + affichage ; alerte au lot 3) | 🔄 modèle posé (étape 2), affichage à l'étape 5 |
 | §5.6 | StorageProvider (Dexie) et RefDataProvider (catalogue minimal 12 services, taux) | ⬜ |
 | EF-01 [M] | CRUD des abonnements, suppression définitive avec confirmation | ⬜ |
 | EF-01b [S] | Annulation par toast (~6 s) après suppression / changement d'état | ⬜ |
 | EF-02 [M] | Création en saisie libre : périodicités complètes, canal d'achat, champs vie courante | ⬜ |
 | EF-10 [M] | Accueil en grille de tuiles : nom, logo (initiales), prix + périodicité, compteur J-X, pastille paiement, badge canal | ⬜ |
-| EF-11 [M] | Codes couleur d'urgence du compteur (vert / orange / rouge / violet) | ⬜ |
+| EF-11 [M] | Codes couleur d'urgence du compteur (vert / orange / rouge / violet) | 🔄 logique et seuils testés (étape 2), rendu à l'étape 5 |
 | EF-12 [M] | Tri (échéance, prix, nom, catégorie) et filtres (catégorie, statut, moyen de paiement, tags) | ⬜ |
 | EF-12b [S] | Mode grille / liste persisté | ⬜ |
 | EF-13 [M] | Fiche détail : toutes les infos + actions (modifier, statut, archiver, supprimer) | ⬜ |
