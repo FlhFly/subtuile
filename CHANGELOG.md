@@ -28,10 +28,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 - `.gitattributes` (LF partout), `.prettierrc`, `.prettierignore`, `.gitignore` complété
   (`coverage/`, `*.tsbuildinfo`, `.vite/`).
 
-#### Décision en attente
-- Police Space Grotesk de la maquette : jamais chargée depuis le réseau (zéro requête).
-  Pile système de repli pour l'instant ; embarquement via `@fontsource/space-grotesk` (OFL)
-  à valider avant l'étape 4.
+### Lot 1 — étape 1b : police embarquée (2026-09-08)
+
+#### Ajouté
+- Police Space Grotesk de la maquette embarquée dans le bundle via
+  `@fontsource-variable/space-grotesk` (police variable, licence OFL 1.1, 56 ko de woff2
+  découpés par plage Unicode). Aucune requête réseau ; `--font-sans` pointe sur
+  « Space Grotesk Variable » avec la pile système en repli.
 
 ## [0.0.0] — 2026-09-08 — tag `init`
 

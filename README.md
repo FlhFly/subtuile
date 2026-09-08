@@ -23,3 +23,6 @@ AGPL-3.0 — voir [LICENSE](LICENSE).
 
 ## Soutenir
 <!-- lien de don à ajouter à la mise en ligne -->
+
+## Crédits
+- Police [Space Grotesk](https://github.com/floriankarsten/space-grotesk) de Florian Karsten, licence SIL OFL 1.1, embarquée via fontsource.
