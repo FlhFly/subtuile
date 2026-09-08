@@ -8,3 +8,8 @@ docs/maquette-v6-sources/
 
 # Documents de travail locaux
 docs/prive/
+
+# Sorties d'outils
+coverage/
+*.tsbuildinfo
+.vite/

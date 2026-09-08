@@ -1,0 +1,140 @@
+/*
+ * Tokens de design — Subtuile
+ * Extraits de la maquette de référence v6 (docs/maquette-v6.html).
+ * Seules les variables vivent ici ; les styles globaux sont dans base.css.
+ *
+ * Thème : clair par défaut, sombre via [data-theme="sombre"] sur <html>
+ * ou via la préférence système quand aucun thème n'est forcé (EF-17).
+ * Les noms de couleurs reprennent ceux de la maquette (bg, ink, sand…).
+ */
+
+:root {
+  color-scheme: light;
+
+  /* Surfaces et texte (maquette : clair) */
+  --bg: #f6f2ea;
+  --ink: #17130d;
+  --muted: #7d7568;
+  --sand: #ece5d8;
+  --sand2: #dfd6c3;
+  --card: #fffdf8;
+  --line: #17130d;
+  --dash: #b7ad9c;
+
+  /* États du compteur J-X (EF-11) : ok > 14 j, warn ≤ 14 j, urg ≤ 3 j, trial = essai / préavis */
+  --ok: #1e7d3a;
+  --ok-bg: #dff0e2;
+  --warn: #b05e00;
+  --warn-bg: #f6e6cb;
+  --urg: #c22a20;
+  --urg-bg: #f8dcd6;
+  --trial: #8a3ab8;
+  --trial-bg: #eeddf7;
+
+  /* Ombres */
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.08);
+  --shadow-modal: 0 20px 50px rgba(0, 0, 0, 0.35);
+
+  /* Typographie — Space Grotesk dans la maquette ; jamais chargée depuis le réseau
+     (zéro requête), d'où la pile système de repli tant que la police n'est pas embarquée. */
+  --font-sans:
+    'Space Grotesk', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    sans-serif;
+  --font-mono: ui-monospace, 'SFMono-Regular', Menlo, Consolas, monospace;
+
+  --fs-2xs: 10.5px;
+  --fs-xs: 11px;
+  --fs-sm: 12px;
+  --fs-md: 13.5px;
+  --fs-base: 14px;
+  --fs-lg: 15px;
+  --fs-xl: 17px;
+  --fs-2xl: 22px;
+  --fs-3xl: 28px;
+
+  --fw-medium: 500;
+  --fw-semibold: 600;
+  --fw-bold: 700;
+
+  --ls-label: 0.08em; /* étiquettes en capitales */
+  --ls-wide: 0.1em;
+  --ls-tight: -0.02em; /* titres */
+
+  --lh-tight: 1.15;
+  --lh-base: 1.4;
+
+  /* Rayons (maquette : 4 / 10-12 / 14 / 18 / 20-22 px) */
+  --r-xs: 4px;
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 18px;
+  --r-xl: 22px;
+  --r-pill: 999px;
+
+  /* Espacements (échelle 4 px) */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 20px;
+  --sp-6: 24px;
+  --sp-8: 32px;
+  --sp-10: 40px;
+
+  /* Traits et animations */
+  --border: 1.5px solid var(--line);
+  --border-dash: 1.5px dashed var(--dash);
+  --dur-fast: 120ms;
+  --dur-base: 200ms;
+  --ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Gabarit */
+  --app-max-width: 480px;
+  --tile-min-width: 150px;
+}
+
+/* Thème sombre — préférence système, sauf si l'utilisateur force le clair */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='clair']) {
+    color-scheme: dark;
+    --bg: #171310;
+    --ink: #f4efe6;
+    --muted: #a49a89;
+    --sand: #241e17;
+    --sand2: #332b20;
+    --card: #1e1913;
+    --line: #f4efe6;
+    --dash: #4d4436;
+    --ok: #8fdca6;
+    --ok-bg: #1c3524;
+    --warn: #f2b26b;
+    --warn-bg: #3a2b15;
+    --urg: #ff9186;
+    --urg-bg: #44211c;
+    --trial: #dcaaf7;
+    --trial-bg: #342040;
+    --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
+  }
+}
+
+/* Thème sombre forcé par l'utilisateur */
+:root[data-theme='sombre'] {
+  color-scheme: dark;
+  --bg: #171310;
+  --ink: #f4efe6;
+  --muted: #a49a89;
+  --sand: #241e17;
+  --sand2: #332b20;
+  --card: #1e1913;
+  --line: #f4efe6;
+  --dash: #4d4436;
+  --ok: #8fdca6;
+  --ok-bg: #1c3524;
+  --warn: #f2b26b;
+  --warn-bg: #3a2b15;
+  --urg: #ff9186;
+  --urg-bg: #44211c;
+  --trial: #dcaaf7;
+  --trial-bg: #342040;
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
+}

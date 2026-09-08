@@ -7,6 +7,32 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 1 — étape 1 : initialisation du projet (2026-09-08)
+
+#### Ajouté
+- Projet Vite 7 + React 18.3 + TypeScript 5.9 strict (`noUncheckedIndexedAccess`,
+  `verbatimModuleSyntax`, projet en références `tsconfig.app.json` / `tsconfig.node.json`).
+- Dépendances d'exécution épinglées : `react`, `react-dom`, `dexie` 4, `date-fns` 4.
+- Outillage : Vitest 5 (`npm test`), ESLint 9 en configuration plate avec typescript-eslint et
+  `eslint-plugin-react-hooks` (`npm run lint`), Prettier 3 (`npm run format`), `npm run typecheck`,
+  `npm run build`.
+- `src/ui/theme/tokens.css` : tokens extraits de la maquette v6 — palettes clair et sombre
+  (surfaces, encre, sable, carte, traits), couleurs d'état du compteur J-X (ok / warn / urg /
+  trial), ombres, typographie (échelle de tailles, graisses, interlettrage), rayons, espacements,
+  durées. Thème sombre via `[data-theme="sombre"]` ou préférence système (EF-17, bascule à
+  l'étape 4).
+- `src/ui/theme/base.css` : reset minimal et styles globaux.
+- `index.html`, `src/main.tsx`, `src/App.tsx` (squelette affichant la marque),
+  `src/vite-env.d.ts`.
+- `tests/smoke.test.ts` : test de fumée de l'outillage.
+- `.gitattributes` (LF partout), `.prettierrc`, `.prettierignore`, `.gitignore` complété
+  (`coverage/`, `*.tsbuildinfo`, `.vite/`).
+
+#### Décision en attente
+- Police Space Grotesk de la maquette : jamais chargée depuis le réseau (zéro requête).
+  Pile système de repli pour l'instant ; embarquement via `@fontsource/space-grotesk` (OFL)
+  à valider avant l'étape 4.
+
 ## [0.0.0] — 2026-09-08 — tag `init`
 
 ### Ajouté

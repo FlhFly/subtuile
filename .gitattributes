@@ -1,0 +1,12 @@
+# Fins de ligne LF partout dans le dépôt et la copie de travail
+* text=auto eol=lf
+
+# Binaires
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.webp binary
+*.woff binary
+*.woff2 binary
