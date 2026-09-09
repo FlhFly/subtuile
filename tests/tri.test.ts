@@ -1,6 +1,18 @@
 import { describe, expect, it } from 'vitest';
 import { DATE_REFERENCE_DEMO, IDS_DEMO, jeuDemo } from '../src/data/fixtures/demo';
-import { cleEcheance, nonArchives, trierAbonnements } from '../src/domain/tri';
+import {
+  appliquerCriteres,
+  cleEcheance,
+  compterParStatut,
+  CRITERES_DEFAUT,
+  filtrerParStatut,
+  filtresActifs,
+  nonArchives,
+  normaliserTexte,
+  rechercher,
+  tagsDisponibles,
+  trierAbonnements,
+} from '../src/domain/tri';
 
 const jeu = jeuDemo();
 const ids = IDS_DEMO.abonnements;
@@ -59,6 +71,87 @@ describe('tri de l’accueil (EF-12)', () => {
     );
     const tries = trierAbonnements(avecOrdre, 'personnalise', DATE_REFERENCE_DEMO);
     expect(noms(tries).slice(0, 3)).toEqual([ids.prime, ids.spotify, ids.strava]);
+  });
+
+  it('filtre par statut et compte par statut (EF-12, EF-06)', () => {
+    const c = compterParStatut(jeu.abonnements);
+    expect(c).toEqual({ tous: 12, actifs: 10, en_pause: 1, resilies: 1, archives: 1 });
+    expect(filtrerParStatut(jeu.abonnements, 'tous')).toHaveLength(12);
+    expect(noms(filtrerParStatut(jeu.abonnements, 'en_pause'))).toEqual([ids.spotify]);
+    expect(noms(filtrerParStatut(jeu.abonnements, 'resilies'))).toEqual([ids.canal]);
+    expect(noms(filtrerParStatut(jeu.abonnements, 'archives'))).toEqual([ids.dropbox]);
+    expect(filtrerParStatut(jeu.abonnements, 'actifs')).toHaveLength(10);
+  });
+
+  it('tags disponibles, sans doublons ni sensibilité à la casse', () => {
+    expect(tagsDisponibles(jeu.abonnements)).toEqual([
+      'foyer',
+      'maison',
+      'perso',
+      'pro',
+      'remboursable',
+    ]);
+    const avecDoublon = [
+      ...jeu.abonnements,
+      { ...jeu.abonnements[0]!, id: 'x', tags: ['PERSO', 'Été'] },
+    ];
+    expect(tagsDisponibles(avecDoublon)).toEqual([
+      'Été',
+      'foyer',
+      'maison',
+      'perso',
+      'pro',
+      'remboursable',
+    ]);
+  });
+
+  it('recherche tolérante aux accents et à la casse, sur nom, tags, référence et notes (EF-15)', () => {
+    expect(normaliserTexte('  Élec TRIQUE ')).toBe('elec trique');
+    expect(noms(rechercher(jeu.abonnements, 'net'))).toEqual([ids.netflix]);
+    expect(noms(rechercher(jeu.abonnements, 'ELEC'))).toEqual([ids.edf]); // « EDF Élec »
+    expect(noms(rechercher(jeu.abonnements, 'remboursable'))).toEqual([ids.claudeApi]); // tag
+    expect(noms(rechercher(jeu.abonnements, '014 522'))).toEqual([ids.edf]); // référence client
+    expect(noms(rechercher(jeu.abonnements, 'lissées'))).toEqual([ids.edf]); // notes
+    expect(rechercher(jeu.abonnements, 'zzz')).toEqual([]);
+    expect(rechercher(jeu.abonnements, '   ')).toHaveLength(13);
+  });
+
+  it('compose statut, catégorie, paiement, tag, recherche et tri', () => {
+    const base = { ...CRITERES_DEFAUT };
+    expect(filtresActifs(base)).toBe(false);
+    expect(filtresActifs({ ...base, tri: 'nom' })).toBe(false);
+    expect(filtresActifs({ ...base, recherche: 'a' })).toBe(true);
+
+    const streaming = appliquerCriteres(
+      jeu.abonnements,
+      { ...base, categorie: 'streaming' },
+      DATE_REFERENCE_DEMO,
+    );
+    expect(noms(streaming)).toEqual([ids.disney, ids.netflix, ids.prime, ids.canal]); // Canal+ résilié en dernier
+
+    const sepa = appliquerCriteres(
+      jeu.abonnements,
+      { ...base, moyenPaiementId: IDS_DEMO.moyensPaiement.sepa },
+      DATE_REFERENCE_DEMO,
+    );
+    expect(noms(sepa)).toEqual([ids.basicFit, ids.edf, ids.lycamobile, ids.canal]);
+
+    const pro = appliquerCriteres(jeu.abonnements, { ...base, tag: 'PRO' }, DATE_REFERENCE_DEMO);
+    expect(noms(pro)).toEqual([ids.chatgpt, ids.claudeApi]);
+
+    const archives = appliquerCriteres(
+      jeu.abonnements,
+      { ...base, statut: 'archives', tri: 'nom' },
+      DATE_REFERENCE_DEMO,
+    );
+    expect(noms(archives)).toEqual([ids.dropbox]);
+
+    const combine = appliquerCriteres(
+      jeu.abonnements,
+      { ...base, categorie: 'ia', recherche: 'claude', tri: 'prix' },
+      DATE_REFERENCE_DEMO,
+    );
+    expect(noms(combine)).toEqual([ids.claude, ids.claudeApi]);
   });
 
   it('ne mute pas la liste d’origine', () => {

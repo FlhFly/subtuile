@@ -1,8 +1,17 @@
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 import { aujourdhui, montantAnnuel, montantMensuel, prixEffectif } from '../../domain/dates';
-import { nonArchives, trierAbonnements } from '../../domain/tri';
+import {
+  appliquerCriteres,
+  compterParStatut,
+  CRITERES_DEFAUT,
+  filtresActifs,
+  nonArchives,
+  tagsDisponibles,
+  type CriteresAccueil,
+} from '../../domain/tri';
 import { modeleTuile } from '../../domain/tuile';
-import { BasculeAffichage } from '../components/BasculeAffichage';
+import type { Categorie } from '../../domain/types';
+import { BarreTriFiltres } from '../components/BarreTriFiltres';
 import { Tuile } from '../components/Tuile';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
@@ -18,10 +27,20 @@ interface Props {
   onAjouter: () => void;
 }
 
+type Filtres = Omit<CriteresAccueil, 'tri'>;
+const FILTRES_DEFAUT: Filtres = {
+  statut: CRITERES_DEFAUT.statut,
+  categorie: CRITERES_DEFAUT.categorie,
+  moyenPaiementId: CRITERES_DEFAUT.moyenPaiementId,
+  tag: CRITERES_DEFAUT.tag,
+  recherche: CRITERES_DEFAUT.recherche,
+};
+
 /**
- * Accueil (§7.1) : total mensuel normalisé en tête, bascule grille / liste
- * (EF-12b), tuiles avec compteur et code couleur (EF-10, EF-11), tri par
- * échéance. Tri et filtres explicites arrivent à l'étape 7.
+ * Accueil (§7.1) : total mensuel normalisé en tête, barre de tri / filtres /
+ * recherche (EF-12, EF-15), bascule grille / liste (EF-12b), tuiles avec
+ * compteur et code couleur (EF-10, EF-11). Le tri est persisté dans les
+ * préférences ; les filtres et la recherche valent pour la session.
  */
 export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
   const { t, tn, montant } = useI18n();
@@ -29,13 +48,24 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
   const { abonnements, chargement } = useAbonnements();
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
+  const [filtres, setFiltres] = useState<Filtres>(FILTRES_DEFAUT);
   const jour = aujourdhui();
 
+  const tri = preferences.tri;
+  const criteres = useMemo<CriteresAccueil>(() => ({ ...filtres, tri }), [filtres, tri]);
+  const changerCriteres = (partiel: Partial<CriteresAccueil>) => {
+    const { tri: nouveauTri, ...reste } = partiel;
+    if (nouveauTri !== undefined) modifier({ tri: nouveauTri });
+    if (Object.keys(reste).length > 0) setFiltres((f) => ({ ...f, ...reste }));
+  };
+
   const visibles = useMemo(
-    () => trierAbonnements(nonArchives(abonnements), 'echeance', jour),
-    [abonnements, jour],
+    () => appliquerCriteres(abonnements, criteres, jour),
+    [abonnements, criteres, jour],
   );
-  const actifs = visibles.filter((a) => a.statut.type === 'actif');
+
+  /* Totaux sur tous les abonnements actifs, indépendamment des filtres */
+  const actifs = abonnements.filter((a) => a.statut.type === 'actif');
   const totalMensuel = actifs.reduce(
     (s, a) => s + montantMensuel(prixEffectif(a), a.periodicite),
     0,
@@ -44,6 +74,31 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
   const estime = actifs.some((a) => a.montantEstime);
   const marquer = (valeur: number) =>
     estime ? t('montant.estime', { montant: montant(valeur) }) : montant(valeur);
+
+  const compteursStatut = useMemo(() => compterParStatut(abonnements), [abonnements]);
+  const compteursCategorie = useMemo(() => {
+    const c: Partial<Record<Categorie, number>> = {};
+    for (const a of nonArchives(abonnements)) c[a.categorie] = (c[a.categorie] ?? 0) + 1;
+    return c;
+  }, [abonnements]);
+  const moyensAvecNombre = useMemo(
+    () =>
+      [...moyensPaiement.values()].map((moyen) => ({
+        moyen,
+        nombre: nonArchives(abonnements).filter((a) => a.moyenPaiementId === moyen.id).length,
+      })),
+    [moyensPaiement, abonnements],
+  );
+  const tagsAvecNombre = useMemo(
+    () =>
+      tagsDisponibles(nonArchives(abonnements)).map((tag) => ({
+        tag,
+        nombre: nonArchives(abonnements).filter((a) =>
+          a.tags.some((x) => x.toLowerCase() === tag.toLowerCase()),
+        ).length,
+      })),
+    [abonnements],
+  );
 
   const tuiles = useMemo(
     () =>
@@ -57,6 +112,9 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
       ),
     [visibles, jour, moyensPaiement, services],
   );
+
+  const aucunAbonnement = nonArchives(abonnements).length === 0 && !filtresActifs(criteres);
+  const recherche = criteres.recherche.trim() !== '';
 
   return (
     <div className={styles.ecran}>
@@ -75,17 +133,22 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
         </div>
       </header>
 
-      <div className={styles.barre}>
-        <span className={styles.compte}>
-          {chargement ? '' : tn('accueil.nombre', visibles.length)}
-        </span>
-        <BasculeAffichage
-          valeur={preferences.affichage}
-          onChange={(affichage) => modifier({ affichage })}
-        />
-      </div>
+      <BarreTriFiltres
+        criteres={criteres}
+        onChange={changerCriteres}
+        compteursStatut={compteursStatut}
+        compteursCategorie={compteursCategorie}
+        moyensPaiement={moyensAvecNombre}
+        tags={tagsAvecNombre}
+        affichage={preferences.affichage}
+        onAffichage={(affichage) => modifier({ affichage })}
+      />
 
-      {!chargement && visibles.length === 0 ? (
+      {!chargement && visibles.length > 0 ? (
+        <span className={styles.compte}>{tn('accueil.nombre', visibles.length)}</span>
+      ) : null}
+
+      {!chargement && aucunAbonnement ? (
         <section className={styles.vide}>
           <span className={styles.videIcone} aria-hidden="true">
             +
@@ -96,6 +159,17 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
           <button type="button" className={styles.cta} onClick={onAjouter}>
             {t('nav.ajouter')}
           </button>
+        </section>
+      ) : null}
+
+      {!chargement && !aucunAbonnement && visibles.length === 0 ? (
+        <section className={styles.vide}>
+          <h2 className={styles.videTitre}>
+            {t(recherche ? 'accueil.vide.recherche.titre' : 'accueil.vide.filtres.titre')}
+          </h2>
+          <p className={styles.videTexte}>
+            {t(recherche ? 'accueil.vide.recherche.texte' : 'accueil.vide.filtres.texte')}
+          </p>
         </section>
       ) : null}
 

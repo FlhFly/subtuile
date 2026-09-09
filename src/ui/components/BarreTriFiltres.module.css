@@ -1,0 +1,212 @@
+.barre {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 7px;
+}
+
+.bascule {
+  margin-left: auto;
+}
+
+.rond,
+.rondActif {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: var(--border);
+  border-radius: 17px;
+  background: transparent;
+  color: var(--ink);
+}
+
+.rondActif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.chip,
+.chipActif {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  flex: none;
+  height: 34px;
+  padding: 0 12px;
+  border: var(--border);
+  border-radius: 17px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  white-space: nowrap;
+  max-width: 180px;
+}
+
+.chipActif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.rond:focus-visible,
+.rondActif:focus-visible,
+.chip:focus-visible,
+.chipActif:focus-visible,
+.option:focus-visible,
+.optionActive:focus-visible,
+.reinitialiser:focus-visible,
+.rechercheEffacer:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Recherche */
+.recherche {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px 0 14px;
+  border-radius: var(--r-md);
+  background: var(--card);
+  border: var(--border);
+  color: var(--muted);
+}
+
+.rechercheEntree {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: var(--fw-semibold);
+}
+
+.rechercheEntree:focus-visible {
+  outline: none;
+}
+
+.recherche:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.rechercheEffacer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 17px;
+  background: transparent;
+  color: var(--muted);
+}
+
+/* Panneau d'options */
+.panneau {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px;
+  border-radius: var(--r-lg);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+.panneauTitre {
+  padding: 8px 10px 6px;
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.panneauVide {
+  padding: 4px 12px 8px;
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.option,
+.optionActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 12px;
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+
+.option:hover {
+  background: var(--sand);
+}
+
+.optionActive {
+  background: var(--sand);
+}
+
+.optionTextes {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  min-width: 0;
+}
+
+.optionLibelle {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.optionSous {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.pastille {
+  width: 12px;
+  height: 12px;
+  border-radius: 6px;
+  flex: none;
+}
+
+.coche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.reinitialiser {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 2px 4px;
+}

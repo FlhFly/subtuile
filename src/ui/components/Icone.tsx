@@ -17,6 +17,10 @@ const TRACES = {
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-9v5m0-8v.5',
   tuile: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
   liste: 'M4 6h16M4 12h16M4 18h16',
+  recherche: 'M10.5 17a6.5 6.5 0 1 0 0-13 6.5 6.5 0 0 0 0 13Zm5-1.5 5 5',
+  fermer: 'M6 6l12 12M18 6 6 18',
+  coche: 'm5 12.5 5 5L19 7',
+  chevron: 'm6 9 6 6 6-6',
 } as const;
 
 export type NomIcone = keyof typeof TRACES;

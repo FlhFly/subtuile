@@ -7,6 +7,29 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 1 — étape 7 : tri, filtres, recherche, annulation par toast (2026-09-09)
+
+#### Ajouté
+- `src/domain/tri.ts` : critères de l'accueil (EF-12) — tri (échéance, prix, nom, catégorie ;
+  « ordre personnalisé » attend le drag & drop du lot 4), filtre par statut (tous = non
+  archivés, actifs, en pause, résiliés, archivés), par catégorie, par moyen de paiement, par tag
+  (insensible à la casse et aux accents), recherche textuelle (EF-15) sur le nom, les tags, la
+  référence client et les notes, tolérante aux accents et à la casse ; `appliquerCriteres`
+  compose le tout, `compterParStatut` et `tagsDisponibles` alimentent les panneaux.
+- Composant `BarreTriFiltres`, repris de la maquette : bouton recherche ouvrant un champ, chips
+  « Trier », « Statut », « Catégorie », « Paiement », « Tag » ouvrant un panneau d'options avec
+  sous-libellés (description du tri, nombre d'abonnements, pastille du moyen de paiement) et
+  coche de sélection, lien « Réinitialiser les filtres », bascule grille / liste intégrée.
+- Accueil : le tri est persisté dans les préférences, filtres et recherche valent pour la
+  session ; états vides distincts pour une recherche sans résultat et des filtres sans
+  correspondance ; les totaux en tête restent calculés sur tous les abonnements actifs.
+- Annulation par toast (EF-01b) : après suppression (restauration du tombstone), mise en pause,
+  reprise, archivage et désarchivage, le toast propose « Annuler » pendant ~6 s et confirme
+  « Action annulée ».
+- Icônes recherche, fermer, coche, chevron.
+- Tests : filtres par statut et compteurs, tags, recherche (nom, tag, référence, notes, accents),
+  composition des critères sur le jeu de démo. 158 tests.
+
 ### Lot 1 — étape 6 : fiche détail et formulaire de création / édition (2026-09-09)
 
 #### Ajouté

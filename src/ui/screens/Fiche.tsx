@@ -12,7 +12,7 @@ import {
 } from '../../domain/dates';
 import { couleurCompteur, modeleTuile } from '../../domain/tuile';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
-import type { Abonnement, MoyenPaiement } from '../../domain/types';
+import type { Abonnement, MoyenPaiement, Statut } from '../../domain/types';
 import { libelleDuree } from '../../i18n';
 import { Icone } from '../components/Icone';
 import { useI18n, type I18n } from '../contexts/I18nContext';
@@ -69,23 +69,42 @@ export function Fiche({ id, onRetour, onModifier }: Props) {
   const styleTuile = { '--tuile-couleur': modele.couleur } as CSSProperties;
   const duree = libelleDuree(i18n.langue, anciennete(abo.dateDebut, jour));
 
+  /** Annulation par toast (EF-01b) : retour au statut précédent. */
+  const annulation = (precedent: Statut) => ({
+    libelle: t('toast.annuler'),
+    executer: async () => {
+      await changerStatut(storage, id, precedent, aujourdhui());
+      toast.afficher(t('toast.actionAnnulee'));
+    },
+  });
   const basculerPause = async () => {
+    const precedent = statut;
     await changerStatut(
       storage,
       id,
       enPause ? { type: 'actif' } : { type: 'en_pause', repriseLe: null },
       jour,
     );
-    toast.afficher(t(enPause ? 'toast.repris' : 'toast.pause'));
+    toast.afficherAvecAction(t(enPause ? 'toast.repris' : 'toast.pause'), annulation(precedent));
   };
   const basculerArchive = async () => {
+    const precedent = statut;
     await changerStatut(storage, id, archive ? { type: 'actif' } : { type: 'archive' }, jour);
-    toast.afficher(t(archive ? 'toast.desarchive' : 'toast.archive'));
+    toast.afficherAvecAction(
+      t(archive ? 'toast.desarchive' : 'toast.archive'),
+      annulation(precedent),
+    );
   };
   const supprimer = async () => {
     await supprimerAbonnement(storage, id);
-    toast.afficher(t('toast.supprime'));
     onRetour();
+    toast.afficherAvecAction(t('toast.supprime'), {
+      libelle: t('toast.annuler'),
+      executer: async () => {
+        await storage.abonnements.restaurer(id);
+        toast.afficher(t('toast.actionAnnulee'));
+      },
+    });
   };
   const copierReference = async () => {
     if (!abo.referenceClient) return;
