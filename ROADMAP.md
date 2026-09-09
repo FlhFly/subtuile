@@ -29,7 +29,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | 1 | Init projet (Vite / TS strict / Vitest / lint) + arborescence + tokens.css | ✅ 2026-09-08 |
 | 2 | types.ts (modèle §3 complet) + dates.ts + tests exhaustifs | ✅ 2026-09-08 |
 | 3 | StorageProvider / Dexie + RefDataProvider + fixtures de démo | ✅ 2026-09-09 |
-| 4 | i18n (fr, en) + thème clair/sombre/système + squelette App | ⬜ |
+| 4 | i18n (fr, en) + thème clair/sombre/système + squelette App | ✅ 2026-09-09 |
 | 5 | Accueil : tuiles, compteur J-X, codes couleur, grille/liste | ⬜ |
 | 6 | Fiche détail + formulaire création/édition | ⬜ |
 | 7 | Tri/filtres + annulation par toast | ⬜ |
@@ -50,13 +50,13 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | EF-12b [S] | Mode grille / liste persisté | ⬜ |
 | EF-13 [M] | Fiche détail : toutes les infos + actions (modifier, statut, archiver, supprimer) | ⬜ |
 | EF-15 [S] | Recherche textuelle globale (écart bilan v1, ciblé lot 1) | ⬜ |
-| EF-17 [S] | Thème clair / sombre / système | 🔄 palettes et tokens posés (étape 1), bascule à l'étape 4 |
-| EF-17b [S] | Architecture i18n FR / EN, langue persistée | ⬜ |
+| EF-17 [S] | Thème clair / sombre / système | ✅ étape 4 (tokens à l'étape 1) |
+| EF-17b [S] | Architecture i18n FR / EN, langue persistée | ✅ étape 4 (dictionnaires complétés à chaque écran) |
 | EF-18 [S] | « Abonné depuis » sur la fiche | ⬜ |
 | EF-19 [S] | Toast de retour après chaque action | ⬜ |
 | §3.4 | Champ logo `{ type, valeur }` avec rendu à repli (V1 : initiales) | ⬜ |
-| §7.7 | Écran Réglages minimal (thème, langue) — complété aux lots 3 et 4 | ⬜ |
-| §5.5 | Chargement du jeu de démo (fixtures) depuis les réglages, pour tester chaque lot | 🔄 fixtures et chargement posés (étape 3), bouton aux réglages à l'étape 4 |
+| §7.7 | Écran Réglages minimal (thème, langue) — complété aux lots 3 et 4 | ✅ étape 4 |
+| §5.5 | Chargement du jeu de démo (fixtures) depuis les réglages, pour tester chaque lot | ✅ étape 4 (fixtures à l'étape 3) |
 
 ## Lot 2 — Paiement & désabonnement
 

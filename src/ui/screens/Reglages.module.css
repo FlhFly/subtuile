@@ -1,0 +1,99 @@
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-5);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.sectionTitre {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  color: var(--muted);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+.carte {
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--r-lg);
+  padding: var(--sp-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-3);
+}
+
+.ligne {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  flex-wrap: wrap;
+}
+
+.ligneLibelle {
+  font-weight: var(--fw-semibold);
+}
+
+.bloc {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.blocTitre {
+  font-weight: var(--fw-semibold);
+}
+
+.blocTexte {
+  color: var(--muted);
+  font-size: var(--fs-md);
+}
+
+.boutonSecondaire {
+  align-self: flex-start;
+  border: var(--border);
+  background: var(--sand);
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  padding: var(--sp-2) var(--sp-4);
+  border-radius: var(--r-pill);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.boutonSecondaire:hover:not(:disabled) {
+  background: var(--sand2);
+}
+
+.boutonSecondaire:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.boutonSecondaire:focus-visible,
+.lien:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.confirmation {
+  color: var(--ok);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+}
+
+.lien {
+  align-self: flex-start;
+  color: var(--ink);
+  font-weight: var(--fw-semibold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

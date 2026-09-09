@@ -1,0 +1,37 @@
+.groupe {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--sand);
+  border-radius: var(--r-md);
+}
+
+.option,
+.actif {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semibold);
+  padding: 6px 12px;
+  border-radius: calc(var(--r-md) - 3px);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.option:hover {
+  color: var(--ink);
+}
+
+.actif {
+  background: var(--card);
+  color: var(--ink);
+  box-shadow: var(--shadow-card);
+}
+
+.option:focus-visible,
+.actif:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}

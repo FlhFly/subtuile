@@ -7,6 +7,38 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 1 — étape 4 : i18n, thème, squelette de l'app, réglages (2026-09-09)
+
+#### Ajouté
+- `src/i18n/` : dictionnaires `fr` (référence) et `en` typé sur le français — toute clé
+  manquante ou en trop est une erreur de compilation (EF-17b). Clés plates par domaine
+  (navigation, accueil, réglages, énumérations du modèle : catégories, statuts, canaux, modes
+  de résiliation, moyens de paiement, périodicités, thèmes, tris), interpolation `{param}`,
+  singulier / pluriel, détection de la langue du navigateur, formats localisés via `Intl`
+  (montants, dates civiles sans décalage de fuseau, compteur « J-X » / « D-X », libellés de
+  périodicité dont « tous les 28 jours »).
+- `src/data/preferences.ts` : préférences d'interface en localStorage (§3.5) — langue, thème,
+  affichage grille / liste, tri, devise d'affichage, défauts d'alerte EF-30 (J-3, essai J-2,
+  préavis J-14, carte M-1). Lecture tolérante : JSON corrompu ou valeur inconnue → défaut.
+- `src/ui/theme/theme.ts` : thème clair / sombre / système appliqué par `data-theme` sur la
+  racine (EF-17), la préférence système restant gérée par tokens.css.
+- Contextes React : `StorageContextProvider` + `useStorage` (seul accès aux données depuis
+  l'UI), `PreferencesContextProvider` + `usePreferences` (persistance, application du thème et
+  de la langue du document), `useI18n` (traduction et formats liés à la langue courante).
+- `src/data/services/abonnements.ts` : `chargerAbonnementsAJour` — liste mise au jour (échéances
+  dépassées recalculées, prix futurs appliqués), une seule écriture groupée pour les entités
+  modifiées, aucune réécriture sinon. Hook `useAbonnements` abonné aux changements du stockage.
+- Composants : `Icone` (famille linéaire SVG, sans asset de marque), `Segmente` (sélecteur
+  segmenté accessible), `EnTete` (titre, sous-titre, actions).
+- Écrans : `Accueil` en squelette (en-tête avec nombre d'abonnements et total mensuel
+  normalisé marqué « ~ » si un montant est estimé, état vide, liste provisoire) ; `Reglages`
+  minimal (§7.7) — apparence, langue, chargement du jeu de démo (§5.5), confidentialité,
+  à propos avec version injectée par Vite et lien vers le dépôt.
+- `App.tsx` : fournisseurs de contexte et navigation par état entre Accueil et Réglages, sans
+  routeur.
+- Tests : `i18n.test.ts` (mêmes clés et mêmes paramètres fr / en, couverture des énumérations,
+  formats), `preferences.test.ts`, `theme.test.ts`, `abonnementsService.test.ts`. 118 tests.
+
 ### Lot 1 — étape 3 : stockage, données de référence, fixtures (2026-09-09)
 
 #### Ajouté

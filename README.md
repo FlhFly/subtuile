@@ -16,6 +16,20 @@ hors ligne, zéro tracking : vos données ne quittent jamais votre appareil.
 - [Maquette v6](docs/maquette-v6.html) — référence visuelle
 - [Roadmap](ROADMAP.md) — avancement par lot · [Changelog](CHANGELOG.md)
 
+## Développement
+Prérequis : Node.js ≥ 20.
+
+```
+npm install        # dépendances
+npm run dev        # serveur de développement (http://localhost:5173)
+npm test           # tests unitaires (Vitest)
+npm run lint       # ESLint
+npm run build      # build de production dans dist/
+```
+
+Stack : React 18, Vite, TypeScript strict, Dexie (IndexedDB), date-fns, Vitest.
+Règles d'architecture et méthode de travail : [CLAUDE.md](CLAUDE.md).
+
 ## Licence
 AGPL-3.0 — voir [LICENSE](LICENSE).
 
