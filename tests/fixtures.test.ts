@@ -6,7 +6,12 @@ import {
   trouverService,
 } from '../src/data/refdata/RefDataProvider';
 import { creerDexieProvider, type DexieProvider } from '../src/data/storage/dexieProvider';
-import { dateLimiteResiliation, urgenceAbonnement } from '../src/domain/dates';
+import {
+  aujourdhui,
+  dateLimiteResiliation,
+  decalerJours,
+  urgenceAbonnement,
+} from '../src/domain/dates';
 
 const ids = IDS_DEMO.abonnements;
 
@@ -107,6 +112,17 @@ describe('chargement dans le stockage', () => {
   let storage: DexieProvider;
   afterEach(async () => {
     await storage.supprimerBase();
+  });
+
+  it('sans date explicite, charge la démo décalée au jour courant (compteurs vivants)', async () => {
+    storage = creerDexieProvider('subtuile-test-demo-jour');
+    await chargerJeuDemo(storage);
+    const strava = await storage.abonnements.lire(ids.strava);
+    const disney = await storage.abonnements.lire(ids.disney);
+    const jour = aujourdhui();
+    expect(strava?.prochaineEcheance).toBe(decalerJours(jour, 2));
+    expect(disney?.essai?.dateFin).toBe(decalerJours(jour, 5));
+    expect(urgenceAbonnement(strava!, jour)).toMatchObject({ niveau: 'urg', jours: 2 });
   });
 
   it('charge la démo et reste idempotent au rechargement', async () => {

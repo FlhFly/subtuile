@@ -4,54 +4,130 @@
   gap: var(--sp-4);
 }
 
-.vide {
-  padding: var(--sp-8) var(--sp-4);
-  text-align: center;
-  border: var(--border-dash);
-  border-radius: var(--r-xl);
+/* En-tête : total mensuel en grand (maquette : 44 px, interlettrage -.03em) */
+.entete {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-top: var(--sp-1);
+}
+
+.total {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+}
+
+.legende {
+  font-size: 13px;
+  font-weight: var(--fw-medium);
   color: var(--muted);
 }
 
-.videTitre {
-  color: var(--ink);
-  font-size: var(--fs-xl);
+.montant {
+  font-size: 44px;
   font-weight: var(--fw-bold);
-  letter-spacing: var(--ls-tight);
-  margin-bottom: var(--sp-2);
+  letter-spacing: -0.03em;
+  line-height: 1;
 }
 
-.videTexte {
-  font-size: var(--fs-md);
+.boutonRond {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  flex: none;
+  border: var(--border);
+  border-radius: 22px;
+  background: transparent;
+  color: var(--ink);
+  transition: background-color var(--dur-fast) var(--ease);
 }
 
-.videTexte + .videTexte {
-  margin-top: var(--sp-1);
+.boutonRond:hover {
+  background: var(--sand);
 }
 
+.boutonRond:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Barre tri / filtres / affichage */
+.barre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 7px;
+  flex-wrap: wrap;
+}
+
+.compte {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+}
+
+/* Grille 2 colonnes (maquette) et liste */
+.grille,
 .liste {
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+.grille {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+
+.liste {
   display: flex;
   flex-direction: column;
-  gap: var(--sp-2);
+  gap: 9px;
 }
 
-.ligne {
+.item {
   display: flex;
-  justify-content: space-between;
-  gap: var(--sp-3);
-  padding: var(--sp-3) var(--sp-4);
-  background: var(--card);
-  border: var(--border);
-  border-radius: var(--r-md);
+  min-width: 0;
 }
 
-.nom {
-  font-weight: var(--fw-semibold);
+/* État vide (maquette) */
+.vide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  padding: 36px 24px;
+  border: 2px dashed var(--dash);
+  border-radius: var(--r-xl);
+  text-align: center;
 }
 
-.detail {
+.videIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: var(--r-lg);
+  background: var(--sand);
   color: var(--muted);
-  white-space: nowrap;
+  font-size: 24px;
+  font-weight: var(--fw-bold);
+}
+
+.videTitre {
+  font-size: 17px;
+  font-weight: var(--fw-bold);
+}
+
+.videTexte {
+  max-width: 260px;
+  font-size: 13px;
+  color: var(--muted);
 }

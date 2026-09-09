@@ -16,6 +16,7 @@ const TRACES = {
   cadenas: 'M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3',
   info: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18Zm0-9v5m0-8v.5',
   tuile: 'M4 4h7v7H4zM13 4h7v7h-7zM4 13h7v7H4zM13 13h7v7h-7z',
+  liste: 'M4 6h16M4 12h16M4 18h16',
 } as const;
 
 export type NomIcone = keyof typeof TRACES;

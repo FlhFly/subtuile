@@ -7,6 +7,7 @@ import {
   libellePeriodicite,
   traduire,
   traduireNombre,
+  type ClePluriel,
   type CleTraduction,
   type Parametres,
   type StyleDate,
@@ -16,7 +17,7 @@ import { usePreferences } from './PreferencesContext';
 export interface I18n {
   langue: Langue;
   t: (cle: CleTraduction, params?: Parametres) => string;
-  tn: (cle: 'accueil.nombre', n: number, params?: Parametres) => string;
+  tn: (cle: ClePluriel, n: number, params?: Parametres) => string;
   montant: (valeur: number, devise?: string) => string;
   date: (date: DateISO, style?: StyleDate) => string;
   compteur: (jours: number) => string;

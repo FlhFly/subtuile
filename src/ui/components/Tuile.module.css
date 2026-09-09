@@ -1,0 +1,249 @@
+/* Tuile d'abonnement — valeurs reprises de la maquette v6 (TuileAbonnement grille / ligne). */
+
+.tuile,
+.ligne {
+  --fond: transparent;
+  --encre: var(--ink);
+  --encre-douce: var(--muted);
+  --logo-fond: var(--tuile-couleur);
+  --badge-fond: var(--sand2);
+  --badge-encre: var(--muted);
+  --bordure: 2px dashed var(--dash);
+
+  position: relative;
+  width: 100%;
+  border: var(--bordure);
+  background: var(--fond);
+  color: var(--encre);
+  text-align: left;
+  font: inherit;
+  cursor: pointer;
+  transition:
+    transform var(--dur-fast) var(--ease),
+    box-shadow var(--dur-fast) var(--ease);
+}
+
+.tuile {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 14px;
+  border-radius: var(--r-xl);
+}
+
+.ligne {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg);
+}
+
+.tuile:hover,
+.ligne:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card);
+}
+
+.tuile:focus-visible,
+.ligne:focus-visible {
+  outline: 3px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Variantes de fond (EF-06 sur la tuile) */
+.coloree {
+  --fond: var(--tuile-couleur);
+  --encre: #fff;
+  --encre-douce: rgba(255, 255, 255, 0.85);
+  --logo-fond: rgba(255, 255, 255, 0.2);
+  --badge-fond: rgba(255, 255, 255, 0.25);
+  --badge-encre: #fff;
+  --bordure: 2px solid transparent;
+}
+
+.pause {
+  --fond: var(--sand);
+  --bordure: 2px solid transparent;
+}
+
+.neutre {
+  --fond: transparent;
+}
+
+.essai {
+  outline: 3px solid var(--trial);
+  outline-offset: -3px;
+}
+
+.essai:focus-visible {
+  outline-color: var(--ink);
+  outline-offset: 2px;
+}
+
+.archive {
+  opacity: 0.65;
+}
+
+/* Éléments */
+.rangee {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 6px;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 30px;
+  height: 30px;
+  padding: 0 4px;
+  border-radius: var(--r-sm);
+  background: var(--logo-fond);
+  color: #fff;
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  flex: none;
+}
+
+.ligne .logo {
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  font-size: 15px;
+}
+
+.corps {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.nom {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  line-height: var(--lh-tight);
+}
+
+.ligne .nom {
+  font-size: 15px;
+}
+
+.badge {
+  font-size: 9.5px;
+  font-weight: var(--fw-bold);
+  padding: 2px 6px;
+  border-radius: 8px;
+  background: var(--badge-fond);
+  color: var(--badge-encre);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.sous {
+  font-size: 12.5px;
+  color: var(--encre-douce);
+}
+
+.sousLigne {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  color: var(--encre-douce);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.paiement {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  height: 20px;
+  padding: 0 7px;
+  border-radius: 10px;
+  background: var(--badge-fond);
+  color: var(--badge-encre);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  flex: none;
+}
+
+.pastille {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 1.5px rgba(255, 255, 255, 0.7);
+  flex: none;
+}
+
+/* Chip compteur (EF-11) : fond d'état, ou blanc avec texte coloré sur tuile colorée */
+.chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  height: 26px;
+  padding: 0 10px;
+  border-radius: 13px;
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  flex: none;
+}
+
+.ligne .chip {
+  align-self: center;
+  height: 24px;
+  padding: 0 9px;
+  font-size: 12px;
+}
+
+.chip_ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+.chip_warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+.chip_urg {
+  background: var(--urg-bg);
+  color: var(--urg);
+}
+.chip_trial {
+  background: var(--trial-bg);
+  color: var(--trial);
+}
+.chip_neutre {
+  background: var(--sand2);
+  color: var(--muted);
+}
+
+.coloree .chip {
+  background: #fff;
+}
+.coloree .chip_ok {
+  color: #1e7d3a;
+}
+.coloree .chip_warn {
+  color: #b05e00;
+}
+.coloree .chip_urg {
+  color: #c22a20;
+}
+.coloree .chip_trial {
+  color: #8a3ab8;
+}
+.coloree .chip_neutre {
+  color: #7d7568;
+}

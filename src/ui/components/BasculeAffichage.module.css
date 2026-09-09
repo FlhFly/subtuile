@@ -1,0 +1,38 @@
+.bascule {
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+  height: 34px;
+  padding: 2px;
+  border: var(--border);
+  border-radius: 17px;
+  box-sizing: border-box;
+}
+
+.option,
+.actif {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 29px;
+  height: 26px;
+  padding: 0;
+  border: 0;
+  border-radius: 13px;
+  background: transparent;
+  color: var(--ink);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.actif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.option:focus-visible,
+.actif:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

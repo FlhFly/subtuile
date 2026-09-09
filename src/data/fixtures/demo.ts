@@ -9,7 +9,7 @@
  * démo remplace les entités au lieu de les dupliquer.
  */
 
-import { decalerJours, joursEntre } from '../../domain/dates';
+import { aujourdhui as dateDuJour, decalerJours, joursEntre } from '../../domain/dates';
 import { creerAbonnement, creerMoyenPaiement } from '../../domain/fabriques';
 import {
   PERIODICITES,
@@ -340,10 +340,14 @@ export function jeuDemo(aujourdhui: DateISO = DATE_REFERENCE_DEMO): JeuDemo {
   return { abonnements, moyensPaiement };
 }
 
-/** Charge (ou recharge) le jeu de démo dans le stockage ; idempotent grâce aux ids stables. */
+/**
+ * Charge (ou recharge) le jeu de démo dans le stockage, décalé au jour
+ * courant par défaut (sinon les compteurs de la maquette seraient déjà
+ * passés) ; idempotent grâce aux ids stables.
+ */
 export async function chargerJeuDemo(
   storage: StorageProvider,
-  aujourdhui?: DateISO,
+  aujourdhui: DateISO = dateDuJour(),
 ): Promise<JeuDemo> {
   const jeu = jeuDemo(aujourdhui);
   await storage.moyensPaiement.enregistrerPlusieurs(jeu.moyensPaiement);

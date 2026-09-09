@@ -27,10 +27,13 @@ export function traduire(langue: Langue, cle: CleTraduction, params?: Parametres
   );
 }
 
+/** Clés déclinées en `.un` / `.plusieurs`. */
+export type ClePluriel = 'accueil.nombre' | 'accueil.actifs';
+
 /** Singulier / pluriel : `cle.un` pour n = 1, `cle.plusieurs` sinon (0 compris : « 0 abonnements »). */
 export function traduireNombre(
   langue: Langue,
-  cle: 'accueil.nombre',
+  cle: ClePluriel,
   n: number,
   params: Parametres = {},
 ): string {

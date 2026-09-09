@@ -7,6 +7,42 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 1 — étape 5 : accueil en tuiles, compteur J-X, codes couleur, grille / liste (2026-09-09)
+
+#### Ajouté
+- `src/domain/tuile.ts` : modèle de présentation pur d'une tuile (EF-10, EF-11), testable sans
+  React — variante de fond selon le statut (colorée / sable en pause / neutre pointillée),
+  compteur dans l'ordre de priorité de la maquette (archivé, en pause, résilié → date, essai
+  J-X, préavis J-X si ≤ 14 j, à vie, à l'usage, échéance J-X · date avec niveau vert / orange /
+  rouge), sous-titre (à l'usage avec plafond, essai « puis X », partage « ma part X », prix
+  éventuellement « ~ » estimé), pastille du moyen de paiement, badge canal. Logo à chaîne de
+  repli (§3.4) : initiales de l'abonnement → du service → du nom ; les types icone / upload
+  retombent sur les initiales sans casser l'affichage. Couleur : abonnement → service → défaut.
+- `src/domain/tri.ts` : tri par échéance (défaut EF-12 : essai en cours, puis prochaine
+  échéance, sans échéance en dernier, nom pour départager), et déjà prix, nom, catégorie,
+  ordre personnalisé ; filtre « non archivés » (EF-06).
+- Composant `Tuile` (grille et ligne, EF-12b) reprenant les valeurs de la maquette v6 : logo
+  30 px, badge paiement, nom + badges « partagé » et canal, chip compteur coloré (blanc sur
+  tuile colorée), contour violet pendant un essai, opacité réduite si archivé. Accessible :
+  bouton avec libellé « Ouvrir {nom} », focus visible.
+- Composant `BasculeAffichage` (grille / liste), persisté dans les préférences (EF-12b).
+- Accueil (§7.1) conforme à la maquette : total mensuel normalisé en grand avec nombre
+  d'actifs, total annuel, bouton réglages, barre avec compteur d'abonnements et bascule,
+  grille 2 colonnes ou liste, état vide. Les archivés sont masqués ; les tuiles s'ouvriront
+  sur la fiche à l'étape 6.
+- Hooks `useMoyensPaiement` (index par id, rechargé à chaque écriture) et `useCatalogue`
+  (via le RefDataProvider).
+- i18n fr / en : libellés de tuile, compteur (« J-3 · 18/08/2026 », « Aujourd'hui »,
+  « J+2 »), moyens de paiement courts, « {n} actifs », « ≈ X / an ».
+- Tests : `tuile.test.ts` (logo et couleur à repli, variantes, compteurs et sous-titres sur
+  le jeu de démo, priorité essai > préavis), `tri.test.ts` (ordre exact de la démo par
+  échéance, prix, nom, catégorie, personnalisé, non-mutation). 136 tests.
+
+#### Corrigé
+- Le bouton « Charger le jeu de démo » chargeait les dates figées de la maquette (16/08) au lieu
+  de les décaler au jour courant : les compteurs (Strava J-2, essai Disney+, préavis Basic-Fit)
+  étaient déjà passés à l'ouverture. `chargerJeuDemo` décale désormais au jour courant par défaut.
+
 ### Lot 1 — étape 4 : i18n, thème, squelette de l'app, réglages (2026-09-09)
 
 #### Ajouté
