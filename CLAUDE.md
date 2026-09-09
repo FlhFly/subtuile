@@ -20,8 +20,10 @@ maquette). Pas d'autre dépendance sans validation.
 
 ## Fichiers à tenir à jour (dans le même commit que l'étape)
 - CHANGELOG.md : chaque étape committée ajoute son entrée détaillée dans
-  « Non publié » (Ajouté / Modifié / Corrigé). Au tag de lot, la section
-  devient une version : 0.N.0 = lot N, 1.0.0 = mise en ligne (lot 4).
+  « Non publié » (Ajouté / Modifié / Corrigé), insérée EN TÊTE de la
+  section : l'entrée la plus récente est toujours la première. Au tag de
+  lot, la section devient une version : 0.N.0 = lot N, 1.0.0 = mise en
+  ligne (lot 4).
 - ROADMAP.md : statut des étapes et des exigences livrées (⬜ → 🔄 → ✅,
   avec le tag ou le commit). Jamais de feature livrée sans sa case cochée ;
   toute exigence ajoutée ou déplacée entre lots y est reportée.

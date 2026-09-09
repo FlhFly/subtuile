@@ -7,6 +7,7 @@ import {
   calculerProchaineEcheance,
   comparerDates,
   dateLimiteResiliation,
+  decalerJours,
   echeanceDepassee,
   estDateISO,
   finEngagement,
@@ -96,6 +97,13 @@ describe('dates civiles locales', () => {
     expect(joursEntre('2026-03-28', '2026-03-30')).toBe(2);
     // passage à l'heure d'hiver : 25/10/2026
     expect(joursEntre('2026-10-24', '2026-10-26')).toBe(2);
+  });
+
+  it('décale une date civile en jours', () => {
+    expect(decalerJours('2026-08-16', 24)).toBe('2026-09-09');
+    expect(decalerJours('2026-03-01', -1)).toBe('2026-02-28');
+    expect(decalerJours('2026-12-31', 1)).toBe('2027-01-01');
+    expect(() => decalerJours('2026-01-01', 1.5)).toThrow(RangeError);
   });
 
   it('J-X : 0 aujourd’hui, négatif si dépassée', () => {

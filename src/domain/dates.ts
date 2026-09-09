@@ -77,6 +77,12 @@ export function joursAvant(date: DateISO, jour: DateISO): number {
   return joursEntre(jour, date);
 }
 
+/** Décale une date civile de `n` jours (négatif accepté). */
+export function decalerJours(date: DateISO, n: number): DateISO {
+  if (!Number.isInteger(n)) throw new RangeError(`Décalage invalide : ${String(n)}`);
+  return toDateISO(addDays(parseDateISO(date), n));
+}
+
 /* ---------------------------------------------------------------------------
  * Périodicité récurrente : occurrences depuis un ancrage
  * ------------------------------------------------------------------------- */

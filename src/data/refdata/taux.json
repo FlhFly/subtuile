@@ -1,0 +1,13 @@
+{
+  "version": 1,
+  "publieLe": "2026-08-24",
+  "data": {
+    "base": "EUR",
+    "taux": {
+      "EUR": 1,
+      "USD": 1.087,
+      "GBP": 0.855,
+      "CHF": 0.943
+    }
+  }
+}

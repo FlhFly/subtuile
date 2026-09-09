@@ -7,26 +7,38 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-### Lot 1 — étape 1 : initialisation du projet (2026-09-08)
+### Lot 1 — étape 3 : stockage, données de référence, fixtures (2026-09-09)
 
 #### Ajouté
-- Projet Vite 7 + React 18.3 + TypeScript 5.9 strict (`noUncheckedIndexedAccess`,
-  `verbatimModuleSyntax`, projet en références `tsconfig.app.json` / `tsconfig.node.json`).
-- Dépendances d'exécution épinglées : `react`, `react-dom`, `dexie` 4, `date-fns` 4.
-- Outillage : Vitest 5 (`npm test`), ESLint 9 en configuration plate avec typescript-eslint et
-  `eslint-plugin-react-hooks` (`npm run lint`), Prettier 3 (`npm run format`), `npm run typecheck`,
-  `npm run build`.
-- `src/ui/theme/tokens.css` : tokens extraits de la maquette v6 — palettes clair et sombre
-  (surfaces, encre, sable, carte, traits), couleurs d'état du compteur J-X (ok / warn / urg /
-  trial), ombres, typographie (échelle de tailles, graisses, interlettrage), rayons, espacements,
-  durées. Thème sombre via `[data-theme="sombre"]` ou préférence système (EF-17, bascule à
-  l'étape 4).
-- `src/ui/theme/base.css` : reset minimal et styles globaux.
-- `index.html`, `src/main.tsx`, `src/App.tsx` (squelette affichant la marque),
-  `src/vite-env.d.ts`.
-- `tests/smoke.test.ts` : test de fumée de l'outillage.
-- `.gitattributes` (LF partout), `.prettierrc`, `.prettierignore`, `.gitignore` complété
-  (`coverage/`, `*.tsbuildinfo`, `.vite/`).
+- `src/data/storage/StorageProvider.ts` : couche d'accès unique (§5.6). Un `Depot<T>` par
+  entité (lister, lire, enregistrer, enregistrerPlusieurs, supprimer logique, restaurer, purger
+  les tombstones), export / import JSON (fusion « dernière écriture gagne » par id, ou
+  remplacement), `effacerTout`, souscription aux changements.
+- `src/data/storage/dexieProvider.ts` : implémentation IndexedDB via Dexie 4, base `subtuile`
+  v1 (trois tables, index sur échéance, catégorie, statut, moyen de paiement, service).
+  `updatedAt` posé par le dépôt à chaque écriture ; refus d'un export de schéma plus récent.
+- `src/data/refdata/RefDataProvider.ts` : contrat `{ version, publieLe, data }` (§5.6),
+  sources embarquées, validation complète des JSON (catégories, périodicités, canaux, ids de
+  services et de formules uniques, taux positifs, base EUR), aides `trouverService` /
+  `trouverFormule`.
+- `src/data/refdata/catalogue.json` (v1, tarifs indicatifs au 24/08/2026) : 12 services avec
+  formules à ids stables — Strava, Netflix, Amazon Prime, Claude, ChatGPT (direct 20 € /
+  App Store 23 €, illustre EF-02), Disney+, Canal+, Spotify, Dropbox, iCloud+ (App Store,
+  deep link EF-21), EDF et Engie (vie courante : montant estimé, résiliation par téléphone).
+- `src/data/refdata/taux.json` (v1, 24/08/2026) : taux indicatifs EUR → USD, GBP, CHF (EF-45).
+- `src/domain/fabriques.ts` : `creerAbonnement` (défauts, historique initial, échéance
+  calculée), `actualiserAbonnement` (prix futur + échéance, sans écriture inutile),
+  `creerMoyenPaiement`, `periodicitePersonnalisee`.
+- `src/data/fixtures/demo.ts` : jeu de démo de la maquette v6 (13 abonnements, 4 moyens de
+  paiement) à ids stables, dates décalées pour conserver les compteurs de la maquette
+  (Strava J-2, essai Disney+ J-5, préavis Basic-Fit J-10…) ; `chargerJeuDemo` idempotent.
+- `src/lib/ids.ts` (uuid natif), `src/lib/horloge.ts` (instant injectable),
+  `decalerJours` dans le moteur de dates.
+- Tests : `storage.test.ts` (CRUD, tombstones, restauration, purge, souscription, export /
+  import fusion et remplacement), `refdata.test.ts` (contrat, unicité des ids, validation),
+  `fabriques.test.ts`, `fixtures.test.ts` (échéances et codes couleur de la maquette,
+  cohérence référentielle, chargement idempotent). 98 tests au total.
+- Dépendance de développement `fake-indexeddb` (IndexedDB en mémoire pour Vitest).
 
 ### Lot 1 — étape 2 : modèle de données et moteur d'échéances (2026-09-08)
 
@@ -60,6 +72,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
   `@fontsource-variable/space-grotesk` (police variable, licence OFL 1.1, 56 ko de woff2
   découpés par plage Unicode). Aucune requête réseau ; `--font-sans` pointe sur
   « Space Grotesk Variable » avec la pile système en repli.
+
+### Lot 1 — étape 1 : initialisation du projet (2026-09-08)
+
+#### Ajouté
+- Projet Vite 7 + React 18.3 + TypeScript 5.9 strict (`noUncheckedIndexedAccess`,
+  `verbatimModuleSyntax`, projet en références `tsconfig.app.json` / `tsconfig.node.json`).
+- Dépendances d'exécution épinglées : `react`, `react-dom`, `dexie` 4, `date-fns` 4.
+- Outillage : Vitest 5 (`npm test`), ESLint 9 en configuration plate avec typescript-eslint et
+  `eslint-plugin-react-hooks` (`npm run lint`), Prettier 3 (`npm run format`), `npm run typecheck`,
+  `npm run build`.
+- `src/ui/theme/tokens.css` : tokens extraits de la maquette v6 — palettes clair et sombre
+  (surfaces, encre, sable, carte, traits), couleurs d'état du compteur J-X (ok / warn / urg /
+  trial), ombres, typographie (échelle de tailles, graisses, interlettrage), rayons, espacements,
+  durées. Thème sombre via `[data-theme="sombre"]` ou préférence système (EF-17, bascule à
+  l'étape 4).
+- `src/ui/theme/base.css` : reset minimal et styles globaux.
+- `index.html`, `src/main.tsx`, `src/App.tsx` (squelette affichant la marque),
+  `src/vite-env.d.ts`.
+- `tests/smoke.test.ts` : test de fumée de l'outillage.
+- `.gitattributes` (LF partout), `.prettierrc`, `.prettierignore`, `.gitignore` complété
+  (`coverage/`, `*.tsbuildinfo`, `.vite/`).
 
 ## [0.0.0] — 2026-09-08 — tag `init`
 

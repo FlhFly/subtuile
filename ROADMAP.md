@@ -28,7 +28,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 |---|---|---|
 | 1 | Init projet (Vite / TS strict / Vitest / lint) + arborescence + tokens.css | ✅ 2026-09-08 |
 | 2 | types.ts (modèle §3 complet) + dates.ts + tests exhaustifs | ✅ 2026-09-08 |
-| 3 | StorageProvider / Dexie + RefDataProvider + fixtures de démo | ⬜ |
+| 3 | StorageProvider / Dexie + RefDataProvider + fixtures de démo | ✅ 2026-09-09 |
 | 4 | i18n (fr, en) + thème clair/sombre/système + squelette App | ⬜ |
 | 5 | Accueil : tuiles, compteur J-X, codes couleur, grille/liste | ⬜ |
 | 6 | Fiche détail + formulaire création/édition | ⬜ |
@@ -40,8 +40,8 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | §3 | Modèle de données complet (Abonnement, MoyenPaiement, Service, formules, champs techniques §3.5) | ✅ étape 2 |
 | EF-03 [M] | Moteur d'échéances : toutes périodicités (dont perso et 28 j), mois courts, date locale, passage d'échéance, compteur J-X | ✅ étape 2 (56 tests) |
 | EF-04b [S] | Montant estimé « ~X € » et régularisation (modèle + affichage ; alerte au lot 3) | 🔄 modèle posé (étape 2), affichage à l'étape 5 |
-| §5.6 | StorageProvider (Dexie) et RefDataProvider (catalogue minimal 12 services, taux) | ⬜ |
-| EF-01 [M] | CRUD des abonnements, suppression définitive avec confirmation | ⬜ |
+| §5.6 | StorageProvider (Dexie) et RefDataProvider (catalogue minimal 12 services, taux) | ✅ étape 3 |
+| EF-01 [M] | CRUD des abonnements, suppression définitive avec confirmation | 🔄 couche de stockage testée (étape 3), écrans à l'étape 6 |
 | EF-01b [S] | Annulation par toast (~6 s) après suppression / changement d'état | ⬜ |
 | EF-02 [M] | Création en saisie libre : périodicités complètes, canal d'achat, champs vie courante | ⬜ |
 | EF-10 [M] | Accueil en grille de tuiles : nom, logo (initiales), prix + périodicité, compteur J-X, pastille paiement, badge canal | ⬜ |
@@ -56,7 +56,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | EF-19 [S] | Toast de retour après chaque action | ⬜ |
 | §3.4 | Champ logo `{ type, valeur }` avec rendu à repli (V1 : initiales) | ⬜ |
 | §7.7 | Écran Réglages minimal (thème, langue) — complété aux lots 3 et 4 | ⬜ |
-| §5.5 | Chargement du jeu de démo (fixtures) depuis les réglages, pour tester chaque lot | ⬜ |
+| §5.5 | Chargement du jeu de démo (fixtures) depuis les réglages, pour tester chaque lot | 🔄 fixtures et chargement posés (étape 3), bouton aux réglages à l'étape 4 |
 
 ## Lot 2 — Paiement & désabonnement
 

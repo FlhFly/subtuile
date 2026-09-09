@@ -1,0 +1,334 @@
+{
+  "version": 1,
+  "publieLe": "2026-08-24",
+  "data": [
+    {
+      "id": "strava",
+      "nom": "Strava",
+      "categorie": "sport",
+      "couleur": "#fc5200",
+      "logo": { "type": "initiales", "valeur": "St" },
+      "urlGestion": "https://www.strava.com/account",
+      "deepLinks": { "app_store": "itms-apps://apps.apple.com/account/subscriptions" },
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "an", "intervalle": 1 },
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 }
+      ],
+      "formules": [
+        {
+          "id": "strava_annuel",
+          "nom": "Strava — annuel",
+          "prix": 79.99,
+          "periodicite": { "type": "recurrente", "unite": "an", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "strava_mensuel",
+          "nom": "Strava — mensuel",
+          "prix": 11.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "netflix",
+      "nom": "Netflix",
+      "categorie": "streaming",
+      "couleur": "#b1060f",
+      "logo": { "type": "initiales", "valeur": "N" },
+      "urlGestion": "https://www.netflix.com/cancelplan",
+      "deepLinks": {},
+      "periodicitesConnues": [{ "type": "recurrente", "unite": "mois", "intervalle": 1 }],
+      "formules": [
+        {
+          "id": "netflix_standard_pub",
+          "nom": "Standard avec pub",
+          "prix": 6.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "netflix_standard",
+          "nom": "Standard",
+          "prix": 14.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "netflix_premium",
+          "nom": "Premium",
+          "prix": 21.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "prime",
+      "nom": "Amazon Prime",
+      "categorie": "streaming",
+      "couleur": "#1399ff",
+      "logo": { "type": "initiales", "valeur": "Pr" },
+      "urlGestion": "https://www.amazon.fr/mc",
+      "deepLinks": {},
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "an", "intervalle": 1 },
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 }
+      ],
+      "formules": [
+        {
+          "id": "prime_annuel",
+          "nom": "Prime — annuel",
+          "prix": 69.9,
+          "periodicite": { "type": "recurrente", "unite": "an", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "prime_mensuel",
+          "nom": "Prime — mensuel",
+          "prix": 6.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "claude",
+      "nom": "Claude",
+      "categorie": "ia",
+      "couleur": "#d97757",
+      "logo": { "type": "initiales", "valeur": "Cl" },
+      "urlGestion": "https://claude.ai/settings/billing",
+      "deepLinks": { "app_store": "itms-apps://apps.apple.com/account/subscriptions" },
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+        { "type": "recurrente", "unite": "an", "intervalle": 1 }
+      ],
+      "formules": [
+        {
+          "id": "claude_pro_mensuel",
+          "nom": "Pro — mensuel",
+          "prix": 21.6,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "claude_pro_annuel",
+          "nom": "Pro — annuel",
+          "prix": 216,
+          "periodicite": { "type": "recurrente", "unite": "an", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "chatgpt",
+      "nom": "ChatGPT",
+      "categorie": "ia",
+      "couleur": "#10a37f",
+      "logo": { "type": "initiales", "valeur": "GP" },
+      "urlGestion": "https://chatgpt.com/#settings/Subscription",
+      "deepLinks": {
+        "app_store": "itms-apps://apps.apple.com/account/subscriptions",
+        "google_play": "https://play.google.com/store/account/subscriptions"
+      },
+      "periodicitesConnues": [{ "type": "recurrente", "unite": "mois", "intervalle": 1 }],
+      "formules": [
+        {
+          "id": "chatgpt_plus_direct",
+          "nom": "Plus — direct",
+          "prix": 20,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "chatgpt_plus_app_store",
+          "nom": "Plus — App Store",
+          "prix": 23,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "app_store"
+        }
+      ]
+    },
+    {
+      "id": "disney",
+      "nom": "Disney+",
+      "categorie": "streaming",
+      "couleur": "#113ccf",
+      "logo": { "type": "initiales", "valeur": "D+" },
+      "urlGestion": "https://www.disneyplus.com/account",
+      "deepLinks": { "app_store": "itms-apps://apps.apple.com/account/subscriptions" },
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+        { "type": "recurrente", "unite": "an", "intervalle": 1 }
+      ],
+      "formules": [
+        {
+          "id": "disney_standard_pub",
+          "nom": "Standard avec pub",
+          "prix": 5.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "disney_standard",
+          "nom": "Standard",
+          "prix": 11.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "disney_premium",
+          "nom": "Premium",
+          "prix": 15.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "canal",
+      "nom": "Canal+",
+      "categorie": "streaming",
+      "couleur": "#2b2b2b",
+      "logo": { "type": "initiales", "valeur": "C+" },
+      "urlGestion": "https://espaceclient.canalplus.com",
+      "deepLinks": {},
+      "periodicitesConnues": [{ "type": "recurrente", "unite": "mois", "intervalle": 1 }],
+      "formules": [
+        {
+          "id": "canal_essentiel",
+          "nom": "Canal+ — engagement 24 mois",
+          "prix": 22.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ],
+      "modeResiliation": "espace_client",
+      "contactResiliation": "https://espaceclient.canalplus.com"
+    },
+    {
+      "id": "spotify",
+      "nom": "Spotify",
+      "categorie": "musique",
+      "couleur": "#1db954",
+      "logo": { "type": "initiales", "valeur": "Sp" },
+      "urlGestion": "https://www.spotify.com/account/subscription",
+      "deepLinks": {},
+      "periodicitesConnues": [{ "type": "recurrente", "unite": "mois", "intervalle": 1 }],
+      "formules": [
+        {
+          "id": "spotify_premium",
+          "nom": "Premium",
+          "prix": 11.12,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "spotify_duo",
+          "nom": "Premium Duo",
+          "prix": 15.24,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "dropbox",
+      "nom": "Dropbox",
+      "categorie": "cloud",
+      "couleur": "#0061ff",
+      "logo": { "type": "initiales", "valeur": "Db" },
+      "urlGestion": "https://www.dropbox.com/account/plan",
+      "deepLinks": {},
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "an", "intervalle": 1 },
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 }
+      ],
+      "formules": [
+        {
+          "id": "dropbox_plus_annuel",
+          "nom": "Plus — annuel",
+          "prix": 119.88,
+          "periodicite": { "type": "recurrente", "unite": "an", "intervalle": 1 },
+          "canal": "direct"
+        },
+        {
+          "id": "dropbox_plus_mensuel",
+          "nom": "Plus — mensuel",
+          "prix": 11.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "direct"
+        }
+      ]
+    },
+    {
+      "id": "icloud",
+      "nom": "iCloud+",
+      "categorie": "cloud",
+      "couleur": "#3693f3",
+      "logo": { "type": "initiales", "valeur": "iC" },
+      "urlGestion": null,
+      "deepLinks": { "app_store": "itms-apps://apps.apple.com/account/subscriptions" },
+      "periodicitesConnues": [{ "type": "recurrente", "unite": "mois", "intervalle": 1 }],
+      "formules": [
+        {
+          "id": "icloud_50go",
+          "nom": "50 Go",
+          "prix": 0.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "app_store"
+        },
+        {
+          "id": "icloud_200go",
+          "nom": "200 Go",
+          "prix": 2.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "app_store"
+        },
+        {
+          "id": "icloud_2to",
+          "nom": "2 To",
+          "prix": 9.99,
+          "periodicite": { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+          "canal": "app_store"
+        }
+      ]
+    },
+    {
+      "id": "edf",
+      "nom": "EDF",
+      "categorie": "vie_courante",
+      "couleur": "#1b4fa0",
+      "logo": { "type": "initiales", "valeur": "ED" },
+      "urlGestion": "https://particulier.edf.fr/fr/accueil/espace-client.html",
+      "deepLinks": {},
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+        { "type": "recurrente", "unite": "mois", "intervalle": 2 }
+      ],
+      "formules": [],
+      "modeResiliation": "telephone",
+      "contactResiliation": "09 69 32 15 15 (EDF particuliers)",
+      "montantEstime": true
+    },
+    {
+      "id": "engie",
+      "nom": "Engie",
+      "categorie": "vie_courante",
+      "couleur": "#00aaff",
+      "logo": { "type": "initiales", "valeur": "En" },
+      "urlGestion": "https://particuliers.engie.fr/espace-client.html",
+      "deepLinks": {},
+      "periodicitesConnues": [
+        { "type": "recurrente", "unite": "mois", "intervalle": 1 },
+        { "type": "recurrente", "unite": "mois", "intervalle": 2 }
+      ],
+      "formules": [],
+      "modeResiliation": "telephone",
+      "contactResiliation": "09 69 39 99 93 (Engie)",
+      "montantEstime": true
+    }
+  ]
+}
