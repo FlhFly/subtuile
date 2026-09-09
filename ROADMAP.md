@@ -31,7 +31,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | 3 | StorageProvider / Dexie + RefDataProvider + fixtures de démo | ✅ 2026-09-09 |
 | 4 | i18n (fr, en) + thème clair/sombre/système + squelette App | ✅ 2026-09-09 |
 | 5 | Accueil : tuiles, compteur J-X, codes couleur, grille/liste | ✅ 2026-09-09 |
-| 6 | Fiche détail + formulaire création/édition | ⬜ |
+| 6 | Fiche détail + formulaire création/édition | ✅ 2026-09-09 |
 | 7 | Tri/filtres + annulation par toast | ⬜ |
 | 8 | Revue contre le critère CdC §6, tag `lot-1` | ⬜ |
 
@@ -41,19 +41,19 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | EF-03 [M] | Moteur d'échéances : toutes périodicités (dont perso et 28 j), mois courts, date locale, passage d'échéance, compteur J-X | ✅ étape 2 (56 tests) |
 | EF-04b [S] | Montant estimé « ~X € » et régularisation (modèle + affichage ; alerte au lot 3) | ✅ étapes 2 et 5 (alerte de régularisation au lot 3) |
 | §5.6 | StorageProvider (Dexie) et RefDataProvider (catalogue minimal 12 services, taux) | ✅ étape 3 |
-| EF-01 [M] | CRUD des abonnements, suppression définitive avec confirmation | 🔄 couche de stockage testée (étape 3), écrans à l'étape 6 |
+| EF-01 [M] | CRUD des abonnements, suppression définitive avec confirmation | ✅ étapes 3 et 6 |
 | EF-01b [S] | Annulation par toast (~6 s) après suppression / changement d'état | ⬜ |
-| EF-02 [M] | Création en saisie libre : périodicités complètes, canal d'achat, champs vie courante | ⬜ |
+| EF-02 [M] | Création en saisie libre : périodicités complètes, canal d'achat, champs vie courante | ✅ étape 6 (mode catalogue au lot 2) |
 | EF-10 [M] | Accueil en grille de tuiles : nom, logo (initiales), prix + périodicité, compteur J-X, pastille paiement, badge canal | ✅ étape 5 |
 | EF-11 [M] | Codes couleur d'urgence du compteur (vert / orange / rouge / violet) | ✅ étapes 2 et 5 |
 | EF-12 [M] | Tri (échéance, prix, nom, catégorie) et filtres (catégorie, statut, moyen de paiement, tags) | ⬜ |
 | EF-12b [S] | Mode grille / liste persisté | ✅ étape 5 |
-| EF-13 [M] | Fiche détail : toutes les infos + actions (modifier, statut, archiver, supprimer) | ⬜ |
+| EF-13 [M] | Fiche détail : toutes les infos + actions (modifier, statut, archiver, supprimer) | ✅ étape 6 (routage « Résilier » par canal au lot 2) |
 | EF-15 [S] | Recherche textuelle globale (écart bilan v1, ciblé lot 1) | ⬜ |
 | EF-17 [S] | Thème clair / sombre / système | ✅ étape 4 (tokens à l'étape 1) |
 | EF-17b [S] | Architecture i18n FR / EN, langue persistée | ✅ étape 4 (dictionnaires complétés à chaque écran) |
-| EF-18 [S] | « Abonné depuis » sur la fiche | ⬜ |
-| EF-19 [S] | Toast de retour après chaque action | ⬜ |
+| EF-18 [S] | « Abonné depuis » sur la fiche | ✅ étape 6 |
+| EF-19 [S] | Toast de retour après chaque action | ✅ étape 6 (annulation à l'étape 7) |
 | §3.4 | Champ logo `{ type, valeur }` avec rendu à repli (V1 : initiales) | ✅ étape 5 (icone / upload retombent sur les initiales) |
 | §7.7 | Écran Réglages minimal (thème, langue) — complété aux lots 3 et 4 | ✅ étape 4 |
 | §5.5 | Chargement du jeu de démo (fixtures) depuis les réglages, pour tester chaque lot | ✅ étape 4 (fixtures à l'étape 3) |

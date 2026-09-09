@@ -1,12 +1,8 @@
 import type { CSSProperties } from 'react';
-import {
-  couleurCompteur,
-  type Compteur,
-  type ModeleTuile,
-  type SousTitre,
-} from '../../domain/tuile';
+import { couleurCompteur, type ModeleTuile, type SousTitre } from '../../domain/tuile';
 import type { ModeAffichage } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
+import { libelleCompteur } from '../libelles';
 import styles from './Tuile.module.css';
 
 interface Props {
@@ -116,31 +112,5 @@ function libelleSousTitre(i18n: I18n, s: SousTitre): string {
       const m = s.estime ? t('montant.estime', { montant: montant(s.prix) }) : montant(s.prix);
       return `${m} ${periodicite(s.periodicite)}`;
     }
-  }
-}
-
-function libelleCompteur(i18n: I18n, c: Compteur): string {
-  const { t, date } = i18n;
-  switch (c.type) {
-    case 'echeance':
-      if (c.jours === 0) return t('compteur.echeance.aujourdhui', { date: date(c.date) });
-      if (c.jours < 0) return t('compteur.echeance.depasse', { n: -c.jours, date: date(c.date) });
-      return t('compteur.echeance', { n: c.jours, date: date(c.date) });
-    case 'essai':
-      return t('compteur.essai', { n: c.jours });
-    case 'preavis':
-      return t('compteur.preavis', { n: c.jours });
-    case 'pause':
-      return c.repriseLe
-        ? t('compteur.pause.jusquau', { date: date(c.repriseLe) })
-        : t('compteur.pause');
-    case 'resilie':
-      return t('compteur.resilie', { date: date(c.jusquau) });
-    case 'archive':
-      return t('compteur.archive');
-    case 'a_vie':
-      return t('compteur.aVie');
-    case 'a_l_usage':
-      return t('compteur.aLUsage');
   }
 }

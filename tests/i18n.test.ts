@@ -7,6 +7,7 @@ import {
   formaterDate,
   formaterMontant,
   libelleCompteur,
+  libelleDuree,
   libellePeriodicite,
   traduire,
   traduireNombre,
@@ -101,6 +102,15 @@ describe('formats localisés', () => {
     expect(formaterDate('fr', '2026-09-01', 'long')).toBe('1 septembre 2026');
     expect(formaterDate('en', '2026-09-01', 'long')).toBe('1 September 2026');
     expect(formaterDate('fr', '2026-01-01', 'court')).toBe('01/01/2026');
+  });
+
+  it('durées « abonné depuis » (EF-18)', () => {
+    expect(libelleDuree('fr', { annees: 3, mois: 0, jours: 0 })).toBe('3 ans');
+    expect(libelleDuree('fr', { annees: 1, mois: 1, jours: 0 })).toBe('1 an et 1 mois');
+    expect(libelleDuree('en', { annees: 2, mois: 11, jours: 0 })).toBe('2 years and 11 months');
+    expect(libelleDuree('fr', { annees: 0, mois: 5, jours: 0 })).toBe('5 mois');
+    expect(libelleDuree('fr', { annees: 0, mois: 0, jours: 12 })).toBe('12 j');
+    expect(libelleDuree('en', { annees: 0, mois: 0, jours: 0 })).toBe('today');
   });
 
   it('compteur J-X / D-X', () => {

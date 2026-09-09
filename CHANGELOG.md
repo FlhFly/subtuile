@@ -7,6 +7,49 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 1 — étape 6 : fiche détail et formulaire de création / édition (2026-09-09)
+
+#### Ajouté
+- `src/domain/formulaire.ts` : modèle du formulaire en saisie libre (EF-01, EF-02), sans
+  React — état des champs tels que saisis, analyse des montants (« 9,99 », « 1 234,50 € »),
+  entiers, tags, adresses (schéma https ajouté, validation), conversion périodicité ↔ presets
+  (mensuel, annuel, hebdo, trimestriel, « autre » = intervalle + unité, à vie, à l'usage avec
+  plafond), validation champ par champ (requis, nombre, entier, date, date antérieure au début,
+  part supérieure au total, adresse), construction de l'`Abonnement` : création complète via la
+  fabrique, ou modification conservant id, statut et dates techniques, avec versement d'une
+  hausse dans l'historique des prix (EF-08) et recalcul de l'échéance.
+- `src/domain/dates.ts` : `anciennete` (années, mois, jours civils) pour « Abonné depuis »
+  (EF-18) ; libellé `libelleDuree` fr / en (« 2 ans et 3 mois », « 12 j », « aujourd'hui »).
+- `src/data/services/abonnements.ts` : `enregistrerAbonnement`, `changerStatut` (EF-06, avec
+  recalcul de l'échéance), `supprimerAbonnement` (suppression logique, restaurable).
+- Écran `Fiche` (EF-13, §7.2) conforme à la maquette : en-tête coloré comme la tuile avec badges
+  canal et statut, ligne de prix, chip compteur ; bouton « Gérer / Résilier » ouvrant l'adresse
+  de gestion (routage par canal et modes hors ligne au lot 2) ; encarts essai, engagement (fin
+  et date limite de préavis), hausse annoncée, régularisation, pause, résiliation, archive ;
+  détails (référence client copiable, échéance, périodicité, formule du catalogue, plafond, coût
+  mensuel normalisé, abonné depuis, canal, moyen de paiement, mode de résiliation) ; partage,
+  tags, historique des prix avec écarts, notes ; actions modifier, pause / reprise, archiver /
+  désarchiver ; zone danger avec dialogue de confirmation avant suppression définitive (EF-01).
+- Écran `Edition` (§7.3) : nom, prix, catégorie, type et presets de périodicité, périodicité
+  personnalisée (« tous les N jours / semaines / mois / ans »), date de début avec aperçu de
+  l'échéance calculée, surcharge manuelle de l'échéance, plafond à l'usage ; dépliant « options
+  avancées » : essai, engagement, partage, montant estimé + régularisation, hausse annoncée,
+  moyen de paiement, canal d'achat, mode de résiliation + contact, référence client, adresse,
+  alerte J-X (défaut ou préréglages 1 / 2 / 3 / 7 / 14), tags, notes. Pour un abonnement
+  partagé, le champ « Prix » est le prix plein et seule « Ma part » est demandée (le prix
+  total du partage en est dérivé), afin de ne pas avoir deux notions de prix. Erreurs affichées sous
+  chaque champ. Le mode catalogue arrive au lot 2.
+- Composants : `Chips`, `Champ` (libellé, aide, erreur, câblage aria), `Interrupteur`,
+  `BarreNavigation` (Accueil, +, Réglages — échéancier et finances n'apparaîtront qu'avec leurs
+  lots), `ToastContextProvider` + `useToast` (EF-19, retour visuel ~3 s ; variante avec action
+  ~6 s prête pour l'annulation de l'étape 7).
+- `App` : écrans fiche et édition en pile, barre de navigation sur accueil et réglages ; la
+  tuile ouvre la fiche, le « + » et l'état vide ouvrent la création.
+- i18n fr / en : fiche, formulaire, erreurs, toasts, durées.
+- Tests : `formulaire.test.ts` (analyse des saisies, presets, validation, création, aller-retour
+  exact sur les 13 abonnements de démo, hausse versée dans l'historique), ancienneté, actions de
+  statut et suppression, durées. 154 tests.
+
 ### Lot 1 — étape 5 : accueil en tuiles, compteur J-X, codes couleur, grille / liste (2026-09-09)
 
 #### Ajouté

@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import {
   ajouterPeriodes,
+  anciennete,
   ancrageCycle,
   appliquerPrixFutur,
   aujourdhui,
@@ -104,6 +105,18 @@ describe('dates civiles locales', () => {
     expect(decalerJours('2026-03-01', -1)).toBe('2026-02-28');
     expect(decalerJours('2026-12-31', 1)).toBe('2027-01-01');
     expect(() => decalerJours('2026-01-01', 1.5)).toThrow(RangeError);
+  });
+
+  it('ancienneté « abonné depuis » (EF-18) en années, mois et jours civils', () => {
+    expect(anciennete('2023-08-18', '2026-09-09')).toEqual({ annees: 3, mois: 0, jours: 0 });
+    expect(anciennete('2023-08-18', '2026-08-17')).toEqual({ annees: 2, mois: 11, jours: 0 });
+    expect(anciennete('2026-01-31', '2026-02-27')).toEqual({ annees: 0, mois: 0, jours: 27 });
+    // un mois après le 31/01 tombe le 28/02 (règle des mois courts)
+    expect(anciennete('2026-01-31', '2026-02-28')).toEqual({ annees: 0, mois: 1, jours: 0 });
+    expect(anciennete('2026-01-31', '2026-03-01')).toEqual({ annees: 0, mois: 1, jours: 0 });
+    expect(anciennete('2026-09-09', '2026-09-09')).toEqual({ annees: 0, mois: 0, jours: 0 });
+    expect(anciennete('2026-09-01', '2026-09-09')).toEqual({ annees: 0, mois: 0, jours: 8 });
+    expect(anciennete('2027-01-01', '2026-09-09')).toEqual({ annees: 0, mois: 0, jours: 0 }); // futur
   });
 
   it('J-X : 0 aujourd’hui, négatif si dépassée', () => {

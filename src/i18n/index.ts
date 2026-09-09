@@ -28,7 +28,21 @@ export function traduire(langue: Langue, cle: CleTraduction, params?: Parametres
 }
 
 /** Clés déclinées en `.un` / `.plusieurs`. */
-export type ClePluriel = 'accueil.nombre' | 'accueil.actifs';
+export type ClePluriel = 'accueil.nombre' | 'accueil.actifs' | 'duree.an' | 'duree.mois';
+
+/** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
+export function libelleDuree(
+  langue: Langue,
+  duree: { annees: number; mois: number; jours: number },
+): string {
+  const ans = duree.annees > 0 ? traduireNombre(langue, 'duree.an', duree.annees) : null;
+  const mois = duree.mois > 0 ? traduireNombre(langue, 'duree.mois', duree.mois) : null;
+  if (ans && mois) return traduire(langue, 'duree.et', { a: ans, b: mois });
+  if (ans) return ans;
+  if (mois) return mois;
+  if (duree.jours > 0) return traduire(langue, 'duree.jours', { n: duree.jours });
+  return traduire(langue, 'duree.aujourdhui');
+}
 
 /** Singulier / pluriel : `cle.un` pour n = 1, `cle.plusieurs` sinon (0 compris : « 0 abonnements »). */
 export function traduireNombre(

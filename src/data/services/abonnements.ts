@@ -3,9 +3,40 @@
  * Les composants passent par ici (ou par les hooks) — jamais par Dexie.
  */
 
+import { calculerProchaineEcheance } from '../../domain/dates';
 import { actualiserAbonnement } from '../../domain/fabriques';
-import type { Abonnement, DateISO } from '../../domain/types';
+import type { Abonnement, DateISO, Statut } from '../../domain/types';
 import type { StorageProvider } from '../storage/StorageProvider';
+
+/** Enregistre (création ou modification) après mise au jour de l'échéance. */
+export async function enregistrerAbonnement(
+  storage: StorageProvider,
+  abo: Abonnement,
+  jour: DateISO,
+): Promise<Abonnement> {
+  return storage.abonnements.enregistrer(actualiserAbonnement(abo, jour));
+}
+
+/** Change le statut (EF-06) et recalcule l'échéance ; renvoie l'entité enregistrée, ou undefined si absente. */
+export async function changerStatut(
+  storage: StorageProvider,
+  id: string,
+  statut: Statut,
+  jour: DateISO,
+): Promise<Abonnement | undefined> {
+  const abo = await storage.abonnements.lire(id);
+  if (!abo) return undefined;
+  const maj = { ...abo, statut };
+  return storage.abonnements.enregistrer({
+    ...maj,
+    prochaineEcheance: calculerProchaineEcheance(maj, jour),
+  });
+}
+
+/** Suppression logique (EF-01) ; l'annulation passe par `storage.abonnements.restaurer` (EF-01b). */
+export async function supprimerAbonnement(storage: StorageProvider, id: string): Promise<boolean> {
+  return storage.abonnements.supprimer(id);
+}
 
 /**
  * Liste les abonnements vivants, mis « au jour » (EF-03 : échéances dépassées

@@ -1,0 +1,62 @@
+.champ,
+.champErreur {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.libelle {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.champErreur .libelle {
+  color: var(--urg);
+}
+
+.champ :global(input),
+.champ :global(textarea),
+.champErreur :global(input),
+.champErreur :global(textarea) {
+  width: 100%;
+  padding: 12px 14px;
+  border: var(--border);
+  border-radius: var(--r-md);
+  background: var(--card);
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: var(--fw-semibold);
+}
+
+.champ :global(textarea),
+.champErreur :global(textarea) {
+  min-height: 84px;
+  resize: vertical;
+}
+
+.champErreur :global(input),
+.champErreur :global(textarea) {
+  border-color: var(--urg);
+}
+
+.champ :global(input:focus-visible),
+.champ :global(textarea:focus-visible),
+.champErreur :global(input:focus-visible),
+.champErreur :global(textarea:focus-visible) {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.aide,
+.erreur {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.erreur {
+  color: var(--urg);
+  font-weight: var(--fw-semibold);
+}

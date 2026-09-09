@@ -3,7 +3,6 @@ import { aujourdhui, montantAnnuel, montantMensuel, prixEffectif } from '../../d
 import { nonArchives, trierAbonnements } from '../../domain/tri';
 import { modeleTuile } from '../../domain/tuile';
 import { BasculeAffichage } from '../components/BasculeAffichage';
-import { Icone } from '../components/Icone';
 import { Tuile } from '../components/Tuile';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
@@ -13,9 +12,10 @@ import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Accueil.module.css';
 
 interface Props {
-  onOuvrirReglages: () => void;
-  /** ouverture de la fiche (EF-13) — branchée à l'étape 6 */
-  onOuvrirAbonnement?: (id: string) => void;
+  /** ouverture de la fiche (EF-13) */
+  onOuvrirAbonnement: (id: string) => void;
+  /** création (EF-01) */
+  onAjouter: () => void;
 }
 
 /**
@@ -23,7 +23,7 @@ interface Props {
  * (EF-12b), tuiles avec compteur et code couleur (EF-10, EF-11), tri par
  * échéance. Tri et filtres explicites arrivent à l'étape 7.
  */
-export function Accueil({ onOuvrirReglages, onOuvrirAbonnement }: Props) {
+export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
   const { t, tn, montant } = useI18n();
   const { preferences, modifier } = usePreferences();
   const { abonnements, chargement } = useAbonnements();
@@ -58,8 +58,6 @@ export function Accueil({ onOuvrirReglages, onOuvrirAbonnement }: Props) {
     [visibles, jour, moyensPaiement, services],
   );
 
-  const ouvrir = onOuvrirAbonnement ?? (() => undefined);
-
   return (
     <div className={styles.ecran}>
       <header className={styles.entete}>
@@ -75,14 +73,6 @@ export function Accueil({ onOuvrirReglages, onOuvrirAbonnement }: Props) {
               : t('accueil.parAn', { montant: marquer(totalAnnuel) })}
           </span>
         </div>
-        <button
-          type="button"
-          className={styles.boutonRond}
-          onClick={onOuvrirReglages}
-          aria-label={t('nav.reglages')}
-        >
-          <Icone nom="reglages" />
-        </button>
       </header>
 
       <div className={styles.barre}>
@@ -103,6 +93,9 @@ export function Accueil({ onOuvrirReglages, onOuvrirAbonnement }: Props) {
           <h2 className={styles.videTitre}>{t('accueil.vide.titre')}</h2>
           <p className={styles.videTexte}>{t('accueil.vide.texte')}</p>
           <p className={styles.videTexte}>{t('accueil.vide.demo')}</p>
+          <button type="button" className={styles.cta} onClick={onAjouter}>
+            {t('nav.ajouter')}
+          </button>
         </section>
       ) : null}
 
@@ -113,7 +106,7 @@ export function Accueil({ onOuvrirReglages, onOuvrirAbonnement }: Props) {
         >
           {tuiles.map((m) => (
             <li key={m.id} className={styles.item}>
-              <Tuile modele={m} mode={preferences.affichage} onOuvrir={ouvrir} />
+              <Tuile modele={m} mode={preferences.affichage} onOuvrir={onOuvrirAbonnement} />
             </li>
           ))}
         </ul>

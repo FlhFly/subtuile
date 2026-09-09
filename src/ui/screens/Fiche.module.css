@@ -1,0 +1,418 @@
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.introuvable {
+  color: var(--muted);
+  padding: var(--sp-6) 0;
+  text-align: center;
+}
+
+/* En-tête coloré, comme la tuile */
+.entete {
+  --fond: var(--sand);
+  --encre: var(--ink);
+  --encre-douce: var(--muted);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px 16px;
+  border-radius: var(--r-xl);
+  background: var(--fond);
+  color: var(--encre);
+}
+
+.coloree {
+  --fond: var(--tuile-couleur);
+  --encre: #fff;
+  --encre-douce: rgba(255, 255, 255, 0.85);
+}
+
+.neutre {
+  --fond: transparent;
+  border: 2px dashed var(--dash);
+}
+
+.enteteBarre {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+}
+
+.retour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid currentColor;
+  border-radius: 20px;
+  background: transparent;
+  color: inherit;
+}
+
+.badges {
+  display: flex;
+  gap: 6px;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.badge {
+  font-size: 10.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 8px;
+  border-radius: 9px;
+  background: rgba(127, 127, 127, 0.18);
+}
+
+.coloree .badge {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+.surTitre {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--encre-douce);
+}
+
+.nom {
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+  line-height: var(--lh-tight);
+}
+
+.prixLigne {
+  font-size: 15px;
+  font-weight: var(--fw-semibold);
+  color: var(--encre-douce);
+}
+
+.chip {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  height: 28px;
+  padding: 0 12px;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+  background: var(--sand2);
+  color: var(--muted);
+}
+
+.chip_ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+.chip_warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+.chip_urg {
+  background: var(--urg-bg);
+  color: var(--urg);
+}
+.chip_trial {
+  background: var(--trial-bg);
+  color: var(--trial);
+}
+.coloree .chip {
+  background: #fff;
+}
+.coloree .chip_ok {
+  color: #1e7d3a;
+}
+.coloree .chip_warn {
+  color: #b05e00;
+}
+.coloree .chip_urg {
+  color: #c22a20;
+}
+.coloree .chip_trial {
+  color: #8a3ab8;
+}
+.coloree .chip_neutre {
+  color: #7d7568;
+}
+
+/* Corps */
+.corps {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.bloc {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+}
+
+.boutonPrincipal,
+.boutonSecondaire,
+.boutonDanger,
+.boutonDesactive {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: var(--r-xl);
+  font-size: 14.5px;
+  font-weight: var(--fw-bold);
+  text-decoration: none;
+}
+
+.boutonPrincipal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.boutonSecondaire {
+  border: var(--border);
+  background: transparent;
+  color: var(--ink);
+}
+
+.boutonDanger {
+  border: 2px solid var(--urg);
+  background: transparent;
+  color: var(--urg);
+}
+
+.boutonDesactive {
+  border: 2px dashed var(--dash);
+  color: var(--muted);
+}
+
+.boutonPrincipal:focus-visible,
+.boutonSecondaire:focus-visible,
+.boutonDanger:focus-visible,
+.copier:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+/* Encarts (essai, engagement, hausse, régularisation, statut) */
+.encart {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg);
+  background: var(--sand);
+}
+
+.encart_trial {
+  background: var(--trial-bg);
+  color: var(--trial);
+}
+.encart_warn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+.encart_neutre {
+  color: var(--ink);
+}
+
+.encartTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+}
+
+.encartTexte {
+  font-size: 13.5px;
+  font-weight: var(--fw-semibold);
+}
+
+/* Détails */
+.details {
+  margin: 0;
+  background: var(--card);
+  border: var(--border);
+  border-radius: var(--r-lg);
+  padding: 4px 14px;
+}
+
+.detail {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: var(--sp-3);
+  padding: 10px 0;
+  border-bottom: 1px solid var(--sand2);
+}
+
+.detail:last-child {
+  border-bottom: 0;
+}
+
+.detailLibelle {
+  font-size: 12.5px;
+  color: var(--muted);
+  flex: none;
+}
+
+.detailValeur {
+  margin: 0;
+  font-size: 14px;
+  font-weight: var(--fw-semibold);
+  text-align: right;
+}
+
+.copier {
+  border: 0;
+  background: var(--sand);
+  color: var(--ink);
+  font: inherit;
+  font-weight: var(--fw-bold);
+  padding: 4px 10px;
+  border-radius: var(--r-sm);
+  text-decoration: underline dotted;
+  text-underline-offset: 3px;
+}
+
+/* Sections */
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.sectionTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.tag {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--sand2);
+}
+
+.historique {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.historiqueLigne {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13.5px;
+  font-weight: var(--fw-semibold);
+}
+
+.historiquePrix {
+  display: flex;
+  gap: 8px;
+}
+
+.hausse {
+  color: var(--urg);
+}
+.baisse {
+  color: var(--ok);
+}
+
+.notes {
+  font-size: 13.5px;
+  line-height: 1.5;
+  white-space: pre-wrap;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.actionsRangee {
+  display: flex;
+  gap: 8px;
+}
+
+.danger {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px;
+  border: 2px dashed var(--urg);
+  border-radius: var(--r-lg);
+}
+
+.dangerTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--urg);
+}
+
+/* Dialogue de confirmation */
+.voile {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 30;
+}
+
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  box-shadow: var(--shadow-modal);
+}
+
+.dialogueTitre {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+}
+
+.dialogueActions {
+  display: flex;
+  gap: 8px;
+}

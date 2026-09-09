@@ -77,6 +77,27 @@ export function joursAvant(date: DateISO, jour: DateISO): number {
   return joursEntre(jour, date);
 }
 
+export interface Anciennete {
+  annees: number;
+  mois: number;
+  /** jours restants quand moins d'un mois s'est écoulé */
+  jours: number;
+}
+
+/** « Abonné depuis » (EF-18) : années et mois civils écoulés depuis `depuis`, jours si < 1 mois. */
+export function anciennete(depuis: DateISO, jour: DateISO): Anciennete {
+  const d = parseDateISO(depuis);
+  const j = parseDateISO(jour);
+  if (j < d) return { annees: 0, mois: 0, jours: 0 };
+  let moisTotal = differenceInCalendarMonths(j, d);
+  // le mois n'est complet que si le jour du mois est atteint
+  if (addMonths(d, moisTotal) > j) moisTotal -= 1;
+  const annees = Math.floor(moisTotal / 12);
+  const mois = moisTotal % 12;
+  const jours = moisTotal === 0 ? differenceInCalendarDays(j, d) : 0;
+  return { annees, mois, jours };
+}
+
 /** Décale une date civile de `n` jours (négatif accepté). */
 export function decalerJours(date: DateISO, n: number): DateISO {
   if (!Number.isInteger(n)) throw new RangeError(`Décalage invalide : ${String(n)}`);

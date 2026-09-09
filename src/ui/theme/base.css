@@ -49,10 +49,18 @@ p {
   margin: 0;
 }
 
+.coquille {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+}
+
 .app {
+  width: 100%;
   max-width: var(--app-max-width);
   margin: 0 auto;
-  padding: var(--sp-4);
+  padding: var(--sp-4) var(--sp-4) var(--sp-8);
+  flex: 1;
 }
 
 .app__brand {
