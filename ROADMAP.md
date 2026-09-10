@@ -60,6 +60,17 @@ Déroulé en 8 étapes (un commit validé par étape) :
 
 ## Lot 2 — Paiement & désabonnement
 
+Déroulé en 6 étapes (un commit validé par étape) :
+
+| # | Étape | Statut |
+|---|---|---|
+| 1 | Routage « Gérer / Résilier » par canal, deep links, démarches hors ligne, proposition « résilié — actif jusqu'au » | ✅ 2026-09-10 |
+| 2 | Écran Moyens de paiement : liste, ajout, édition, suppression avec annulation, expiration signalée | ⬜ |
+| 3 | Catalogue complet : 74 services en 11 familles + vie courante française avec mode de résiliation | ⬜ |
+| 4 | Formulaire en mode catalogue (pré-remplissage, « moins cher en direct »), aide à la saisie libre, écran Catalogue | ⬜ |
+| 5 | « Proposer un service » et groupe « Mes services » | ⬜ |
+| 6 | Revue contre le critère CdC §6, tag `lot-2`, version 0.2.0 | ⬜ |
+
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
 | §3.3 / §7.6 | Écran Moyens de paiement : liste, ajout, édition, couleur, 4 derniers chiffres | ⬜ |
@@ -68,11 +79,11 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | EF-02b [S] | Aide à la saisie libre (3 suggestions du catalogue) | ⬜ |
 | EF-09 [S] | « Proposer un service » → groupe « Mes services » | ⬜ |
 | §7.8 | Écran Catalogue | ⬜ |
-| EF-20 [M] | Bouton « Gérer / Résilier » ouvrant urlGestion | ⬜ |
-| EF-21 [M] | Routage selon le canal (App Store / Google Play / direct) + badge | ⬜ |
-| EF-21b [S] | Modes de résiliation hors ligne (téléphone, courrier recommandé, espace client) | ⬜ |
-| EF-22 [S] | Proposition « résilié-actif-jusqu'au » après clic sur Résilier | ⬜ |
-| §5.3 | Deep links App Store, Google Play, PayPal | ⬜ |
+| EF-20 [M] | Bouton « Gérer / Résilier » ouvrant urlGestion | ✅ lot 2 étape 1 |
+| EF-21 [M] | Routage selon le canal (App Store / Google Play / direct) + badge | ✅ lot 2 étape 1 (badge dès le lot 1) |
+| EF-21b [S] | Modes de résiliation hors ligne (téléphone, courrier recommandé, espace client) | ✅ lot 2 étape 1 |
+| EF-22 [S] | Proposition « résilié-actif-jusqu'au » après clic sur Résilier | ✅ lot 2 étape 1 (avec étapes de la démarche à cocher) |
+| §5.3 | Deep links App Store, Google Play, PayPal | ✅ lot 2 étape 1 (PayPal utilisé à l'étape 2) |
 
 ## Lot 3 — Cas particuliers & alertes
 

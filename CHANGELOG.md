@@ -7,6 +7,30 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 2 — étape 1 : désabonnement rapide, routage par canal et deep links (2026-09-10)
+
+#### Ajouté
+- `src/domain/resiliation.ts` : action derrière « Gérer / Résilier » (EF-20, EF-21, EF-21b,
+  §5.3). Le routage dépend du canal d'achat, jamais du moyen de paiement : App Store →
+  `itms-apps://apps.apple.com/account/subscriptions`, Google Play → page des abonnements
+  Google Play (deep links du service s'ils existent), direct → selon le mode de résiliation :
+  lien (adresse de l'abonnement, sinon celle du service, sinon « aucune »), téléphone,
+  courrier recommandé, espace client (le contact sert d'adresse s'il en est une). Jeu d'étapes
+  de la démarche par canal ou mode, statut proposé après résiliation « résilié — actif
+  jusqu'à la prochaine échéance » (EF-22), détection de numéros de téléphone et lien `tel:`.
+- Fiche : bouton routé (lien externe, `tel:`, courrier, espace client) avec note explicite
+  (« un abonnement App Store ne se résilie pas sur le site du service », « Appeler : … »,
+  « Lettre recommandée avec accusé de réception — … »), lien « Marquer comme résilié » ;
+  après clic, bannière EF-22 avec les quatre étapes de la démarche à cocher et les boutons
+  « Oui, marquer résilié » (statut changé, annulable par toast) / « Plus tard ».
+- Icônes lien externe, téléphone, courrier ; i18n fr / en (boutons, notes, 24 étapes).
+- Tests : `resiliation.test.ts` (routage par canal prioritaire sur le mode, adresse de
+  l'abonnement puis du service, modes hors ligne, jeu d'étapes, statut proposé, détection
+  d'adresses et de numéros).
+
+#### Modifié
+- Découpage du lot 2 en 6 étapes inscrit dans la ROADMAP.
+
 ## [0.1.0] — 2026-09-10 — tag `lot-1` — Socle
 
 Lot 1 du CdC §6 : modèle de données, moteur d'échéances testé, stockage local, accueil en

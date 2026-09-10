@@ -10,9 +10,17 @@ import {
   montantMensuel,
   prixEffectif,
 } from '../../domain/dates';
+import {
+  actionResiliation,
+  cleEtapes,
+  estTelephone,
+  lienTelephone,
+  NOMBRE_ETAPES,
+  statutApresResiliation,
+} from '../../domain/resiliation';
 import { couleurCompteur, modeleTuile } from '../../domain/tuile';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
-import type { Abonnement, MoyenPaiement, Statut } from '../../domain/types';
+import type { Abonnement, DateISO, MoyenPaiement, Service, Statut } from '../../domain/types';
 import { libelleDuree } from '../../i18n';
 import { Icone } from '../components/Icone';
 import { useI18n, type I18n } from '../contexts/I18nContext';
@@ -33,8 +41,8 @@ interface Props {
 /**
  * Fiche abonnement (EF-13, §7.2) : toutes les informations, ancienneté
  * (EF-18), actions de statut (EF-06), archivage, suppression définitive avec
- * confirmation (EF-01). Le routage « Gérer / Résilier » par canal arrive au
- * lot 2 : en V1 le bouton ouvre l'adresse de gestion renseignée.
+ * confirmation (EF-01), désabonnement rapide routé par canal et mode de
+ * résiliation avec proposition de statut (EF-20 à EF-22).
  */
 export function Fiche({ id, onRetour, onModifier }: Props) {
   const i18n = useI18n();
@@ -147,34 +155,16 @@ export function Fiche({ id, onRetour, onModifier }: Props) {
 
       <div className={styles.corps}>
         {statut.type === 'actif' ? (
-          <div className={styles.bloc}>
-            {abo.urlGestion ? (
-              <a
-                className={styles.boutonPrincipal}
-                href={abo.urlGestion}
-                target="_blank"
-                rel="noreferrer"
-              >
-                {t('fiche.gerer')}
-                <Icone nom="plus" taille={14} />
-              </a>
-            ) : (
-              <span className={styles.boutonDesactive}>{t('fiche.gerer')}</span>
-            )}
-            <span className={styles.note}>
-              {abo.urlGestion
-                ? t('fiche.gerer.ouvre', { url: abo.urlGestion })
-                : t('fiche.gerer.absent')}
-            </span>
-            {abo.modeResiliation !== 'lien' && abo.contactResiliation ? (
-              <span className={styles.note}>
-                {t('fiche.gerer.contact', {
-                  mode: t(`resiliation.${abo.modeResiliation}`).toLowerCase(),
-                  contact: abo.contactResiliation,
-                })}
-              </span>
-            ) : null}
-          </div>
+          <BlocResiliation
+            abo={abo}
+            service={service}
+            jour={jour}
+            onMarquer={async () => {
+              const precedent = statut;
+              await changerStatut(storage, id, statutApresResiliation(abo, jour), jour);
+              toast.afficherAvecAction(t('toast.resilie'), annulation(precedent));
+            }}
+          />
         ) : null}
 
         {abo.essai && comparerDates(abo.essai.dateFin, jour) >= 0 ? (
@@ -394,6 +384,172 @@ export function Fiche({ id, onRetour, onModifier }: Props) {
 }
 
 /* --------------------------------------------------------------------------- */
+
+/**
+ * Bouton « Gérer / Résilier » routé par canal et mode (EF-20, EF-21, EF-21b),
+ * puis bannière EF-22 : étapes de la démarche à cocher et proposition de
+ * passer en « résilié — actif jusqu'au ».
+ */
+function BlocResiliation({
+  abo,
+  service,
+  jour,
+  onMarquer,
+}: {
+  abo: Abonnement;
+  service: Service | undefined;
+  jour: DateISO;
+  onMarquer: () => Promise<void>;
+}) {
+  const { t, date } = useI18n();
+  const [banniere, setBanniere] = useState(false);
+  const [coches, setCoches] = useState<Set<number>>(() => new Set());
+  const action = actionResiliation(abo, service);
+  const etapes = cleEtapes(abo);
+  const jusquau = statutApresResiliation(abo, jour);
+  const ouvrirBanniere = () => setBanniere(true);
+
+  let bouton: ReactNode;
+  let note: string;
+  switch (action.type) {
+    case 'lien':
+      bouton = (
+        <a
+          className={styles.boutonPrincipal}
+          href={action.url}
+          target="_blank"
+          rel="noreferrer"
+          onClick={ouvrirBanniere}
+        >
+          {t('fiche.gerer')}
+          <Icone nom="externe" taille={14} />
+        </a>
+      );
+      note =
+        action.source === 'service'
+          ? t('resiliation.note.service', { c: action.url })
+          : t(`resiliation.note.${action.source}`);
+      break;
+    case 'telephone':
+      bouton = estTelephone(action.contact) ? (
+        <a
+          className={styles.boutonPrincipal}
+          href={lienTelephone(action.contact)}
+          onClick={ouvrirBanniere}
+        >
+          {t('resiliation.bouton.telephone')}
+          <Icone nom="telephone" taille={14} />
+        </a>
+      ) : (
+        <button type="button" className={styles.boutonPrincipal} onClick={ouvrirBanniere}>
+          {t('resiliation.bouton.telephone')}
+          <Icone nom="telephone" taille={14} />
+        </button>
+      );
+      note = action.contact
+        ? t('resiliation.note.telephone', { c: action.contact })
+        : t('resiliation.note.contactAbsent');
+      break;
+    case 'courrier_recommande':
+      bouton = (
+        <button type="button" className={styles.boutonPrincipal} onClick={ouvrirBanniere}>
+          {t('resiliation.bouton.courrier_recommande')}
+          <Icone nom="courrier" taille={14} />
+        </button>
+      );
+      note = action.contact
+        ? t('resiliation.note.courrier_recommande', { c: action.contact })
+        : t('resiliation.note.contactAbsent');
+      break;
+    case 'espace_client':
+      bouton = action.url ? (
+        <a
+          className={styles.boutonPrincipal}
+          href={action.url}
+          target="_blank"
+          rel="noreferrer"
+          onClick={ouvrirBanniere}
+        >
+          {t('resiliation.bouton.espace_client')}
+          <Icone nom="externe" taille={14} />
+        </a>
+      ) : (
+        <button type="button" className={styles.boutonPrincipal} onClick={ouvrirBanniere}>
+          {t('resiliation.bouton.espace_client')}
+        </button>
+      );
+      note = action.contact
+        ? t('resiliation.note.espace_client', { c: action.contact })
+        : t('resiliation.note.contactAbsent');
+      break;
+    case 'aucune':
+      bouton = <span className={styles.boutonDesactive}>{t('fiche.gerer')}</span>;
+      note = t('fiche.gerer.absent');
+      break;
+  }
+
+  const basculer = (i: number) =>
+    setCoches((c) => {
+      const suivant = new Set(c);
+      if (suivant.has(i)) suivant.delete(i);
+      else suivant.add(i);
+      return suivant;
+    });
+
+  return (
+    <div className={styles.bloc}>
+      {bouton}
+      <span className={styles.note}>{note}</span>
+      {!banniere && action.type !== 'aucune' ? (
+        <button type="button" className={styles.lienDiscret} onClick={ouvrirBanniere}>
+          {t('resiliation.marquer')}
+        </button>
+      ) : null}
+      {banniere ? (
+        <div className={styles.banniere}>
+          <span className={styles.banniereTexte}>
+            {t('resiliation.banniere', { date: date(jusquau.jusquau) })}
+          </span>
+          <div className={styles.etapes}>
+            <span className={styles.etapesTitre}>{t('resiliation.etapes.titre')}</span>
+            {Array.from({ length: NOMBRE_ETAPES }, (_, i) => i + 1).map((n) => {
+              const coche = coches.has(n);
+              return (
+                <button
+                  key={n}
+                  type="button"
+                  role="checkbox"
+                  aria-checked={coche}
+                  className={coche ? styles.etapeCochee : styles.etape}
+                  onClick={() => basculer(n)}
+                >
+                  <span className={styles.etapeCase}>
+                    {coche ? <Icone nom="coche" taille={11} /> : null}
+                  </span>
+                  <span>
+                    {t(`resiliation.etapes.${etapes}.${n as 1 | 2 | 3 | 4}`, { nom: abo.nom })}
+                  </span>
+                </button>
+              );
+            })}
+          </div>
+          <div className={styles.banniereActions}>
+            <button type="button" className={styles.boutonViolet} onClick={() => void onMarquer()}>
+              {t('resiliation.oui')}
+            </button>
+            <button
+              type="button"
+              className={styles.boutonSecondaire}
+              onClick={() => setBanniere(false)}
+            >
+              {t('resiliation.plusTard')}
+            </button>
+          </div>
+        </div>
+      ) : null}
+    </div>
+  );
+}
 
 function EnTeteFiche({ onRetour }: { onRetour: () => void }) {
   const { t } = useI18n();
