@@ -1,15 +1,41 @@
+# Dépendances et sorties de build
 node_modules/
 dist/
-.DS_Store
+dev-dist/
+coverage/
+*.tsbuildinfo
+.vite/
+vite.config.*.timestamp-*
+
+# Environnement et secrets (jamais versionnés)
+.env
+.env.*
+!.env.example
 *.local
+
+# Outils locaux (réglages personnels, sessions)
+.claude/
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.swp
+*~
+
+# Système et OneDrive
+.DS_Store
+Thumbs.db
+desktop.ini
+~$*
+*.tmp
+
+# Journaux
+*.log
+npm-debug.log*
+pnpm-debug.log*
+yarn-*.log
 
 # Sources de maquette (Claude Design) et explorations de logo
 docs/maquette-v6-sources/
 
 # Documents de travail locaux
 docs/prive/
-
-# Sorties d'outils
-coverage/
-*.tsbuildinfo
-.vite/

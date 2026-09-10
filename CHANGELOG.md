@@ -7,6 +7,33 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+## [0.1.0] — 2026-09-10 — tag `lot-1` — Socle
+
+Lot 1 du CdC §6 : modèle de données, moteur d'échéances testé, stockage local, accueil en
+tuiles avec compteur et code couleur, fiche détail, création / édition en saisie libre,
+tri, filtres, recherche, annulation par toast, thème et interface FR / EN.
+Critère de validation « créer 5 abonnements variés, échéances justes, tuiles conformes »
+rejoué par un test de recette et validé à l'écran par FlhFly.
+
+### Lot 1 — étape 8 : revue finale et recette (2026-09-10)
+
+#### Ajouté
+- `tests/lot1.recette.test.ts` : rejoue le critère du CdC §6 hors navigateur — cinq
+  abonnements variés saisis via le modèle du formulaire (mensuel ancré un 31 et partagé avec
+  hausse annoncée, annuel avec engagement, 28 jours en prélèvement SEPA, essai gratuit via
+  l'App Store, à l'usage avec plafond), enregistrés par le service, relus depuis IndexedDB ;
+  échéances attendues (30/09 par la règle des mois courts, J-2, 20/08 + 28 j, fin d'essai,
+  aucune), modèles de tuile (niveaux rouge / orange / vert / violet, pastille de paiement,
+  badge canal, sous-titres), libellés fr / en, ordre de l'accueil, total mensuel normalisé,
+  ancienneté, hausse versée dans l'historique après modification. 165 tests.
+- Audit des règles d'architecture (CLAUDE.md) : aucun import Dexie hors du provider, aucune
+  requête réseau ni police distante, aucune chaîne en dur dans les composants, aucune date
+  civile convertie en UTC, dépendances limitées à la stack validée.
+
+#### Modifié
+- Version 0.1.0 (affichée dans « À propos »), README : statut du lot 1 et fonctionnalités
+  réellement disponibles.
+
 ### Lot 1 — étape 7 : tri, filtres, recherche, annulation par toast (2026-09-09)
 
 #### Ajouté

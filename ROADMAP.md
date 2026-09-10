@@ -12,8 +12,8 @@ Légende : **[M]** must have · **[S]** should have · EF-xx = exigence du CdC.
 | Lot | Contenu | Version cible | Statut |
 |---|---|---|---|
 | 0 — Initialisation | Dépôt, licence AGPL-3.0, docs, méthode | 0.0.0 · tag `init` | ✅ |
-| 1 — Socle | Modèle, moteur d'échéances, stockage, tuiles, fiche, formulaire, tri/filtres | 0.1.0 · tag `lot-1` | 🔄 |
-| 2 — Paiement & désabonnement | Moyens de paiement, catalogue complet, deep links, routage résiliation | 0.2.0 · tag `lot-2` | ⬜ |
+| 1 — Socle | Modèle, moteur d'échéances, stockage, tuiles, fiche, formulaire, tri/filtres | 0.1.0 · tag `lot-1` | ✅ 2026-09-10 |
+| 2 — Paiement & désabonnement | Moyens de paiement, catalogue complet, deep links, routage résiliation | 0.2.0 · tag `lot-2` | ⬜ prochain |
 | 3 — Cas particuliers & alertes | Essais, engagement/préavis, statuts, centre d'alertes, ICS | 0.3.0 · tag `lot-3` | ⬜ |
 | 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ⬜ |
 | 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ⬜ |
@@ -33,7 +33,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | 5 | Accueil : tuiles, compteur J-X, codes couleur, grille/liste | ✅ 2026-09-09 |
 | 6 | Fiche détail + formulaire création/édition | ✅ 2026-09-09 |
 | 7 | Tri/filtres + annulation par toast | ✅ 2026-09-09 |
-| 8 | Revue contre le critère CdC §6, tag `lot-1` | ⬜ |
+| 8 | Revue contre le critère CdC §6, tag `lot-1` | ✅ 2026-09-10 (test de recette `lot1.recette.test.ts`, audit des règles d'architecture) |
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|

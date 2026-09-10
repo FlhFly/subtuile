@@ -9,7 +9,12 @@ hors ligne, zéro tracking : vos données ne quittent jamais votre appareil.
 - 📊 Vue financière, prévisionnel 12 mois
 - 🌐 FR / EN — PWA installable
 
-**Statut : en développement (lot 1/4).**
+**Statut : en développement — lot 1/4 « Socle » livré (v0.1.0), lot 2 à venir.**
+
+Disponible aujourd'hui : accueil en tuiles avec compteur J-X et codes couleur, fiche
+détail, création et édition en saisie libre (toutes périodicités dont 28 jours, à vie,
+à l'usage, essai, engagement, partage, vie courante), tri, filtres, recherche, annulation
+par toast, thème clair / sombre / système, interface FR / EN, jeu de démonstration.
 
 ## Documentation
 - [Cahier des charges](docs/CdC.md) — fait foi sur le périmètre
