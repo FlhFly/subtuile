@@ -7,10 +7,12 @@ import { Segmente } from '../components/Segmente';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
+import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Reglages.module.css';
 
 interface Props {
   onRetour: () => void;
+  onOuvrirPaiements: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -21,8 +23,9 @@ const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
  * (EF-17b), jeu de démo (§5.5), confidentialité, à propos. Défauts d'alerte,
  * export / import et catalogue arrivent aux lots 3 et 4.
  */
-export function Reglages({ onRetour }: Props) {
-  const { t, changerLangue, langue } = useI18n();
+export function Reglages({ onRetour, onOuvrirPaiements }: Props) {
+  const { t, tn, changerLangue, langue } = useI18n();
+  const nombreMoyens = useMoyensPaiement().size;
   const { preferences, modifier } = usePreferences();
   const storage = useStorage();
   const [demoChargee, setDemoChargee] = useState(false);
@@ -68,6 +71,16 @@ export function Reglages({ onRetour }: Props) {
             onChange={changerLangue}
           />
         </Ligne>
+      </Section>
+
+      <Section icone="carte" titre={t('paiements.titre')}>
+        <div className={styles.bloc}>
+          <p className={styles.blocTitre}>{tn('paiements.nombre', nombreMoyens)}</p>
+          <p className={styles.blocTexte}>{t('paiements.reglages.texte')}</p>
+          <button type="button" className={styles.boutonSecondaire} onClick={onOuvrirPaiements}>
+            {t('paiements.titre')}
+          </button>
+        </div>
       </Section>
 
       <Section icone="base" titre={t('reglages.donnees')}>

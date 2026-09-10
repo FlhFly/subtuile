@@ -28,7 +28,8 @@ export function traduire(langue: Langue, cle: CleTraduction, params?: Parametres
 }
 
 /** Clés déclinées en `.un` / `.plusieurs`. */
-export type ClePluriel = 'accueil.nombre' | 'accueil.actifs' | 'duree.an' | 'duree.mois';
+export type ClePluriel =
+  'accueil.nombre' | 'accueil.actifs' | 'duree.an' | 'duree.mois' | 'paiements.nombre';
 
 /** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
 export function libelleDuree(

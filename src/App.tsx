@@ -8,12 +8,14 @@ import { useAbonnements } from './ui/hooks/useAbonnements';
 import { Accueil } from './ui/screens/Accueil';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
+import { MoyensPaiement } from './ui/screens/MoyensPaiement';
 import { Reglages } from './ui/screens/Reglages';
 
 /** Écrans du lot 1 ; navigation par état, sans routeur. */
 type Ecran =
   | { nom: 'accueil' }
   | { nom: 'reglages' }
+  | { nom: 'paiements' }
   | { nom: 'fiche'; id: string }
   | { nom: 'edition'; id: string | null; retour: Ecran };
 
@@ -52,7 +54,15 @@ function Navigation() {
       );
       break;
     case 'reglages':
-      contenu = <Reglages onRetour={() => setEcran({ nom: 'accueil' })} />;
+      contenu = (
+        <Reglages
+          onRetour={() => setEcran({ nom: 'accueil' })}
+          onOuvrirPaiements={() => setEcran({ nom: 'paiements' })}
+        />
+      );
+      break;
+    case 'paiements':
+      contenu = <MoyensPaiement onRetour={() => setEcran({ nom: 'reglages' })} />;
       break;
     case 'fiche':
       contenu = (

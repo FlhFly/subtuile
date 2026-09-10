@@ -98,6 +98,45 @@ export function anciennete(depuis: DateISO, jour: DateISO): Anciennete {
   return { annees, mois, jours };
 }
 
+const RE_ANNEE_MOIS = /^(\d{4})-(\d{2})$/;
+
+/** Vrai si la chaîne est un mois civil « YYYY-MM » valide (expiration de carte, §3.3). */
+export function estAnneeMois(valeur: unknown): valeur is string {
+  if (typeof valeur !== 'string') return false;
+  const m = RE_ANNEE_MOIS.exec(valeur);
+  if (!m) return false;
+  const mois = Number(m[2]);
+  return mois >= 1 && mois <= 12;
+}
+
+/** Dernier jour civil d'un mois « YYYY-MM » (fin de validité d'une carte). */
+export function dernierJourDuMois(anneeMois: string): DateISO {
+  if (!estAnneeMois(anneeMois)) throw new RangeError(`Mois invalide : ${String(anneeMois)}`);
+  const m = RE_ANNEE_MOIS.exec(anneeMois) as RegExpExecArray;
+  // jour 0 du mois suivant = dernier jour du mois demandé
+  return toDateISO(new Date(Number(m[1]), Number(m[2]), 0));
+}
+
+export type EtatExpiration = 'aucune' | 'ok' | 'bientot' | 'expiree';
+
+/**
+ * État d'une carte (EF-30, alerte « carte expirée » M-1) : expirée après le
+ * dernier jour du mois ; « bientôt » dès le premier jour du mois situé
+ * `moisAvant` mois avant celui de l'expiration (10/2026 → dès le 01/09/2026).
+ */
+export function etatExpirationCarte(
+  anneeMois: string | null,
+  jour: DateISO,
+  moisAvant = 1,
+): EtatExpiration {
+  if (anneeMois === null || !estAnneeMois(anneeMois)) return 'aucune';
+  const fin = dernierJourDuMois(anneeMois);
+  if (comparerDates(jour, fin) > 0) return 'expiree';
+  const debutMoisExpiration = parseDateISO(`${anneeMois}-01`);
+  const seuil = toDateISO(addMonths(debutMoisExpiration, -Math.max(0, moisAvant)));
+  return comparerDates(jour, seuil) >= 0 ? 'bientot' : 'ok';
+}
+
 /** Décale une date civile de `n` jours (négatif accepté). */
 export function decalerJours(date: DateISO, n: number): DateISO {
   if (!Number.isInteger(n)) throw new RangeError(`Décalage invalide : ${String(n)}`);

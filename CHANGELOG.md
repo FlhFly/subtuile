@@ -7,6 +7,29 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 2 — étape 2 : écran Moyens de paiement (2026-09-10)
+
+#### Ajouté
+- `src/domain/dates.ts` : mois civil « YYYY-MM », dernier jour du mois, état d'expiration d'une
+  carte (EF-30, M-1) — « bientôt » dès le premier jour du mois précédant l'expiration (10/2026
+  → dès le 01/09), « expirée » après le dernier jour, seuil en mois paramétrable par les
+  défauts d'alerte des préférences.
+- `src/domain/moyenPaiement.ts` : formulaire (type, libellé, 4 derniers chiffres, expiration),
+  normalisation des saisies « 09/2026 » → « 2026-09 », validation (libellé requis, quatre
+  chiffres, mois valide), conversion vers l'entité (les champs carte ne sont conservés que pour
+  une CB ; la couleur ne change qu'avec le type), usage par moyen (abonnements non archivés).
+- `src/data/services/moyensPaiement.ts` : enregistrement, suppression logique restaurable.
+- Écran `MoyensPaiement` (§7.6, §3.3), repris de la maquette : une carte par moyen avec type et
+  pastille, badge « Expire bientôt » / « Expirée », libellé, détail « ···· 4412 · exp. 2026-09 »,
+  nombre d'abonnements, édition en place, suppression annulable par toast (la pastille disparaît
+  des tuiles et revient à la restauration), ajout avec chips de type, deep link « Gérer les
+  paiements automatiques PayPal » (§5.3), rappel « aucune donnée bancaire réelle ».
+- Réglages : section « Moyens de paiement » avec le nombre et l'accès à l'écran ; navigation en
+  pile depuis les réglages ; icône carte.
+- i18n fr / en ; tests `moyenPaiement.test.ts` (mois et dernier jour, états d'expiration aux
+  bornes, normalisation, validation, création et modification, usage sur le jeu de démo).
+  178 tests.
+
 ### Lot 2 — étape 1 : désabonnement rapide, routage par canal et deep links (2026-09-10)
 
 #### Ajouté
