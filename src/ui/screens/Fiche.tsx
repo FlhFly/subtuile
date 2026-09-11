@@ -36,6 +36,8 @@ interface Props {
   id: string;
   onRetour: () => void;
   onModifier: (id: string) => void;
+  /** EF-07 : ouvre la création pré-remplie avec une copie */
+  onDupliquer: (id: string) => void;
 }
 
 /**
@@ -44,7 +46,7 @@ interface Props {
  * confirmation (EF-01), désabonnement rapide routé par canal et mode de
  * résiliation avec proposition de statut (EF-20 à EF-22).
  */
-export function Fiche({ id, onRetour, onModifier }: Props) {
+export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const i18n = useI18n();
   const { t, montant, date, periodicite: libPeriodicite } = i18n;
   const storage = useStorage();
@@ -330,6 +332,13 @@ export function Fiche({ id, onRetour, onModifier }: Props) {
               onClick={() => void basculerArchive()}
             >
               {t(archive ? 'fiche.desarchiver' : 'fiche.archiver')}
+            </button>
+            <button
+              type="button"
+              className={styles.boutonSecondaire}
+              onClick={() => onDupliquer(id)}
+            >
+              {t('fiche.dupliquer')}
             </button>
           </div>
         </div>

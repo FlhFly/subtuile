@@ -7,6 +7,26 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — étape 3 : cycle de vie, statuts et duplication (2026-09-11)
+
+#### Ajouté
+- Transitions automatiques de statut à l'ouverture (EF-06) : « résilié — actif jusqu'au »
+  devient archivé le lendemain de la date ; « en pause jusqu'au » reprend à la date et
+  retrouve son échéance. Persistées au chargement, comme l'application des hausses annoncées
+  (EF-08b) et le recalcul des échéances. Les archivés sortent des totaux et des alertes mais
+  restent consultables par le filtre « Archivés ».
+- Duplication (EF-07) : bouton « Dupliquer » sur la fiche → création pré-remplie avec une
+  copie (nom suffixé « (copie) », cycle repartant d'aujourd'hui, référence client non
+  recopiée, essai ou hausse déjà passés abandonnés), en mode catalogue ou saisie libre selon
+  l'origine ; l'annulation ramène à la fiche d'origine.
+- Tests `cycleVie.test.ts` : transitions et leurs bornes (le jour même reste résilié / en
+  pause), même objet si rien ne change, statut et prix futur dans le même passage,
+  persistance au chargement, duplication. 230 tests.
+
+#### Modifié
+- Fin d'essai (EF-04) : aucune bascule à faire, le cycle payant est ancré à la fin d'essai
+  depuis le lot 1 et la tuile repasse d'elle-même au compteur de renouvellement.
+
 ### Lot 3 — étape 2 : centre d'alertes et défauts d'alerte (2026-09-11)
 
 #### Ajouté

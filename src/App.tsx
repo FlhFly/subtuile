@@ -23,7 +23,15 @@ type Ecran =
   | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
   | { nom: 'fiche'; id: string }
-  | { nom: 'edition'; id: string | null; retour: Ecran; serviceId?: string };
+  | {
+      nom: 'edition';
+      /** abonnement modifié ; null = création */
+      id: string | null;
+      retour: Ecran;
+      serviceId?: string;
+      /** création par duplication (EF-07) */
+      copieDe?: string;
+    };
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
@@ -109,17 +117,22 @@ function Navigation() {
           id={ecran.id}
           onRetour={() => setEcran({ nom: 'accueil' })}
           onModifier={(id) => setEcran({ nom: 'edition', id, retour: { nom: 'fiche', id } })}
+          onDupliquer={(id) =>
+            setEcran({ nom: 'edition', id: null, retour: { nom: 'fiche', id }, copieDe: id })
+          }
         />
       );
       break;
     case 'edition': {
-      const existant = ecran.id ? abonnements.find((a) => a.id === ecran.id) : undefined;
-      // en modification, attendre que l'abonnement soit chargé avant d'initialiser le formulaire
+      const source = ecran.id ?? ecran.copieDe;
+      const charge = source ? abonnements.find((a) => a.id === source) : undefined;
+      // en modification ou duplication, attendre que l'abonnement soit chargé avant d'initialiser le formulaire
       contenu =
-        ecran.id && !existant ? null : (
+        source && !charge ? null : (
           <Edition
-            key={ecran.id ?? `nouveau-${ecran.serviceId ?? ''}`}
-            existant={existant}
+            key={ecran.id ?? `nouveau-${ecran.serviceId ?? ''}-${ecran.copieDe ?? ''}`}
+            existant={ecran.id ? charge : undefined}
+            modele={ecran.copieDe ? charge : undefined}
             serviceInitial={ecran.serviceId ? services.get(ecran.serviceId) : undefined}
             onFermer={() => setEcran(ecran.retour)}
             onEnregistre={(id) => setEcran({ nom: 'fiche', id })}

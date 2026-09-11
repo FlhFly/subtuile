@@ -6,7 +6,13 @@
 
 import { nouvelId } from '../lib/ids';
 import { maintenant } from '../lib/horloge';
-import { ancrageCycle, appliquerPrixFutur, aujourdhui, calculerProchaineEcheance } from './dates';
+import {
+  ancrageCycle,
+  appliquerPrixFutur,
+  aujourdhui,
+  calculerProchaineEcheance,
+  comparerDates,
+} from './dates';
 import type {
   Abonnement,
   DateISO,
@@ -75,12 +81,28 @@ export function creerAbonnement(champs: NouvelAbonnement, ctx: ContexteFabrique 
 }
 
 /**
- * Met un abonnement « au jour » : applique un prix futur atteint (EF-08b) et
- * recalcule la prochaine échéance (EF-03). Renvoie le MÊME objet si rien ne
- * change, afin d'éviter des écritures inutiles.
+ * Transitions automatiques de statut (EF-06) : « résilié — actif jusqu'au »
+ * devient archivé le lendemain de la date ; « en pause jusqu'au » reprend à la
+ * date. Renvoie le MÊME objet si rien ne change.
+ */
+export function actualiserStatut(abo: Abonnement, jour: DateISO): Abonnement {
+  const s = abo.statut;
+  if (s.type === 'resilie_actif_jusquau' && comparerDates(s.jusquau, jour) < 0) {
+    return { ...abo, statut: { type: 'archive' } };
+  }
+  if (s.type === 'en_pause' && s.repriseLe !== null && comparerDates(s.repriseLe, jour) <= 0) {
+    return { ...abo, statut: { type: 'actif' } };
+  }
+  return abo;
+}
+
+/**
+ * Met un abonnement « au jour » : transitions de statut (EF-06), prix futur
+ * atteint (EF-08b), prochaine échéance recalculée (EF-03). Renvoie le MÊME
+ * objet si rien ne change, afin d'éviter des écritures inutiles.
  */
 export function actualiserAbonnement(abo: Abonnement, jour: DateISO): Abonnement {
-  const avecPrix = appliquerPrixFutur(abo, jour);
+  const avecPrix = appliquerPrixFutur(actualiserStatut(abo, jour), jour);
   const echeance = calculerProchaineEcheance(avecPrix, jour);
   if (avecPrix === abo && echeance === abo.prochaineEcheance) return abo;
   return { ...avecPrix, prochaineEcheance: echeance };

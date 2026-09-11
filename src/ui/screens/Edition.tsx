@@ -15,6 +15,7 @@ import { aujourdhui, calculerProchaineEcheance } from '../../domain/dates';
 import {
   abonnementDepuisFormulaire,
   formulaireDepuisAbonnement,
+  formulairePourDuplication,
   formulaireVide,
   periodiciteDepuisFormulaire,
   PRESETS_ALERTE,
@@ -48,6 +49,8 @@ interface Props {
   existant?: Abonnement | undefined;
   /** service du catalogue à pré-remplir (création depuis l'écran Catalogue) */
   serviceInitial?: Service | undefined;
+  /** abonnement à dupliquer (EF-07) : création pré-remplie avec une copie */
+  modele?: Abonnement | undefined;
   onFermer: () => void;
   onEnregistre: (id: string) => void;
 }
@@ -62,7 +65,7 @@ type Mode = 'catalogue' | 'libre';
  * annoncée, paiement, canal, mode de résiliation, référence, adresse,
  * alerte, tags, notes.
  */
-export function Edition({ existant, serviceInitial, onFermer, onEnregistre }: Props) {
+export function Edition({ existant, serviceInitial, modele, onFermer, onEnregistre }: Props) {
   const { t, date, montant } = useI18n();
   const { preferences } = usePreferences();
   const storage = useStorage();
@@ -73,17 +76,19 @@ export function Edition({ existant, serviceInitial, onFermer, onEnregistre }: Pr
 
   const [etat, setEtat] = useState<EtatFormulaire>(() => {
     if (existant) return formulaireDepuisAbonnement(existant, jour);
+    if (modele) return formulairePourDuplication(modele, jour, t('edition.copie'));
     const vide = formulaireVide(jour);
     return serviceInitial ? preRemplirDepuisService(vide, serviceInitial) : vide;
   });
   /** L'onglet reflète l'origine de l'entrée : liée au catalogue ou saisie libre. */
-  const [mode, setMode] = useState<Mode>(existant?.serviceId === null ? 'libre' : 'catalogue');
+  const origine = existant ?? modele;
+  const [mode, setMode] = useState<Mode>(origine?.serviceId === null ? 'libre' : 'catalogue');
   /** grille de sélection visible (création, onglet Catalogue, avant choix ou après « Changer ») */
-  const [pickerOuvert, setPickerOuvert] = useState(!existant && !serviceInitial);
+  const [pickerOuvert, setPickerOuvert] = useState(!origine && !serviceInitial);
   const [recherche, setRecherche] = useState('');
   const [suggestionsIgnorees, setSuggestionsIgnorees] = useState(false);
   const [erreurs, setErreurs] = useState<Erreurs>({});
-  const [plusOuvert, setPlusOuvert] = useState(Boolean(existant));
+  const [plusOuvert, setPlusOuvert] = useState(Boolean(origine));
   const [enregistrement, setEnregistrement] = useState(false);
 
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;

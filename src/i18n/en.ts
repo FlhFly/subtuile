@@ -451,6 +451,10 @@ export const en: Dictionnaire = {
   'erreur.partSuperieure': 'The share cannot exceed the full price',
   'erreur.url': 'Invalid address',
 
+  /* Lifecycle (EF-06, EF-07) */
+  'fiche.dupliquer': 'Duplicate',
+  'edition.copie': '(copy)',
+
   /* Alert centre (EF-30, EF-31) */
   'alertes.titre': 'Alerts',
   'alertes.nonLues.un': '{n} unread alert',

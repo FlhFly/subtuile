@@ -252,6 +252,31 @@ export function formulaireVide(jour: DateISO): EtatFormulaire {
 const nombreVersTexte = (n: number | null | undefined): string =>
   n === null || n === undefined ? '' : String(n);
 
+/**
+ * EF-07 : formulaire de création pré-rempli depuis un abonnement existant.
+ * Le nom reçoit le suffixe (« (copie) »), le cycle repart d'aujourd'hui, la
+ * référence client n'est pas recopiée ; un essai ou une hausse déjà passés
+ * sont abandonnés.
+ */
+export function formulairePourDuplication(
+  abo: Abonnement,
+  jour: DateISO,
+  suffixe: string,
+): EtatFormulaire {
+  const f = formulaireDepuisAbonnement(abo, jour);
+  const essaiPasse = f.essai && f.essaiFin !== '' && f.essaiFin < jour;
+  const haussePassee = f.prixFutur && f.prixFuturDate !== '' && f.prixFuturDate < jour;
+  return {
+    ...f,
+    nom: `${abo.nom} ${suffixe}`.trim(),
+    dateDebut: jour,
+    echeanceManuelle: '',
+    referenceClient: '',
+    ...(essaiPasse ? { essai: false, essaiFin: '', essaiPrix: '' } : {}),
+    ...(haussePassee ? { prixFutur: false, prixFuturDate: '', prixFuturMontant: '' } : {}),
+  };
+}
+
 export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): EtatFormulaire {
   return {
     ...formulaireVide(jour),

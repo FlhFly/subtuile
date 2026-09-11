@@ -461,6 +461,10 @@ export const fr = {
   'erreur.partSuperieure': 'La part ne peut pas dépasser le prix total',
   'erreur.url': 'Adresse invalide',
 
+  /* Cycle de vie (EF-06, EF-07) */
+  'fiche.dupliquer': 'Dupliquer',
+  'edition.copie': '(copie)',
+
   /* Centre d'alertes (EF-30, EF-31) */
   'alertes.titre': 'Alertes',
   'alertes.nonLues.un': '{n} alerte non lue',

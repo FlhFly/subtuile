@@ -40,7 +40,8 @@ export async function supprimerAbonnement(storage: StorageProvider, id: string):
 
 /**
  * Liste les abonnements vivants, mis « au jour » (EF-03 : échéances dépassées
- * recalculées, EF-08b : prix futurs atteints appliqués). Les entités modifiées
+ * recalculées, EF-06 : résiliés archivés après leur date, pauses reprises à
+ * leur date, EF-08b : prix futurs atteints appliqués). Les entités modifiées
  * sont persistées ; les autres ne sont pas réécrites.
  */
 export async function chargerAbonnementsAJour(
