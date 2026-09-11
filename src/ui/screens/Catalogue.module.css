@@ -1,0 +1,153 @@
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.fraicheur {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+}
+
+.recherche {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 6px 0 14px;
+  border: var(--border);
+  border-radius: var(--r-md);
+  background: var(--card);
+  color: var(--muted);
+}
+
+.recherche:focus-within {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+.rechercheEntree {
+  flex: 1;
+  min-width: 0;
+  padding: 12px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: var(--fw-semibold);
+}
+
+.rechercheEntree:focus-visible {
+  outline: none;
+}
+
+.vide {
+  padding: var(--sp-6) var(--sp-4);
+  text-align: center;
+  color: var(--muted);
+  border: 2px dashed var(--dash);
+  border-radius: var(--r-xl);
+}
+
+.groupe {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.groupeTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.ligne {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border: var(--border);
+  border-radius: var(--r-md);
+  background: var(--card);
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  color: #fff;
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.nom {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.badge {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 7px;
+  background: var(--sand2);
+  color: var(--muted);
+}
+
+.detail {
+  font-size: 12px;
+  color: var(--muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.utiliser {
+  flex: none;
+  border: 0;
+  border-radius: var(--r-pill);
+  padding: 7px 12px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.utiliser:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.note {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  text-align: center;
+}

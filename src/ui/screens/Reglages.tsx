@@ -7,12 +7,14 @@ import { Segmente } from '../components/Segmente';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
+import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Reglages.module.css';
 
 interface Props {
   onRetour: () => void;
   onOuvrirPaiements: () => void;
+  onOuvrirCatalogue: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -23,9 +25,10 @@ const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
  * (EF-17b), jeu de démo (§5.5), confidentialité, à propos. Défauts d'alerte,
  * export / import et catalogue arrivent aux lots 3 et 4.
  */
-export function Reglages({ onRetour, onOuvrirPaiements }: Props) {
-  const { t, tn, changerLangue, langue } = useI18n();
+export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Props) {
+  const { t, tn, date, changerLangue, langue } = useI18n();
   const nombreMoyens = useMoyensPaiement().size;
+  const { catalogue } = useCatalogue();
   const { preferences, modifier } = usePreferences();
   const storage = useStorage();
   const [demoChargee, setDemoChargee] = useState(false);
@@ -79,6 +82,23 @@ export function Reglages({ onRetour, onOuvrirPaiements }: Props) {
           <p className={styles.blocTexte}>{t('paiements.reglages.texte')}</p>
           <button type="button" className={styles.boutonSecondaire} onClick={onOuvrirPaiements}>
             {t('paiements.titre')}
+          </button>
+        </div>
+      </Section>
+
+      <Section icone="tuile" titre={t('catalogue.titre')}>
+        <div className={styles.bloc}>
+          <p className={styles.blocTitre}>{tn('catalogue.nombre', catalogue.data.length)}</p>
+          <p className={styles.blocTexte}>
+            {t('catalogue.fraicheur', {
+              n: catalogue.version,
+              d: date(catalogue.publieLe, 'long'),
+            })}
+            {' — '}
+            {t('catalogue.reglages.texte')}
+          </p>
+          <button type="button" className={styles.boutonSecondaire} onClick={onOuvrirCatalogue}>
+            {t('catalogue.titre')}
           </button>
         </div>
       </Section>

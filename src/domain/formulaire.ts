@@ -29,6 +29,10 @@ export type PresetPeriode = (typeof PRESETS_PERIODE)[number];
 export const PRESETS_ALERTE = [1, 2, 3, 7, 14] as const;
 
 export interface EtatFormulaire {
+  /** service du catalogue lié (EF-02) ; null en saisie libre */
+  serviceId: string | null;
+  /** formule du catalogue choisie (v1.11) */
+  formuleId: string | null;
   nom: string;
   prix: string;
   categorie: Categorie;
@@ -208,6 +212,8 @@ export function presetDepuisPeriodicite(
 
 export function formulaireVide(jour: DateISO): EtatFormulaire {
   return {
+    serviceId: null,
+    formuleId: null,
     nom: '',
     prix: '',
     categorie: 'autre',
@@ -249,6 +255,8 @@ const nombreVersTexte = (n: number | null | undefined): string =>
 export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): EtatFormulaire {
   return {
     ...formulaireVide(jour),
+    serviceId: abo.serviceId,
+    formuleId: abo.formuleId,
     nom: abo.nom,
     prix: nombreVersTexte(abo.prix),
     categorie: abo.categorie,
@@ -398,6 +406,8 @@ export function abonnementDepuisFormulaire(
   const plafondUsage = periodicite.type === 'a_l_usage';
 
   const champs = {
+    serviceId: etat.serviceId,
+    formuleId: etat.serviceId ? etat.formuleId : null,
     nom: etat.nom.trim(),
     prix: plafondUsage ? 0 : prix,
     categorie: etat.categorie,

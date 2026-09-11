@@ -169,3 +169,253 @@
   opacity: 0.6;
   cursor: default;
 }
+
+/* Mode catalogue (EF-02) */
+.picker {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Sélecteur Catalogue / Saisie libre (maquette : fond sable, boutons pleine largeur) */
+.modes {
+  display: flex;
+  gap: 4px;
+  padding: 4px;
+  border-radius: 20px;
+  background: var(--sand);
+}
+
+.mode,
+.modeActif {
+  flex: 1;
+  height: 38px;
+  border: 0;
+  border-radius: 16px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+  transition:
+    background-color var(--dur-fast) var(--ease),
+    color var(--dur-fast) var(--ease);
+}
+
+.modeActif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.mode:focus-visible,
+.modeActif:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.rechercheSable {
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: var(--sand);
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: var(--fw-semibold);
+}
+
+.rechercheSable:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
+}
+
+/* Grille de sélection : 3 tuiles par ligne, hauteur identique (ligne de badge réservée) */
+.grilleServices {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.service {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 100%;
+  height: 100%;
+  min-height: 108px;
+  padding: 12px 6px;
+  border: 0;
+  border-radius: 16px;
+  background: var(--card);
+  color: var(--ink);
+  text-align: center;
+}
+
+.serviceBadgeLigne {
+  min-height: 11px;
+  font-size: 8.5px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.aideCentree {
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  text-align: center;
+  line-height: 1.45;
+}
+
+.service:hover {
+  background: var(--sand);
+}
+
+.serviceLogo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 34px;
+  height: 34px;
+  border-radius: 11px;
+  color: #fff;
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.serviceNom {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.2;
+}
+
+.serviceBadge {
+  font-size: 9px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 2px 6px;
+  border-radius: 7px;
+  background: var(--sand2);
+  color: var(--muted);
+}
+
+/* Service lié */
+.lie {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: var(--r-lg);
+  background: var(--sand);
+}
+
+.lieTextes {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.lieTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.lieNom {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.lienDiscret {
+  align-self: flex-start;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  padding: 2px 0;
+}
+
+/* Suggestions en saisie libre (EF-02b) */
+.suggestions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 10px 12px;
+  border-radius: var(--r-lg);
+  background: var(--card);
+  box-shadow: var(--shadow-card);
+}
+
+.suggestionsTitre {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.suggestion {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 8px;
+  border: 0;
+  border-radius: var(--r-md);
+  background: transparent;
+  color: var(--ink);
+  text-align: left;
+}
+
+.suggestion:hover {
+  background: var(--sand);
+}
+
+.suggestionTextes {
+  display: flex;
+  flex-direction: column;
+  gap: 1px;
+  flex: 1;
+  min-width: 0;
+}
+
+.suggestionAction {
+  flex: none;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  padding: 4px 10px;
+  border-radius: var(--r-pill);
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.noteDirect {
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+}
+
+.service:focus-visible,
+.suggestion:focus-visible,
+.lienDiscret:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

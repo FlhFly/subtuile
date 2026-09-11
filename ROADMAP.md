@@ -67,7 +67,7 @@ Déroulé en 6 étapes (un commit validé par étape) :
 | 1 | Routage « Gérer / Résilier » par canal, deep links, démarches hors ligne, proposition « résilié — actif jusqu'au » | ✅ 2026-09-10 |
 | 2 | Écran Moyens de paiement : liste, ajout, édition, suppression avec annulation, expiration signalée | ✅ 2026-09-10 |
 | 3 | Catalogue complet : 74 services en 11 familles + vie courante française avec mode de résiliation | ✅ 2026-09-11 (79 services, catalogue v2) |
-| 4 | Formulaire en mode catalogue (pré-remplissage, « moins cher en direct »), aide à la saisie libre, écran Catalogue | ⬜ |
+| 4 | Formulaire en mode catalogue (pré-remplissage, « moins cher en direct »), aide à la saisie libre, écran Catalogue | ✅ 2026-09-11 |
 | 5 | « Proposer un service » et groupe « Mes services » | ⬜ |
 | 6 | Revue contre le critère CdC §6, tag `lot-2`, version 0.2.0 | ⬜ |
 
@@ -75,10 +75,10 @@ Déroulé en 6 étapes (un commit validé par étape) :
 |---|---|---|
 | §3.3 / §7.6 | Écran Moyens de paiement : liste, ajout, édition, couleur, 4 derniers chiffres | ✅ lot 2 étape 2 (expiration signalée M-1, alerte centralisée au lot 3) |
 | Annexe A | Catalogue complet (74 services, 11 familles) + vie courante française avec modeResiliation | ✅ lot 2 étape 3 (79 services dont 5 contrats « Maison » de la v6 ; URLs indicatives à vérifier avant mise en ligne) |
-| EF-02 [M] | Création depuis le catalogue (pré-remplissage) + mention tarif direct plus avantageux | ⬜ |
-| EF-02b [S] | Aide à la saisie libre (3 suggestions du catalogue) | ⬜ |
+| EF-02 [M] | Création depuis le catalogue (pré-remplissage) + mention tarif direct plus avantageux | ✅ lot 2 étape 4 |
+| EF-02b [S] | Aide à la saisie libre (3 suggestions du catalogue) | ✅ lot 2 étape 4 |
 | EF-09 [S] | « Proposer un service » → groupe « Mes services » | ⬜ |
-| §7.8 | Écran Catalogue | ⬜ |
+| §7.8 | Écran Catalogue | ✅ lot 2 étape 4 (« Proposer un service » à l'étape 5) |
 | EF-20 [M] | Bouton « Gérer / Résilier » ouvrant urlGestion | ✅ lot 2 étape 1 |
 | EF-21 [M] | Routage selon le canal (App Store / Google Play / direct) + badge | ✅ lot 2 étape 1 (badge dès le lot 1) |
 | EF-21b [S] | Modes de résiliation hors ligne (téléphone, courrier recommandé, espace client) | ✅ lot 2 étape 1 |

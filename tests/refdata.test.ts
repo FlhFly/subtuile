@@ -91,6 +91,24 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
     }
   });
 
+  it('12 services populaires, mis en avant dans la sélection du formulaire (maquette)', () => {
+    const populaires = CATALOGUE_EMBARQUE.data.filter((s) => s.populaire).map((s) => s.id);
+    expect(populaires).toEqual([
+      'netflix',
+      'prime',
+      'disney',
+      'canal',
+      'youtube',
+      'spotify',
+      'deezer',
+      'claude',
+      'chatgpt',
+      'icloud',
+      'dropbox',
+      'strava',
+    ]);
+  });
+
   it('vie courante française : mode de résiliation pré-renseigné et montant estimé (EF-21b, EF-04b)', () => {
     const attendus: Record<string, [string, boolean]> = {
       edf: ['telephone', true],
@@ -204,6 +222,7 @@ describe('validation des données de référence', () => {
       modeResiliation: 'lien',
       contactResiliation: null,
       montantEstime: false,
+      populaire: false,
     });
   });
 

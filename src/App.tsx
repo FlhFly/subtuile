@@ -5,7 +5,9 @@ import { PreferencesContextProvider } from './ui/contexts/PreferencesContext';
 import { StorageContextProvider } from './ui/contexts/StorageContext';
 import { ToastContextProvider } from './ui/contexts/ToastContext';
 import { useAbonnements } from './ui/hooks/useAbonnements';
+import { useCatalogue } from './ui/hooks/useCatalogue';
 import { Accueil } from './ui/screens/Accueil';
+import { Catalogue } from './ui/screens/Catalogue';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
@@ -16,8 +18,9 @@ type Ecran =
   | { nom: 'accueil' }
   | { nom: 'reglages' }
   | { nom: 'paiements' }
+  | { nom: 'catalogue' }
   | { nom: 'fiche'; id: string }
-  | { nom: 'edition'; id: string | null; retour: Ecran };
+  | { nom: 'edition'; id: string | null; retour: Ecran; serviceId?: string };
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
@@ -39,6 +42,7 @@ export default function App() {
 function Navigation() {
   const [ecran, setEcran] = useState<Ecran>({ nom: 'accueil' });
   const { abonnements } = useAbonnements();
+  const { parId: services } = useCatalogue();
 
   const onglet: Onglet = ecran.nom === 'reglages' ? 'reglages' : 'accueil';
   const avecBarre = ecran.nom === 'accueil' || ecran.nom === 'reglages';
@@ -58,11 +62,22 @@ function Navigation() {
         <Reglages
           onRetour={() => setEcran({ nom: 'accueil' })}
           onOuvrirPaiements={() => setEcran({ nom: 'paiements' })}
+          onOuvrirCatalogue={() => setEcran({ nom: 'catalogue' })}
         />
       );
       break;
     case 'paiements':
       contenu = <MoyensPaiement onRetour={() => setEcran({ nom: 'reglages' })} />;
+      break;
+    case 'catalogue':
+      contenu = (
+        <Catalogue
+          onRetour={() => setEcran({ nom: 'reglages' })}
+          onUtiliser={(s) =>
+            setEcran({ nom: 'edition', id: null, retour: { nom: 'catalogue' }, serviceId: s.id })
+          }
+        />
+      );
       break;
     case 'fiche':
       contenu = (
@@ -80,8 +95,9 @@ function Navigation() {
       contenu =
         ecran.id && !existant ? null : (
           <Edition
-            key={ecran.id ?? 'nouveau'}
+            key={ecran.id ?? `nouveau-${ecran.serviceId ?? ''}`}
             existant={existant}
+            serviceInitial={ecran.serviceId ? services.get(ecran.serviceId) : undefined}
             onFermer={() => setEcran(ecran.retour)}
             onEnregistre={(id) => setEcran({ nom: 'fiche', id })}
           />

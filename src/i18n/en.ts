@@ -370,6 +370,32 @@ export const en: Dictionnaire = {
   'accueil.vide.filtres.titre': 'Nothing to show',
   'accueil.vide.filtres.texte': 'No subscription matches these filters.',
 
+  /* Catalogue (§3.4, §7.8, EF-02, EF-02b) */
+  'catalogue.titre': 'Service catalogue',
+  'catalogue.fraicheur': 'Catalogue v{n} — indicative prices as of {d}',
+  'catalogue.nombre.un': '{n} service',
+  'catalogue.nombre.plusieurs': '{n} services',
+  'catalogue.recherche.ph': 'Search {n} services…',
+  'catalogue.utiliser': 'Use',
+  'catalogue.vide': 'No matching service.',
+  'catalogue.note':
+    'The catalogue pre-fills name, colour, category, address, billing cycle, known price and purchase channel. “Use” opens a pre-filled creation form.',
+  'catalogue.reglages.texte':
+    'Preloaded services, indicative prices and addresses, purchase channel.',
+  'edition.mode.catalogue': 'Catalogue',
+  'edition.mode.libre': 'Free entry',
+  'edition.catalogue.aide':
+    '{n} services in the catalogue — search to see them all. Selecting pre-fills name, colour, address, billing cycle, known price and purchase channel. Switch to free entry for a missing service.',
+  'edition.catalogue.lie': 'Catalogue service',
+  'edition.catalogue.detacher': 'Unlink',
+  'edition.catalogue.changer': 'Change',
+  'edition.formules': 'Plan',
+  'edition.formules.fraicheur': 'indicative prices as of {d}',
+  'edition.direct.note': '{direct} direct vs {store} via {canal} — often cheaper direct.',
+  'edition.suggestion.titre': 'In the catalogue — pre-fill?',
+  'edition.suggestion.preRemplir': 'Pre-fill',
+  'edition.suggestion.ignorer': 'No thanks, keep my entry',
+
   /* Payment methods (§3.3, §7.6) */
   'paiements.titre': 'Payment methods',
   'paiements.nombre.un': '{n} payment method',

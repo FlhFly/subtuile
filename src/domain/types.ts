@@ -280,6 +280,8 @@ export interface Service {
   contactResiliation: string | null;
   /** vie courante : montant variable par défaut (EF-04b) */
   montantEstime: boolean;
+  /** mis en avant dans la sélection du formulaire avant toute recherche (maquette v3) */
+  populaire: boolean;
 }
 
 /** EF-09 : entrée « Mes services », réutilisable comme une entrée du catalogue. */

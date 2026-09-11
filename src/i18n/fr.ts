@@ -378,6 +378,32 @@ export const fr = {
   'accueil.vide.filtres.titre': 'Rien à afficher',
   'accueil.vide.filtres.texte': 'Aucun abonnement ne correspond à ces filtres.',
 
+  /* Catalogue (§3.4, §7.8, EF-02, EF-02b) */
+  'catalogue.titre': 'Catalogue de services',
+  'catalogue.fraicheur': 'Catalogue v{n} — tarifs indicatifs au {d}',
+  'catalogue.nombre.un': '{n} service',
+  'catalogue.nombre.plusieurs': '{n} services',
+  'catalogue.recherche.ph': 'Rechercher parmi {n} services…',
+  'catalogue.utiliser': 'Utiliser',
+  'catalogue.vide': 'Aucun service ne correspond.',
+  'catalogue.note':
+    'Le catalogue pré-remplit nom, couleur, catégorie, adresse, périodicité, tarif connu et canal d’achat. « Utiliser » ouvre la création pré-remplie.',
+  'catalogue.reglages.texte': 'Services préchargés, tarifs et adresses indicatifs, canal d’achat.',
+  'edition.mode.catalogue': 'Catalogue',
+  'edition.mode.libre': 'Saisie libre',
+  'edition.catalogue.aide':
+    '{n} services au catalogue — recherchez pour tout voir. La sélection pré-remplit nom, couleur, adresse, périodicité, tarif connu et canal d’achat. Passez en saisie libre pour un service absent.',
+  'edition.catalogue.lie': 'Service du catalogue',
+  'edition.catalogue.detacher': 'Détacher',
+  'edition.catalogue.changer': 'Changer',
+  'edition.formules': 'Formule',
+  'edition.formules.fraicheur': 'tarifs indicatifs au {d}',
+  'edition.direct.note':
+    '{direct} en direct vs {store} via {canal} — souvent moins cher en direct.',
+  'edition.suggestion.titre': 'Présent au catalogue — pré-remplir ?',
+  'edition.suggestion.preRemplir': 'Pré-remplir',
+  'edition.suggestion.ignorer': 'Non merci, garder ma saisie',
+
   /* Moyens de paiement (§3.3, §7.6) */
   'paiements.titre': 'Moyens de paiement',
   'paiements.nombre.un': '{n} moyen de paiement',

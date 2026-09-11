@@ -189,6 +189,7 @@ export function validerService(v: unknown, chemin = 'service'): Service {
         : parmi(o.modeResiliation, MODES_RESILIATION, `${c}.modeResiliation`),
     contactResiliation: chaineOuNull(o.contactResiliation, `${c}.contactResiliation`),
     montantEstime: booleen(o.montantEstime, `${c}.montantEstime`),
+    populaire: booleen(o.populaire, `${c}.populaire`),
   };
 }
 

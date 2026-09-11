@@ -7,6 +7,50 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 2 — étape 4 : formulaire en mode catalogue, suggestions, écran Catalogue (2026-09-11)
+
+#### Ajouté
+- `src/domain/catalogue.ts` : recherche tolérante sur le nom et l'identifiant, suggestions
+  (EF-02b : jusqu'à 3 services dès 2 caractères), pré-remplissage depuis un service (EF-02 :
+  nom, catégorie, adresse, périodicité et tarif de la formule, canal d'achat — App Store si le
+  service n'existe que là —, mode de résiliation, contact, montant estimé ; les champs libres
+  déjà saisis sont conservés), application d'une formule, détachement du catalogue,
+  comparaison des canaux (« souvent moins cher en direct » quand une formule App Store ou
+  Google Play a un équivalent direct moins cher de même périodicité), regroupement par
+  catégorie dans l'ordre du modèle.
+- Formulaire (§7.3) : sélecteur « Catalogue / Saisie libre » à la création. Mode catalogue :
+  recherche parmi les 79 services et grille de sélection (logo, nom, badge App Store) qui
+  pré-remplit puis bascule sur les champs. Service lié affiché en tête avec « Détacher ».
+  Chips de formules avec la fraîcheur des tarifs et la mention « moins cher en direct » (EF-02).
+  En saisie libre, encart « Présent au catalogue — pré-remplir ? » avec jusqu'à 3 suggestions
+  et « Non merci, garder ma saisie » (EF-02b). L'abonnement enregistre `serviceId` et
+  `formuleId`.
+- Écran `Catalogue` (§7.8) depuis les réglages : fraîcheur « Catalogue v2 — tarifs indicatifs
+  au 24 août 2026 » (§5.6), recherche, services regroupés par catégorie avec adresse ou
+  démarche, « Utiliser » ouvre la création pré-remplie. Section « Catalogue de services » dans
+  les réglages. « Proposer un service » arrive à l'étape 5.
+- i18n fr / en ; tests `catalogue.test.ts` (recherche, suggestions, pré-remplissage direct /
+  App Store / vie courante, formules, détachement, comparaison des canaux, regroupement).
+  192 tests.
+
+#### Modifié
+- Le formulaire porte `serviceId` et `formuleId` ; l'aller-retour formulaire ↔ abonnement
+  les conserve.
+- Modèle `Service` : drapeau `populaire` (maquette v3) — 12 services mis en avant dans la
+  sélection du formulaire tant qu'aucune recherche n'est saisie (« 79 services au catalogue —
+  recherchez pour tout voir »), sans défilement interne. Catalogue v2 complété en conséquence.
+- Sélecteur « Catalogue / Saisie libre » et grille de sélection alignés sur la maquette
+  (retour FlhFly) : deux boutons pleine largeur sur fond sable, tuiles de hauteur identique
+  avec ligne « APP STORE » réservée, champ de recherche sur fond sable.
+- Onglets = origine de l'entrée (retour FlhFly) : après un choix, on reste dans « Catalogue »
+  et la grille laisse place à la carte du service lié avec « Changer » ; passer sur « Saisie
+  libre » détache l'entrée en gardant les valeurs, revenir sur « Catalogue » rouvre la grille ;
+  accepter une suggestion en saisie libre rattache l'entrée et bascule sur « Catalogue ».
+  En modification, pas d'onglets : carte du service avec « Détacher ».
+- Devise : les chips de devise du formulaire de la maquette v4 ne sont pas reprises — le CdC
+  (§2, annexe B du 21/08) maintient la saisie en EUR ; la devise d'affichage viendra dans les
+  réglages avec EF-45 au lot 4.
+
 ### Lot 2 — étape 3 : catalogue complet (2026-09-11)
 
 #### Ajouté
