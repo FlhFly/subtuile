@@ -1,7 +1,7 @@
 # Contribuer
 
-Merci de votre intérêt ! Le projet est en construction (lots 1 à 4,
-voir docs/CdC.md). Les issues et PR sont bienvenues, sans garantie
+Merci de votre intérêt ! Le projet est en construction (lots 1 à 5,
+voir ROADMAP.md et docs/CdC.md). Les issues et PR sont bienvenues, sans garantie
 de réponse ou d'intégration.
 
 ## Règles
