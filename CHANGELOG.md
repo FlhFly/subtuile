@@ -7,6 +7,37 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis le tag `lot-2`.
+
+## [0.2.0] — 2026-09-11 — tag `lot-2` — Paiement & désabonnement
+
+Lot 2 du CdC §6 : entité MoyenPaiement et écran dédié, catalogue de 79 services avec
+formules et tarifs indicatifs, création depuis le catalogue et suggestions en saisie libre,
+« Proposer un service », deep links des stores et de PayPal, bouton « Gérer / Résilier »
+routé selon le canal d'achat avec démarches hors ligne et proposition « résilié — actif
+jusqu'au ». Critère de validation « chaque tuile affiche son moyen de paiement ; "Résilier"
+ouvre la bonne page selon le canal » rejoué par un test de recette et vérifié à l'écran par
+FlhFly avant le tag.
+
+### Lot 2 — étape 6 : revue finale et recette (2026-09-11)
+
+#### Ajouté
+- `tests/lot2.recette.test.ts` : rejoue le critère du CdC §6 hors navigateur — trois moyens
+  de paiement saisis via leur formulaire (CB avec 4 derniers chiffres et expiration, PayPal,
+  SEPA), neuf abonnements créés depuis le catalogue (Netflix direct, ChatGPT sur la formule
+  App Store avec tarif direct moins cher, iCloud App Store seulement, Spotify via PayPal, EDF
+  par téléphone, MAIF par courrier recommandé, Canal+ espace client), depuis un service
+  proposé et en saisie libre Google Play ; pastille du moyen de paiement sur chaque tuile,
+  usage par moyen, badge du canal, action du bouton « Gérer / Résilier » par canal (deep
+  link du service ou du store) et par mode hors ligne, jeu d'étapes, statut proposé après
+  résiliation, suppression du service proposé sans effet sur l'abonnement. 206 tests.
+
+#### Modifié
+- Version 0.2.0 ; README (statut lot 2 livré, fonctionnalités réelles) ; ROADMAP (lot 2 ✅).
+- Audit des règles d'architecture : Dexie isolé dans `src/data/storage/`, aucune requête
+  réseau dans `src/`, libellés fr / en à parité (test i18n), dates locales, aucune chaîne en
+  dur dans les composants.
+
 ### Périmètre — devise de saisie par abonnement (2026-09-11)
 
 #### Modifié

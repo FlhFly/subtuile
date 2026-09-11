@@ -9,12 +9,17 @@ hors ligne, zéro tracking : vos données ne quittent jamais votre appareil.
 - 📊 Vue financière, prévisionnel 12 mois
 - 🌐 FR / EN — PWA installable
 
-**Statut : en développement — lot 1/4 « Socle » livré (v0.1.0), lot 2 à venir.**
+**Statut : en développement — lot 2/4 « Paiement & désabonnement » livré (v0.2.0), lot 3 à venir.**
 
-Disponible aujourd'hui : accueil en tuiles avec compteur J-X et codes couleur, fiche
-détail, création et édition en saisie libre (toutes périodicités dont 28 jours, à vie,
-à l'usage, essai, engagement, partage, vie courante), tri, filtres, recherche, annulation
-par toast, thème clair / sombre / système, interface FR / EN, jeu de démonstration.
+Disponible aujourd'hui : accueil en tuiles avec compteur J-X, codes couleur et pastille du
+moyen de paiement, fiche détail, création et édition en saisie libre ou depuis le catalogue
+(79 services avec formules et tarifs indicatifs, « moins cher en direct », suggestions en
+saisie libre, « Proposer un service »), moyens de paiement (expiration de carte signalée),
+bouton « Gérer / Résilier » routé selon le canal (App Store, Google Play, direct) avec les
+démarches hors ligne (téléphone, courrier recommandé, espace client) et la proposition
+« résilié — actif jusqu'au », toutes périodicités dont 28 jours, à vie, à l'usage, essai,
+engagement, partage, vie courante, tri, filtres, recherche, annulation par toast, thème
+clair / sombre / système, interface FR / EN, jeu de démonstration.
 
 ## Documentation
 - [Cahier des charges](docs/CdC.md) — fait foi sur le périmètre
