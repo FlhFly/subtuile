@@ -87,18 +87,30 @@ Déroulé en 6 étapes (un commit validé par étape) :
 
 ## Lot 3 — Cas particuliers & alertes
 
+Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 2026-09-11 :
+
+| # | Étape | Statut |
+|---|---|---|
+| 1 | Moteur d'alertes (domaine) : échéance J-X, fin d'essai, préavis, expiration de carte M-1, régularisation, hausse annoncée ; état lu / non lu persisté | ✅ 2026-09-11 |
+| 2 | Centre d'alertes : badge sur l'accueil, liste, « tout marquer comme lu » ; défauts d'alerte dans les réglages | ⬜ |
+| 3 | Cycle de vie et statuts : essai → payant, prix futur appliqué, résilié → archivé à l'échéance, archivés hors totaux, pause / reprise, duplication | ⬜ |
+| 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ⬜ |
+| 5 | Écran Échéancier et son entrée dans la barre de navigation | ⬜ |
+| 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ⬜ |
+| 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ⬜ |
+
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
 | EF-04 [M] | Essais gratuits : « essai jusqu'au X, puis Y € » | ⬜ |
-| EF-04b [S] | Alerte de régularisation annuelle | ⬜ |
+| EF-04b [S] | Alerte de régularisation annuelle | 🔄 lot 3 étape 1 (alerte calculée, fenêtre 30 j) ; affichage à l'étape 2 |
 | EF-05 [M] | Engagement / préavis : date limite de résiliation | ⬜ |
 | EF-06 [M] | Statuts actif / en pause / résilié-actif-jusqu'au / archivé | ⬜ |
 | EF-07 [S] | Duplication d'un abonnement | ⬜ |
 | EF-08 [S] | Historique des prix, saisie d'une hausse à date | ⬜ |
-| EF-08b [S] | Prix futur programmé (alerte, application automatique) | ⬜ |
+| EF-08b [S] | Prix futur programmé (alerte, application automatique) | 🔄 lot 3 étape 1 (alerte « hausse annoncée ») ; application automatique à l'étape 3 |
 | EF-16 [S] | Écran Échéancier (liste chronologique) | ⬜ |
-| EF-30 [M] | Alertes paramétrables J-X, fin d'essai, préavis, expiration de carte ; défauts globaux | ⬜ |
-| EF-31 [M] | Centre d'alertes in-app : badge, liste, « tout marquer comme lu » | ⬜ |
+| EF-30 [M] | Alertes paramétrables J-X, fin d'essai, préavis, expiration de carte ; défauts globaux | 🔄 lot 3 étape 1 (moteur et seuils, défauts déjà persistés) ; réglage des défauts à l'étape 2 |
+| EF-31 [M] | Centre d'alertes in-app : badge, liste, « tout marquer comme lu » | 🔄 lot 3 étape 1 (état lu / non lu, clés persistées) ; écran et badge à l'étape 2 |
 | EF-32 [S] | Export ICS d'un rappel | ⬜ |
 
 ## Lot 4 — Finances & données

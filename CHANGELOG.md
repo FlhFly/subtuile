@@ -7,7 +7,30 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis le tag `lot-2`.
+### Lot 3 — étape 1 : moteur d'alertes (2026-09-11)
+
+#### Ajouté
+- `src/domain/alertes.ts` (EF-30, EF-04, EF-04b, EF-05, EF-08b) : alertes dérivées des
+  données à chaque ouverture de l'app (PWA sans push, §5.4) — renouvellement dans ≤ J-X
+  (seuil propre à l'abonnement, sinon défaut global J-3 ; rouge ≤ 3 jours, orange au-delà),
+  fin d'essai (J-2, violet ; remplace l'alerte de renouvellement pendant l'essai), date limite
+  de préavis (J-14, violet, aussi en pause), carte expirant (M-1 ou déjà expirée, seulement si
+  un abonnement non archivé l'utilise), régularisation annuelle et hausse annoncée (fenêtre
+  de 30 jours, orange, avec ancien / nouveau prix et variation en %). Aucune alerte pour un
+  abonnement archivé ou résilié. Clé stable par événement (`type:cible:date`), tri par
+  proximité puis gravité puis nom.
+- État « lu » (EF-31) : application des clés lues, compteur de non lues, « tout marquer
+  comme lu », rétention de 90 jours des clés ; `src/data/alertesLues.ts` persiste les clés en
+  localStorage comme les préférences (§3.5), lecture tolérante. Une échéance qui bouge produit
+  une nouvelle clé, donc une alerte de nouveau non lue.
+- Tests `alertes.test.ts` : chaque type et ses seuils, priorité du seuil propre, statuts
+  exclus, cartes (utilisée, expirée, inutilisée, supprimée, défaut en mois), fenêtres
+  d'annonce, tri, état lu et rétention, jeu de démo à sa date de référence (Strava J-2,
+  préavis Basic-Fit J-10, régularisation EDF J-27, CB perso M-1 ; fin d'essai Disney+ trois
+  jours plus tard). 220 tests.
+
+#### Modifié
+- ROADMAP : découpage du lot 3 en 7 étapes.
 
 ## [0.2.0] — 2026-09-11 — tag `lot-2` — Paiement & désabonnement
 
