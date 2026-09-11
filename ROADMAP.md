@@ -111,6 +111,7 @@ Déroulé en 6 étapes (un commit validé par étape) :
 | EF-43 [S] | Historique des dépenses passées (12 mois ; 24 mois au lot 5) | ⬜ |
 | EF-44 [S] | Prise en compte de partPayee | ⬜ |
 | EF-45 [S] | Devise d'affichage à taux indicatifs (EUR / USD / GBP / CHF) | ⬜ |
+| EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ⬜ |
 | EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ⬜ |
 | EF-52 [S] | Import CSV simple | ⬜ |
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
@@ -139,7 +140,7 @@ Déroulé en 6 étapes (un commit validé par étape) :
 | §5.6 | Catalogue et taux chargés à distance (lecture seule, fallback embarqué) ; synchronisation multi-appareils |
 | C1 | Rappel de sauvegarde / export automatique périodique |
 | C3 | Détection de doublons à la création manuelle |
-| C7 | Onboarding au premier lancement |
+| C7 | Onboarding au premier lancement (dont choix de la devise par défaut, EF-45b) |
 | C8 | Verrouillage de l'app (code / WebAuthn) |
 | C9 | Rapport annuel exportable |
 | C10 | Pictos de marques (dépendance npm) + upload de logo personnel |

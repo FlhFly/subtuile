@@ -7,6 +7,16 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Périmètre — devise de saisie par abonnement (2026-09-11)
+
+#### Modifié
+- CdC v1.16 : nouvelle exigence **EF-45b** — chaque abonnement pourra porter sa propre devise
+  de saisie (EUR / USD / GBP / CHF, par exemple un service facturé en dollars) ; la devise
+  proposée par défaut à la création devient un réglage (Réglages, puis onboarding C7 s'il est
+  livré). EF-45 (devise d'affichage à taux indicatifs) convertit les totaux. Livraison prévue
+  au lot 4 avec EF-45 ; l'annexe B « saisie maintenue en EUR » est révisée. ROADMAP : ligne
+  EF-45b au lot 4. Aucun changement de code.
+
 ### Lot 2 — étape 5 : « Proposer un service », groupe « Mes services » (2026-09-11)
 
 #### Ajouté

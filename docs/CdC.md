@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.15 — 25/08/2026 (nom de l'app acté : Subtuile)
+**Version :** 1.16 — 11/09/2026 (devise de saisie par abonnement, EF-45b)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -33,7 +33,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | Liens et deep links de désabonnement | Import automatique (emails, relevés bancaires) |
 | Alertes d'échéance (voir contrainte §5.4) | Multi-utilisateur / partage de comptes |
 | Vue financière complète | Détection automatique de hausses de prix |
-| Export / import JSON | Multi-devise de **saisie** (V1 : saisie en EUR ; devise d'affichage indicative : EF-45) |
+| Export / import JSON | Taux de change en ligne — la devise par abonnement (EF-45b) et la devise d'affichage (EF-45) n'utilisent que des taux indicatifs figés |
 | Thème clair / sombre / système | Suivi de consommation (kWh, m³) — relève d'une app dédiée |
 | Contrats de la vie courante : énergie, eau, télécom, assurances (montant estimé, régularisation) *(v1.9)* | Agrégation bancaire automatique par API — payante et incompatible « zéro tracking » |
 
@@ -57,7 +57,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | prixFutur | objet nullable *(v1.9)* | { date, montant } — hausse annoncée : alerte à l'approche, application automatique à la date, versement dans historiquePrix |
 | modeResiliation | enum *(v1.9)* | lien (défaut), telephone, courrier_recommande, espace_client — avec contact associé ; adapte le bouton « Gérer / Résilier » (EF-21b) |
 | referenceClient | string optionnel *(v1.9)* | n° client / n° de contrat, affiché en évidence sur la fiche |
-| devise | string | EUR — seule devise gérée en V1 (décision maquette v2) |
+| devise | enum *(v1.16)* | devise de saisie de l'abonnement : EUR, USD, GBP ou CHF (EF-45b) ; la devise proposée par défaut à la création est un réglage. Jusqu'au lot 4 : EUR |
 | dateDebut | date | |
 | prochaineEcheance | date | calculée, modifiable manuellement |
 | essai | objet nullable | { dateFin, prixApres } |
@@ -173,7 +173,8 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*.
 - **EF-44 [S]** — Prise en compte de partPayee pour les abonnements partagés.
 - **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel. *(issu de la maquette v6 — lot 4)*
-- **EF-45 [S]** — Devise d'affichage (EUR/USD/GBP/CHF) : conversion des montants à des **taux figés explicitement étiquetés « indicatifs »** (aucun appel réseau). Les taux sont un **jeu de données de référence** au contrat du §5.6 *(v1.12)* : fichier versionné avec date `publieLe` (affichage « taux indicatifs au JJ/MM/AAAA »), embarqué en V1, remplaçable à distance sans release. La **saisie reste en EUR**. *(issu de la maquette v4, confirmé le 21/08)*
+- **EF-45 [S]** — Devise d'affichage (EUR/USD/GBP/CHF) : conversion des montants à des **taux figés explicitement étiquetés « indicatifs »** (aucun appel réseau). Les taux sont un **jeu de données de référence** au contrat du §5.6 *(v1.12)* : fichier versionné avec date `publieLe` (affichage « taux indicatifs au JJ/MM/AAAA »), embarqué en V1, remplaçable à distance sans release. La saisie se fait dans la devise de chaque abonnement (EF-45b), EUR par défaut. *(issu de la maquette v4, confirmé le 21/08 ; saisie multi-devise décidée le 11/09, v1.16)*
+- **EF-45b [S]** — Devise de saisie par abonnement : chaque abonnement porte sa devise (EUR / USD / GBP / CHF), par exemple un service facturé en dollars ; la devise proposée par défaut à la création est un réglage (Réglages ; onboarding C7 s'il est livré). Les totaux et la vue financière convertissent vers la devise d'affichage aux taux indicatifs d'EF-45 ; un montant saisi dans une autre devise que celle d'affichage est signalé comme converti. Livré au lot 4 avec EF-45. *(v1.16, décision du 11/09/2026)*
 
 ### 4.6 Données
 
@@ -306,7 +307,7 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 4. **Échéancier** — liste chronologique des prochaines échéances.
 5. **Finances** — totaux, répartitions, prévisionnel.
 6. **Moyens de paiement** — liste, ajout, édition, alerte expiration.
-7. **Réglages** — devise (V1 : EUR), défauts d'alerte, thème d'apparence, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
+7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
 8. **Catalogue** — consultation des services préchargés + « Proposer un service », accessible depuis les réglages. *(issu de la maquette v2)*
 9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don). *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
 
@@ -366,6 +367,7 @@ Environ 55 services répartis en 11 catégories. Pour les services souscrits via
 | Licence | **AGPL-3.0 actée** ; clause de re-licenciement dans le CONTRIBUTING.md pour préserver un passage MIT futur | 24/08/2026 |
 | Maquette de référence | **v6 Claude Design — référence finale** : écarts v1.9-v1.12 couverts, backlog C4/C5/C6/C11/C13 maquetté et promu en lot 5 « Pilotage » (EF-70→73) ; principe « aucune fonctionnalité factice » (push/widget masqués en V1) | 24/08/2026 |
 | Nom de l'app | **Subtuile** — sub(scription) + tuile ; « Subtile » écarté après vérification (collision avec subtile.app, catégorie adjacente) ; choix « pour le moment », révisable jusqu'à la mise en ligne. Le logo et le nom sont des actifs de marque **hors licence AGPL** | 25/08/2026 |
+| Devise de saisie | Par abonnement (EUR / USD / GBP / CHF, EF-45b) avec devise par défaut réglable (Réglages, onboarding C7) ; révise « saisie maintenue en EUR » ; livraison au lot 4 avec EF-45 | 11/09/2026 |
 
 ---
 
