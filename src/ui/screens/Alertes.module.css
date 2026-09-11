@@ -1,0 +1,155 @@
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.toutLu {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  padding: 8px 4px;
+}
+
+.toutLu:hover {
+  color: var(--ink);
+}
+
+.liste {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* Composant LigneAlerte (maquette) */
+.ligne,
+.ligneLue {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  padding: 13px 14px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--card);
+  color: var(--ink);
+  text-align: left;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.ligneLue {
+  opacity: 0.6;
+}
+
+.ligne:hover,
+.ligneLue:hover {
+  background: var(--sand);
+}
+
+.pastille {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  min-width: 42px;
+  height: 30px;
+  padding: 0 8px;
+  border-radius: 10px;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  white-space: nowrap;
+}
+
+.niveauUrg {
+  background: var(--urg-bg);
+  color: var(--urg);
+}
+
+.niveauWarn {
+  background: var(--warn-bg);
+  color: var(--warn);
+}
+
+.niveauTrial {
+  background: var(--trial-bg);
+  color: var(--trial);
+}
+
+.textes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-width: 0;
+  flex: 1;
+}
+
+.titre {
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  line-height: 1.25;
+}
+
+.sous {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.35;
+}
+
+.chevron {
+  display: flex;
+  flex: none;
+  color: var(--muted);
+}
+
+/* État vide « tout est calme » */
+.vide {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  padding: 36px 24px;
+  border: 2px dashed var(--dash);
+  border-radius: var(--r-xl);
+  text-align: center;
+}
+
+.videIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 26px;
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.videTitre {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+}
+
+.videTexte {
+  max-width: 240px;
+  font-size: var(--fs-md);
+  color: var(--muted);
+}
+
+.note {
+  padding: 0 12px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  text-align: center;
+}
+
+.ligne:focus-visible,
+.ligneLue:focus-visible,
+.toutLu:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

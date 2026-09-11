@@ -1,6 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
-import { LANGUES, THEMES, type Langue, type Theme } from '../../domain/types';
+import { LANGUES, THEMES, type DefautsAlerte, type Langue, type Theme } from '../../domain/types';
 import { EnTete } from '../components/EnTete';
 import { Icone, type NomIcone } from '../components/Icone';
 import { Segmente } from '../components/Segmente';
@@ -20,10 +20,16 @@ interface Props {
 const VERSION_APP = __APP_VERSION__;
 const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 
+/** Choix proposés pour les défauts d'alerte (EF-30), en jours puis en mois. */
+const CHOIX_ECHEANCE = [1, 2, 3, 7, 14] as const;
+const CHOIX_ESSAI = [1, 2, 3, 7] as const;
+const CHOIX_PREAVIS = [7, 14, 30] as const;
+const CHOIX_CARTE = [1, 2, 3] as const;
+
 /**
- * Réglages — version minimale du lot 1 (§7.7) : apparence (EF-17), langue
- * (EF-17b), jeu de démo (§5.5), confidentialité, à propos. Défauts d'alerte,
- * export / import et catalogue arrivent aux lots 3 et 4.
+ * Réglages (§7.7) : apparence (EF-17), défauts d'alerte (EF-30), langue
+ * (EF-17b), moyens de paiement, catalogue, jeu de démo (§5.5),
+ * confidentialité, à propos. Export / import arrivent au lot 4.
  */
 export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Props) {
   const { t, tn, date, changerLangue, langue } = useI18n();
@@ -46,6 +52,10 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
 
   const optionsTheme = THEMES.map((th) => ({ valeur: th, libelle: t(`theme.${th}`) }));
   const optionsLangue = LANGUES.map((l) => ({ valeur: l, libelle: t(`langue.${l}`) }));
+  const modifierAlertes = (partiel: Partial<DefautsAlerte>) =>
+    modifier({ alertes: { ...preferences.alertes, ...partiel } });
+  const jours = (n: number) => t('reglages.alertes.jours', { n });
+  const mois = (n: number) => t('reglages.alertes.mois', { n });
 
   return (
     <div className={styles.ecran}>
@@ -63,6 +73,46 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
             onChange={(theme) => modifier({ theme })}
           />
         </Ligne>
+      </Section>
+
+      <Section icone="cloche" titre={t('reglages.alertes')}>
+        <Ligne libelle={t('reglages.alertes.renouvellement')}>
+          <Selecteur
+            libelle={t('reglages.alertes.renouvellement')}
+            choix={CHOIX_ECHEANCE}
+            valeur={preferences.alertes.echeanceJours}
+            format={jours}
+            onChange={(echeanceJours) => modifierAlertes({ echeanceJours })}
+          />
+        </Ligne>
+        <Ligne libelle={t('reglages.alertes.essai')}>
+          <Selecteur
+            libelle={t('reglages.alertes.essai')}
+            choix={CHOIX_ESSAI}
+            valeur={preferences.alertes.essaiJours}
+            format={jours}
+            onChange={(essaiJours) => modifierAlertes({ essaiJours })}
+          />
+        </Ligne>
+        <Ligne libelle={t('reglages.alertes.preavis')}>
+          <Selecteur
+            libelle={t('reglages.alertes.preavis')}
+            choix={CHOIX_PREAVIS}
+            valeur={preferences.alertes.preavisJours}
+            format={jours}
+            onChange={(preavisJours) => modifierAlertes({ preavisJours })}
+          />
+        </Ligne>
+        <Ligne libelle={t('reglages.alertes.carte')}>
+          <Selecteur
+            libelle={t('reglages.alertes.carte')}
+            choix={CHOIX_CARTE}
+            valeur={preferences.alertes.carteMois}
+            format={mois}
+            onChange={(carteMois) => modifierAlertes({ carteMois })}
+          />
+        </Ligne>
+        <p className={styles.blocTexte}>{t('reglages.alertes.note')}</p>
       </Section>
 
       <Section icone="ecran" titre={t('reglages.general')}>
@@ -163,5 +213,36 @@ function Ligne({ libelle, children }: { libelle: string; children: ReactNode }) 
       <span className={styles.ligneLibelle}>{libelle}</span>
       {children}
     </div>
+  );
+}
+
+/** Sélecteur d'un entier parmi des choix fixes ; une valeur hors liste reste proposée. */
+function Selecteur({
+  libelle,
+  choix,
+  valeur,
+  format,
+  onChange,
+}: {
+  libelle: string;
+  choix: readonly number[];
+  valeur: number;
+  format: (n: number) => string;
+  onChange: (n: number) => void;
+}) {
+  const options = choix.includes(valeur) ? choix : [...choix, valeur].sort((a, b) => a - b);
+  return (
+    <select
+      className={styles.select}
+      aria-label={libelle}
+      value={valeur}
+      onChange={(e) => onChange(Number(e.target.value))}
+    >
+      {options.map((n) => (
+        <option key={n} value={n}>
+          {format(n)}
+        </option>
+      ))}
+    </select>
   );
 }

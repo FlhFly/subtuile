@@ -87,6 +87,8 @@ export interface AlerteCarte extends AlerteBase {
   libelle: string;
   /** « YYYY-MM » */
   expiration: string;
+  /** mois civils entre aujourd'hui et le mois d'expiration (M-1 = le mois prochain, ≤ 0 = ce mois ou passé) */
+  moisRestants: number;
   expiree: boolean;
   /** abonnements non archivés réglés avec ce moyen */
   nbAbonnements: number;
@@ -272,6 +274,9 @@ function alertesCartes(
     ).length;
     if (nbAbonnements === 0) continue;
     const date = dernierJourDuMois(m.dateExpiration);
+    const moisRestants =
+      (Number(m.dateExpiration.slice(0, 4)) - Number(jour.slice(0, 4))) * 12 +
+      (Number(m.dateExpiration.slice(5, 7)) - Number(jour.slice(5, 7)));
     alertes.push({
       type: 'carte',
       cle: cleAlerte('carte', m.id, date),
@@ -282,6 +287,7 @@ function alertesCartes(
       moyenPaiementId: m.id,
       libelle: m.libelle,
       expiration: m.dateExpiration,
+      moisRestants,
       expiree: etat === 'expiree',
       nbAbonnements,
     });

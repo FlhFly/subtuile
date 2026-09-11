@@ -12,7 +12,9 @@ import {
 import { modeleTuile } from '../../domain/tuile';
 import type { Categorie } from '../../domain/types';
 import { BarreTriFiltres } from '../components/BarreTriFiltres';
+import { Icone } from '../components/Icone';
 import { Tuile } from '../components/Tuile';
+import { useAlertes } from '../contexts/AlertesContext';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useAbonnements } from '../hooks/useAbonnements';
@@ -25,6 +27,8 @@ interface Props {
   onOuvrirAbonnement: (id: string) => void;
   /** création (EF-01) */
   onAjouter: () => void;
+  /** centre d'alertes (EF-31) */
+  onOuvrirAlertes: () => void;
 }
 
 type Filtres = Omit<CriteresAccueil, 'tri'>;
@@ -37,17 +41,19 @@ const FILTRES_DEFAUT: Filtres = {
 };
 
 /**
- * Accueil (§7.1) : total mensuel normalisé en tête, barre de tri / filtres /
- * recherche (EF-12, EF-15), bascule grille / liste (EF-12b), tuiles avec
- * compteur et code couleur (EF-10, EF-11). Le tri est persisté dans les
- * préférences ; les filtres et la recherche valent pour la session.
+ * Accueil (§7.1) : total mensuel normalisé en tête, cloche du centre
+ * d'alertes avec badge (EF-31), barre de tri / filtres / recherche (EF-12,
+ * EF-15), bascule grille / liste (EF-12b), tuiles avec compteur et code
+ * couleur (EF-10, EF-11). Le tri est persisté dans les préférences ; les
+ * filtres et la recherche valent pour la session.
  */
-export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
+export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Props) {
   const { t, tn, montant } = useI18n();
   const { preferences, modifier } = usePreferences();
   const { abonnements, chargement } = useAbonnements();
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
+  const { nonLues } = useAlertes();
   const [filtres, setFiltres] = useState<Filtres>(FILTRES_DEFAUT);
   const jour = aujourdhui();
 
@@ -131,6 +137,19 @@ export function Accueil({ onOuvrirAbonnement, onAjouter }: Props) {
               : t('accueil.parAn', { montant: marquer(totalAnnuel) })}
           </span>
         </div>
+        <button
+          type="button"
+          className={styles.cloche}
+          onClick={onOuvrirAlertes}
+          aria-label={nonLues > 0 ? tn('alertes.nonLues', nonLues) : t('alertes.titre')}
+        >
+          <Icone nom="cloche" />
+          {nonLues > 0 ? (
+            <span className={styles.badge} aria-hidden="true">
+              {nonLues}
+            </span>
+          ) : null}
+        </button>
       </header>
 
       <BarreTriFiltres

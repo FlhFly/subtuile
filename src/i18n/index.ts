@@ -34,7 +34,10 @@ export type ClePluriel =
   | 'duree.an'
   | 'duree.mois'
   | 'paiements.nombre'
-  | 'catalogue.nombre';
+  | 'catalogue.nombre'
+  | 'alertes.nonLues'
+  | 'alertes.echeance.titre'
+  | 'alertes.carte.sous';
 
 /** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
 export function libelleDuree(
@@ -88,9 +91,10 @@ export function formaterMontant(langue: Langue, montant: number, devise = 'EUR')
   return f.format(montant);
 }
 
-export type StyleDate = 'court' | 'moyen' | 'long';
+export type StyleDate = 'court' | 'moyen' | 'long' | 'mois';
 
 const OPTIONS_DATE: Record<StyleDate, Intl.DateTimeFormatOptions> = {
+  mois: { month: 'long', year: 'numeric' },
   court: { day: '2-digit', month: '2-digit', year: 'numeric' },
   moyen: { day: 'numeric', month: 'short', year: 'numeric' },
   long: { day: 'numeric', month: 'long', year: 'numeric' },

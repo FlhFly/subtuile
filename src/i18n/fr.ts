@@ -460,6 +460,50 @@ export const fr = {
   'erreur.dateAvantDebut': 'Doit être postérieure à la date de début',
   'erreur.partSuperieure': 'La part ne peut pas dépasser le prix total',
   'erreur.url': 'Adresse invalide',
+
+  /* Centre d'alertes (EF-30, EF-31) */
+  'alertes.titre': 'Alertes',
+  'alertes.nonLues.un': '{n} alerte non lue',
+  'alertes.nonLues.plusieurs': '{n} alertes non lues',
+  'alertes.toutLu': 'Tout marquer lu',
+  'alertes.toutLu.fait': 'Alertes marquées comme lues',
+  'alertes.vide.titre': 'Aucune alerte',
+  'alertes.vide.texte':
+    'Tout est calme : pas d’échéance imminente, d’essai qui se termine ni de carte à renouveler.',
+  'alertes.note':
+    'Les alertes sont vérifiées à chaque ouverture de l’app (PWA sans push). Défauts réglables : renouvellement J-{e}, essai J-{s}, préavis J-{p}, carte M-{c}.',
+  'alertes.echeance.titre.un': '{nom} se renouvelle dans {n} jour',
+  'alertes.echeance.titre.plusieurs': '{nom} se renouvelle dans {n} jours',
+  'alertes.echeance.aujourdhui': '{nom} se renouvelle aujourd’hui',
+  'alertes.echeance.depasse': '{nom} : renouvellement du {date} dépassé',
+  'alertes.echeance.sous': '{montant} le {date}',
+  'alertes.essai.titre': 'Fin d’essai {nom} le {date}',
+  'alertes.essai.sous': 'Puis {montant} {periodicite} — décider avant la fin de l’essai',
+  'alertes.preavis.titre': 'Préavis {nom} avant le {date}',
+  'alertes.preavis.sous': 'Dernier jour pour résilier sans reconduction (préavis {n} j)',
+  'alertes.carte.pastille': 'M-{n}',
+  'alertes.carte.pastille.expiree': 'Exp.',
+  'alertes.carte.titre': '{libelle} expire en {mois}',
+  'alertes.carte.titre.expiree': '{libelle} a expiré ({mois})',
+  'alertes.carte.sous.un': '{n} abonnement utilise cette carte — mettre à jour',
+  'alertes.carte.sous.plusieurs': '{n} abonnements utilisent cette carte — mettre à jour',
+  'alertes.regularisation.titre': 'Régularisation annuelle {nom} le {date}',
+  'alertes.regularisation.sous': 'Mensualités lissées {montant} — le solde réel peut différer',
+  'alertes.prixFutur.pastille': '{n} %',
+  'alertes.prixFutur.titre': 'Hausse annoncée {nom} au {date}',
+  'alertes.prixFutur.titre.baisse': 'Baisse annoncée {nom} au {date}',
+  'alertes.prixFutur.sous': '{avant} → {apres} — appliquée automatiquement à cette date',
+
+  /* Réglages — défauts d'alerte (EF-30) */
+  'reglages.alertes': 'Alertes par défaut',
+  'reglages.alertes.renouvellement': 'Renouvellement',
+  'reglages.alertes.essai': 'Fin d’essai gratuit',
+  'reglages.alertes.preavis': 'Date limite de préavis',
+  'reglages.alertes.carte': 'Expiration de carte',
+  'reglages.alertes.jours': 'J-{n}',
+  'reglages.alertes.mois': 'M-{n}',
+  'reglages.alertes.note':
+    'Alertes affichées à l’ouverture de l’app, sans notification push (contrainte PWA). Chaque abonnement peut fixer son propre délai.',
 } as const;
 
 export type CleTraduction = keyof typeof fr;

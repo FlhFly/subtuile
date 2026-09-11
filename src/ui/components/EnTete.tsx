@@ -15,10 +15,12 @@ interface Props {
   retour?: Action;
   /** boutons à droite */
   actions?: Action[];
+  /** contenu libre à droite (lien texte, compteur…) */
+  complement?: ReactNode;
 }
 
 /** En-tête d'écran : titre, sous-titre optionnel, actions iconographiques. */
-export function EnTete({ titre, sousTitre, retour, actions = [] }: Props) {
+export function EnTete({ titre, sousTitre, retour, actions = [], complement }: Props) {
   return (
     <header className={styles.entete}>
       {retour ? (
@@ -36,6 +38,7 @@ export function EnTete({ titre, sousTitre, retour, actions = [] }: Props) {
         {sousTitre ? <p className={styles.sousTitre}>{sousTitre}</p> : null}
       </div>
       <div className={styles.actions}>
+        {complement}
         {actions.map((a) => (
           <button
             key={a.libelle}

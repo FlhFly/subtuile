@@ -125,3 +125,45 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Cloche du centre d'alertes (EF-31), en haut à droite comme dans la maquette */
+.cloche {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border: 2px solid var(--line);
+  border-radius: 22px;
+  background: transparent;
+  color: var(--ink);
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.cloche:hover {
+  background: var(--sand);
+}
+
+.cloche:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.badge {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 19px;
+  height: 19px;
+  padding: 0 4px;
+  border-radius: 10px;
+  background: var(--urg);
+  color: #fff;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}

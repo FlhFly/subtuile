@@ -7,6 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — étape 2 : centre d'alertes et défauts d'alerte (2026-09-11)
+
+#### Ajouté
+- Écran **Alertes** (EF-31, §5.4) : liste des alertes du jour (pastille colorée J-X / M-1 /
+  +11 %, titre, sous-titre, chevron), ouverture de la fiche concernée ou des moyens de
+  paiement pour une carte, « Tout marquer lu » avec toast, alertes lues estompées, état vide
+  « Tout est calme », rappel du fonctionnement sans push avec les défauts en vigueur.
+- Accueil : cloche en haut à droite (emplacement réservé depuis le lot 1) avec badge du nombre
+  d'alertes non lues.
+- Réglages : section « Alertes par défaut » (EF-30) — renouvellement (J-1 / 2 / 3 / 7 / 14),
+  fin d'essai (J-1 / 2 / 3 / 7), date limite de préavis (J-7 / 14 / 30), expiration de carte
+  (M-1 / 2 / 3), persistés dans les préférences et appliqués immédiatement aux alertes.
+- `AlertesContext` : alertes recalculées à chaque changement d'abonnement, de moyen de
+  paiement ou de défaut ; état lu chargé au démarrage et persisté au marquage.
+  `libellesAlertes.ts` : libellés fr / en testés (`alertesLibelles.test.ts`). Style de date
+  « mois » (« octobre 2026 »). Icônes cloche et chevron droit ; `EnTete` accepte un complément
+  à droite. Domaine : `moisRestants` sur l'alerte carte. 224 tests.
+
+#### Modifié
+- L'écran Moyens de paiement revient vers l'écran d'origine (réglages ou alertes).
+
 ### Lot 3 — étape 1 : moteur d'alertes (2026-09-11)
 
 #### Ajouté

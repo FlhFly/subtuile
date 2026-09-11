@@ -1,30 +1,34 @@
 import { useState } from 'react';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
+import { AlertesContextProvider } from './ui/contexts/AlertesContext';
 import { PreferencesContextProvider } from './ui/contexts/PreferencesContext';
 import { StorageContextProvider } from './ui/contexts/StorageContext';
 import { ToastContextProvider } from './ui/contexts/ToastContext';
 import { useAbonnements } from './ui/hooks/useAbonnements';
 import { useCatalogue } from './ui/hooks/useCatalogue';
 import { Accueil } from './ui/screens/Accueil';
+import { Alertes } from './ui/screens/Alertes';
 import { Catalogue } from './ui/screens/Catalogue';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
 import { Reglages } from './ui/screens/Reglages';
 
-/** Écrans du lot 1 ; navigation par état, sans routeur. */
+/** Écrans livrés ; navigation par état, sans routeur. */
 type Ecran =
   | { nom: 'accueil' }
   | { nom: 'reglages' }
-  | { nom: 'paiements' }
+  | { nom: 'alertes' }
+  | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
   | { nom: 'fiche'; id: string }
   | { nom: 'edition'; id: string | null; retour: Ecran; serviceId?: string };
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
- * (§3.5) et les toasts (EF-19), puis affiche l'écran courant.
+ * (§3.5), les toasts (EF-19) et les alertes (EF-31), puis affiche l'écran
+ * courant.
  */
 export default function App() {
   const [storage] = useState(() => creerStorageParDefaut());
@@ -32,7 +36,9 @@ export default function App() {
     <StorageContextProvider storage={storage}>
       <PreferencesContextProvider>
         <ToastContextProvider>
-          <Navigation />
+          <AlertesContextProvider>
+            <Navigation />
+          </AlertesContextProvider>
         </ToastContextProvider>
       </PreferencesContextProvider>
     </StorageContextProvider>
@@ -54,6 +60,21 @@ function Navigation() {
         <Accueil
           onOuvrirAbonnement={(id) => setEcran({ nom: 'fiche', id })}
           onAjouter={() => setEcran({ nom: 'edition', id: null, retour: { nom: 'accueil' } })}
+          onOuvrirAlertes={() => setEcran({ nom: 'alertes' })}
+        />
+      );
+      break;
+    case 'alertes':
+      contenu = (
+        <Alertes
+          onRetour={() => setEcran({ nom: 'accueil' })}
+          onOuvrir={(a) =>
+            setEcran(
+              a.type === 'carte'
+                ? { nom: 'paiements', retour: { nom: 'alertes' } }
+                : { nom: 'fiche', id: a.abonnementId },
+            )
+          }
         />
       );
       break;
@@ -66,9 +87,11 @@ function Navigation() {
         />
       );
       break;
-    case 'paiements':
-      contenu = <MoyensPaiement onRetour={() => setEcran({ nom: 'reglages' })} />;
+    case 'paiements': {
+      const retour = ecran.retour ?? { nom: 'reglages' as const };
+      contenu = <MoyensPaiement onRetour={() => setEcran(retour)} />;
       break;
+    }
     case 'catalogue':
       contenu = (
         <Catalogue

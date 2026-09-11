@@ -168,6 +168,7 @@ describe('moteur d’alertes — carte expirant (EF-30, M-1)', () => {
       moyenPaiementId: cb.id,
       libelle: 'CB',
       expiration: '2026-10',
+      moisRestants: 1,
       expiree: false,
       nbAbonnements: 1,
       cle: cleAlerte('carte', cb.id, '2026-10-31'),
