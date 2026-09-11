@@ -382,6 +382,22 @@ export const en: Dictionnaire = {
     'The catalogue pre-fills name, colour, category, address, billing cycle, known price and purchase channel. “Use” opens a pre-filled creation form.',
   'catalogue.reglages.texte':
     'Preloaded services, indicative prices and addresses, purchase channel.',
+  'catalogue.mesServices': 'My services',
+  'catalogue.mesServices.texte': 'Added by you, usable like catalogue entries.',
+  'catalogue.proposer': 'Propose a service to the catalogue',
+  'catalogue.proposer.titre': 'Propose a service',
+  'catalogue.proposer.nom': 'Service name',
+  'catalogue.proposer.nom.ph': 'e.g. My gym',
+  'catalogue.proposer.categorie': 'Category',
+  'catalogue.proposer.url': 'Management / cancellation address (optional)',
+  'catalogue.proposer.url.ph': 'https://…',
+  'catalogue.proposer.note':
+    'Colour and initials are generated automatically. The entry joins the local catalogue (“My services” group) and becomes available when creating a subscription.',
+  'catalogue.proposer.ajouter': 'Add to the catalogue',
+  'catalogue.supprimer': 'Delete',
+  'toast.serviceAjoute': 'Service added to the catalogue',
+  'toast.serviceSupprime': 'Service removed from the catalogue',
+  'erreur.existe': 'This service already exists in the catalogue',
   'edition.mode.catalogue': 'Catalogue',
   'edition.mode.libre': 'Free entry',
   'edition.catalogue.aide':

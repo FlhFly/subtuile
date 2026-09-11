@@ -6,14 +6,17 @@
 
 import type { EtatFormulaire } from './formulaire';
 import { presetDepuisPeriodicite } from './formulaire';
+import { estServicePersonnalise } from './servicePersonnalise';
 import { normaliserTexte } from './tri';
 import {
   CATEGORIES,
   type CanalAchat,
+  type Catalogue,
   type Categorie,
   type Formule,
   type Periodicite,
   type Service,
+  type ServicePersonnalise,
 } from './types';
 
 /** Recherche tolérante (accents, casse) sur le nom et l'identifiant. */
@@ -151,4 +154,31 @@ export function grouperParCategorie(services: readonly Service[]): GroupeCatalog
     categorie,
     services: services.filter((s) => s.categorie === categorie),
   })).filter((g) => g.services.length > 0);
+}
+
+/**
+ * Catalogue vu par l'app (EF-09) : les services proposés par l'utilisateur
+ * (« Mes services », vivants) précèdent le catalogue embarqué ; version et
+ * fraîcheur restent celles du jeu de référence.
+ */
+export function fusionnerCatalogue(
+  embarque: Catalogue,
+  personnalises: readonly ServicePersonnalise[],
+): Catalogue {
+  const vivants = personnalises.filter((s) => s.deletedAt === null);
+  if (vivants.length === 0) return embarque;
+  return { ...embarque, data: [...vivants, ...embarque.data] };
+}
+
+export interface GroupesCatalogue {
+  /** entrées proposées par l'utilisateur, en tête (maquette) */
+  mesServices: Service[];
+  parCategorie: GroupeCatalogue[];
+}
+
+/** Regroupement pour l'écran Catalogue : « Mes services » puis les catégories. */
+export function grouperAvecMesServices(services: readonly Service[]): GroupesCatalogue {
+  const mesServices = services.filter((s) => estServicePersonnalise(s));
+  const embarques = services.filter((s) => !estServicePersonnalise(s));
+  return { mesServices, parCategorie: grouperParCategorie(embarques) };
 }

@@ -7,6 +7,31 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 2 — étape 5 : « Proposer un service », groupe « Mes services » (2026-09-11)
+
+#### Ajouté
+- `src/domain/servicePersonnalise.ts` (EF-09) : formulaire « Proposer un service » (nom,
+  catégorie, adresse de gestion optionnelle), validation (nom requis, nom déjà présent au
+  catalogue, adresse), création de l'entité `ServicePersonnalise` : id préfixé `perso-` (jamais
+  en collision avec les ids stables du catalogue), initiales et couleur générées (palette de 10
+  fonds, choix déterministe à partir du nom), périodicité mensuelle connue, résiliation par
+  lien, mise en avant dans la sélection du formulaire.
+- `src/domain/catalogue.ts` : `fusionnerCatalogue` (« Mes services » vivants en tête du jeu
+  embarqué, version et fraîcheur inchangées) et `grouperAvecMesServices` (groupe « Mes
+  services » puis les catégories).
+- `src/data/services/servicesPersonnalises.ts` : enregistrement, suppression logique et
+  restauration via le StorageProvider.
+- Hook `useCatalogue` : catalogue fusionné avec « Mes services » lus dans IndexedDB et
+  rechargés à chaque écriture. Le formulaire (mode catalogue, suggestions en saisie libre) et
+  la fiche les voient comme n'importe quelle entrée du catalogue (EF-02 / EF-02b).
+- Écran Catalogue (§7.8) : bouton « Proposer un service au catalogue » ouvrant le formulaire
+  en place (aperçu logo / couleur pendant la saisie, chips de catégorie, adresse), groupe
+  « Mes services » en tête avec « Utiliser » et suppression annulable par toast (EF-01b). Un
+  abonnement lié à un service supprimé garde ses propres couleur et initiales.
+- i18n fr / en ; tests `servicePersonnalise.test.ts` (couleur déterministe, validation,
+  création, fusion avec tombstones exclus, sélection et pré-remplissage, regroupement).
+  199 tests.
+
 ### Lot 2 — étape 4 : formulaire en mode catalogue, suggestions, écran Catalogue (2026-09-11)
 
 #### Ajouté

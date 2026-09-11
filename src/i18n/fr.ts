@@ -389,6 +389,22 @@ export const fr = {
   'catalogue.note':
     'Le catalogue pré-remplit nom, couleur, catégorie, adresse, périodicité, tarif connu et canal d’achat. « Utiliser » ouvre la création pré-remplie.',
   'catalogue.reglages.texte': 'Services préchargés, tarifs et adresses indicatifs, canal d’achat.',
+  'catalogue.mesServices': 'Mes services',
+  'catalogue.mesServices.texte': 'Ajoutés par vous, utilisables comme les entrées du catalogue.',
+  'catalogue.proposer': 'Proposer un service au catalogue',
+  'catalogue.proposer.titre': 'Proposer un service',
+  'catalogue.proposer.nom': 'Nom du service',
+  'catalogue.proposer.nom.ph': 'ex. Ma salle de sport',
+  'catalogue.proposer.categorie': 'Catégorie',
+  'catalogue.proposer.url': 'Adresse de gestion / résiliation (optionnel)',
+  'catalogue.proposer.url.ph': 'https://…',
+  'catalogue.proposer.note':
+    'Couleur et initiales générées automatiquement. L’entrée rejoint le catalogue local (groupe « Mes services ») et devient utilisable à la création.',
+  'catalogue.proposer.ajouter': 'Ajouter au catalogue',
+  'catalogue.supprimer': 'Supprimer',
+  'toast.serviceAjoute': 'Service ajouté au catalogue',
+  'toast.serviceSupprime': 'Service retiré du catalogue',
+  'erreur.existe': 'Ce service existe déjà au catalogue',
   'edition.mode.catalogue': 'Catalogue',
   'edition.mode.libre': 'Saisie libre',
   'edition.catalogue.aide':
