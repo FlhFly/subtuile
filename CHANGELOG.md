@@ -7,6 +7,28 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 2 — étape 3 : catalogue complet (2026-09-11)
+
+#### Ajouté
+- `src/data/refdata/catalogue.json` v2 (tarifs indicatifs au 24/08/2026) : 79 services repris
+  du catalogue de la maquette v6 qui fait référence (annexe A) — 74 services en 11 familles
+  de la v3 plus les 5 contrats « Maison » de la v6 — soit 10 catégories du modèle (streaming 13,
+  vie courante 14, sport 9, IA 8, musique 7, productivité 7, cloud 6, gaming 6, presse 5,
+  sécurité 4). Les 12 services curés au lot 1 (formules multiples, deep links, contacts) sont
+  conservés à l'identique ; les autres portent une périodicité connue, une formule quand un
+  tarif indicatif existe (24 formules à ids stables `service_mensuel` / `service_annuel`) et
+  une adresse de gestion absolue.
+- Services App Store seulement (Apple TV+, Apple Music, Apple Fitness+, Apple Arcade,
+  iCloud+, Duolingo Super, Petit BamBou) : deep link vers les abonnements App Store, aucune
+  adresse de gestion.
+- Vie courante française (EF-21b, EF-04b) : EDF et Engie par téléphone, TotalEnergies et Veolia
+  Eau par espace client, MAIF par courrier recommandé avec l'adresse postale ; montant estimé
+  pour l'énergie et l'eau. Les services dont la maquette indique une démarche « site →
+  rubrique » (L'Équipe, Mediapart, PlayStation Plus, Fnac+, Uber One…) sont en mode espace
+  client avec la démarche en contact, et l'adresse du site quand elle existe.
+- Tests : catalogue complet (effectif par catégorie, ids attendus), services App Store, vie
+  courante, adresses absolues.
+
 ### Lot 2 — étape 2 : écran Moyens de paiement (2026-09-10)
 
 #### Ajouté

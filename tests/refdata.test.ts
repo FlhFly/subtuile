@@ -19,10 +19,12 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
     expect(Array.isArray(CATALOGUE_EMBARQUE.data)).toBe(true);
   });
 
-  it('contient les 12 services minimaux du lot 1', () => {
-    expect(CATALOGUE_EMBARQUE.data).toHaveLength(12);
+  it('contient le catalogue complet de la maquette v6 (annexe A) : 79 services, 10 catégories', () => {
+    expect(CATALOGUE_EMBARQUE.version).toBe(2);
+    expect(CATALOGUE_EMBARQUE.data).toHaveLength(79);
     const ids = CATALOGUE_EMBARQUE.data.map((s) => s.id);
-    for (const attendu of [
+    const attendus = [
+      // lot 1
       'strava',
       'netflix',
       'prime',
@@ -35,8 +37,82 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
       'icloud',
       'edf',
       'engie',
+      // annexe A
+      'hbomax',
+      'appletv',
+      'youtube',
+      'dazn',
+      'deezer',
+      'audible',
+      'gemini',
+      'mistral',
+      'googleone',
+      'ms365',
+      'adobe',
+      'onepass',
+      'basicfit',
+      'zwift',
+      'lemonde',
+      'mediapart',
+      'psplus',
+      'gamepass',
+      'nordvpn',
+      'proton',
+      // vie courante
+      'uberone',
+      'babbel',
+      'totalenergies',
+      'veolia',
+      'maif',
+    ];
+    for (const attendu of attendus) expect(ids, attendu).toContain(attendu);
+    const parCategorie = new Map<string, number>();
+    for (const s of CATALOGUE_EMBARQUE.data) {
+      parCategorie.set(s.categorie, (parCategorie.get(s.categorie) ?? 0) + 1);
+    }
+    expect(parCategorie.size).toBe(10);
+    expect(parCategorie.get('vie_courante')).toBe(14);
+    expect(parCategorie.get('streaming')).toBe(13);
+  });
+
+  it('services App Store seulement : deep link, pas d’adresse de gestion (EF-21)', () => {
+    for (const id of [
+      'appletv',
+      'applemusic',
+      'applefit',
+      'arcade',
+      'duolingo',
+      'petitbambou',
+      'icloud',
     ]) {
-      expect(ids).toContain(attendu);
+      const s = trouverService(CATALOGUE_EMBARQUE, id)!;
+      expect(s.urlGestion, id).toBeNull();
+      expect(s.deepLinks.app_store, id).toBe('itms-apps://apps.apple.com/account/subscriptions');
+    }
+  });
+
+  it('vie courante française : mode de résiliation pré-renseigné et montant estimé (EF-21b, EF-04b)', () => {
+    const attendus: Record<string, [string, boolean]> = {
+      edf: ['telephone', true],
+      engie: ['telephone', true],
+      totalenergies: ['espace_client', true],
+      veolia: ['espace_client', true],
+      maif: ['courrier_recommande', false],
+    };
+    for (const [id, [mode, estime]] of Object.entries(attendus)) {
+      const s = trouverService(CATALOGUE_EMBARQUE, id)!;
+      expect(s.modeResiliation, id).toBe(mode);
+      expect(s.montantEstime, id).toBe(estime);
+      expect(s.contactResiliation, id).not.toBeNull();
+    }
+    // les services « → rubrique » sans page de résiliation directe passent par l'espace client
+    expect(trouverService(CATALOGUE_EMBARQUE, 'lequipe')?.modeResiliation).toBe('espace_client');
+    expect(trouverService(CATALOGUE_EMBARQUE, 'lequipe')?.urlGestion).toBe('https://lequipe.fr');
+  });
+
+  it('adresses de gestion absolues (https) quand elles existent', () => {
+    for (const s of CATALOGUE_EMBARQUE.data) {
+      if (s.urlGestion !== null) expect(s.urlGestion, s.id).toMatch(/^https:\/\//);
     }
   });
 
