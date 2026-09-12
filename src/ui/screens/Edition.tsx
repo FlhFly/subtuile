@@ -41,7 +41,7 @@ import {
   type Service,
   type UnitePeriode,
 } from '../../domain/types';
-import { DEVISES, type Devise } from '../../domain/types';
+import { DEVISES } from '../../domain/types';
 import { SYMBOLES } from '../../domain/devises';
 import type { CleTraduction } from '../../i18n';
 import { useConversion } from '../hooks/useConversion';
@@ -126,7 +126,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const toast = useToast();
   const moyensPaiement = useMoyensPaiement();
   const { catalogue, parId: services } = useCatalogue();
-  const { devise: deviseDefaut } = useConversion();
+  const { devise: deviseDefaut, taux } = useConversion();
   const jour = aujourdhui();
 
   /** état d'ouverture, référence de la garde contre la perte de saisie */
@@ -154,7 +154,6 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
   const optionsRenseignees = compterOptionsAvancees(etat);
   const symbole = SYMBOLES[etat.devise];
-  const optionsDevise = DEVISES.map((d) => ({ valeur: d, libelle: `${SYMBOLES[d]} ${d}` }));
   const modifications = differencesFormulaire(etatInitial, etat);
   const modifie = modifications.length > 0;
   /** Retour : sans modification on quitte, sinon la garde demande quoi faire de la saisie. */
@@ -478,9 +477,21 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           ) : null}
 
           {!usage ? (
-            <div className={styles.prixDevise}>
-              <Champ libelle={t('edition.prix', { d: symbole })} erreur={erreur('prix')}>
-                {(a) => (
+            <Champ
+              libelle={t('edition.prix', { d: symbole })}
+              erreur={erreur('prix')}
+              aide={
+                etat.devise !== deviseDefaut
+                  ? t('edition.devise.note', {
+                      de: etat.devise,
+                      vers: deviseDefaut,
+                      d: date(taux.publieLe, 'long'),
+                    })
+                  : undefined
+              }
+            >
+              {(a) => (
+                <div className={styles.prixLigne}>
                   <input
                     {...a}
                     type="text"
@@ -489,18 +500,28 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                     onChange={(e) => maj('prix', e.target.value)}
                     placeholder={t('edition.prix.ph')}
                   />
-                )}
-              </Champ>
-              <div className={styles.deviseChoix}>
-                <span className={styles.deviseLibelle}>{t('edition.devise')}</span>
-                <Chips<Devise>
-                  nom={t('edition.devise')}
-                  options={optionsDevise}
-                  valeur={etat.devise}
-                  onChange={(v) => maj('devise', v)}
-                />
-              </div>
-            </div>
+                  <div
+                    className={styles.deviseChips}
+                    role="radiogroup"
+                    aria-label={t('edition.devise')}
+                  >
+                    {DEVISES.map((d) => (
+                      <button
+                        key={d}
+                        type="button"
+                        role="radio"
+                        aria-checked={etat.devise === d}
+                        aria-label={t(`devise.${d}`)}
+                        className={etat.devise === d ? styles.deviseChipActive : styles.deviseChip}
+                        onClick={() => maj('devise', d)}
+                      >
+                        {SYMBOLES[d]}
+                      </button>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </Champ>
           ) : null}
 
           {service && optionsFormules.length > 0 ? (

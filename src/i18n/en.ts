@@ -474,6 +474,8 @@ export const en: Dictionnaire = {
 
   /* Currencies (EF-45, EF-45b) */
   'edition.devise': 'Currency',
+  'edition.devise.note':
+    'Entered in {de} — converted to {vers} in the totals (indicative rates as of {d}).',
   'devise.EUR': 'Euro',
   'devise.USD': 'US dollar',
   'devise.GBP': 'Pound sterling',

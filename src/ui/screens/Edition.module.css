@@ -518,21 +518,44 @@
   text-align: center;
 }
 
-/* Prix et devise de saisie (EF-45b) côte à côte */
-.prixDevise {
+/* Prix et devise de saisie (EF-45b) : champ + puces de devise sur la même ligne (maquette) */
+.prixLigne {
   display: flex;
-  flex-direction: column;
-  gap: 8px;
+  align-items: center;
+  gap: 7px;
 }
 
-.deviseChoix {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
+.prixLigne :global(input) {
+  flex: 1;
+  min-width: 0;
 }
 
-.deviseLibelle {
-  font-size: var(--fs-sm);
-  font-weight: var(--fw-semibold);
+.deviseChips {
+  display: flex;
+  flex: none;
+  gap: 5px;
+}
+
+.deviseChip,
+.deviseChipActive {
+  height: 44px;
+  min-width: 38px;
+  padding: 0 8px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: transparent;
   color: var(--muted);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.deviseChipActive {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.deviseChip:focus-visible,
+.deviseChipActive:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
 }

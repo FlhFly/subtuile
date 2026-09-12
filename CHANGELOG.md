@@ -10,10 +10,12 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 ### Lot 4 — étape 3 : devises — taux indicatifs, devise d'affichage, devise par abonnement (2026-09-12)
 
 #### Ajouté
-- Devise par abonnement (EF-45b) : chips « € EUR · $ USD · £ GBP · CHF » à côté du prix dans
-  le formulaire, proposée depuis le réglage « Devise » ; les tarifs du catalogue restent en
-  euros (repassage automatique en EUR quand une formule est appliquée). Les libellés de prix
-  du formulaire affichent le symbole choisi. La devise suit l'abonnement sur la tuile, la
+- Devise par abonnement (EF-45b) : puces « € · $ · £ · CHF » sur la même ligne que le champ
+  prix, comme dans la maquette (retour FlhFly), devise proposée depuis le réglage « Devise »,
+  note « Saisi en USD — converti en EUR dans les totaux (taux indicatifs au …) » quand la
+  devise diffère ; les tarifs du catalogue restent en euros (repassage automatique en EUR
+  quand une formule est appliquée). Les libellés de prix du formulaire affichent le symbole
+  choisi. La devise suit l'abonnement sur la tuile, la
   fiche (prix, part, historique, changement de prix), les alertes, l'échéancier et les
   rappels .ics.
 - Devise d'affichage (EF-45) : réglage « Devise » dans Réglages › Général (dépliant avec

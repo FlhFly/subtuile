@@ -484,6 +484,8 @@ export const fr = {
 
   /* Devises (EF-45, EF-45b) */
   'edition.devise': 'Devise',
+  'edition.devise.note':
+    'Saisi en {de} — converti en {vers} dans les totaux (taux indicatifs au {d}).',
   'devise.EUR': 'Euro',
   'devise.USD': 'Dollar américain',
   'devise.GBP': 'Livre sterling',
