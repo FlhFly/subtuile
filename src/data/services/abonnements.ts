@@ -5,6 +5,7 @@
 
 import { calculerProchaineEcheance } from '../../domain/dates';
 import { actualiserAbonnement } from '../../domain/fabriques';
+import { appliquerOrdre } from '../../domain/ordre';
 import type { Abonnement, DateISO, Statut } from '../../domain/types';
 import type { StorageProvider } from '../storage/StorageProvider';
 
@@ -51,6 +52,25 @@ export async function chargerAbonnementsAJour(
   const liste = await storage.abonnements.lister();
   const aJour = liste.map((a) => actualiserAbonnement(a, jour));
   const modifies = aJour.filter((a, i) => a !== liste[i]);
+  if (modifies.length === 0) return aJour;
+  const enregistres = await storage.abonnements.enregistrerPlusieurs(modifies);
+  const parId = new Map(enregistres.map((a) => [a.id, a]));
+  return aJour.map((a) => parId.get(a.id) ?? a);
+}
+
+/**
+ * EF-14 : inscrit l'ordre personnalisé des tuiles visibles (`ids`, dans
+ * l'ordre voulu) et persiste les seuls abonnements dont la position change.
+ * Renvoie la liste complète mise à jour, dans l'ordre reçu.
+ */
+export async function enregistrerOrdre(
+  storage: StorageProvider,
+  abonnements: readonly Abonnement[],
+  ids: readonly string[],
+  jour: DateISO,
+): Promise<Abonnement[]> {
+  const aJour = appliquerOrdre(abonnements, ids, jour);
+  const modifies = aJour.filter((a, i) => a !== abonnements[i]);
   if (modifies.length === 0) return aJour;
   const enregistres = await storage.abonnements.enregistrerPlusieurs(modifies);
   const parId = new Map(enregistres.map((a) => [a.id, a]));

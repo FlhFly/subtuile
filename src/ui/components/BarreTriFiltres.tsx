@@ -8,20 +8,12 @@ import {
   type CriteresAccueil,
   type FiltreStatut,
 } from '../../domain/tri';
-import {
-  CATEGORIES,
-  type Categorie,
-  type MoyenPaiement,
-  type TriAccueil,
-} from '../../domain/types';
+import { CATEGORIES, TRIS_ACCUEIL, type Categorie, type MoyenPaiement } from '../../domain/types';
 import { useI18n } from '../contexts/I18nContext';
 import { BasculeAffichage } from './BasculeAffichage';
 import { Icone } from './Icone';
 import type { ModeAffichage } from '../../domain/types';
 import styles from './BarreTriFiltres.module.css';
-
-/** Tris proposés en V1 ; « ordre personnalisé » arrive avec le drag & drop (EF-14, lot 4). */
-const TRIS_V1: readonly TriAccueil[] = ['echeance', 'prix', 'nom', 'categorie'];
 
 type Panneau = 'tri' | 'statut' | 'categorie' | 'paiement' | 'tag';
 
@@ -73,12 +65,16 @@ export function BarreTriFiltres({
   const options: Record<Panneau, { titre: string; options: Option[]; vide?: string }> = {
     tri: {
       titre: t('filtre.tri.titre'),
-      options: TRIS_V1.map((tri) => ({
+      options: TRIS_ACCUEIL.map((tri) => ({
         cle: tri,
         libelle: t(`tri.${tri}`),
-        sous: t(`tri.desc.${tri as Exclude<TriAccueil, 'personnalise'>}`),
+        sous: t(`tri.desc.${tri}`),
         actif: criteres.tri === tri,
-        choisir: () => choisir({ tri }),
+        choisir: () => {
+          /* « ordre personnalisé » ouvre le mode réorganisation : la recherche se referme (EF-14) */
+          if (tri === 'personnalise') setRechercheOuverte(false);
+          choisir({ tri });
+        },
       })),
     },
     statut: {

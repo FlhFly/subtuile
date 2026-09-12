@@ -9,14 +9,17 @@ interface Props {
   modele: ModeleTuile;
   mode: ModeAffichage;
   onOuvrir: (id: string) => void;
+  /** EF-14 : mode réorganisation, la tuile se déplace au lieu de s'ouvrir */
+  reorganisation?: boolean;
 }
 
 /**
  * Tuile d'abonnement (EF-10, EF-11) en mode grille ou ligne (EF-12b) :
  * logo en initiales, nom, badge « partagé », badge canal, sous-titre prix,
- * pastille du moyen de paiement, chip compteur coloré.
+ * pastille du moyen de paiement, chip compteur coloré. En mode réorganisation
+ * (EF-14), la tuile tremble et se laisse glisser au lieu de s'ouvrir.
  */
-export function Tuile({ modele, mode, onOuvrir }: Props) {
+export function Tuile({ modele, mode, onOuvrir, reorganisation = false }: Props) {
   const i18n = useI18n();
   const { t } = i18n;
   const grille = mode === 'grille';
@@ -25,6 +28,7 @@ export function Tuile({ modele, mode, onOuvrir }: Props) {
     styles[modele.variante],
     modele.essai ? styles.essai : '',
     modele.archive ? styles.archive : '',
+    reorganisation ? styles.reorg : '',
   ]
     .filter(Boolean)
     .join(' ');
@@ -61,8 +65,10 @@ export function Tuile({ modele, mode, onOuvrir }: Props) {
       type="button"
       className={classes}
       style={style}
-      onClick={() => onOuvrir(modele.id)}
-      aria-label={t('accueil.ouvrir', { nom: modele.nom })}
+      onClick={reorganisation ? undefined : () => onOuvrir(modele.id)}
+      aria-label={t(reorganisation ? 'accueil.reorg.deplacer' : 'accueil.ouvrir', {
+        nom: modele.nom,
+      })}
     >
       {grille ? (
         <>

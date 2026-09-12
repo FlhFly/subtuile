@@ -247,3 +247,39 @@
 .coloree .chip_neutre {
   color: #7d7568;
 }
+
+/* Mode réorganisation (EF-14) : tremblement de la maquette, déplacement au doigt ou à la souris */
+.reorg {
+  cursor: grab;
+  touch-action: none;
+  user-select: none;
+  -webkit-user-select: none;
+  animation: tremble 0.3s ease-in-out infinite;
+}
+
+.reorg:hover {
+  transform: none;
+  box-shadow: none;
+}
+
+.reorg:active {
+  cursor: grabbing;
+}
+
+@keyframes tremble {
+  0% {
+    transform: rotate(-0.7deg);
+  }
+  50% {
+    transform: rotate(0.7deg);
+  }
+  100% {
+    transform: rotate(-0.7deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reorg {
+    animation: none;
+  }
+}

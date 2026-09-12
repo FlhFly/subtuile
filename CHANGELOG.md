@@ -7,6 +7,26 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 5 : réorganisation des tuiles, tri « ordre personnalisé » (2026-09-12)
+
+#### Ajouté
+- Tri « Ordre personnalisé » (EF-14) : le choisir ouvre le mode réorganisation de la maquette :
+  bandeau « Glissez les tuiles pour les réordonner » avec bouton « Terminé », tuiles qui
+  tremblent, filtres et recherche remis à zéro pour voir toute la liste. Les tuiles se déplacent
+  au doigt ou à la souris (événements pointeur, en grille comme en liste) et au clavier (flèches
+  sur une tuile ayant le focus). Chaque déplacement est enregistré aussitôt ; « Terminé »
+  confirme par un toast. Le tremblement est coupé si le système demande moins de mouvement.
+- Au premier passage en « Ordre personnalisé », l'ordre de départ est celui affiché à cet
+  instant (par exemple le tri par prix) ; ensuite chaque abonnement garde sa position, un
+  abonnement jamais classé se place en fin de liste. Réorganiser une liste filtrée ne déplace
+  pas les tuiles masquées.
+
+#### Modifié
+- Panneau « Trier par » complet : cinq options avec leur description, dont « Votre ordre —
+  glissez pour réorganiser ».
+- Domaine `ordre.ts` (déplacer, ordonner selon une suite d'identifiants, inscrire les
+  positions) et service `enregistrerOrdre`, qui n'écrit que les positions qui changent.
+
 ### Lot 4 — correctif : la devise du réglage reste sélectionnée avec le catalogue (2026-09-12)
 
 #### Corrigé

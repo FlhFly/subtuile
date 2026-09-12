@@ -46,7 +46,7 @@ Déroulé en 8 étapes (un commit validé par étape) :
 | EF-02 [M] | Création en saisie libre : périodicités complètes, canal d'achat, champs vie courante | ✅ étape 6 (mode catalogue au lot 2) |
 | EF-10 [M] | Accueil en grille de tuiles : nom, logo (initiales), prix + périodicité, compteur J-X, pastille paiement, badge canal | ✅ étape 5 |
 | EF-11 [M] | Codes couleur d'urgence du compteur (vert / orange / rouge / violet) | ✅ étapes 2 et 5 |
-| EF-12 [M] | Tri (échéance, prix, nom, catégorie) et filtres (catégorie, statut, moyen de paiement, tags) | ✅ étape 7 (« ordre personnalisé » avec EF-14 au lot 4) |
+| EF-12 [M] | Tri (échéance, prix, nom, catégorie) et filtres (catégorie, statut, moyen de paiement, tags) | ✅ étape 7 (« ordre personnalisé » livré avec EF-14, lot 4 étape 5) |
 | EF-12b [S] | Mode grille / liste persisté | ✅ étape 5 |
 | EF-13 [M] | Fiche détail : toutes les infos + actions (modifier, statut, archiver, supprimer) | ✅ étape 6 (routage « Résilier » par canal au lot 2) |
 | EF-15 [S] | Recherche textuelle globale (écart bilan v1, ciblé lot 1) | ✅ étape 7 |
@@ -124,7 +124,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | 2 | Écran Finances (écran 5 de la maquette) et onglet Finances dans la barre | ✅ 2026-09-12 |
 | 3 | Devises : taux indicatifs, devise d'affichage (EF-45), devise par abonnement et devise par défaut (EF-45b) | ✅ 2026-09-12 |
 | 4 | Export / import JSON (fusion, remplacement, écran d'import), import CSV, rangées Réglages › Données | ✅ 2026-09-12 |
-| 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ⬜ |
+| 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ✅ 2026-09-12 |
 | 6 | PWA : manifest, icônes, service worker hors ligne, installation ; écran À propos et rangées restantes des réglages | ⬜ |
 | 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ⬜ |
 | 8 | Revue contre le critère CdC §6, recette, version 1.0.0, README finalisé, tag `lot-4`, mise en ligne | ⬜ |
@@ -140,7 +140,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ✅ lot 4 étape 3 (chips à côté du prix, défaut = réglage « Devise » ; repris à l'onboarding à l'étape 7) |
 | EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ✅ lot 4 étape 4 (écran d'import de la maquette, lecture tolérante, confirmation du remplacement) |
 | EF-52 [S] | Import CSV simple | ✅ lot 4 étape 4 (séparateur et en-tête détectés, aperçu, lignes ignorées expliquées) |
-| EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
+| EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ✅ lot 4 étape 5 (mode réorganisation de la maquette : glisser au doigt ou à la souris, flèches du clavier ; ordre persisté) |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ⬜ |
 | §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | 🔄 Automatisation (lot 3 étape 6) et « Effacer toutes les données » (lot 4, 2026-09-12, avancé sur demande) livrés ; export/import et À propos à l'étape 6 |
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; à reprendre dans l'onboarding C7 |

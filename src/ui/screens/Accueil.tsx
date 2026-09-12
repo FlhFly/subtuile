@@ -1,6 +1,8 @@
-import { useMemo, useState } from 'react';
+import { useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { enregistrerOrdre } from '../../data/services/abonnements';
 import { aujourdhui } from '../../domain/dates';
 import { totaux } from '../../domain/finances';
+import { appliquerOrdre, deplacer, ordonnerSelon } from '../../domain/ordre';
 import {
   appliquerCriteres,
   compterParStatut,
@@ -8,6 +10,7 @@ import {
   filtresActifs,
   nonArchives,
   tagsDisponibles,
+  trierAbonnements,
   type CriteresAccueil,
 } from '../../domain/tri';
 import { modeleTuile } from '../../domain/tuile';
@@ -18,6 +21,8 @@ import { Tuile } from '../components/Tuile';
 import { useAlertes } from '../contexts/AlertesContext';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
+import { useStorage } from '../contexts/StorageContext';
+import { useToast } from '../contexts/ToastContext';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useConversion } from '../hooks/useConversion';
@@ -42,12 +47,28 @@ const FILTRES_DEFAUT: Filtres = {
   recherche: CRITERES_DEFAUT.recherche,
 };
 
+/** Déplacement au clavier (EF-14) : gauche / droite d'une case, haut / bas d'une rangée. */
+const PAS_CLAVIER: Record<string, (colonnes: number) => number> = {
+  ArrowLeft: () => -1,
+  ArrowRight: () => 1,
+  ArrowUp: (colonnes) => -colonnes,
+  ArrowDown: (colonnes) => colonnes,
+};
+
+/** Indice de la tuile sous un point de l'écran (attribut `data-index` du `<li>`). */
+function indexSous(x: number, y: number): number | null {
+  const el = document.elementFromPoint(x, y)?.closest<HTMLElement>('[data-index]');
+  const index = el?.dataset.index;
+  return index === undefined ? null : Number(index);
+}
+
 /**
  * Accueil (§7.1) : total mensuel normalisé en tête, cloche du centre
  * d'alertes avec badge (EF-31), barre de tri / filtres / recherche (EF-12,
  * EF-15), bascule grille / liste (EF-12b), tuiles avec compteur et code
- * couleur (EF-10, EF-11). Le tri est persisté dans les préférences ; les
- * filtres et la recherche valent pour la session.
+ * couleur (EF-10, EF-11), mode réorganisation des tuiles (EF-14). Le tri est
+ * persisté dans les préférences ; les filtres et la recherche valent pour la
+ * session.
  */
 export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Props) {
   const { t, tn, montant } = useI18n();
@@ -57,21 +78,102 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
   const { nonLues } = useAlertes();
+  const storage = useStorage();
+  const toast = useToast();
   const [filtres, setFiltres] = useState<Filtres>(FILTRES_DEFAUT);
+  /** EF-14 : mode réorganisation ; null = inactif, sinon l'ordre courant des tuiles visibles */
+  const [reorg, setReorg] = useState<string[] | null>(null);
+  const [enDeplacement, setEnDeplacement] = useState<string | null>(null);
+  const glisse = useRef<string | null>(null);
   const jour = aujourdhui();
 
   const tri = preferences.tri;
   const criteres = useMemo<CriteresAccueil>(() => ({ ...filtres, tri }), [filtres, tri]);
-  const changerCriteres = (partiel: Partial<CriteresAccueil>) => {
-    const { tri: nouveauTri, ...reste } = partiel;
-    if (nouveauTri !== undefined) modifier({ tri: nouveauTri });
-    if (Object.keys(reste).length > 0) setFiltres((f) => ({ ...f, ...reste }));
-  };
 
   const visibles = useMemo(
     () => appliquerCriteres(abonnements, criteres, jour),
     [abonnements, criteres, jour],
   );
+
+  /**
+   * Choisir « Ordre personnalisé » ouvre le mode réorganisation (maquette) :
+   * filtres et recherche remis à zéro pour voir toute la liste. Au premier
+   * passage, l'ordre de départ est celui affiché à cet instant.
+   */
+  const entrerReorganisation = () => {
+    const idsAffiches = visibles.map((a) => a.id);
+    const premiereFois = abonnements.every((a) => a.ordre === null);
+    const depart = premiereFois ? appliquerOrdre(abonnements, idsAffiches, jour) : abonnements;
+    if (premiereFois) void enregistrerOrdre(storage, abonnements, idsAffiches, jour);
+    modifier({ tri: 'personnalise' });
+    setFiltres(FILTRES_DEFAUT);
+    setReorg(trierAbonnements(nonArchives(depart), 'personnalise', jour).map((a) => a.id));
+  };
+
+  const changerCriteres = (partiel: Partial<CriteresAccueil>) => {
+    const { tri: nouveauTri, ...reste } = partiel;
+    if (nouveauTri === 'personnalise' && Object.keys(reste).length === 0) {
+      entrerReorganisation();
+      return;
+    }
+    if (nouveauTri !== undefined) {
+      modifier({ tri: nouveauTri });
+      if (nouveauTri !== 'personnalise') setReorg(null);
+    }
+    if (Object.keys(reste).length > 0) setFiltres((f) => ({ ...f, ...reste }));
+  };
+
+  /* En mode réorganisation, l'ordre local prime le temps que l'enregistrement revienne du stockage */
+  const affiches = useMemo(
+    () => (reorg ? ordonnerSelon(visibles, reorg) : visibles),
+    [visibles, reorg],
+  );
+  const idsAffiches = affiches.map((a) => a.id);
+
+  const persisterOrdre = (ids: string[]) => {
+    setReorg(ids);
+    void enregistrerOrdre(storage, abonnements, ids, jour);
+  };
+  const debuterGlisse = (e: PointerEvent<HTMLUListElement>) => {
+    if (!reorg || e.button !== 0) return;
+    const index = indexSous(e.clientX, e.clientY);
+    const id = index === null ? undefined : idsAffiches[index];
+    if (id === undefined) return;
+    glisse.current = id;
+    setEnDeplacement(id);
+    e.currentTarget.setPointerCapture(e.pointerId);
+  };
+  const poursuivreGlisse = (e: PointerEvent<HTMLUListElement>) => {
+    const id = glisse.current;
+    if (id === null) return;
+    const cible = indexSous(e.clientX, e.clientY);
+    const de = idsAffiches.indexOf(id);
+    if (cible === null || de < 0 || cible === de) return;
+    setReorg(deplacer(idsAffiches, de, cible));
+  };
+  const finirGlisse = (e: PointerEvent<HTMLUListElement>) => {
+    if (glisse.current === null) return;
+    glisse.current = null;
+    setEnDeplacement(null);
+    if (e.currentTarget.hasPointerCapture(e.pointerId)) {
+      e.currentTarget.releasePointerCapture(e.pointerId);
+    }
+    persisterOrdre(idsAffiches);
+  };
+  const deplacerAuClavier = (e: KeyboardEvent<HTMLUListElement>) => {
+    const pas = PAS_CLAVIER[e.key];
+    const index = (e.target as HTMLElement).closest<HTMLElement>('[data-index]')?.dataset.index;
+    if (!reorg || pas === undefined || index === undefined) return;
+    const de = Number(index);
+    const vers = de + pas(preferences.affichage === 'grille' ? 2 : 1);
+    if (vers < 0 || vers >= idsAffiches.length) return;
+    e.preventDefault();
+    persisterOrdre(deplacer(idsAffiches, de, vers));
+  };
+  const terminerReorganisation = () => {
+    setReorg(null);
+    toast.afficher(t('toast.ordreEnregistre'));
+  };
 
   /* Totaux des abonnements payants, mêmes règles que l'écran Finances (EF-40), indépendamment des filtres */
   const actifs = abonnements.filter((a) => a.statut.type === 'actif');
@@ -109,7 +211,7 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
 
   const tuiles = useMemo(
     () =>
-      visibles.map((a) =>
+      affiches.map((a) =>
         modeleTuile(
           a,
           jour,
@@ -117,7 +219,7 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
           a.serviceId ? services.get(a.serviceId) : undefined,
         ),
       ),
-    [visibles, jour, moyensPaiement, services],
+    [affiches, jour, moyensPaiement, services],
   );
 
   const aucunAbonnement = nonArchives(abonnements).length === 0 && !filtresActifs(criteres);
@@ -164,6 +266,15 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
         onAffichage={(affichage) => modifier({ affichage })}
       />
 
+      {reorg ? (
+        <div className={styles.reorg} role="status">
+          <span className={styles.reorgAide}>{t('accueil.reorg.aide')}</span>
+          <button type="button" className={styles.reorgTerminer} onClick={terminerReorganisation}>
+            {t('accueil.reorg.terminer')}
+          </button>
+        </div>
+      ) : null}
+
       {!chargement && visibles.length > 0 ? (
         <span className={styles.compte}>{tn('accueil.nombre', visibles.length)}</span>
       ) : null}
@@ -197,10 +308,26 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
         <ul
           className={preferences.affichage === 'grille' ? styles.grille : styles.liste}
           aria-label={t('accueil.titre')}
+          onPointerDown={debuterGlisse}
+          onPointerMove={poursuivreGlisse}
+          onPointerUp={finirGlisse}
+          onPointerCancel={finirGlisse}
+          onKeyDown={deplacerAuClavier}
         >
-          {tuiles.map((m) => (
-            <li key={m.id} className={styles.item}>
-              <Tuile modele={m} mode={preferences.affichage} onOuvrir={onOuvrirAbonnement} />
+          {tuiles.map((m, i) => (
+            <li
+              key={m.id}
+              data-index={i}
+              className={
+                enDeplacement === m.id ? `${styles.item} ${styles.itemEnCours}` : styles.item
+              }
+            >
+              <Tuile
+                modele={m}
+                mode={preferences.affichage}
+                onOuvrir={onOuvrirAbonnement}
+                reorganisation={reorg !== null}
+              />
             </li>
           ))}
         </ul>

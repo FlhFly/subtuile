@@ -167,3 +167,41 @@
   font-size: 11px;
   font-weight: var(--fw-bold);
 }
+
+/* Mode réorganisation (EF-14) : bandeau de la maquette (fond trialBg, bouton « Terminé ») */
+.reorg {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 10px 10px 10px 14px;
+  border-radius: 16px;
+  background: var(--trial-bg);
+}
+
+.reorgAide {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--trial);
+}
+
+.reorgTerminer {
+  flex: none;
+  height: 34px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 17px;
+  background: var(--trial);
+  color: var(--bg);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.reorgTerminer:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.itemEnCours {
+  opacity: 0.6;
+}
