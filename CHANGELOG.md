@@ -7,6 +7,14 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — correctif : la devise du réglage reste sélectionnée avec le catalogue (2026-09-12)
+
+#### Corrigé
+- Formulaire : avec une devise réglée sur le dollar, choisir un service du catalogue forçait
+  l'euro (retour FlhFly). Les tarifs du catalogue, en euros, sont désormais convertis dans la
+  devise du réglage aux taux indicatifs, arrondis au centime, et la sélection reste sur cette
+  devise ; changer de formule fait de même. Un abonnement existant garde sa propre devise.
+
 ### Lot 4 — étape 4 : export et import JSON, import CSV (2026-09-12)
 
 #### Ajouté

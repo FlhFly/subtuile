@@ -13,6 +13,7 @@ import {
   type CanalAchat,
   type Catalogue,
   type Categorie,
+  type Devise,
   type Formule,
   type Periodicite,
   type Service,
@@ -99,6 +100,26 @@ export function comparaisonCanaux(
 }
 
 /**
+ * Devise de saisie visée (réglage « Devise ») : les tarifs du catalogue, en
+ * euros, y sont convertis aux taux indicatifs pour que la sélection reste sur la
+ * devise de l'utilisateur (EF-45b). Sans cible, le tarif reste en euros.
+ */
+export interface CibleDevise {
+  devise: Devise;
+  /** conversion d'un montant en euros vers `devise`, arrondie au centime */
+  depuisEur: (montant: number) => number;
+}
+
+/** Texte de prix d'une formule dans la devise cible (« 13,49 » → « 14,66 » en USD). */
+export function prixFormule(
+  formule: Formule,
+  cible?: CibleDevise,
+): { prix: string; devise: Devise } {
+  const montant = cible ? Math.round(cible.depuisEur(formule.prix) * 100) / 100 : formule.prix;
+  return { prix: String(montant).replace('.', ','), devise: cible?.devise ?? 'EUR' };
+}
+
+/**
  * EF-02 : pré-remplit le formulaire depuis un service (nom, catégorie, adresse,
  * périodicité, tarif de la formule, canal, mode de résiliation, montant estimé).
  * Les champs libres déjà saisis (notes, tags, moyen de paiement…) sont conservés.
@@ -107,10 +128,12 @@ export function preRemplirDepuisService(
   etat: EtatFormulaire,
   service: Service,
   formule: Formule | undefined = formuleParDefaut(service),
+  cible?: CibleDevise,
 ): EtatFormulaire {
   const periodicite: Periodicite | undefined =
     formule?.periodicite ?? service.periodicitesConnues[0];
   const preset = periodicite ? presetDepuisPeriodicite(periodicite) : {};
+  const tarif = formule ? prixFormule(formule, cible) : null;
   return {
     ...etat,
     ...preset,
@@ -118,9 +141,8 @@ export function preRemplirDepuisService(
     formuleId: formule?.id ?? null,
     nom: service.nom,
     categorie: service.categorie,
-    prix: formule ? String(formule.prix).replace('.', ',') : etat.prix,
-    // les tarifs du catalogue sont en euros (annexe A)
-    devise: formule ? 'EUR' : etat.devise,
+    prix: tarif ? tarif.prix : etat.prix,
+    devise: tarif ? tarif.devise : etat.devise,
     urlGestion: service.urlGestion ?? '',
     canalAchat: canalParDefaut(service, formule),
     modeResiliation: service.modeResiliation,
@@ -135,13 +157,18 @@ export function detacherDuCatalogue(etat: EtatFormulaire): EtatFormulaire {
 }
 
 /** Choix d'une formule : tarif, périodicité et canal suivent. */
-export function appliquerFormule(etat: EtatFormulaire, formule: Formule): EtatFormulaire {
+export function appliquerFormule(
+  etat: EtatFormulaire,
+  formule: Formule,
+  cible?: CibleDevise,
+): EtatFormulaire {
+  const tarif = prixFormule(formule, cible);
   return {
     ...etat,
     ...presetDepuisPeriodicite(formule.periodicite),
     formuleId: formule.id,
-    prix: String(formule.prix).replace('.', ','),
-    devise: 'EUR',
+    prix: tarif.prix,
+    devise: tarif.devise,
     canalAchat: formule.canal,
   };
 }

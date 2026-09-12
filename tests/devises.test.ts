@@ -84,6 +84,29 @@ describe('devises (EF-45, EF-45b)', () => {
     // un service sans formule garde la devise saisie
     const sansFormule = { ...netflix, formules: [] };
     expect(preRemplirDepuisService(formulaireVide(JOUR, 'CHF'), sansFormule).devise).toBe('CHF');
+    // avec une devise cible (réglage), le tarif est converti et la devise du réglage reste sélectionnée
+    const cible = {
+      devise: 'USD' as const,
+      depuisEur: (m: number) => convertir(m, 'EUR', 'USD', taux),
+    };
+    const enDollars = preRemplirDepuisService(
+      formulaireVide(JOUR, 'USD'),
+      netflix,
+      undefined,
+      cible,
+    );
+    expect(enDollars.devise).toBe('USD');
+    expect(enDollars.prix).toBe(
+      String(Math.round(formule.prix * 1.087 * 100) / 100).replace('.', ','),
+    );
+    expect(appliquerFormule(f, formule, cible)).toMatchObject({
+      devise: 'USD',
+      prix: enDollars.prix,
+    });
+    expect(appliquerFormule(f, formule, { devise: 'EUR', depuisEur: (m) => m })).toMatchObject({
+      devise: 'EUR',
+      prix: String(formule.prix).replace('.', ','),
+    });
   });
 
   it('la devise suit l’abonnement sur la tuile, dans les alertes et l’échéancier', () => {

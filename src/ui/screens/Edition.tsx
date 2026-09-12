@@ -10,6 +10,7 @@ import {
   preRemplirDepuisService,
   servicesPourSelection,
   suggestionsCatalogue,
+  type CibleDevise,
 } from '../../domain/catalogue';
 import { aujourdhui, calculerProchaineEcheance, estDateISO } from '../../domain/dates';
 import {
@@ -126,15 +127,22 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const toast = useToast();
   const moyensPaiement = useMoyensPaiement();
   const { catalogue, parId: services } = useCatalogue();
-  const { devise: deviseDefaut, taux } = useConversion();
+  const { devise: deviseDefaut, taux, convertir } = useConversion();
   const jour = aujourdhui();
+  /** tarifs du catalogue (en euros) convertis dans la devise du réglage, qui reste sélectionnée */
+  const cibleDevise: CibleDevise = {
+    devise: deviseDefaut,
+    depuisEur: (montant) => convertir(montant, 'EUR'),
+  };
 
   /** état d'ouverture, référence de la garde contre la perte de saisie */
   const [etatInitial] = useState<EtatFormulaire>(() => {
     if (existant) return formulaireDepuisAbonnement(existant, jour);
     if (modele) return formulairePourDuplication(modele, jour, t('edition.copie'));
     const vide = formulaireVide(jour, deviseDefaut);
-    return serviceInitial ? preRemplirDepuisService(vide, serviceInitial) : vide;
+    return serviceInitial
+      ? preRemplirDepuisService(vide, serviceInitial, undefined, cibleDevise)
+      : vide;
   });
   const [etat, setEtat] = useState<EtatFormulaire>(etatInitial);
   const [garde, setGarde] = useState(false);
@@ -228,7 +236,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   };
 
   const choisirService = (s: Service) => {
-    setEtat((e) => preRemplirDepuisService(e, s));
+    setEtat((e) => preRemplirDepuisService(e, s, undefined, cibleDevise));
     setErreurs({});
     setMode('catalogue');
     setPickerOuvert(false);
@@ -534,7 +542,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 valeur={etat.formuleId ?? ''}
                 onChange={(id) => {
                   const f = trouverFormule(service, id);
-                  if (f) setEtat((e) => appliquerFormule(e, f));
+                  if (f) setEtat((e) => appliquerFormule(e, f, cibleDevise));
                 }}
               />
               {comparaison ? (
