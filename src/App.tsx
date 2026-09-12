@@ -102,7 +102,6 @@ function Navigation() {
     case 'reglages':
       contenu = (
         <Reglages
-          onRetour={() => setEcran({ nom: 'accueil' })}
           onOuvrirPaiements={() => setEcran({ nom: 'paiements' })}
           onOuvrirCatalogue={() => setEcran({ nom: 'catalogue' })}
         />

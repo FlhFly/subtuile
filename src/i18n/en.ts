@@ -54,14 +54,11 @@ export const en: Dictionnaire = {
   'reglages.demo.titre': 'Demo data set',
   'reglages.demo.texte':
     '13 subscriptions and 4 payment methods taken from the mockup. Reloading replaces existing demo entries without touching yours.',
-  'reglages.demo.bouton': 'Load the demo data set',
   'reglages.demo.charge': 'Demo data set loaded',
   'reglages.confidentialite': 'Privacy',
   'reglages.confidentialite.texte':
     '100% local, offline. No real banking data — descriptive labels only. Nothing leaves your device.',
   'reglages.apropos': 'About',
-  'reglages.apropos.texte': 'Subtuile {version} — free software under the AGPL-3.0 license.',
-  'reglages.apropos.depot': 'Source code',
 
   /* Theme, language, layout, sort */
   'theme.clair': 'Light',
@@ -384,8 +381,6 @@ export const en: Dictionnaire = {
   'catalogue.vide': 'No matching service.',
   'catalogue.note':
     'The catalogue pre-fills name, colour, category, address, billing cycle, known price and purchase channel. “Use” opens a pre-filled creation form.',
-  'catalogue.reglages.texte':
-    'Preloaded services, indicative prices and addresses, purchase channel.',
   'catalogue.mesServices': 'My services',
   'catalogue.mesServices.texte': 'Added by you, usable like catalogue entries.',
   'catalogue.proposer': 'Propose a service to the catalogue',
@@ -420,7 +415,6 @@ export const en: Dictionnaire = {
   'paiements.titre': 'Payment methods',
   'paiements.nombre.un': '{n} payment method',
   'paiements.nombre.plusieurs': '{n} payment methods',
-  'paiements.reglages.texte': 'Cards, PayPal, direct debits: the badge shown on each tile.',
   'paiements.ajouter': 'Add a payment method',
   'paiements.nouveau': 'New payment method',
   'paiements.type': 'Type',
@@ -474,7 +468,6 @@ export const en: Dictionnaire = {
   'reglages.automatisation.ics': 'Calendar export (.ics)',
   'reglages.automatisation.ics.sous':
     'All upcoming renewals, trial ends and notice deadlines, each with a reminder, to import into your calendar.',
-  'reglages.automatisation.ics.bouton': 'Download the .ics file',
   'reglages.automatisation.note':
     'Without push notifications (a PWA constraint), reminders go through your calendar: re-import the file after your changes.',
 
@@ -519,6 +512,14 @@ export const en: Dictionnaire = {
   'formatDate.mja': 'MM/DD/YYYY',
   'formatDate.iso': 'YYYY-MM-DD',
   'champDate.calendrier': 'Open the calendar',
+  'formatDate.exemple.jma': '31/12',
+  'formatDate.exemple.mja': '12/31',
+  'formatDate.exemple.iso': 'ISO',
+  'reglages.langue.note': 'Interface, dates and amounts follow the chosen language.',
+  'reglages.apropos.os': 'Open source — AGPL-3.0 license',
+  'reglages.apropos.os.sous':
+    'Public code; any modified hosted version must republish its sources.',
+  'reglages.apropos.version': 'Subtuile {version}',
 
   /* Enriched detail (EF-05, EF-08) */
   'fiche.engagement.detail': 'Commitment',

@@ -65,7 +65,7 @@ describe('traduire', () => {
   it('interpole les paramètres et laisse les inconnus visibles', () => {
     expect(traduire('fr', 'compteur.jours', { n: 3 })).toBe('J-3');
     expect(traduire('en', 'compteur.jours', { n: 3 })).toBe('D-3');
-    expect(traduire('fr', 'reglages.apropos.texte', { version: '0.1.0' })).toContain('0.1.0');
+    expect(traduire('fr', 'reglages.apropos.version', { version: '0.1.0' })).toContain('0.1.0');
     expect(traduire('fr', 'compteur.jours')).toBe('J-{n}');
   });
 

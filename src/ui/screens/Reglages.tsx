@@ -3,10 +3,6 @@ import { chargerJeuDemo } from '../../data/fixtures/demo';
 import { aujourdhui } from '../../domain/dates';
 import { evenementsAVenir } from '../../domain/echeancier';
 import { nomFichierIcs } from '../../domain/ics';
-import { useToast } from '../contexts/ToastContext';
-import { useAbonnements } from '../hooks/useAbonnements';
-import { icsDepuisEvenements } from '../rappelsIcs';
-import { telechargerFichier } from '../telechargement';
 import {
   FORMATS_DATE,
   LANGUES,
@@ -14,20 +10,20 @@ import {
   type DefautsAlerte,
   type FormatDate,
   type Langue,
-  type Theme,
 } from '../../domain/types';
-import { EnTete } from '../components/EnTete';
-import { Icone, type NomIcone } from '../components/Icone';
-import { Segmente } from '../components/Segmente';
+import { Icone } from '../components/Icone';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
+import { useToast } from '../contexts/ToastContext';
+import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
+import { icsDepuisEvenements } from '../rappelsIcs';
+import { telechargerFichier } from '../telechargement';
 import styles from './Reglages.module.css';
 
 interface Props {
-  onRetour: () => void;
   onOuvrirPaiements: () => void;
   onOuvrirCatalogue: () => void;
 }
@@ -41,40 +37,42 @@ const CHOIX_ESSAI = [1, 2, 3, 7] as const;
 const CHOIX_PREAVIS = [7, 14, 30] as const;
 const CHOIX_CARTE = [1, 2, 3] as const;
 
+type Depliant = 'langue' | 'formatDate' | null;
+
 /**
- * Réglages (§7.7) : apparence (EF-17), défauts d'alerte (EF-30), langue
- * (EF-17b), moyens de paiement, catalogue, jeu de démo (§5.5),
- * confidentialité, à propos. Export / import arrivent au lot 4.
+ * Réglages (§7.7, écran 7 de la maquette) : apparence (EF-17), défauts
+ * d'alerte (EF-30), général (langue EF-17b, format de date, moyens de
+ * paiement, catalogue), automatisation (§7.9, EF-32), données (jeu de démo,
+ * confidentialité), à propos. Devise par défaut, export / import, intro et
+ * soutien arrivent au lot 4.
  */
-export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Props) {
+export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
   const i18n = useI18n();
-  const { t, tn, date, changerLangue, langue } = i18n;
+  const { t, tn, changerLangue, langue } = i18n;
   const toast = useToast();
   const { abonnements } = useAbonnements();
   const nombreMoyens = useMoyensPaiement().size;
   const { catalogue } = useCatalogue();
   const { preferences, modifier } = usePreferences();
   const storage = useStorage();
-  const [demoChargee, setDemoChargee] = useState(false);
   const [chargementDemo, setChargementDemo] = useState(false);
+  const [depliant, setDepliant] = useState<Depliant>(null);
+
+  const basculer = (d: Exclude<Depliant, null>) => setDepliant((c) => (c === d ? null : d));
+  const modifierAlertes = (partiel: Partial<DefautsAlerte>) =>
+    modifier({ alertes: { ...preferences.alertes, ...partiel } });
+  const jours = (n: number) => t('reglages.alertes.jours', { n });
+  const mois = (n: number) => t('reglages.alertes.mois', { n });
 
   const chargerDemo = async () => {
     setChargementDemo(true);
     try {
       await chargerJeuDemo(storage);
-      setDemoChargee(true);
+      toast.afficher(t('reglages.demo.charge'));
     } finally {
       setChargementDemo(false);
     }
   };
-
-  const optionsTheme = THEMES.map((th) => ({ valeur: th, libelle: t(`theme.${th}`) }));
-  const optionsLangue = LANGUES.map((l) => ({ valeur: l, libelle: t(`langue.${l}`) }));
-  const optionsFormatDate = FORMATS_DATE.map((f) => ({ valeur: f, libelle: t(`formatDate.${f}`) }));
-  const modifierAlertes = (partiel: Partial<DefautsAlerte>) =>
-    modifier({ alertes: { ...preferences.alertes, ...partiel } });
-  const jours = (n: number) => t('reglages.alertes.jours', { n });
-  const mois = (n: number) => t('reglages.alertes.mois', { n });
 
   /** EF-32 : toutes les prochaines échéances, fins d'essai et préavis en un fichier .ics. */
   const evenements = evenementsAVenir(abonnements, aujourdhui());
@@ -91,194 +89,191 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
 
   return (
     <div className={styles.ecran}>
-      <EnTete
-        titre={t('reglages.titre')}
-        retour={{ icone: 'retour', libelle: t('nav.retour'), onClick: onRetour }}
-      />
+      <h1 className={styles.titre}>{t('reglages.titre')}</h1>
 
-      <Section icone="soleil" titre={t('reglages.apparence')}>
-        <Ligne libelle={t('reglages.theme')}>
-          <Segmente<Theme>
-            nom={t('reglages.theme')}
-            options={optionsTheme}
-            valeur={preferences.theme}
-            onChange={(theme) => modifier({ theme })}
-          />
-        </Ligne>
+      <Section titre={t('reglages.apparence')}>
+        <div className={styles.pilules} role="radiogroup" aria-label={t('reglages.theme')}>
+          {THEMES.map((th) => (
+            <button
+              key={th}
+              type="button"
+              role="radio"
+              aria-checked={preferences.theme === th}
+              className={preferences.theme === th ? styles.piluleActive : styles.pilule}
+              onClick={() => modifier({ theme: th })}
+            >
+              {t(`theme.${th}`)}
+            </button>
+          ))}
+        </div>
       </Section>
 
-      <Section icone="cloche" titre={t('reglages.alertes')}>
-        <Ligne libelle={t('reglages.alertes.renouvellement')}>
-          <Selecteur
+      <Section titre={t('reglages.alertes')}>
+        <Carte>
+          <RangeeSelect
             libelle={t('reglages.alertes.renouvellement')}
             choix={CHOIX_ECHEANCE}
             valeur={preferences.alertes.echeanceJours}
             format={jours}
             onChange={(echeanceJours) => modifierAlertes({ echeanceJours })}
           />
-        </Ligne>
-        <Ligne libelle={t('reglages.alertes.essai')}>
-          <Selecteur
+          <RangeeSelect
             libelle={t('reglages.alertes.essai')}
             choix={CHOIX_ESSAI}
             valeur={preferences.alertes.essaiJours}
             format={jours}
             onChange={(essaiJours) => modifierAlertes({ essaiJours })}
           />
-        </Ligne>
-        <Ligne libelle={t('reglages.alertes.preavis')}>
-          <Selecteur
+          <RangeeSelect
             libelle={t('reglages.alertes.preavis')}
             choix={CHOIX_PREAVIS}
             valeur={preferences.alertes.preavisJours}
             format={jours}
             onChange={(preavisJours) => modifierAlertes({ preavisJours })}
           />
-        </Ligne>
-        <Ligne libelle={t('reglages.alertes.carte')}>
-          <Selecteur
+          <RangeeSelect
             libelle={t('reglages.alertes.carte')}
             choix={CHOIX_CARTE}
             valeur={preferences.alertes.carteMois}
             format={mois}
             onChange={(carteMois) => modifierAlertes({ carteMois })}
           />
-        </Ligne>
-        <p className={styles.blocTexte}>{t('reglages.alertes.note')}</p>
+        </Carte>
+        <p className={styles.note}>{t('reglages.alertes.note')}</p>
       </Section>
 
-      <Section icone="horloge" titre={t('reglages.automatisation')}>
-        <div className={styles.bloc}>
-          <p className={styles.blocTitre}>{t('reglages.automatisation.avance')}</p>
-          <p className={styles.blocTexte}>{t('reglages.automatisation.avance.sous')}</p>
-          <p className={styles.confirmation}>{t('reglages.automatisation.avance.etat')}</p>
-        </div>
-        <div className={styles.bloc}>
-          <p className={styles.blocTitre}>{t('reglages.automatisation.ics')}</p>
-          <p className={styles.blocTexte}>{t('reglages.automatisation.ics.sous')}</p>
+      <Section titre={t('reglages.general')}>
+        <Carte>
+          <RangeeDepliante
+            libelle={t('reglages.langue')}
+            valeur={t(`langue.${langue}`)}
+            ouvert={depliant === 'langue'}
+            onBasculer={() => basculer('langue')}
+            note={t('reglages.langue.note')}
+          >
+            {LANGUES.map((l) => (
+              <Option
+                key={l}
+                libelle={t(`langue.${l}`)}
+                actif={langue === l}
+                icone={<Drapeau langue={l} />}
+                onChoisir={() => changerLangue(l)}
+              />
+            ))}
+          </RangeeDepliante>
+          <RangeeDepliante
+            libelle={t('reglages.formatDate')}
+            valeur={t(`formatDate.${preferences.formatDate}`)}
+            ouvert={depliant === 'formatDate'}
+            onBasculer={() => basculer('formatDate')}
+          >
+            {FORMATS_DATE.map((f: FormatDate) => (
+              <Option
+                key={f}
+                libelle={t(`formatDate.${f}`)}
+                actif={preferences.formatDate === f}
+                icone={<span className={styles.monogramme}>{t(`formatDate.exemple.${f}`)}</span>}
+                onChoisir={() => modifier({ formatDate: f })}
+              />
+            ))}
+          </RangeeDepliante>
+          <RangeeLien
+            libelle={t('paiements.titre')}
+            valeur={String(nombreMoyens)}
+            onClick={onOuvrirPaiements}
+          />
+          <RangeeLien
+            libelle={t('catalogue.titre')}
+            valeur={tn('catalogue.nombre', catalogue.data.length)}
+            onClick={onOuvrirCatalogue}
+          />
+        </Carte>
+      </Section>
+
+      <Section titre={t('reglages.automatisation')}>
+        <Carte>
+          <div className={styles.rangeeAuto}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.automatisation.avance')}</span>
+              <span className={styles.sous}>{t('reglages.automatisation.avance.sous')}</span>
+            </span>
+            <span className={styles.pastilleOk}>{t('reglages.automatisation.avance.etat')}</span>
+          </div>
           <button
             type="button"
-            className={styles.boutonSecondaire}
+            className={styles.rangeeAutoBouton}
             onClick={exporterIcs}
             disabled={evenements.length === 0}
           >
-            {t('reglages.automatisation.ics.bouton')}
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.automatisation.ics')}</span>
+              <span className={styles.sous}>{t('reglages.automatisation.ics.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
           </button>
-        </div>
-        <p className={styles.blocTexte}>{t('reglages.automatisation.note')}</p>
+        </Carte>
+        <p className={styles.note}>{t('reglages.automatisation.note')}</p>
       </Section>
 
-      <Section icone="ecran" titre={t('reglages.general')}>
-        <Ligne libelle={t('reglages.langue')}>
-          <Segmente<Langue>
-            nom={t('reglages.langue')}
-            options={optionsLangue}
-            valeur={langue}
-            onChange={changerLangue}
-          />
-        </Ligne>
-        <Ligne libelle={t('reglages.formatDate')}>
-          <Segmente<FormatDate>
-            nom={t('reglages.formatDate')}
-            options={optionsFormatDate}
-            valeur={preferences.formatDate}
-            onChange={(formatDate) => modifier({ formatDate })}
-          />
-        </Ligne>
-      </Section>
-
-      <Section icone="carte" titre={t('paiements.titre')}>
-        <div className={styles.bloc}>
-          <p className={styles.blocTitre}>{tn('paiements.nombre', nombreMoyens)}</p>
-          <p className={styles.blocTexte}>{t('paiements.reglages.texte')}</p>
-          <button type="button" className={styles.boutonSecondaire} onClick={onOuvrirPaiements}>
-            {t('paiements.titre')}
-          </button>
-        </div>
-      </Section>
-
-      <Section icone="tuile" titre={t('catalogue.titre')}>
-        <div className={styles.bloc}>
-          <p className={styles.blocTitre}>{tn('catalogue.nombre', catalogue.data.length)}</p>
-          <p className={styles.blocTexte}>
-            {t('catalogue.fraicheur', {
-              n: catalogue.version,
-              d: date(catalogue.publieLe, 'long'),
-            })}
-            {' — '}
-            {t('catalogue.reglages.texte')}
-          </p>
-          <button type="button" className={styles.boutonSecondaire} onClick={onOuvrirCatalogue}>
-            {t('catalogue.titre')}
-          </button>
-        </div>
-      </Section>
-
-      <Section icone="base" titre={t('reglages.donnees')}>
-        <div className={styles.bloc}>
-          <p className={styles.blocTitre}>{t('reglages.demo.titre')}</p>
-          <p className={styles.blocTexte}>{t('reglages.demo.texte')}</p>
+      <Section titre={t('reglages.donnees')}>
+        <Carte>
           <button
             type="button"
-            className={styles.boutonSecondaire}
+            className={styles.rangeeBouton}
             onClick={() => void chargerDemo()}
             disabled={chargementDemo}
           >
-            {t('reglages.demo.bouton')}
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.demo.titre')}</span>
+              <span className={styles.sous}>{t('reglages.demo.texte')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
           </button>
-          {demoChargee ? (
-            <p className={styles.confirmation} role="status">
-              {t('reglages.demo.charge')}
-            </p>
-          ) : null}
-        </div>
+          <div className={styles.rangeeTexte}>
+            <span className={styles.libelle}>{t('reglages.confidentialite')}</span>
+            <span className={styles.sous}>{t('reglages.confidentialite.texte')}</span>
+          </div>
+        </Carte>
       </Section>
 
-      <Section icone="cadenas" titre={t('reglages.confidentialite')}>
-        <p className={styles.blocTexte}>{t('reglages.confidentialite.texte')}</p>
+      <Section titre={t('reglages.apropos')}>
+        <Carte>
+          <a className={styles.rangeeBouton} href={URL_DEPOT} target="_blank" rel="noreferrer">
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.apropos.os')}</span>
+              <span className={styles.sous}>{t('reglages.apropos.os.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="externe" taille={13} epaisseur={3} />
+            </span>
+          </a>
+        </Carte>
       </Section>
 
-      <Section icone="info" titre={t('reglages.apropos')}>
-        <p className={styles.blocTexte}>{t('reglages.apropos.texte', { version: VERSION_APP })}</p>
-        <a className={styles.lien} href={URL_DEPOT} target="_blank" rel="noreferrer">
-          {t('reglages.apropos.depot')}
-        </a>
-      </Section>
+      <p className={styles.pied}>{t('reglages.apropos.version', { version: VERSION_APP })}</p>
     </div>
   );
 }
 
-function Section({
-  icone,
-  titre,
-  children,
-}: {
-  icone: NomIcone;
-  titre: string;
-  children: ReactNode;
-}) {
+function Section({ titre, children }: { titre: string; children: ReactNode }) {
   return (
     <section className={styles.section}>
-      <h2 className={styles.sectionTitre}>
-        <Icone nom={icone} taille={16} />
-        {titre}
-      </h2>
-      <div className={styles.carte}>{children}</div>
+      <h2 className={styles.sectionTitre}>{titre}</h2>
+      {children}
     </section>
   );
 }
 
-function Ligne({ libelle, children }: { libelle: string; children: ReactNode }) {
-  return (
-    <div className={styles.ligne}>
-      <span className={styles.ligneLibelle}>{libelle}</span>
-      {children}
-    </div>
-  );
+function Carte({ children }: { children: ReactNode }) {
+  return <div className={styles.carte}>{children}</div>;
 }
 
-/** Sélecteur d'un entier parmi des choix fixes ; une valeur hors liste reste proposée. */
-function Selecteur({
+/** Rangée « libellé + sélecteur » des défauts d'alerte ; une valeur hors liste reste proposée. */
+function RangeeSelect({
   libelle,
   choix,
   valeur,
@@ -293,17 +288,136 @@ function Selecteur({
 }) {
   const options = choix.includes(valeur) ? choix : [...choix, valeur].sort((a, b) => a - b);
   return (
-    <select
-      className={styles.select}
-      aria-label={libelle}
-      value={valeur}
-      onChange={(e) => onChange(Number(e.target.value))}
+    <div className={styles.rangeeCompacte}>
+      <span className={styles.libelle}>{libelle}</span>
+      <select
+        className={styles.select}
+        aria-label={libelle}
+        value={valeur}
+        onChange={(e) => onChange(Number(e.target.value))}
+      >
+        {options.map((n) => (
+          <option key={n} value={n}>
+            {format(n)}
+          </option>
+        ))}
+      </select>
+    </div>
+  );
+}
+
+/** Rangée qui ouvre une liste d'options (langue, format de date), valeur courante à droite. */
+function RangeeDepliante({
+  libelle,
+  valeur,
+  ouvert,
+  onBasculer,
+  note,
+  children,
+}: {
+  libelle: string;
+  valeur: string;
+  ouvert: boolean;
+  onBasculer: () => void;
+  note?: string;
+  children: ReactNode;
+}) {
+  return (
+    <>
+      <button
+        type="button"
+        className={styles.rangeeBouton}
+        onClick={onBasculer}
+        aria-expanded={ouvert}
+      >
+        <span className={styles.libelle}>{libelle}</span>
+        <span className={styles.valeur}>
+          {valeur}
+          <Icone nom="chevron" taille={13} epaisseur={3.2} />
+        </span>
+      </button>
+      {ouvert ? (
+        <div className={styles.options} role="radiogroup" aria-label={libelle}>
+          {children}
+          {note ? <span className={styles.optionsNote}>{note}</span> : null}
+        </div>
+      ) : null}
+    </>
+  );
+}
+
+function Option({
+  libelle,
+  actif,
+  icone,
+  onChoisir,
+}: {
+  libelle: string;
+  actif: boolean;
+  icone: ReactNode;
+  onChoisir: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      role="radio"
+      aria-checked={actif}
+      className={actif ? styles.optionActive : styles.option}
+      onClick={onChoisir}
     >
-      {options.map((n) => (
-        <option key={n} value={n}>
-          {format(n)}
-        </option>
-      ))}
-    </select>
+      <span className={styles.optionGauche}>
+        {icone}
+        <span className={styles.optionLibelle}>{libelle}</span>
+      </span>
+      {actif ? (
+        <span className={styles.coche}>
+          <Icone nom="coche" taille={12} epaisseur={3.6} />
+        </span>
+      ) : null}
+    </button>
+  );
+}
+
+/** Rangée qui ouvre un autre écran, valeur (compte) et chevron à droite. */
+function RangeeLien({
+  libelle,
+  valeur,
+  onClick,
+}: {
+  libelle: string;
+  valeur: string;
+  onClick: () => void;
+}) {
+  return (
+    <button type="button" className={styles.rangeeBouton} onClick={onClick}>
+      <span className={styles.libelle}>{libelle}</span>
+      <span className={styles.valeur}>
+        {valeur}
+        <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+      </span>
+    </button>
+  );
+}
+
+/** Drapeaux de la maquette (formes simples, aucun asset externe). */
+function Drapeau({ langue }: { langue: Langue }) {
+  return (
+    <span className={styles.drapeau} aria-hidden="true">
+      {langue === 'fr' ? (
+        <svg width="30" height="30" viewBox="0 0 30 30">
+          <rect width="10" height="30" fill="#26429c" />
+          <rect x="10" width="10" height="30" fill="#fdfaf3" />
+          <rect x="20" width="10" height="30" fill="#c8102e" />
+        </svg>
+      ) : (
+        <svg width="30" height="30" viewBox="0 0 30 30">
+          <rect width="30" height="30" fill="#012169" />
+          <path d="M0 0 30 30M30 0 0 30" stroke="#fdfaf3" strokeWidth="6" />
+          <path d="M0 0 30 30M30 0 0 30" stroke="#c8102e" strokeWidth="2.4" />
+          <path d="M15 0v30M0 15h30" stroke="#fdfaf3" strokeWidth="10" />
+          <path d="M15 0v30M0 15h30" stroke="#c8102e" strokeWidth="5.4" />
+        </svg>
+      )}
+    </span>
   );
 }

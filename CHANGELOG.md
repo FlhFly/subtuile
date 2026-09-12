@@ -7,6 +7,21 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — écran Réglages réaligné sur la maquette (2026-09-12)
+
+#### Modifié
+- Réglages refaits d'après l'écran 7 de la maquette (retour FlhFly) : titre seul (onglet,
+  sans flèche), sections en cartes de rangées (fond carte, rayon 20, séparateurs) ;
+  Apparence en trois pilules de largeur égale ; Alertes par défaut en rangées compactes à
+  sélecteur ; Général avec Langue (dépliant à drapeaux et coche), Format de date (dépliant),
+  Moyens de paiement et Catalogue de services en rangées avec compte et chevron ;
+  Automatisation en rangées (état « Activée », export .ics par rangée) ; Données (jeu de
+  démonstration en rangée, chargement confirmé par toast ; Confidentialité) ; À propos
+  (rangée « Open source — licence AGPL-3.0 » vers le dépôt) et version en pied de page.
+  Devise par défaut, export / import, « Revoir l'introduction » et « Soutenir le projet »
+  restent prévus au lot 4 ; le widget de la maquette n'est pas repris (§4.7).
+- Composant `Segmente` retiré (plus utilisé) ; clés i18n orphelines supprimées.
+
 ### Lot 3 — étape 6 : rappels calendrier (.ics) et section Automatisation (2026-09-12)
 
 #### Ajouté

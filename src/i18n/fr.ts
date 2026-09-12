@@ -57,14 +57,11 @@ export const fr = {
   'reglages.demo.titre': 'Jeu de démonstration',
   'reglages.demo.texte':
     '13 abonnements et 4 moyens de paiement repris de la maquette. Recharger remplace les entrées de démo existantes, sans toucher aux vôtres.',
-  'reglages.demo.bouton': 'Charger le jeu de démo',
   'reglages.demo.charge': 'Jeu de démo chargé',
   'reglages.confidentialite': 'Confidentialité',
   'reglages.confidentialite.texte':
     '100 % local, hors ligne. Aucune donnée bancaire réelle — uniquement des libellés descriptifs. Rien ne quitte votre appareil.',
   'reglages.apropos': 'À propos',
-  'reglages.apropos.texte': 'Subtuile {version} — logiciel libre sous licence AGPL-3.0.',
-  'reglages.apropos.depot': 'Code source',
 
   /* Thème, langue, affichage, tri */
   'theme.clair': 'Clair',
@@ -392,7 +389,6 @@ export const fr = {
   'catalogue.vide': 'Aucun service ne correspond.',
   'catalogue.note':
     'Le catalogue pré-remplit nom, couleur, catégorie, adresse, périodicité, tarif connu et canal d’achat. « Utiliser » ouvre la création pré-remplie.',
-  'catalogue.reglages.texte': 'Services préchargés, tarifs et adresses indicatifs, canal d’achat.',
   'catalogue.mesServices': 'Mes services',
   'catalogue.mesServices.texte': 'Ajoutés par vous, utilisables comme les entrées du catalogue.',
   'catalogue.proposer': 'Proposer un service au catalogue',
@@ -428,8 +424,6 @@ export const fr = {
   'paiements.titre': 'Moyens de paiement',
   'paiements.nombre.un': '{n} moyen de paiement',
   'paiements.nombre.plusieurs': '{n} moyens de paiement',
-  'paiements.reglages.texte':
-    'Cartes, PayPal, prélèvements : la pastille affichée sur chaque tuile.',
   'paiements.ajouter': 'Ajouter un moyen de paiement',
   'paiements.nouveau': 'Nouveau moyen de paiement',
   'paiements.type': 'Type',
@@ -484,7 +478,6 @@ export const fr = {
   'reglages.automatisation.ics': 'Export calendrier (.ics)',
   'reglages.automatisation.ics.sous':
     'Toutes les prochaines échéances, fins d’essai et préavis, avec un rappel avant chacun, à importer dans votre calendrier.',
-  'reglages.automatisation.ics.bouton': 'Télécharger le fichier .ics',
   'reglages.automatisation.note':
     'Sans notification push (contrainte des PWA), les rappels passent par votre calendrier : réimportez le fichier après vos modifications.',
 
@@ -529,6 +522,14 @@ export const fr = {
   'formatDate.mja': 'MM/JJ/AAAA',
   'formatDate.iso': 'AAAA-MM-JJ',
   'champDate.calendrier': 'Ouvrir le calendrier',
+  'formatDate.exemple.jma': '31/12',
+  'formatDate.exemple.mja': '12/31',
+  'formatDate.exemple.iso': 'ISO',
+  'reglages.langue.note': 'L’interface, les dates et les montants suivent la langue choisie.',
+  'reglages.apropos.os': 'Open source — licence AGPL-3.0',
+  'reglages.apropos.os.sous':
+    'Code public ; toute version hébergée modifiée doit republier ses sources.',
+  'reglages.apropos.version': 'Subtuile {version}',
 
   /* Fiche enrichie (EF-05, EF-08) */
   'fiche.engagement.detail': 'Engagement',
