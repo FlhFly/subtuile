@@ -1,0 +1,38 @@
+.groupe {
+  display: flex;
+  align-items: stretch;
+  gap: 8px;
+}
+
+.groupe :global(input[type='text']) {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Bouton calendrier : le sélecteur natif, invisible, recouvre l'icône */
+.calendrier {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 46px;
+  border: var(--border);
+  border-radius: var(--r-md);
+  background: var(--card);
+  color: var(--ink);
+}
+
+.calendrier:hover {
+  background: var(--sand);
+}
+
+.natif {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100%;
+  padding: 0 !important;
+  opacity: 0;
+  cursor: pointer;
+}

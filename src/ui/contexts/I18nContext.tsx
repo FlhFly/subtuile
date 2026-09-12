@@ -29,6 +29,7 @@ export interface I18n {
 export function useI18n(): I18n {
   const { preferences, modifier } = usePreferences();
   const langue = preferences.langue;
+  const formatDate = preferences.formatDate;
 
   const changerLangue = useCallback((l: Langue) => modifier({ langue: l }), [modifier]);
 
@@ -38,11 +39,11 @@ export function useI18n(): I18n {
       t: (cle, params) => traduire(langue, cle, params),
       tn: (cle, n, params) => traduireNombre(langue, cle, n, params),
       montant: (valeur, devise) => formaterMontant(langue, valeur, devise),
-      date: (date, style) => formaterDate(langue, date, style),
+      date: (date, style) => formaterDate(langue, date, style, formatDate),
       compteur: (jours) => libelleCompteur(langue, jours),
       periodicite: (p, plafond) => libellePeriodicite(langue, p, plafond),
       changerLangue,
     }),
-    [langue, changerLangue],
+    [langue, formatDate, changerLangue],
   );
 }

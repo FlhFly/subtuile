@@ -29,6 +29,7 @@ import {
   type FormulaireChangementPrix,
 } from '../../domain/prix';
 import { Champ } from '../components/Champ';
+import { ChampDate } from '../components/ChampDate';
 import { couleurCompteur, modeleTuile } from '../../domain/tuile';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
 import type { Abonnement, DateISO, MoyenPaiement, Service, Statut } from '../../domain/types';
@@ -712,16 +713,12 @@ function FormulairePrix({
             />
           )}
         </Champ>
-        <Champ libelle={t('fiche.prix.date')} erreur={erreur('dateEffet')}>
-          {(a) => (
-            <input
-              {...a}
-              type="date"
-              value={etat.dateEffet}
-              onChange={(e) => setEtat((s) => ({ ...s, dateEffet: e.target.value }))}
-            />
-          )}
-        </Champ>
+        <ChampDate
+          libelle={t('fiche.prix.date')}
+          erreur={erreur('dateEffet')}
+          valeur={etat.dateEffet}
+          onChange={(v) => setEtat((s) => ({ ...s, dateEffet: v }))}
+        />
       </div>
       <p className={styles.note}>{t('fiche.prix.aide')}</p>
       <div className={styles.prixActions}>

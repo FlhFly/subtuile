@@ -467,6 +467,13 @@ export const fr = {
   'fiche.dupliquer': 'Dupliquer',
   'edition.copie': '(copie)',
 
+  /* Format de date (réglage + champ de saisie) */
+  'reglages.formatDate': 'Format de date',
+  'formatDate.jma': 'JJ/MM/AAAA',
+  'formatDate.mja': 'MM/JJ/AAAA',
+  'formatDate.iso': 'AAAA-MM-JJ',
+  'champDate.calendrier': 'Ouvrir le calendrier',
+
   /* Fiche enrichie (EF-05, EF-08) */
   'fiche.engagement.detail': 'Engagement',
   'fiche.engagement.detail.texte': '{mois} mois · préavis {jours} j',

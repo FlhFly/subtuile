@@ -457,6 +457,13 @@ export const en: Dictionnaire = {
   'fiche.dupliquer': 'Duplicate',
   'edition.copie': '(copy)',
 
+  /* Date format (setting + input field) */
+  'reglages.formatDate': 'Date format',
+  'formatDate.jma': 'DD/MM/YYYY',
+  'formatDate.mja': 'MM/DD/YYYY',
+  'formatDate.iso': 'YYYY-MM-DD',
+  'champDate.calendrier': 'Open the calendar',
+
   /* Enriched detail (EF-05, EF-08) */
   'fiche.engagement.detail': 'Commitment',
   'fiche.engagement.detail.texte': '{mois} months · {jours}-day notice',

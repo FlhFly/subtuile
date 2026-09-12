@@ -7,6 +7,20 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — format de date choisi : réglage et champ de saisie (2026-09-12)
+
+#### Ajouté
+- Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) dans Réglages › Général,
+  défaut selon la langue (JJ/MM/AAAA en français, MM/JJ/AAAA en anglais), persisté avec les
+  préférences (§3.5). Il pilote l'affichage des dates courtes partout dans l'app.
+- Composant `ChampDate` : saisie au clavier dans le format choisi (séparateurs / . - tolérés,
+  année sur 4 chiffres) avec un bouton calendrier qui ouvre le sélecteur natif ; remplace les
+  sept sélecteurs natifs du formulaire et de la fiche, dont l'affichage suivait la langue du
+  navigateur (mm/jj/aaaa chez FlhFly) et non celle de l'app. Une saisie illisible est refusée
+  par la validation (« Date invalide »).
+- `formaterDateSaisie`, `parserDateSaisie`, `formatDateDefaut` ; tests `formatDate.test.ts`.
+  Icône calendrier. Le choix sera repris à l'onboarding (C7, lot 4).
+
 ### Lot 3 — corrections UX après recette de l'étape 4 (2026-09-12)
 
 #### Corrigé

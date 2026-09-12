@@ -29,6 +29,7 @@ describe('préférences d’interface (§3.5)', () => {
       affichage: 'grille',
       tri: 'echeance',
       deviseAffichage: 'EUR',
+      formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 2, preavisJours: 14, carteMois: 1 },
     });
     expect(preferencesDefaut('en-US').langue).toBe('en');
@@ -72,6 +73,7 @@ describe('préférences d’interface (§3.5)', () => {
       affichage: 'liste',
       tri: 'echeance',
       deviseAffichage: 'EUR',
+      formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 5, preavisJours: 14, carteMois: 1 },
     });
   });

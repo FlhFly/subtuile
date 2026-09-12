@@ -34,6 +34,7 @@ import {
   type Service,
 } from '../../domain/types';
 import { Champ } from '../components/Champ';
+import { ChampDate } from '../components/ChampDate';
 import { Chips } from '../components/Chips';
 import { Icone } from '../components/Icone';
 import { Interrupteur } from '../components/Interrupteur';
@@ -457,16 +458,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 </div>
               ) : null}
               <div className={styles.rangee}>
-                <Champ libelle={t('edition.dateDebut')} erreur={erreur('dateDebut')}>
-                  {(a) => (
-                    <input
-                      {...a}
-                      type="date"
-                      value={etat.dateDebut}
-                      onChange={(e) => maj('dateDebut', e.target.value)}
-                    />
-                  )}
-                </Champ>
+                <ChampDate
+                  libelle={t('edition.dateDebut')}
+                  erreur={erreur('dateDebut')}
+                  valeur={etat.dateDebut}
+                  onChange={(v) => maj('dateDebut', v)}
+                />
                 <Bloc titre={t('edition.echeance.apercu')}>
                   <div className={styles.apercu}>
                     {apercuEcheance ? date(apercuEcheance, 'long') : '—'}
@@ -474,16 +471,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 </Bloc>
               </div>
               <p className={styles.aide}>{t('edition.echeance.aide')}</p>
-              <Champ libelle={t('edition.echeanceManuelle')} erreur={erreur('echeanceManuelle')}>
-                {(a) => (
-                  <input
-                    {...a}
-                    type="date"
-                    value={etat.echeanceManuelle}
-                    onChange={(e) => maj('echeanceManuelle', e.target.value)}
-                  />
-                )}
-              </Champ>
+              <ChampDate
+                libelle={t('edition.echeanceManuelle')}
+                erreur={erreur('echeanceManuelle')}
+                valeur={etat.echeanceManuelle}
+                onChange={(v) => maj('echeanceManuelle', v)}
+              />
             </>
           ) : null}
 
@@ -507,16 +500,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           ) : null}
 
           {!recurrent && !usage ? (
-            <Champ libelle={t('edition.dateDebut')} erreur={erreur('dateDebut')}>
-              {(a) => (
-                <input
-                  {...a}
-                  type="date"
-                  value={etat.dateDebut}
-                  onChange={(e) => maj('dateDebut', e.target.value)}
-                />
-              )}
-            </Champ>
+            <ChampDate
+              libelle={t('edition.dateDebut')}
+              erreur={erreur('dateDebut')}
+              valeur={etat.dateDebut}
+              onChange={(v) => maj('dateDebut', v)}
+            />
           ) : null}
 
           <button
@@ -550,16 +539,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 />
                 {etat.essai ? (
                   <div className={styles.rangee}>
-                    <Champ libelle={t('edition.essai.fin')} erreur={erreur('essaiFin')}>
-                      {(a) => (
-                        <input
-                          {...a}
-                          type="date"
-                          value={etat.essaiFin}
-                          onChange={(e) => maj('essaiFin', e.target.value)}
-                        />
-                      )}
-                    </Champ>
+                    <ChampDate
+                      libelle={t('edition.essai.fin')}
+                      erreur={erreur('essaiFin')}
+                      valeur={etat.essaiFin}
+                      onChange={(v) => maj('essaiFin', v)}
+                    />
                     <Champ libelle={t('edition.essai.prix')} erreur={erreur('essaiPrix')}>
                       {(a) => (
                         <input
@@ -641,19 +626,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                   onChange={(v) => maj('montantEstime', v)}
                 />
                 {etat.montantEstime ? (
-                  <Champ
+                  <ChampDate
                     libelle={t('edition.regularisation')}
                     erreur={erreur('regularisationDate')}
-                  >
-                    {(a) => (
-                      <input
-                        {...a}
-                        type="date"
-                        value={etat.regularisationDate}
-                        onChange={(e) => maj('regularisationDate', e.target.value)}
-                      />
-                    )}
-                  </Champ>
+                    valeur={etat.regularisationDate}
+                    onChange={(v) => maj('regularisationDate', v)}
+                  />
                 ) : null}
 
                 <Interrupteur
@@ -664,16 +642,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 />
                 {etat.prixFutur ? (
                   <div className={styles.rangee}>
-                    <Champ libelle={t('edition.prixFutur.date')} erreur={erreur('prixFuturDate')}>
-                      {(a) => (
-                        <input
-                          {...a}
-                          type="date"
-                          value={etat.prixFuturDate}
-                          onChange={(e) => maj('prixFuturDate', e.target.value)}
-                        />
-                      )}
-                    </Champ>
+                    <ChampDate
+                      libelle={t('edition.prixFutur.date')}
+                      erreur={erreur('prixFuturDate')}
+                      valeur={etat.prixFuturDate}
+                      onChange={(v) => maj('prixFuturDate', v)}
+                    />
                     <Champ
                       libelle={t('edition.prixFutur.montant')}
                       erreur={erreur('prixFuturMontant')}

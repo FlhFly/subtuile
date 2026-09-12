@@ -28,6 +28,7 @@ const TRACES = {
   carte: 'M3 6h18v12H3zM3 10h18M7 15h4',
   cloche: 'M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15L6 16ZM10 19a2.2 2.2 0 0 0 4 0',
   chevronDroit: 'm9 5.5 6.5 6.5L9 18.5',
+  calendrier: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
 } as const;
 
 export type NomIcone = keyof typeof TRACES;

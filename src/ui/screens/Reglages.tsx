@@ -1,6 +1,14 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
-import { LANGUES, THEMES, type DefautsAlerte, type Langue, type Theme } from '../../domain/types';
+import {
+  FORMATS_DATE,
+  LANGUES,
+  THEMES,
+  type DefautsAlerte,
+  type FormatDate,
+  type Langue,
+  type Theme,
+} from '../../domain/types';
 import { EnTete } from '../components/EnTete';
 import { Icone, type NomIcone } from '../components/Icone';
 import { Segmente } from '../components/Segmente';
@@ -52,6 +60,7 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
 
   const optionsTheme = THEMES.map((th) => ({ valeur: th, libelle: t(`theme.${th}`) }));
   const optionsLangue = LANGUES.map((l) => ({ valeur: l, libelle: t(`langue.${l}`) }));
+  const optionsFormatDate = FORMATS_DATE.map((f) => ({ valeur: f, libelle: t(`formatDate.${f}`) }));
   const modifierAlertes = (partiel: Partial<DefautsAlerte>) =>
     modifier({ alertes: { ...preferences.alertes, ...partiel } });
   const jours = (n: number) => t('reglages.alertes.jours', { n });
@@ -122,6 +131,14 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
             options={optionsLangue}
             valeur={langue}
             onChange={changerLangue}
+          />
+        </Ligne>
+        <Ligne libelle={t('reglages.formatDate')}>
+          <Segmente<FormatDate>
+            nom={t('reglages.formatDate')}
+            options={optionsFormatDate}
+            valeur={preferences.formatDate}
+            onChange={(formatDate) => modifier({ formatDate })}
           />
         </Ligne>
       </Section>

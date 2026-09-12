@@ -324,6 +324,10 @@ export type ModeAffichage = (typeof MODES_AFFICHAGE)[number];
 export const TRIS_ACCUEIL = ['echeance', 'prix', 'nom', 'categorie', 'personnalise'] as const;
 export type TriAccueil = (typeof TRIS_ACCUEIL)[number];
 
+/** Format d'affichage et de saisie des dates courtes : JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ */
+export const FORMATS_DATE = ['jma', 'mja', 'iso'] as const;
+export type FormatDate = (typeof FORMATS_DATE)[number];
+
 /** EF-30 : défauts globaux d'alerte, modifiables dans les réglages */
 export interface DefautsAlerte {
   echeanceJours: number;
@@ -338,6 +342,7 @@ export interface Preferences {
   affichage: ModeAffichage;
   tri: TriAccueil;
   deviseAffichage: DeviseAffichage;
+  formatDate: FormatDate;
   alertes: DefautsAlerte;
 }
 

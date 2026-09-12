@@ -7,10 +7,12 @@
 import { detecterLangue, estLangue } from '../i18n';
 import {
   DEVISES_AFFICHAGE,
+  FORMATS_DATE,
   MODES_AFFICHAGE,
   THEMES,
   TRIS_ACCUEIL,
   type DefautsAlerte,
+  type Langue,
   type Preferences,
 } from '../domain/types';
 
@@ -31,13 +33,20 @@ export const ALERTES_DEFAUT: DefautsAlerte = {
   carteMois: 1,
 };
 
+/** Format de date par défaut selon la langue : JJ/MM/AAAA en français, MM/JJ/AAAA en anglais. */
+export function formatDateDefaut(langue: Langue): Preferences['formatDate'] {
+  return langue === 'en' ? 'mja' : 'jma';
+}
+
 export function preferencesDefaut(langueNavigateur?: string): Preferences {
+  const langue = detecterLangue(langueNavigateur);
   return {
-    langue: detecterLangue(langueNavigateur),
+    langue,
     theme: 'systeme',
     affichage: 'grille',
     tri: 'echeance',
     deviseAffichage: 'EUR',
+    formatDate: formatDateDefaut(langue),
     alertes: { ...ALERTES_DEFAUT },
   };
 }
@@ -67,6 +76,7 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
     affichage: parmi(o.affichage, MODES_AFFICHAGE, defaut.affichage),
     tri: parmi(o.tri, TRIS_ACCUEIL, defaut.tri),
     deviseAffichage: parmi(o.deviseAffichage, DEVISES_AFFICHAGE, defaut.deviseAffichage),
+    formatDate: parmi(o.formatDate, FORMATS_DATE, defaut.formatDate),
     alertes: {
       echeanceJours: entierPositif(alertesBrut.echeanceJours, defaut.alertes.echeanceJours),
       essaiJours: entierPositif(alertesBrut.essaiJours, defaut.alertes.essaiJours),

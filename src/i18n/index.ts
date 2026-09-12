@@ -5,8 +5,14 @@
  * Module sans React ; le hook `useI18n` vit dans src/ui/contexts.
  */
 
-import { parseDateISO } from '../domain/dates';
-import { LANGUES, type DateISO, type Langue, type Periodicite } from '../domain/types';
+import { estDateISO, parseDateISO } from '../domain/dates';
+import {
+  LANGUES,
+  type DateISO,
+  type FormatDate,
+  type Langue,
+  type Periodicite,
+} from '../domain/types';
 import { en } from './en';
 import { fr, type CleTraduction, type Dictionnaire } from './fr';
 
@@ -101,9 +107,50 @@ const OPTIONS_DATE: Record<StyleDate, Intl.DateTimeFormatOptions> = {
   long: { day: 'numeric', month: 'long', year: 'numeric' },
 };
 
-/** Date civile localisée (« 15/09/2026 » / « 15/09/2026 », « 15 sept. 2026 » / « 15 Sept 2026 »). */
-export function formaterDate(langue: Langue, date: DateISO, style: StyleDate = 'court'): string {
+/**
+ * Date civile localisée (« 15/09/2026 », « 15 sept. 2026 » / « 15 Sept 2026 »).
+ * Le style court suit le format de date choisi dans les préférences s'il est fourni.
+ */
+export function formaterDate(
+  langue: Langue,
+  date: DateISO,
+  style: StyleDate = 'court',
+  format?: FormatDate,
+): string {
+  if (style === 'court' && format) return formaterDateSaisie(date, format);
   return new Intl.DateTimeFormat(LOCALES[langue], OPTIONS_DATE[style]).format(parseDateISO(date));
+}
+
+/** « 2026-09-15 » → « 15/09/2026 », « 09/15/2026 » ou « 2026-09-15 » selon le format. */
+export function formaterDateSaisie(date: DateISO, format: FormatDate): string {
+  const [a, m, j] = date.split('-');
+  switch (format) {
+    case 'jma':
+      return `${j}/${m}/${a}`;
+    case 'mja':
+      return `${m}/${j}/${a}`;
+    case 'iso':
+      return date;
+  }
+}
+
+/**
+ * Saisie d'une date dans le format choisi (séparateurs / . - ou espace, année
+ * sur 4 chiffres) ; une date ISO est toujours acceptée (sélecteur natif).
+ * Renvoie la date ISO, ou null si la saisie n'est pas une date valide.
+ */
+export function parserDateSaisie(texte: string, format: FormatDate): DateISO | null {
+  const t = texte.trim();
+  if (t === '') return null;
+  if (/^\d{4}-\d{2}-\d{2}$/.test(t)) return estDateISO(t) ? t : null;
+  const parties = t.split(/[/.\-\s]+/);
+  if (parties.length !== 3 || !parties.every((p) => /^\d+$/.test(p))) return null;
+  const [p1, p2, p3] = parties as [string, string, string];
+  const [annee, mois, jour] =
+    format === 'iso' ? [p1, p2, p3] : format === 'mja' ? [p3, p1, p2] : [p3, p2, p1];
+  if (annee.length !== 4 || mois.length > 2 || jour.length > 2) return null;
+  const iso = `${annee}-${mois.padStart(2, '0')}-${jour.padStart(2, '0')}`;
+  return estDateISO(iso) ? iso : null;
 }
 
 /** Libellé du compteur : J-X / D-X, « Aujourd'hui », J+X si dépassé. */
