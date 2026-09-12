@@ -296,6 +296,8 @@ export const en: Dictionnaire = {
   'edition.plus.ouvrir': 'Advanced options',
   'edition.plus.sous': 'Trial, commitment, sharing, utilities, payment, channel, alert, tags…',
   'edition.plus.fermer': 'Hide options',
+  'edition.plus.renseignees.un': '{n} option set',
+  'edition.plus.renseignees.plusieurs': '{n} options set',
   'edition.essai': 'Free trial',
   'edition.essai.fin': 'Trial ends',
   'edition.essai.prix': 'Price after (€)',

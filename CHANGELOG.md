@@ -7,6 +7,20 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — corrections UX après recette de l'étape 4 (2026-09-12)
+
+#### Corrigé
+- Chaque écran s'ouvre en haut de page : la position de défilement de l'écran précédent ne
+  se transmettait plus au suivant (retour FlhFly).
+
+#### Modifié
+- Formulaire : « Options avancées » reste replié même en modification, pour garder le bouton
+  Enregistrer à portée ; le dépliant indique « n options renseignées » quand il cache des
+  données (retour FlhFly). `compterOptionsAvancees` testé.
+- Format des dates de saisie : les sélecteurs natifs suivent la langue du navigateur, pas
+  celle de l'app ; un réglage « Format de date » est proposé pour le lot 4 (réglages complets
+  et onboarding), décision à prendre.
+
 ### Lot 3 — étape 4 : fiche enrichie — prix à date, engagement, régularisation (2026-09-12)
 
 #### Ajouté

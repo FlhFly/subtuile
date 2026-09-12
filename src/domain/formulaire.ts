@@ -277,6 +277,30 @@ export function formulairePourDuplication(
   };
 }
 
+/**
+ * Nombre d'options avancées renseignées (essai, engagement, partage, vie
+ * courante, hausse, paiement, canal, résiliation, référence, adresse, alerte,
+ * tags, notes) : affiché sur le dépliant replié pour signaler ce qu'il cache.
+ */
+export function compterOptionsAvancees(etat: EtatFormulaire): number {
+  const renseignees = [
+    etat.essai,
+    etat.engagement,
+    etat.partage,
+    etat.montantEstime || etat.regularisationDate.trim() !== '',
+    etat.prixFutur,
+    etat.moyenPaiementId !== null,
+    etat.canalAchat !== 'direct',
+    etat.modeResiliation !== 'lien',
+    etat.referenceClient.trim() !== '',
+    etat.urlGestion.trim() !== '',
+    etat.alerteJoursAvant !== null,
+    etat.tags.trim() !== '',
+    etat.notes.trim() !== '',
+  ];
+  return renseignees.filter(Boolean).length;
+}
+
 export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): EtatFormulaire {
   return {
     ...formulaireVide(jour),

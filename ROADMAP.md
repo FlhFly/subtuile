@@ -129,6 +129,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ⬜ |
 | §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation) et écran À propos | ⬜ |
+| — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie, repris à l'onboarding C7 (proposition FlhFly du 2026-09-12, à confirmer) | ⬜ |
 | — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ⬜ |
 
 ## Lot 5 — Pilotage

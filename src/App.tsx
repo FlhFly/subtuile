@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
 import { AlertesContextProvider } from './ui/contexts/AlertesContext';
@@ -57,6 +57,11 @@ function Navigation() {
   const [ecran, setEcran] = useState<Ecran>({ nom: 'accueil' });
   const { abonnements } = useAbonnements();
   const { parId: services } = useCatalogue();
+
+  /* Chaque écran s'ouvre en haut de page (navigation par état, sans routeur). */
+  useEffect(() => {
+    window.scrollTo({ top: 0 });
+  }, [ecran]);
 
   const onglet: Onglet = ecran.nom === 'reglages' ? 'reglages' : 'accueil';
   const avecBarre = ecran.nom === 'accueil' || ecran.nom === 'reglages';

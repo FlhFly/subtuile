@@ -14,6 +14,7 @@ import {
 import { aujourdhui, calculerProchaineEcheance } from '../../domain/dates';
 import {
   abonnementDepuisFormulaire,
+  compterOptionsAvancees,
   formulaireDepuisAbonnement,
   formulairePourDuplication,
   formulaireVide,
@@ -66,7 +67,7 @@ type Mode = 'catalogue' | 'libre';
  * alerte, tags, notes.
  */
 export function Edition({ existant, serviceInitial, modele, onFermer, onEnregistre }: Props) {
-  const { t, date, montant } = useI18n();
+  const { t, tn, date, montant } = useI18n();
   const { preferences } = usePreferences();
   const storage = useStorage();
   const toast = useToast();
@@ -88,11 +89,13 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const [recherche, setRecherche] = useState('');
   const [suggestionsIgnorees, setSuggestionsIgnorees] = useState(false);
   const [erreurs, setErreurs] = useState<Erreurs>({});
-  const [plusOuvert, setPlusOuvert] = useState(Boolean(origine));
+  /** repliées par défaut, même en modification : le bouton Enregistrer reste à portée (retour FlhFly) */
+  const [plusOuvert, setPlusOuvert] = useState(false);
   const [enregistrement, setEnregistrement] = useState(false);
 
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
+  const optionsRenseignees = compterOptionsAvancees(etat);
   const comparaison = service ? comparaisonCanaux(service, formule) : undefined;
   const suggestions =
     service || suggestionsIgnorees ? [] : suggestionsCatalogue(catalogue.data, etat.nom);
@@ -526,7 +529,13 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
               <span className={styles.depliantTitre}>
                 {t(plusOuvert ? 'edition.plus.fermer' : 'edition.plus.ouvrir')}
               </span>
-              {!plusOuvert ? <span className={styles.aide}>{t('edition.plus.sous')}</span> : null}
+              {!plusOuvert ? (
+                <span className={styles.aide}>
+                  {optionsRenseignees > 0
+                    ? tn('edition.plus.renseignees', optionsRenseignees)
+                    : t('edition.plus.sous')}
+                </span>
+              ) : null}
             </span>
             <Icone nom="plus" />
           </button>

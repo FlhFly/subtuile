@@ -304,6 +304,8 @@ export const fr = {
   'edition.plus.ouvrir': 'Options avancées',
   'edition.plus.sous': 'Essai, engagement, partage, vie courante, paiement, canal, alerte, tags…',
   'edition.plus.fermer': 'Masquer les options',
+  'edition.plus.renseignees.un': '{n} option renseignée',
+  'edition.plus.renseignees.plusieurs': '{n} options renseignées',
   'edition.essai': 'Essai gratuit',
   'edition.essai.fin': 'Fin d’essai',
   'edition.essai.prix': 'Prix après (€)',

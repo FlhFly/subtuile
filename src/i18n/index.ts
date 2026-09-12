@@ -37,7 +37,8 @@ export type ClePluriel =
   | 'catalogue.nombre'
   | 'alertes.nonLues'
   | 'alertes.echeance.titre'
-  | 'alertes.carte.sous';
+  | 'alertes.carte.sous'
+  | 'edition.plus.renseignees';
 
 /** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
 export function libelleDuree(
