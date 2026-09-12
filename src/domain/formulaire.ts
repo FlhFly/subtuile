@@ -301,6 +301,38 @@ export function compterOptionsAvancees(etat: EtatFormulaire): number {
   return renseignees.filter(Boolean).length;
 }
 
+const CHAMPS_MONTANT: ReadonlySet<ChampFormulaire> = new Set([
+  'prix',
+  'plafond',
+  'essaiPrix',
+  'partagePart',
+  'prixFuturMontant',
+]);
+
+/**
+ * Champs réellement modifiés entre deux états du formulaire (garde contre la
+ * perte de saisie) : espaces de bord ignorés, montants comparés par valeur
+ * (« 13,49 » = « 13.49 »).
+ */
+export function differencesFormulaire(
+  avant: EtatFormulaire,
+  apres: EtatFormulaire,
+): ChampFormulaire[] {
+  return (Object.keys(apres) as ChampFormulaire[]).filter((champ) => {
+    const a = avant[champ];
+    const b = apres[champ];
+    if (typeof a === 'string' && typeof b === 'string') {
+      if (CHAMPS_MONTANT.has(champ)) {
+        const pa = parserMontant(a);
+        const pb = parserMontant(b);
+        if (pa !== null && pb !== null) return pa !== pb;
+      }
+      return a.trim() !== b.trim();
+    }
+    return a !== b;
+  });
+}
+
 export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): EtatFormulaire {
   return {
     ...formulaireVide(jour),

@@ -419,3 +419,101 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Garde contre la perte de saisie : dialogue et récapitulatif des modifications */
+.voile {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 30;
+}
+
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  box-shadow: var(--shadow-modal);
+}
+
+.dialogueTitre {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+}
+
+.dialogueActions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dialogueActions .lienDiscret {
+  align-self: center;
+}
+
+.dialogueSecondaire {
+  height: 46px;
+  border: var(--border);
+  border-radius: var(--r-xl);
+  background: transparent;
+  color: var(--ink);
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+}
+
+.dialogueSecondaire:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.recap {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  max-height: 40vh;
+  overflow-y: auto;
+}
+
+.recapLigne {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 8px 10px;
+  border-radius: var(--r-sm);
+  background: var(--sand);
+  font-size: 13px;
+}
+
+.recapChamp {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.recapValeurs {
+  overflow-wrap: anywhere;
+}
+
+.recapValeurs s {
+  color: var(--muted);
+}
+
+.recapAutres {
+  font-size: var(--fs-sm);
+  color: var(--muted);
+  text-align: center;
+}

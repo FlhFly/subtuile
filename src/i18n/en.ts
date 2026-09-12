@@ -457,6 +457,17 @@ export const en: Dictionnaire = {
   'fiche.dupliquer': 'Duplicate',
   'edition.copie': '(copy)',
 
+  /* Unsaved changes guard */
+  'commun.oui': 'Yes',
+  'commun.non': 'No',
+  'commun.vide': '—',
+  'edition.garde.titre': 'Unsaved changes',
+  'edition.garde.texte': 'Save these changes, discard them, or go back to editing?',
+  'edition.garde.autres.un': '+ {n} more change',
+  'edition.garde.autres.plusieurs': '+ {n} more changes',
+  'edition.garde.abandonner': 'Discard changes',
+  'edition.garde.continuer': 'Keep editing',
+
   /* Date format (setting + input field) */
   'reglages.formatDate': 'Date format',
   'formatDate.jma': 'DD/MM/YYYY',

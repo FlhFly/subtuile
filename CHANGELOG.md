@@ -7,6 +7,16 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — garde contre la perte de saisie dans le formulaire (2026-09-12)
+
+#### Ajouté
+- Formulaire : quitter par la flèche retour avec des changements non enregistrés ouvre un
+  dialogue « Modifications non enregistrées » avec le récapitulatif des champs modifiés
+  (libellé, ancienne valeur barrée → nouvelle, cinq lignes puis « + n autres ») et trois
+  choix : Enregistrer, Abandonner les modifications, Continuer la saisie (demande FlhFly).
+  Fermer l'onglet avec des changements en attente demande aussi confirmation au navigateur.
+- `differencesFormulaire` (espaces de bord ignorés, montants comparés par valeur), testé.
+
 ### Lot 3 — format de date choisi : réglage et champ de saisie (2026-09-12)
 
 #### Ajouté

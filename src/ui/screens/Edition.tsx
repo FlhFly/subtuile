@@ -1,4 +1,4 @@
-import { useMemo, useState, type ReactNode } from 'react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { enregistrerAbonnement } from '../../data/services/abonnements';
 import { ALERTES_DEFAUT } from '../../data/preferences';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
@@ -11,10 +11,11 @@ import {
   servicesPourSelection,
   suggestionsCatalogue,
 } from '../../domain/catalogue';
-import { aujourdhui, calculerProchaineEcheance } from '../../domain/dates';
+import { aujourdhui, calculerProchaineEcheance, estDateISO } from '../../domain/dates';
 import {
   abonnementDepuisFormulaire,
   compterOptionsAvancees,
+  differencesFormulaire,
   formulaireDepuisAbonnement,
   formulairePourDuplication,
   formulaireVide,
@@ -22,8 +23,11 @@ import {
   PRESETS_ALERTE,
   PRESETS_PERIODE,
   validerFormulaire,
+  type ChampFormulaire,
   type EtatFormulaire,
   type Erreurs,
+  type PresetPeriode,
+  type TypePeriodicite,
 } from '../../domain/formulaire';
 import {
   CANAUX_ACHAT,
@@ -31,8 +35,13 @@ import {
   MODES_RESILIATION,
   UNITES_PERIODE,
   type Abonnement,
+  type CanalAchat,
+  type Categorie,
+  type ModeResiliation,
   type Service,
+  type UnitePeriode,
 } from '../../domain/types';
+import type { CleTraduction } from '../../i18n';
 import { Champ } from '../components/Champ';
 import { ChampDate } from '../components/ChampDate';
 import { Chips } from '../components/Chips';
@@ -59,6 +68,45 @@ interface Props {
 
 type Mode = 'catalogue' | 'libre';
 
+/** Libellé de chaque champ pour le récapitulatif des modifications non enregistrées. */
+const CLE_CHAMP: Record<ChampFormulaire, CleTraduction> = {
+  serviceId: 'catalogue.titre',
+  formuleId: 'edition.formules',
+  nom: 'edition.nom',
+  prix: 'edition.prix',
+  categorie: 'edition.categorie',
+  typePeriodicite: 'edition.type',
+  preset: 'edition.type',
+  persoIntervalle: 'edition.type',
+  persoUnite: 'edition.type',
+  dateDebut: 'edition.dateDebut',
+  echeanceManuelle: 'edition.echeanceManuelle',
+  plafond: 'edition.plafond',
+  essai: 'edition.essai',
+  essaiFin: 'edition.essai.fin',
+  essaiPrix: 'edition.essai.prix',
+  engagement: 'edition.engagement',
+  engagementMois: 'edition.engagement.mois',
+  engagementPreavis: 'edition.engagement.preavis',
+  partage: 'edition.partage',
+  partagePart: 'edition.partage.part',
+  montantEstime: 'edition.estime',
+  regularisationDate: 'edition.regularisation',
+  prixFutur: 'edition.prixFutur',
+  prixFuturDate: 'edition.prixFutur.date',
+  prixFuturMontant: 'edition.prixFutur.montant',
+  moyenPaiementId: 'edition.paiement',
+  canalAchat: 'edition.canal',
+  modeResiliation: 'edition.resiliation',
+  contactResiliation: 'edition.resiliation',
+  referenceClient: 'edition.ref',
+  urlGestion: 'edition.url',
+  alerteJoursAvant: 'edition.alerte',
+  tags: 'edition.tags',
+  notes: 'edition.notes',
+};
+const RECAP_MAX = 5;
+
 /**
  * Création / édition (EF-01, EF-02, EF-02b, §7.3) : mode catalogue
  * (sélection d'un service, formules, canal, mention « moins cher en direct »)
@@ -76,12 +124,15 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const { catalogue, parId: services } = useCatalogue();
   const jour = aujourdhui();
 
-  const [etat, setEtat] = useState<EtatFormulaire>(() => {
+  /** état d'ouverture, référence de la garde contre la perte de saisie */
+  const [etatInitial] = useState<EtatFormulaire>(() => {
     if (existant) return formulaireDepuisAbonnement(existant, jour);
     if (modele) return formulairePourDuplication(modele, jour, t('edition.copie'));
     const vide = formulaireVide(jour);
     return serviceInitial ? preRemplirDepuisService(vide, serviceInitial) : vide;
   });
+  const [etat, setEtat] = useState<EtatFormulaire>(etatInitial);
+  const [garde, setGarde] = useState(false);
   /** L'onglet reflète l'origine de l'entrée : liée au catalogue ou saisie libre. */
   const origine = existant ?? modele;
   const [mode, setMode] = useState<Mode>(origine?.serviceId === null ? 'libre' : 'catalogue');
@@ -97,6 +148,60 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
   const optionsRenseignees = compterOptionsAvancees(etat);
+  const modifications = differencesFormulaire(etatInitial, etat);
+  const modifie = modifications.length > 0;
+  /** Retour : sans modification on quitte, sinon la garde demande quoi faire de la saisie. */
+  const fermer = () => {
+    if (modifie) setGarde(true);
+    else onFermer();
+  };
+  useEffect(() => {
+    if (!modifie) return undefined;
+    const avertir = (e: BeforeUnloadEvent) => {
+      e.preventDefault();
+    };
+    window.addEventListener('beforeunload', avertir);
+    return () => window.removeEventListener('beforeunload', avertir);
+  }, [modifie]);
+
+  /** Valeur lisible d'un champ pour le récapitulatif. */
+  const libelleValeur = (champ: ChampFormulaire, v: EtatFormulaire[ChampFormulaire]): string => {
+    if (v === null || v === '') return t('commun.vide');
+    if (typeof v === 'boolean') return t(v ? 'commun.oui' : 'commun.non');
+    if (typeof v === 'number') {
+      return champ === 'alerteJoursAvant' ? t('edition.alerte.jours', { n: v }) : String(v);
+    }
+    switch (champ) {
+      case 'categorie':
+        return t(`categorie.${v as Categorie}`);
+      case 'canalAchat':
+        return t(`canal.${v as CanalAchat}`);
+      case 'modeResiliation':
+        return t(`resiliation.${v as ModeResiliation}`);
+      case 'typePeriodicite':
+        return t(`edition.type.${v as TypePeriodicite}`);
+      case 'preset':
+        return t(`edition.preset.${v as PresetPeriode}`);
+      case 'persoUnite':
+        return t(`edition.unite.${v as UnitePeriode}`);
+      case 'moyenPaiementId':
+        return moyensPaiement.get(v)?.libelle ?? v;
+      case 'serviceId':
+        return services.get(v)?.nom ?? v;
+      case 'formuleId':
+        return service?.formules.find((f) => f.id === v)?.nom ?? v;
+      case 'dateDebut':
+      case 'echeanceManuelle':
+      case 'essaiFin':
+      case 'regularisationDate':
+      case 'prixFuturDate':
+        return estDateISO(v) ? date(v) : v;
+      case 'notes':
+        return v.length > 40 ? `${v.slice(0, 40)}…` : v;
+      default:
+        return v;
+    }
+  };
   const comparaison = service ? comparaisonCanaux(service, formule) : undefined;
   const suggestions =
     service || suggestionsIgnorees ? [] : suggestionsCatalogue(catalogue.data, etat.nom);
@@ -223,7 +328,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
         <button
           type="button"
           className={styles.fermer}
-          onClick={onFermer}
+          onClick={fermer}
           aria-label={t('commun.fermer')}
         >
           <Icone nom="retour" />
@@ -774,6 +879,59 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           </button>
         </>
       )}
+
+      {garde ? (
+        <div className={styles.voile} role="presentation" onClick={() => setGarde(false)}>
+          <div
+            className={styles.dialogue}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="garde-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="garde-titre" className={styles.dialogueTitre}>
+              {t('edition.garde.titre')}
+            </h2>
+            <ul className={styles.recap}>
+              {modifications.slice(0, RECAP_MAX).map((c) => (
+                <li key={c} className={styles.recapLigne}>
+                  <span className={styles.recapChamp}>{t(CLE_CHAMP[c])}</span>
+                  <span className={styles.recapValeurs}>
+                    <s>{libelleValeur(c, etatInitial[c])}</s>
+                    {' → '}
+                    <strong>{libelleValeur(c, etat[c])}</strong>
+                  </span>
+                </li>
+              ))}
+              {modifications.length > RECAP_MAX ? (
+                <li className={styles.recapAutres}>
+                  {tn('edition.garde.autres', modifications.length - RECAP_MAX)}
+                </li>
+              ) : null}
+            </ul>
+            <p className={styles.aide}>{t('edition.garde.texte')}</p>
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.enregistrer}
+                disabled={enregistrement}
+                onClick={() => {
+                  setGarde(false);
+                  void enregistrer();
+                }}
+              >
+                {t('edition.enregistrer')}
+              </button>
+              <button type="button" className={styles.dialogueSecondaire} onClick={onFermer}>
+                {t('edition.garde.abandonner')}
+              </button>
+              <button type="button" className={styles.lienDiscret} onClick={() => setGarde(false)}>
+                {t('edition.garde.continuer')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </form>
   );
 }

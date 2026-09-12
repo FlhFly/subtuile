@@ -467,6 +467,17 @@ export const fr = {
   'fiche.dupliquer': 'Dupliquer',
   'edition.copie': '(copie)',
 
+  /* Garde contre la perte de saisie */
+  'commun.oui': 'Oui',
+  'commun.non': 'Non',
+  'commun.vide': '—',
+  'edition.garde.titre': 'Modifications non enregistrées',
+  'edition.garde.texte': 'Enregistrer ces changements, les abandonner, ou revenir à la saisie ?',
+  'edition.garde.autres.un': '+ {n} autre modification',
+  'edition.garde.autres.plusieurs': '+ {n} autres modifications',
+  'edition.garde.abandonner': 'Abandonner les modifications',
+  'edition.garde.continuer': 'Continuer la saisie',
+
   /* Format de date (réglage + champ de saisie) */
   'reglages.formatDate': 'Format de date',
   'formatDate.jma': 'JJ/MM/AAAA',
