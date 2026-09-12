@@ -12,6 +12,7 @@ import {
   aujourdhui,
   calculerProchaineEcheance,
   comparerDates,
+  occurrenceSuivante,
 } from './dates';
 import type {
   Abonnement,
@@ -19,6 +20,7 @@ import type {
   Horodatage,
   MoyenPaiement,
   Periodicite,
+  PeriodiciteRecurrente,
   UnitePeriode,
 } from './types';
 
@@ -97,12 +99,27 @@ export function actualiserStatut(abo: Abonnement, jour: DateISO): Abonnement {
 }
 
 /**
- * Met un abonnement « au jour » : transitions de statut (EF-06), prix futur
- * atteint (EF-08b), prochaine échéance recalculée (EF-03). Renvoie le MÊME
- * objet si rien ne change, afin d'éviter des écritures inutiles.
+ * EF-04b : une régularisation annuelle passée est reportée à sa prochaine
+ * date anniversaire (la facture suivante ne doit pas être une surprise non plus).
+ */
+export function actualiserRegularisation(abo: Abonnement, jour: DateISO): Abonnement {
+  const r = abo.regularisation;
+  if (!r || comparerDates(r.date, jour) >= 0) return abo;
+  const annuel: PeriodiciteRecurrente = { type: 'recurrente', unite: 'an', intervalle: 1 };
+  return { ...abo, regularisation: { date: occurrenceSuivante(r.date, annuel, jour) } };
+}
+
+/**
+ * Met un abonnement « au jour » : transitions de statut (EF-06), régularisation
+ * reportée (EF-04b), prix futur atteint (EF-08b), prochaine échéance
+ * recalculée (EF-03). Renvoie le MÊME objet si rien ne change, afin d'éviter
+ * des écritures inutiles.
  */
 export function actualiserAbonnement(abo: Abonnement, jour: DateISO): Abonnement {
-  const avecPrix = appliquerPrixFutur(actualiserStatut(abo, jour), jour);
+  const avecPrix = appliquerPrixFutur(
+    actualiserRegularisation(actualiserStatut(abo, jour), jour),
+    jour,
+  );
   const echeance = calculerProchaineEcheance(avecPrix, jour);
   if (avecPrix === abo && echeance === abo.prochaineEcheance) return abo;
   return { ...avecPrix, prochaineEcheance: echeance };

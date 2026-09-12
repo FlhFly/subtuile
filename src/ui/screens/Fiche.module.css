@@ -524,3 +524,61 @@
   font-size: 13.5px;
   font-weight: var(--fw-bold);
 }
+
+/* Changement de prix depuis la fiche (EF-08) */
+.sectionEnTete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.prixForm {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: var(--border-dash);
+  border-radius: var(--r-lg);
+}
+
+.prixChamps {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.prixActions {
+  display: flex;
+  gap: 8px;
+}
+
+.boutonPetit,
+.boutonPetitPrincipal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: var(--r-pill);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.boutonPetitPrincipal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.boutonPetit {
+  border: var(--border);
+  background: transparent;
+  color: var(--ink);
+}
+
+.boutonPetit:focus-visible,
+.boutonPetitPrincipal:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

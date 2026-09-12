@@ -465,6 +465,18 @@ export const fr = {
   'fiche.dupliquer': 'Dupliquer',
   'edition.copie': '(copie)',
 
+  /* Fiche enrichie (EF-05, EF-08) */
+  'fiche.engagement.detail': 'Engagement',
+  'fiche.engagement.detail.texte': '{mois} mois · préavis {jours} j',
+  'fiche.prix.modifier': 'Modifier le prix',
+  'fiche.prix.montant': 'Nouveau prix',
+  'fiche.prix.montant.ph': '9,99',
+  'fiche.prix.date': 'À partir du',
+  'fiche.prix.aide':
+    'Une date passée ou du jour met à jour l’historique ; une date à venir programme une hausse annoncée.',
+  'toast.prixModifie': 'Prix mis à jour',
+  'toast.hausseProgrammee': 'Hausse annoncée programmée',
+
   /* Centre d'alertes (EF-30, EF-31) */
   'alertes.titre': 'Alertes',
   'alertes.nonLues.un': '{n} alerte non lue',

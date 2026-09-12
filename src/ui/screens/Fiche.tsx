@@ -18,6 +18,17 @@ import {
   NOMBRE_ETAPES,
   statutApresResiliation,
 } from '../../domain/resiliation';
+import { enregistrerAbonnement } from '../../data/services/abonnements';
+import { parserMontant } from '../../domain/formulaire';
+import {
+  appliquerChangementPrix,
+  estHausseAnnoncee,
+  formulairePrixVide,
+  validerChangementPrix,
+  type ErreursPrix,
+  type FormulaireChangementPrix,
+} from '../../domain/prix';
+import { Champ } from '../components/Champ';
 import { couleurCompteur, modeleTuile } from '../../domain/tuile';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
 import type { Abonnement, DateISO, MoyenPaiement, Service, Statut } from '../../domain/types';
@@ -55,6 +66,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
   const [confirmation, setConfirmation] = useState(false);
+  const [prixOuvert, setPrixOuvert] = useState(false);
   const jour = aujourdhui();
 
   const abo = abonnements.find((a) => a.id === id);
@@ -115,6 +127,26 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
         toast.afficher(t('toast.actionAnnulee'));
       },
     });
+  };
+  /** EF-08 : nouveau prix à une date (passée : historique ; future : hausse annoncée), annulable. */
+  const changerPrix = async (nouveauMontant: number, dateEffet: string) => {
+    const precedent = abo;
+    await enregistrerAbonnement(
+      storage,
+      appliquerChangementPrix(abo, nouveauMontant, dateEffet, jour),
+      jour,
+    );
+    setPrixOuvert(false);
+    toast.afficherAvecAction(
+      t(estHausseAnnoncee(dateEffet, jour) ? 'toast.hausseProgrammee' : 'toast.prixModifie'),
+      {
+        libelle: t('toast.annuler'),
+        executer: async () => {
+          await enregistrerAbonnement(storage, precedent, aujourdhui());
+          toast.afficher(t('toast.actionAnnulee'));
+        },
+      },
+    );
   };
   const copierReference = async () => {
     if (!abo.referenceClient) return;
@@ -236,6 +268,14 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
               : t('fiche.echeance.aucune')}
           </Detail>
           <Detail libelle={t('fiche.periodicite')}>{libPeriodicite(abo.periodicite)}</Detail>
+          {abo.engagement ? (
+            <Detail libelle={t('fiche.engagement.detail')}>
+              {t('fiche.engagement.detail.texte', {
+                mois: abo.engagement.dureeMois,
+                jours: abo.engagement.preavisJours,
+              })}
+            </Detail>
+          ) : null}
           {formule ? <Detail libelle={t('fiche.formule')}>{formule.nom}</Detail> : null}
           {abo.periodicite.type === 'a_l_usage' && abo.periodicite.plafond !== null ? (
             <Detail libelle={t('fiche.plafond')}>
@@ -279,9 +319,27 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
           </section>
         ) : null}
 
-        {abo.historiquePrix.length > 0 ? (
+        {abo.periodicite.type === 'recurrente' || abo.historiquePrix.length > 0 ? (
           <section className={styles.section}>
-            <h2 className={styles.sectionTitre}>{t('fiche.historique')}</h2>
+            <div className={styles.sectionEnTete}>
+              <h2 className={styles.sectionTitre}>{t('fiche.historique')}</h2>
+              {abo.periodicite.type === 'recurrente' && !prixOuvert ? (
+                <button
+                  type="button"
+                  className={styles.lienDiscret}
+                  onClick={() => setPrixOuvert(true)}
+                >
+                  {t('fiche.prix.modifier')}
+                </button>
+              ) : null}
+            </div>
+            {prixOuvert ? (
+              <FormulairePrix
+                jour={jour}
+                onEnregistrer={changerPrix}
+                onAnnuler={() => setPrixOuvert(false)}
+              />
+            ) : null}
             <ul className={styles.historique}>
               {abo.historiquePrix.map((h, i) => {
                 const precedent = abo.historiquePrix[i - 1];
@@ -605,6 +663,76 @@ function EncartEngagement({ abo, i18n, jour }: { abo: Abonnement; i18n: I18n; jo
         compteur: i18n.compteur(joursAvant(limite, jour)),
       })}
     </Encart>
+  );
+}
+
+/** EF-08 : nouveau prix et date d'effet ; la validation est celle du domaine. */
+function FormulairePrix({
+  jour,
+  onEnregistrer,
+  onAnnuler,
+}: {
+  jour: string;
+  onEnregistrer: (montant: number, dateEffet: string) => Promise<void>;
+  onAnnuler: () => void;
+}) {
+  const { t } = useI18n();
+  const [etat, setEtat] = useState<FormulaireChangementPrix>(() => formulairePrixVide(jour));
+  const [erreurs, setErreurs] = useState<ErreursPrix>({});
+  const erreur = (champ: keyof FormulaireChangementPrix) => {
+    const code = erreurs[champ];
+    return code ? t(`erreur.${code}`) : undefined;
+  };
+  const soumettre = async () => {
+    const e = validerChangementPrix(etat);
+    setErreurs(e);
+    if (Object.keys(e).length > 0) return;
+    await onEnregistrer(parserMontant(etat.montant) ?? 0, etat.dateEffet);
+  };
+  return (
+    <form
+      className={styles.prixForm}
+      noValidate
+      onSubmit={(e) => {
+        e.preventDefault();
+        void soumettre();
+      }}
+    >
+      <div className={styles.prixChamps}>
+        <Champ libelle={t('fiche.prix.montant')} erreur={erreur('montant')}>
+          {(a) => (
+            <input
+              {...a}
+              type="text"
+              inputMode="decimal"
+              value={etat.montant}
+              onChange={(e) => setEtat((s) => ({ ...s, montant: e.target.value }))}
+              placeholder={t('fiche.prix.montant.ph')}
+              autoFocus
+            />
+          )}
+        </Champ>
+        <Champ libelle={t('fiche.prix.date')} erreur={erreur('dateEffet')}>
+          {(a) => (
+            <input
+              {...a}
+              type="date"
+              value={etat.dateEffet}
+              onChange={(e) => setEtat((s) => ({ ...s, dateEffet: e.target.value }))}
+            />
+          )}
+        </Champ>
+      </div>
+      <p className={styles.note}>{t('fiche.prix.aide')}</p>
+      <div className={styles.prixActions}>
+        <button type="submit" className={styles.boutonPetitPrincipal}>
+          {t('commun.enregistrer')}
+        </button>
+        <button type="button" className={styles.boutonPetit} onClick={onAnnuler}>
+          {t('commun.annuler')}
+        </button>
+      </div>
+    </form>
   );
 }
 

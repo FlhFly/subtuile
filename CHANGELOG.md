@@ -7,6 +7,21 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — étape 4 : fiche enrichie — prix à date, engagement, régularisation (2026-09-12)
+
+#### Ajouté
+- Fiche : « Modifier le prix » dans la section Historique des prix (EF-08) — nouveau prix et
+  date d'effet. Une date passée ou du jour met à jour l'historique (une entrée par date, trié)
+  et le prix courant s'il est le plus récent (part payée plafonnée si partagé) ; une date à
+  venir programme une hausse annoncée (EF-08b). Annulable par toast. La section est visible
+  pour tout abonnement récurrent.
+- Fiche : ligne « Engagement : 12 mois · préavis 30 j » dans les détails (EF-05), en
+  complément de l'encart qui affiche la fin d'engagement et la date limite de résiliation.
+- Régularisation annuelle (EF-04b) : une date passée est reportée d'elle-même à l'anniversaire
+  suivant à l'ouverture, avec les autres mises au jour.
+- `src/domain/prix.ts` (validation, insertion dans l'historique, prix en vigueur, hausse
+  annoncée) et tests `prix.test.ts` (dont le report de régularisation). 236 tests.
+
 ### Lot 3 — étape 3 : cycle de vie, statuts et duplication (2026-09-11)
 
 #### Ajouté

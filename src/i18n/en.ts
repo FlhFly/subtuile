@@ -455,6 +455,18 @@ export const en: Dictionnaire = {
   'fiche.dupliquer': 'Duplicate',
   'edition.copie': '(copy)',
 
+  /* Enriched detail (EF-05, EF-08) */
+  'fiche.engagement.detail': 'Commitment',
+  'fiche.engagement.detail.texte': '{mois} months · {jours}-day notice',
+  'fiche.prix.modifier': 'Change price',
+  'fiche.prix.montant': 'New price',
+  'fiche.prix.montant.ph': '9.99',
+  'fiche.prix.date': 'From',
+  'fiche.prix.aide':
+    'A past or current date updates the history; a future date schedules an announced increase.',
+  'toast.prixModifie': 'Price updated',
+  'toast.hausseProgrammee': 'Announced increase scheduled',
+
   /* Alert centre (EF-30, EF-31) */
   'alertes.titre': 'Alerts',
   'alertes.nonLues.un': '{n} unread alert',

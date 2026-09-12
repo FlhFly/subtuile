@@ -94,7 +94,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | 1 | Moteur d'alertes (domaine) : échéance J-X, fin d'essai, préavis, expiration de carte M-1, régularisation, hausse annoncée ; état lu / non lu persisté | ✅ 2026-09-11 |
 | 2 | Centre d'alertes : badge sur l'accueil, liste, « tout marquer comme lu » ; défauts d'alerte dans les réglages | ✅ 2026-09-11 |
 | 3 | Cycle de vie et statuts : essai → payant, prix futur appliqué, résilié → archivé à l'échéance, archivés hors totaux, pause / reprise, duplication | ✅ 2026-09-11 |
-| 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ⬜ |
+| 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ✅ 2026-09-12 |
 | 5 | Écran Échéancier et son entrée dans la barre de navigation ; barre basse refaite à l'identique de la maquette (demande FlhFly du 2026-09-11, pour accueillir aussi Finances au lot 4) | ⬜ |
 | 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ⬜ |
 | 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ⬜ |
@@ -102,11 +102,11 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
 | EF-04 [M] | Essais gratuits : « essai jusqu'au X, puis Y € » | ✅ lot 1 (tuile, fiche, cycle ancré à la fin d'essai) + lot 3 étapes 1-3 (alerte, transition) |
-| EF-04b [S] | Alerte de régularisation annuelle | ✅ lot 3 étapes 1-2 (fenêtre 30 j, affichée au centre d'alertes) |
-| EF-05 [M] | Engagement / préavis : date limite de résiliation | ⬜ |
+| EF-04b [S] | Alerte de régularisation annuelle | ✅ lot 3 étapes 1-2 (fenêtre 30 j, affichée au centre d'alertes) et 4 (date reportée à l'anniversaire suivant) |
+| EF-05 [M] | Engagement / préavis : date limite de résiliation | ✅ lot 1 étape 6 (encart fin d'engagement + date limite) et lot 3 étapes 1-2 (alerte) et 4 (détail engagement / préavis) |
 | EF-06 [M] | Statuts actif / en pause / résilié-actif-jusqu'au / archivé | ✅ lot 1 (actions de la fiche) + lot 3 étape 3 (archivage automatique après la date, reprise automatique à la date ; saisie de la date de reprise au lot 5) |
 | EF-07 [S] | Duplication d'un abonnement | ✅ lot 3 étape 3 |
-| EF-08 [S] | Historique des prix, saisie d'une hausse à date | ⬜ |
+| EF-08 [S] | Historique des prix, saisie d'une hausse à date | ✅ lot 1 (historique) + lot 3 étape 4 (« Modifier le prix » à date, passée ou future) |
 | EF-08b [S] | Prix futur programmé (alerte, application automatique) | ✅ lot 3 étapes 1-3 (alerte « hausse annoncée », application automatique à la date versée dans l'historique) |
 | EF-16 [S] | Écran Échéancier (liste chronologique) | ⬜ |
 | EF-30 [M] | Alertes paramétrables J-X, fin d'essai, préavis, expiration de carte ; défauts globaux | ✅ lot 3 étapes 1-2 (moteur, seuil par abonnement, défauts réglables) |
