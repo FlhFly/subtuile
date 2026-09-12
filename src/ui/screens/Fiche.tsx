@@ -30,6 +30,9 @@ import {
 } from '../../domain/prix';
 import { Champ } from '../components/Champ';
 import { ChampDate } from '../components/ChampDate';
+import { SYMBOLES } from '../../domain/devises';
+import type { Devise } from '../../domain/types';
+import { useConversion } from '../hooks/useConversion';
 import { evenementsAVenir } from '../../domain/echeancier';
 import { nomFichierIcs } from '../../domain/ics';
 import { usePreferences } from '../contexts/PreferencesContext';
@@ -74,6 +77,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const [confirmation, setConfirmation] = useState(false);
   const [prixOuvert, setPrixOuvert] = useState(false);
   const { preferences } = usePreferences();
+  const { devise: deviseAffichage, convertir } = useConversion();
   const jour = aujourdhui();
 
   const abo = abonnements.find((a) => a.id === id);
@@ -97,6 +101,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const archive = statut.type === 'archive';
   const styleTuile = { '--tuile-couleur': modele.couleur } as CSSProperties;
   const duree = libelleDuree(i18n.langue, anciennete(abo.dateDebut, jour));
+  const mensuel = montantMensuel(prixEffectif(abo), abo.periodicite);
 
   /** Annulation par toast (EF-01b) : retour au statut précédent. */
   const annulation = (precedent: Statut) => ({
@@ -305,7 +310,12 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
             </Detail>
           ) : null}
           <Detail libelle={t('fiche.mensuel')}>
-            {montant(montantMensuel(prixEffectif(abo), abo.periodicite))}
+            {abo.devise === deviseAffichage
+              ? montant(mensuel, abo.devise)
+              : t('fiche.mensuel.converti', {
+                  montant: montant(mensuel, abo.devise),
+                  converti: montant(convertir(mensuel, abo.devise), deviseAffichage),
+                })}
           </Detail>
           <Detail libelle={t('fiche.depuis')}>
             {t('fiche.depuis.texte', { date: date(abo.dateDebut, 'long'), duree })}
@@ -322,8 +332,8 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
         {abo.partage ? (
           <Encart classe="neutre">
             {t('fiche.partage.texte', {
-              part: montant(abo.partage.partPayee),
-              total: montant(abo.partage.prixTotal),
+              part: montant(abo.partage.partPayee, abo.devise),
+              total: montant(abo.partage.prixTotal, abo.devise),
             })}
           </Encart>
         ) : null}
@@ -358,6 +368,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
             {prixOuvert ? (
               <FormulairePrix
                 jour={jour}
+                devise={abo.devise}
                 onEnregistrer={changerPrix}
                 onAnnuler={() => setPrixOuvert(false)}
               />
@@ -373,10 +384,10 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
                       {delta !== 0 ? (
                         <span className={delta > 0 ? styles.hausse : styles.baisse}>
                           {delta > 0 ? '+' : ''}
-                          {montant(delta)}
+                          {montant(delta, abo.devise)}
                         </span>
                       ) : null}
-                      {montant(h.prix)}
+                      {montant(h.prix, abo.devise)}
                     </span>
                   </li>
                 );
@@ -697,10 +708,12 @@ function EncartEngagement({ abo, i18n, jour }: { abo: Abonnement; i18n: I18n; jo
 /** EF-08 : nouveau prix et date d'effet ; la validation est celle du domaine. */
 function FormulairePrix({
   jour,
+  devise,
   onEnregistrer,
   onAnnuler,
 }: {
   jour: string;
+  devise: Devise;
   onEnregistrer: (montant: number, dateEffet: string) => Promise<void>;
   onAnnuler: () => void;
 }) {
@@ -727,7 +740,10 @@ function FormulairePrix({
       }}
     >
       <div className={styles.prixChamps}>
-        <Champ libelle={t('fiche.prix.montant')} erreur={erreur('montant')}>
+        <Champ
+          libelle={t('fiche.prix.montant', { d: SYMBOLES[devise] })}
+          erreur={erreur('montant')}
+        >
           {(a) => (
             <input
               {...a}
@@ -774,11 +790,11 @@ function lignePrix(i18n: I18n, abo: Abonnement): string {
   if (p.type === 'a_l_usage') {
     return p.plafond === null
       ? i18n.t('tuile.sous.usage')
-      : i18n.t('tuile.sous.usagePlafond', { montant: i18n.montant(p.plafond) });
+      : i18n.t('tuile.sous.usagePlafond', { montant: i18n.montant(p.plafond, abo.devise) });
   }
   const prix = abo.montantEstime
-    ? i18n.t('montant.estime', { montant: i18n.montant(abo.prix) })
-    : i18n.montant(abo.prix);
+    ? i18n.t('montant.estime', { montant: i18n.montant(abo.prix, abo.devise) })
+    : i18n.montant(abo.prix, abo.devise);
   return `${prix} ${i18n.periodicite(p)}`;
 }
 

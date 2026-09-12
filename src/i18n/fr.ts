@@ -274,7 +274,7 @@ export const fr = {
   'edition.modifier': 'Modifier — {nom}',
   'edition.nom': 'Nom',
   'edition.nom.ph': 'Nom du service…',
-  'edition.prix': 'Prix (€)',
+  'edition.prix': 'Prix ({d})',
   'edition.prix.ph': '0,00',
   'edition.categorie': 'Catégorie',
   'edition.type': 'Type de périodicité',
@@ -298,7 +298,7 @@ export const fr = {
   'edition.echeance.aide':
     'Recalculée automatiquement : première occurrence à partir d’aujourd’hui.',
   'edition.echeanceManuelle': 'Forcer la prochaine échéance (optionnel)',
-  'edition.plafond': 'Plafond indicatif (€ / mois, optionnel)',
+  'edition.plafond': 'Plafond indicatif ({d} / mois, optionnel)',
   'edition.plafond.aide':
     'Sans échéance fixe : le plafond sert de repère budget, il n’entre pas dans les totaux.',
   'edition.plus.ouvrir': 'Options avancées',
@@ -308,12 +308,12 @@ export const fr = {
   'edition.plus.renseignees.plusieurs': '{n} options renseignées',
   'edition.essai': 'Essai gratuit',
   'edition.essai.fin': 'Fin d’essai',
-  'edition.essai.prix': 'Prix après (€)',
+  'edition.essai.prix': 'Prix après ({d})',
   'edition.engagement': 'Engagement · préavis',
   'edition.engagement.mois': 'Durée (mois)',
   'edition.engagement.preavis': 'Préavis (jours)',
   'edition.partage': 'Abonnement partagé',
-  'edition.partage.part': 'Ma part (€)',
+  'edition.partage.part': 'Ma part ({d})',
   'edition.partage.aide':
     'Le champ « Prix » plus haut est le prix plein ; les totaux ne comptent que votre part.',
   'edition.estime': 'Montant estimé',
@@ -322,7 +322,7 @@ export const fr = {
   'edition.prixFutur': 'Hausse annoncée',
   'edition.prixFutur.sous': 'Appliquée automatiquement à la date, versée dans l’historique',
   'edition.prixFutur.date': 'À partir du',
-  'edition.prixFutur.montant': 'Nouveau prix (€)',
+  'edition.prixFutur.montant': 'Nouveau prix ({d})',
   'edition.paiement': 'Moyen de paiement',
   'edition.paiement.aucun': 'Aucun',
   'edition.canal': 'Canal d’achat',
@@ -482,6 +482,18 @@ export const fr = {
   'reglages.automatisation.note':
     'Sans notification push (contrainte des PWA), les rappels passent par votre calendrier : réimportez le fichier après vos modifications.',
 
+  /* Devises (EF-45, EF-45b) */
+  'edition.devise': 'Devise',
+  'devise.EUR': 'Euro',
+  'devise.USD': 'Dollar américain',
+  'devise.GBP': 'Livre sterling',
+  'devise.CHF': 'Franc suisse',
+  'reglages.devise': 'Devise',
+  'reglages.devise.note':
+    'Proposée à la création d’un abonnement ; les totaux convertissent les autres devises à des taux indicatifs au {d}, jeu embarqué remplaçable sans mise à jour de l’app.',
+  'finances.converti': 'Totaux convertis en {devise} — taux indicatifs au {d}.',
+  'fiche.mensuel.converti': '{montant} · ≈ {converti}',
+
   /* Réglages › Données : tout effacer */
   'reglages.effacer': 'Effacer toutes les données',
   'reglages.effacer.sous':
@@ -575,7 +587,7 @@ export const fr = {
   'fiche.engagement.detail': 'Engagement',
   'fiche.engagement.detail.texte': '{mois} mois · préavis {jours} j',
   'fiche.prix.modifier': 'Modifier le prix',
-  'fiche.prix.montant': 'Nouveau prix',
+  'fiche.prix.montant': 'Nouveau prix ({d})',
   'fiche.prix.montant.ph': '9,99',
   'fiche.prix.date': 'À partir du',
   'fiche.prix.aide':

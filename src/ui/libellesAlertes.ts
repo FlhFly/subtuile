@@ -14,8 +14,8 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
   switch (a.type) {
     case 'echeance': {
       const prix = a.montantEstime
-        ? t('montant.estime', { montant: montant(a.prix) })
-        : montant(a.prix);
+        ? t('montant.estime', { montant: montant(a.prix, a.devise) })
+        : montant(a.prix, a.devise);
       const titre =
         a.jours > 0
           ? tn('alertes.echeance.titre', a.jours, { nom: a.nom })
@@ -34,7 +34,7 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
         pastille: compteur(a.jours),
         titre: t('alertes.essai.titre', { nom: a.nom, date: date(a.date, 'moyen') }),
         sousTitre: t('alertes.essai.sous', {
-          montant: montant(a.prixApres),
+          montant: montant(a.prixApres, a.devise),
           periodicite: periodicite(a.periodicite),
         }),
       };
@@ -58,8 +58,8 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
     }
     case 'regularisation': {
       const prix = a.montantEstime
-        ? t('montant.estime', { montant: montant(a.prix) })
-        : montant(a.prix);
+        ? t('montant.estime', { montant: montant(a.prix, a.devise) })
+        : montant(a.prix, a.devise);
       return {
         pastille: compteur(a.jours),
         titre: t('alertes.regularisation.titre', { nom: a.nom, date: date(a.date, 'moyen') }),
@@ -78,8 +78,8 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
           },
         ),
         sousTitre: t('alertes.prixFutur.sous', {
-          avant: montant(a.prix),
-          apres: montant(a.nouveauPrix),
+          avant: montant(a.prix, a.devise),
+          apres: montant(a.nouveauPrix, a.devise),
         }),
       };
     }

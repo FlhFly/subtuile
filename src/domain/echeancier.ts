@@ -19,7 +19,7 @@ import {
   toDateISO,
 } from './dates';
 import { COULEUR_TUILE_DEFAUT, initialesDuNom } from './tuile';
-import type { Abonnement, DateISO, Periodicite } from './types';
+import type { Abonnement, DateISO, Devise, Periodicite } from './types';
 
 export type TypeEvenement = 'renouvellement' | 'fin_essai' | 'preavis' | 'fin_resilie';
 /** couleur de la puce : compteur (ok / warn / urg), violet (essai, préavis), neutre (fin résilié) */
@@ -37,6 +37,8 @@ export interface Evenement {
   couleur: string;
   initiales: string;
   periodicite: Periodicite;
+  /** devise de saisie du montant (EF-45b) */
+  devise: Devise;
   /** montant supporté au renouvellement ; prix après essai ; null sinon */
   montant: number | null;
   montantEstime: boolean;
@@ -72,6 +74,7 @@ function evenement(
     nom: abo.nom,
     ...apparence(abo),
     periodicite: abo.periodicite,
+    devise: abo.devise,
     montant: extra.montant ?? null,
     montantEstime: abo.montantEstime,
     preavisJours: extra.preavisJours ?? null,

@@ -20,6 +20,7 @@ import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
+import { useConversion } from '../hooks/useConversion';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Accueil.module.css';
 
@@ -52,6 +53,7 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
   const { t, tn, montant } = useI18n();
   const { preferences, modifier } = usePreferences();
   const { abonnements, chargement } = useAbonnements();
+  const { devise, convertir } = useConversion();
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
   const { nonLues } = useAlertes();
@@ -73,12 +75,12 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
 
   /* Totaux des abonnements payants, mêmes règles que l'écran Finances (EF-40), indépendamment des filtres */
   const actifs = abonnements.filter((a) => a.statut.type === 'actif');
-  const total = totaux(abonnements, jour);
+  const total = totaux(abonnements, jour, convertir);
   const totalMensuel = total.mensuel;
   const totalAnnuel = total.annuel;
   const estime = total.estime;
   const marquer = (valeur: number) =>
-    estime ? t('montant.estime', { montant: montant(valeur) }) : montant(valeur);
+    estime ? t('montant.estime', { montant: montant(valeur, devise) }) : montant(valeur, devise);
 
   const compteursStatut = useMemo(() => compterParStatut(abonnements), [abonnements]);
   const compteursCategorie = useMemo(() => {

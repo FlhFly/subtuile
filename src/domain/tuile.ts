@@ -21,6 +21,7 @@ import type {
   Service,
   TypeMoyenPaiement,
 } from './types';
+import type { Devise } from './types';
 
 /** Fond de la tuile : colorée (actif), sable (en pause), neutre pointillée (résilié, archivé). */
 export type VarianteTuile = 'coloree' | 'pause' | 'neutre';
@@ -59,6 +60,8 @@ export interface ModeleTuile {
   archive: boolean;
   partage: boolean;
   canal: CanalAchat;
+  /** devise de saisie des montants du sous-titre (EF-45b) */
+  devise: Devise;
   sousTitre: SousTitre;
   compteur: Compteur;
   paiement: PastillePaiement | null;
@@ -176,6 +179,7 @@ export function modeleTuile(
     archive: abo.statut.type === 'archive',
     partage: abo.partage !== null,
     canal: abo.canalAchat,
+    devise: abo.devise,
     sousTitre: sousTitreTuile(abo, jour),
     compteur: compteurTuile(abo, jour),
     paiement: moyenPaiement ? { type: moyenPaiement.type, couleur: moyenPaiement.couleur } : null,

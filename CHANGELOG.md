@@ -7,6 +7,31 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 3 : devises — taux indicatifs, devise d'affichage, devise par abonnement (2026-09-12)
+
+#### Ajouté
+- Devise par abonnement (EF-45b) : chips « € EUR · $ USD · £ GBP · CHF » à côté du prix dans
+  le formulaire, proposée depuis le réglage « Devise » ; les tarifs du catalogue restent en
+  euros (repassage automatique en EUR quand une formule est appliquée). Les libellés de prix
+  du formulaire affichent le symbole choisi. La devise suit l'abonnement sur la tuile, la
+  fiche (prix, part, historique, changement de prix), les alertes, l'échéancier et les
+  rappels .ics.
+- Devise d'affichage (EF-45) : réglage « Devise » dans Réglages › Général (dépliant avec
+  symboles, note « taux indicatifs au 24 août 2026 »), qui sert aussi de devise par défaut à
+  la saisie. Les totaux de l'accueil et de Finances (totaux, répartitions, prévisionnel,
+  dépenses passées) sont convertis au jeu de taux embarqué (`taux.json`, base EUR,
+  RefDataProvider §5.6) ; note « Totaux convertis en … » dès qu'un abonnement est dans une
+  autre devise ; sur la fiche, le coût mensuel d'un abonnement en devise étrangère est aussi
+  donné converti.
+- `src/domain/devises.ts` (symboles, conversion, convertisseur, détection d'une autre devise),
+  moteur financier paramétré par un convertisseur, hooks `useTaux` et `useConversion`, tests
+  `devises.test.ts`. 280 tests.
+
+#### Modifié
+- Modèle : `devise` d'un abonnement passe de « EUR seulement » à EUR / USD / GBP / CHF ; les
+  données existantes (toutes en EUR) restent valides sans migration. CdC EF-45b : le réglage
+  « Devise » est le même que la devise d'affichage en V1.
+
 ### Lot 4 — correctif après recette de l'étape 2 (2026-09-12)
 
 #### Corrigé

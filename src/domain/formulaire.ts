@@ -16,6 +16,7 @@ import type {
   PeriodiciteRecurrente,
   UnitePeriode,
 } from './types';
+import type { Devise } from './types';
 
 export type TypePeriodicite = Periodicite['type'];
 export const PRESETS_PERIODE = [
@@ -35,6 +36,8 @@ export interface EtatFormulaire {
   formuleId: string | null;
   nom: string;
   prix: string;
+  /** devise de saisie (EF-45b), proposée par défaut depuis les réglages */
+  devise: Devise;
   categorie: Categorie;
   typePeriodicite: TypePeriodicite;
   preset: PresetPeriode;
@@ -210,12 +213,13 @@ export function presetDepuisPeriodicite(
  * État initial
  * ------------------------------------------------------------------------- */
 
-export function formulaireVide(jour: DateISO): EtatFormulaire {
+export function formulaireVide(jour: DateISO, devise: Devise = 'EUR'): EtatFormulaire {
   return {
     serviceId: null,
     formuleId: null,
     nom: '',
     prix: '',
+    devise,
     categorie: 'autre',
     typePeriodicite: 'recurrente',
     preset: 'mensuelle',
@@ -340,6 +344,7 @@ export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): Etat
     formuleId: abo.formuleId,
     nom: abo.nom,
     prix: nombreVersTexte(abo.prix),
+    devise: abo.devise,
     categorie: abo.categorie,
     ...presetDepuisPeriodicite(abo.periodicite),
     dateDebut: abo.dateDebut,
@@ -491,6 +496,7 @@ export function abonnementDepuisFormulaire(
     formuleId: etat.serviceId ? etat.formuleId : null,
     nom: etat.nom.trim(),
     prix: plafondUsage ? 0 : prix,
+    devise: etat.devise,
     categorie: etat.categorie,
     periodicite,
     dateDebut: etat.dateDebut,

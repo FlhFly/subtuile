@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { aujourdhui } from '../../domain/dates';
+import { contientAutreDevise } from '../../domain/devises';
 import {
   depensesPassees,
   previsionnel,
@@ -8,9 +9,11 @@ import {
   totaux,
   type SerieMensuelle,
 } from '../../domain/finances';
+import type { Devise } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
 import { barres, COULEURS_CATEGORIE, degradeDonut } from '../graphiques';
 import { useAbonnements } from '../hooks/useAbonnements';
+import { useConversion } from '../hooks/useConversion';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Finances.module.css';
 
@@ -22,31 +25,43 @@ interface Props {
 const COULEUR_SANS_MOYEN = 'var(--dash)';
 
 /**
- * Finances (§7.5, écran 5 de la maquette) : totaux normalisés (EF-40, EF-44),
- * répartition par catégorie en donut (EF-41), prévisionnel 12 mois à montants
- * réels (EF-42), dépenses passées 12 mois (EF-43), répartition par moyen de
- * paiement (EF-41). Budget, objectif, doublons, foyer et évolution 24 mois
- * arrivent au lot 5.
+ * Finances (§7.5, écran 5 de la maquette) : totaux normalisés (EF-40, EF-44)
+ * convertis dans la devise d'affichage (EF-45), répartition par catégorie en
+ * donut (EF-41), prévisionnel 12 mois à montants réels (EF-42), dépenses
+ * passées 12 mois (EF-43), répartition par moyen de paiement (EF-41). Budget,
+ * objectif, doublons, foyer et évolution 24 mois arrivent au lot 5.
  */
 export function Finances({ onOuvrirPaiements }: Props) {
   const i18n = useI18n();
-  const { t, tn, montant } = i18n;
+  const { t, tn, date } = i18n;
   const { abonnements, chargement } = useAbonnements();
   const moyens = useMoyensPaiement();
+  const { devise, taux, convertir } = useConversion();
   const jour = aujourdhui();
+  const montant = (v: number) => i18n.montant(v, devise);
 
-  const total = useMemo(() => totaux(abonnements, jour), [abonnements, jour]);
-  const categories = useMemo(() => repartitionParCategorie(abonnements, jour), [abonnements, jour]);
-  const parMoyen = useMemo(
-    () => repartitionParMoyenPaiement(abonnements, jour),
-    [abonnements, jour],
+  const total = useMemo(() => totaux(abonnements, jour, convertir), [abonnements, jour, convertir]);
+  const categories = useMemo(
+    () => repartitionParCategorie(abonnements, jour, convertir),
+    [abonnements, jour, convertir],
   );
-  const prevision = useMemo(() => previsionnel(abonnements, jour), [abonnements, jour]);
-  const passe = useMemo(() => depensesPassees(abonnements, jour), [abonnements, jour]);
+  const parMoyen = useMemo(
+    () => repartitionParMoyenPaiement(abonnements, jour, convertir),
+    [abonnements, jour, convertir],
+  );
+  const prevision = useMemo(
+    () => previsionnel(abonnements, jour, { convertir }),
+    [abonnements, jour, convertir],
+  );
+  const passe = useMemo(
+    () => depensesPassees(abonnements, jour, { convertir }),
+    [abonnements, jour, convertir],
+  );
 
   const marquer = (v: number, estime: boolean) =>
     estime ? t('montant.estime', { montant: montant(v) }) : montant(v);
   const vide = total.nbPayants === 0 && passe.total === 0;
+  const converti = contientAutreDevise(abonnements, devise);
 
   if (chargement) return <div className={styles.ecran} />;
 
@@ -69,6 +84,11 @@ export function Finances({ onOuvrirPaiements }: Props) {
           <span className={styles.totalMontant}>{marquer(total.annuel, total.estime)}</span>
         </div>
       </div>
+      {converti ? (
+        <p className={styles.noteTotaux}>
+          {t('finances.converti', { devise, d: date(taux.publieLe, 'long') })}
+        </p>
+      ) : null}
       {total.estime ? <p className={styles.noteTotaux}>{t('finances.estime.note')}</p> : null}
 
       {vide ? (
@@ -116,14 +136,16 @@ export function Finances({ onOuvrirPaiements }: Props) {
             </div>
           </section>
 
-          <Histogramme
-            i18n={i18n}
-            titre={t('finances.previsionnel')}
-            complement={t('finances.moyenne', { montant: montant(prevision.moyenne) })}
-            serie={prevision}
-            note={t('finances.previsionnel.note')}
-            variante="avenir"
-          />
+          <section className={styles.carte} aria-label={t('finances.previsionnel')}>
+            <div className={styles.carteEnTete}>
+              <h2 className={styles.carteTitre}>{t('finances.previsionnel')}</h2>
+              <span className={styles.carteComplement}>
+                {t('finances.moyenne', { montant: montant(prevision.moyenne) })}
+              </span>
+            </div>
+            <Barres i18n={i18n} devise={devise} serie={prevision} variante="avenir" />
+            <p className={styles.note}>{t('finances.previsionnel.note')}</p>
+          </section>
 
           <section className={styles.carte} aria-label={t('finances.passe')}>
             <div className={styles.carteEnTete}>
@@ -134,7 +156,7 @@ export function Finances({ onOuvrirPaiements }: Props) {
             </div>
             {passe.total > 0 ? (
               <>
-                <Barres i18n={i18n} serie={passe} variante="passe" />
+                <Barres i18n={i18n} devise={devise} serie={passe} variante="passe" />
                 <p className={styles.note}>{t('finances.passe.note')}</p>
               </>
             ) : (
@@ -183,40 +205,15 @@ export function Finances({ onOuvrirPaiements }: Props) {
   );
 }
 
-function Histogramme({
-  i18n,
-  titre,
-  complement,
-  serie,
-  note,
-  variante,
-}: {
-  i18n: I18n;
-  titre: string;
-  complement: string;
-  serie: SerieMensuelle;
-  note: string;
-  variante: 'avenir' | 'passe';
-}) {
-  return (
-    <section className={styles.carte} aria-label={titre}>
-      <div className={styles.carteEnTete}>
-        <h2 className={styles.carteTitre}>{titre}</h2>
-        <span className={styles.carteComplement}>{complement}</span>
-      </div>
-      <Barres i18n={i18n} serie={serie} variante={variante} />
-      <p className={styles.note}>{note}</p>
-    </section>
-  );
-}
-
 /** Composant GraphPrevisionnel / GraphDepensesPassees (maquette) : 12 barres, initiale du mois. */
 function Barres({
   i18n,
+  devise,
   serie,
   variante,
 }: {
   i18n: I18n;
+  devise: Devise;
   serie: SerieMensuelle;
   variante: 'avenir' | 'passe';
 }) {
@@ -241,7 +238,7 @@ function Barres({
                     : styles.barrePasse,
               ].join(' ')}
               style={{ height: `${barre.hauteur}px` }}
-              title={`${date(`${m.mois}-01`, 'mois')} · ${i18n.montant(m.montant)}`}
+              title={`${date(`${m.mois}-01`, 'mois')} · ${i18n.montant(m.montant, devise)}`}
             />
             <span className={styles.barreMois}>
               {date(`${m.mois}-01`, 'moisCourt').charAt(0).toUpperCase()}

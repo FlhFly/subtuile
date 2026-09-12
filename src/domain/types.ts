@@ -5,7 +5,8 @@
  * - `DateISO` : date civile LOCALE « YYYY-MM-DD », sans heure ni fuseau (EF-03).
  *   Les comparaisons lexicographiques sur ce format sont chronologiques.
  * - `Horodatage` : instant ISO 8601 complet (updatedAt, deletedAt).
- * - Montants en EUR, seule devise de saisie en V1 (annexe B).
+ * - Montants dans la devise de chaque abonnement (`devise`, EUR par défaut —
+ *   EF-45b) ; les totaux sont convertis dans la devise d'affichage (EF-45).
  * - Les identifiants d'énumérations sont stables et servent de clés i18n ;
  *   aucun libellé ici.
  */
@@ -56,9 +57,13 @@ export const MODES_RESILIATION = [
 ] as const;
 export type ModeResiliation = (typeof MODES_RESILIATION)[number];
 
-export type DeviseSaisie = 'EUR';
-export const DEVISES_AFFICHAGE = ['EUR', 'USD', 'GBP', 'CHF'] as const;
-export type DeviseAffichage = (typeof DEVISES_AFFICHAGE)[number];
+/** Devises gérées (EF-45, EF-45b) : saisie par abonnement et affichage des totaux. */
+export const DEVISES = ['EUR', 'USD', 'GBP', 'CHF'] as const;
+export type Devise = (typeof DEVISES)[number];
+/** alias : devise de saisie d'un abonnement, devise d'affichage des totaux */
+export type DeviseSaisie = Devise;
+export const DEVISES_AFFICHAGE = DEVISES;
+export type DeviseAffichage = Devise;
 
 /* ---------------------------------------------------------------------------
  * §3.2 — Périodicité
@@ -301,10 +306,10 @@ export interface RefData<T> {
 
 export type Catalogue = RefData<Service[]>;
 
-/** EF-45 : taux figés « indicatifs », base EUR */
+/** EF-45 : taux figés « indicatifs », base EUR (1 EUR = taux[devise]) */
 export interface TauxChange {
-  base: DeviseSaisie;
-  taux: Record<DeviseAffichage, number>;
+  base: 'EUR';
+  taux: Record<Devise, number>;
 }
 export type Taux = RefData<TauxChange>;
 

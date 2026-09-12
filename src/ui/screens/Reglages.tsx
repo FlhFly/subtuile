@@ -12,6 +12,9 @@ import {
   type Langue,
 } from '../../domain/types';
 import { Icone } from '../components/Icone';
+import { SYMBOLES } from '../../domain/devises';
+import { DEVISES, type Devise } from '../../domain/types';
+import { useTaux } from '../hooks/useTaux';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
@@ -37,7 +40,7 @@ const CHOIX_ESSAI = [1, 2, 3, 7] as const;
 const CHOIX_PREAVIS = [7, 14, 30] as const;
 const CHOIX_CARTE = [1, 2, 3] as const;
 
-type Depliant = 'langue' | 'formatDate' | null;
+type Depliant = 'devise' | 'langue' | 'formatDate' | null;
 
 /**
  * Réglages (§7.7, écran 7 de la maquette) : apparence (EF-17), défauts
@@ -48,7 +51,8 @@ type Depliant = 'langue' | 'formatDate' | null;
  */
 export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
   const i18n = useI18n();
-  const { t, tn, changerLangue, langue } = i18n;
+  const { t, tn, date, changerLangue, langue } = i18n;
+  const taux = useTaux();
   const toast = useToast();
   const { abonnements } = useAbonnements();
   const nombreMoyens = useMoyensPaiement().size;
@@ -152,6 +156,23 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
 
       <Section titre={t('reglages.general')}>
         <Carte>
+          <RangeeDepliante
+            libelle={t('reglages.devise')}
+            valeur={preferences.deviseAffichage}
+            ouvert={depliant === 'devise'}
+            onBasculer={() => basculer('devise')}
+            note={t('reglages.devise.note', { d: date(taux.publieLe, 'long') })}
+          >
+            {DEVISES.map((d: Devise) => (
+              <Option
+                key={d}
+                libelle={`${t(`devise.${d}`)} (${d})`}
+                actif={preferences.deviseAffichage === d}
+                icone={<span className={styles.monogramme}>{SYMBOLES[d]}</span>}
+                onChoisir={() => modifier({ deviseAffichage: d })}
+              />
+            ))}
+          </RangeeDepliante>
           <RangeeDepliante
             libelle={t('reglages.langue')}
             valeur={t(`langue.${langue}`)}

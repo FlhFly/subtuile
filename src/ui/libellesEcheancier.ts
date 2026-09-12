@@ -15,7 +15,7 @@ export interface LibellesEvenement {
 export function libellesEvenement(i18n: I18n, e: Evenement): LibellesEvenement {
   const { t, montant, date, compteur, periodicite } = i18n;
   const prix = (v: number) =>
-    e.montantEstime ? t('montant.estime', { montant: montant(v) }) : montant(v);
+    e.montantEstime ? t('montant.estime', { montant: montant(v, e.devise) }) : montant(v, e.devise);
   switch (e.type) {
     case 'renouvellement':
       return {
@@ -26,10 +26,10 @@ export function libellesEvenement(i18n: I18n, e: Evenement): LibellesEvenement {
     case 'fin_essai':
       return {
         sous: t('echeancier.ev.fin_essai', {
-          montant: e.montant !== null ? montant(e.montant) : t('commun.vide'),
+          montant: e.montant !== null ? montant(e.montant, e.devise) : t('commun.vide'),
           periodicite: periodicite(e.periodicite),
         }),
-        somme: montant(0),
+        somme: montant(0, e.devise),
         puce: t('echeancier.puce.essai', { compteur: compteur(e.jours) }),
       };
     case 'preavis':

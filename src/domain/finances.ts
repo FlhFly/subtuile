@@ -1,7 +1,8 @@
 /**
  * Moteur financier (EF-40 à EF-44, §4.5) — fonctions pures sur les
- * abonnements, en devise de saisie (la conversion d'affichage EF-45 vient
- * ensuite).
+ * abonnements. Chaque montant est converti par le `Convertisseur` fourni
+ * (devise d'affichage, EF-45) ; sans convertisseur, les montants restent dans
+ * leur devise de saisie.
  *
  * Règles :
  * - « payant » = abonnement vivant, actif, récurrent, hors essai en cours ; les
@@ -26,6 +27,7 @@ import {
   prixEffectif,
   prixEnVigueur,
 } from './dates';
+import { sansConversion, type Convertisseur } from './devises';
 import { bornesDuMois, decalerMois, moisDe } from './echeancier';
 import { prixSelonHistorique } from './prix';
 import type { Abonnement, Categorie, DateISO } from './types';
@@ -52,14 +54,21 @@ export function abonnementsPayants(
   return abonnements.filter((a) => estPayant(a, jour));
 }
 
-/** Coût mensuel normalisé supporté par l'utilisateur (EF-40, EF-44). */
-export function mensuelNormalise(abo: Abonnement): number {
-  return montantMensuel(prixEffectif(abo), abo.periodicite);
+/** Coût mensuel normalisé supporté par l'utilisateur (EF-40, EF-44), converti. */
+export function mensuelNormalise(
+  abo: Abonnement,
+  convertir: Convertisseur = sansConversion,
+): number {
+  return convertir(montantMensuel(prixEffectif(abo), abo.periodicite), abo.devise);
 }
 
-export function totaux(abonnements: readonly Abonnement[], jour: DateISO): Totaux {
+export function totaux(
+  abonnements: readonly Abonnement[],
+  jour: DateISO,
+  convertir: Convertisseur = sansConversion,
+): Totaux {
   const payants = abonnementsPayants(abonnements, jour);
-  const mensuel = payants.reduce((s, a) => s + mensuelNormalise(a), 0);
+  const mensuel = payants.reduce((s, a) => s + mensuelNormalise(a, convertir), 0);
   return {
     mensuel,
     annuel: mensuel * 12,
@@ -80,13 +89,11 @@ export interface PartCategorie {
 export function repartitionParCategorie(
   abonnements: readonly Abonnement[],
   jour: DateISO,
+  convertir: Convertisseur = sansConversion,
 ): PartCategorie[] {
-  return repartition(abonnementsPayants(abonnements, jour), (a) => a.categorie).map((r) => ({
-    categorie: r.cle as Categorie,
-    mensuel: r.mensuel,
-    part: r.part,
-    nb: r.nb,
-  }));
+  return repartition(abonnementsPayants(abonnements, jour), (a) => a.categorie, convertir).map(
+    (r) => ({ categorie: r.cle as Categorie, mensuel: r.mensuel, part: r.part, nb: r.nb }),
+  );
 }
 
 export interface PartMoyen {
@@ -101,27 +108,31 @@ export interface PartMoyen {
 export function repartitionParMoyenPaiement(
   abonnements: readonly Abonnement[],
   jour: DateISO,
+  convertir: Convertisseur = sansConversion,
 ): PartMoyen[] {
-  return repartition(abonnementsPayants(abonnements, jour), (a) => a.moyenPaiementId ?? '').map(
-    (r) => ({
-      moyenPaiementId: r.cle === '' ? null : r.cle,
-      mensuel: r.mensuel,
-      part: r.part,
-      nb: r.nb,
-    }),
-  );
+  return repartition(
+    abonnementsPayants(abonnements, jour),
+    (a) => a.moyenPaiementId ?? '',
+    convertir,
+  ).map((r) => ({
+    moyenPaiementId: r.cle === '' ? null : r.cle,
+    mensuel: r.mensuel,
+    part: r.part,
+    nb: r.nb,
+  }));
 }
 
 function repartition(
   payants: readonly Abonnement[],
   cleDe: (a: Abonnement) => string,
+  convertir: Convertisseur,
 ): { cle: string; mensuel: number; part: number; nb: number }[] {
-  const total = payants.reduce((s, a) => s + mensuelNormalise(a), 0);
+  const total = payants.reduce((s, a) => s + mensuelNormalise(a, convertir), 0);
   const parCle = new Map<string, { mensuel: number; nb: number }>();
   for (const a of payants) {
     const cle = cleDe(a);
     const c = parCle.get(cle) ?? { mensuel: 0, nb: 0 };
-    c.mensuel += mensuelNormalise(a);
+    c.mensuel += mensuelNormalise(a, convertir);
     c.nb += 1;
     parCle.set(cle, c);
   }
@@ -152,6 +163,11 @@ export interface SerieMensuelle {
   estime: boolean;
 }
 
+export interface OptionsSerie {
+  nbMois?: number;
+  convertir?: Convertisseur;
+}
+
 /** Montant supporté à une date : part payée si partagé, sinon le prix en vigueur à la date. */
 function montantAuJour(abo: Abonnement, date: DateISO, passe: boolean): number {
   if (abo.partage) return abo.partage.partPayee;
@@ -177,6 +193,7 @@ function serie(
   nbMois: number,
   passe: boolean,
   jour: DateISO,
+  convertir: Convertisseur,
 ): SerieMensuelle {
   const mois: MoisMontant[] = [];
   for (let k = 0; k < nbMois; k += 1) {
@@ -193,7 +210,7 @@ function serie(
         // passé : prélèvements strictement avant aujourd'hui et avant la fin du statut
         if (passe && comparerDates(date, jour) >= 0) continue;
         if (limite !== null && comparerDates(date, limite) >= 0) continue;
-        montant += montantAuJour(abo, date, passe);
+        montant += convertir(montantAuJour(abo, date, passe), abo.devise);
         estime = estime || abo.montantEstime;
         nb += 1;
       }
@@ -213,16 +230,31 @@ function serie(
 export function previsionnel(
   abonnements: readonly Abonnement[],
   jour: DateISO,
-  nbMois = 12,
+  options: OptionsSerie = {},
 ): SerieMensuelle {
-  return serie(abonnements, moisDe(jour), nbMois, false, jour);
+  return serie(
+    abonnements,
+    moisDe(jour),
+    options.nbMois ?? 12,
+    false,
+    jour,
+    options.convertir ?? sansConversion,
+  );
 }
 
 /** Dépenses des `nbMois` mois civils précédant le mois courant (EF-43). */
 export function depensesPassees(
   abonnements: readonly Abonnement[],
   jour: DateISO,
-  nbMois = 12,
+  options: OptionsSerie = {},
 ): SerieMensuelle {
-  return serie(abonnements, decalerMois(moisDe(jour), -nbMois), nbMois, true, jour);
+  const nbMois = options.nbMois ?? 12;
+  return serie(
+    abonnements,
+    decalerMois(moisDe(jour), -nbMois),
+    nbMois,
+    true,
+    jour,
+    options.convertir ?? sansConversion,
+  );
 }

@@ -119,6 +119,8 @@ export function preRemplirDepuisService(
     nom: service.nom,
     categorie: service.categorie,
     prix: formule ? String(formule.prix).replace('.', ',') : etat.prix,
+    // les tarifs du catalogue sont en euros (annexe A)
+    devise: formule ? 'EUR' : etat.devise,
     urlGestion: service.urlGestion ?? '',
     canalAchat: canalParDefaut(service, formule),
     modeResiliation: service.modeResiliation,
@@ -139,6 +141,7 @@ export function appliquerFormule(etat: EtatFormulaire, formule: Formule): EtatFo
     ...presetDepuisPeriodicite(formule.periodicite),
     formuleId: formule.id,
     prix: String(formule.prix).replace('.', ','),
+    devise: 'EUR',
     canalAchat: formule.canal,
   };
 }

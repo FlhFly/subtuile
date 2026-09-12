@@ -517,3 +517,22 @@
   color: var(--muted);
   text-align: center;
 }
+
+/* Prix et devise de saisie (EF-45b) côte à côte */
+.prixDevise {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.deviseChoix {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.deviseLibelle {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+}

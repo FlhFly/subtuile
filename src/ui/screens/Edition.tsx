@@ -41,7 +41,10 @@ import {
   type Service,
   type UnitePeriode,
 } from '../../domain/types';
+import { DEVISES, type Devise } from '../../domain/types';
+import { SYMBOLES } from '../../domain/devises';
 import type { CleTraduction } from '../../i18n';
+import { useConversion } from '../hooks/useConversion';
 import { Champ } from '../components/Champ';
 import { ChampDate } from '../components/ChampDate';
 import { Chips } from '../components/Chips';
@@ -74,6 +77,7 @@ const CLE_CHAMP: Record<ChampFormulaire, CleTraduction> = {
   formuleId: 'edition.formules',
   nom: 'edition.nom',
   prix: 'edition.prix',
+  devise: 'edition.devise',
   categorie: 'edition.categorie',
   typePeriodicite: 'edition.type',
   preset: 'edition.type',
@@ -122,13 +126,14 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const toast = useToast();
   const moyensPaiement = useMoyensPaiement();
   const { catalogue, parId: services } = useCatalogue();
+  const { devise: deviseDefaut } = useConversion();
   const jour = aujourdhui();
 
   /** état d'ouverture, référence de la garde contre la perte de saisie */
   const [etatInitial] = useState<EtatFormulaire>(() => {
     if (existant) return formulaireDepuisAbonnement(existant, jour);
     if (modele) return formulairePourDuplication(modele, jour, t('edition.copie'));
-    const vide = formulaireVide(jour);
+    const vide = formulaireVide(jour, deviseDefaut);
     return serviceInitial ? preRemplirDepuisService(vide, serviceInitial) : vide;
   });
   const [etat, setEtat] = useState<EtatFormulaire>(etatInitial);
@@ -148,6 +153,8 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
   const optionsRenseignees = compterOptionsAvancees(etat);
+  const symbole = SYMBOLES[etat.devise];
+  const optionsDevise = DEVISES.map((d) => ({ valeur: d, libelle: `${SYMBOLES[d]} ${d}` }));
   const modifications = differencesFormulaire(etatInitial, etat);
   const modifie = modifications.length > 0;
   /** Retour : sans modification on quitte, sinon la garde demande quoi faire de la saisie. */
@@ -471,18 +478,29 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           ) : null}
 
           {!usage ? (
-            <Champ libelle={t('edition.prix')} erreur={erreur('prix')}>
-              {(a) => (
-                <input
-                  {...a}
-                  type="text"
-                  inputMode="decimal"
-                  value={etat.prix}
-                  onChange={(e) => maj('prix', e.target.value)}
-                  placeholder={t('edition.prix.ph')}
+            <div className={styles.prixDevise}>
+              <Champ libelle={t('edition.prix', { d: symbole })} erreur={erreur('prix')}>
+                {(a) => (
+                  <input
+                    {...a}
+                    type="text"
+                    inputMode="decimal"
+                    value={etat.prix}
+                    onChange={(e) => maj('prix', e.target.value)}
+                    placeholder={t('edition.prix.ph')}
+                  />
+                )}
+              </Champ>
+              <div className={styles.deviseChoix}>
+                <span className={styles.deviseLibelle}>{t('edition.devise')}</span>
+                <Chips<Devise>
+                  nom={t('edition.devise')}
+                  options={optionsDevise}
+                  valeur={etat.devise}
+                  onChange={(v) => maj('devise', v)}
                 />
-              )}
-            </Champ>
+              </div>
+            </div>
           ) : null}
 
           {service && optionsFormules.length > 0 ? (
@@ -587,7 +605,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
 
           {usage ? (
             <Champ
-              libelle={t('edition.plafond')}
+              libelle={t('edition.plafond', { d: symbole })}
               erreur={erreur('plafond')}
               aide={t('edition.plafond.aide')}
             >
@@ -650,7 +668,10 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                       valeur={etat.essaiFin}
                       onChange={(v) => maj('essaiFin', v)}
                     />
-                    <Champ libelle={t('edition.essai.prix')} erreur={erreur('essaiPrix')}>
+                    <Champ
+                      libelle={t('edition.essai.prix', { d: symbole })}
+                      erreur={erreur('essaiPrix')}
+                    >
                       {(a) => (
                         <input
                           {...a}
@@ -707,7 +728,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 />
                 {etat.partage ? (
                   <Champ
-                    libelle={t('edition.partage.part')}
+                    libelle={t('edition.partage.part', { d: symbole })}
                     erreur={erreur('partagePart')}
                     aide={t('edition.partage.aide')}
                   >
@@ -754,7 +775,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                       onChange={(v) => maj('prixFuturDate', v)}
                     />
                     <Champ
-                      libelle={t('edition.prixFutur.montant')}
+                      libelle={t('edition.prixFutur.montant', { d: symbole })}
                       erreur={erreur('prixFuturMontant')}
                     >
                       {(a) => (
@@ -895,7 +916,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
             <ul className={styles.recap}>
               {modifications.slice(0, RECAP_MAX).map((c) => (
                 <li key={c} className={styles.recapLigne}>
-                  <span className={styles.recapChamp}>{t(CLE_CHAMP[c])}</span>
+                  <span className={styles.recapChamp}>{t(CLE_CHAMP[c], { d: symbole })}</span>
                   <span className={styles.recapValeurs}>
                     <s>{libelleValeur(c, etatInitial[c])}</s>
                     {' → '}

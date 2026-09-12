@@ -267,7 +267,7 @@ export const en: Dictionnaire = {
   'edition.modifier': 'Edit — {nom}',
   'edition.nom': 'Name',
   'edition.nom.ph': 'Service name…',
-  'edition.prix': 'Price (€)',
+  'edition.prix': 'Price ({d})',
   'edition.prix.ph': '0.00',
   'edition.categorie': 'Category',
   'edition.type': 'Billing type',
@@ -290,7 +290,7 @@ export const en: Dictionnaire = {
   'edition.echeance.apercu': 'Next renewal',
   'edition.echeance.aide': 'Recalculated automatically: first occurrence from today.',
   'edition.echeanceManuelle': 'Override the next renewal (optional)',
-  'edition.plafond': 'Indicative cap (€ / month, optional)',
+  'edition.plafond': 'Indicative cap ({d} / month, optional)',
   'edition.plafond.aide':
     'No fixed renewal: the cap is a budget hint and is not counted in totals.',
   'edition.plus.ouvrir': 'Advanced options',
@@ -300,12 +300,12 @@ export const en: Dictionnaire = {
   'edition.plus.renseignees.plusieurs': '{n} options set',
   'edition.essai': 'Free trial',
   'edition.essai.fin': 'Trial ends',
-  'edition.essai.prix': 'Price after (€)',
+  'edition.essai.prix': 'Price after ({d})',
   'edition.engagement': 'Commitment · notice',
   'edition.engagement.mois': 'Duration (months)',
   'edition.engagement.preavis': 'Notice (days)',
   'edition.partage': 'Shared subscription',
-  'edition.partage.part': 'My share (€)',
+  'edition.partage.part': 'My share ({d})',
   'edition.partage.aide':
     'The “Price” field above is the full price; totals only count your share.',
   'edition.estime': 'Estimated amount',
@@ -314,7 +314,7 @@ export const en: Dictionnaire = {
   'edition.prixFutur': 'Announced increase',
   'edition.prixFutur.sous': 'Applied automatically on the date, recorded in the history',
   'edition.prixFutur.date': 'From',
-  'edition.prixFutur.montant': 'New price (€)',
+  'edition.prixFutur.montant': 'New price ({d})',
   'edition.paiement': 'Payment method',
   'edition.paiement.aucun': 'None',
   'edition.canal': 'Purchase channel',
@@ -472,6 +472,18 @@ export const en: Dictionnaire = {
   'reglages.automatisation.note':
     'Without push notifications (a PWA constraint), reminders go through your calendar: re-import the file after your changes.',
 
+  /* Currencies (EF-45, EF-45b) */
+  'edition.devise': 'Currency',
+  'devise.EUR': 'Euro',
+  'devise.USD': 'US dollar',
+  'devise.GBP': 'Pound sterling',
+  'devise.CHF': 'Swiss franc',
+  'reglages.devise': 'Currency',
+  'reglages.devise.note':
+    'Proposed when creating a subscription; totals convert other currencies at indicative rates as of {d}, an embedded data set replaceable without updating the app.',
+  'finances.converti': 'Totals converted to {devise} — indicative rates as of {d}.',
+  'fiche.mensuel.converti': '{montant} · ≈ {converti}',
+
   /* Settings › Data: erase everything */
   'reglages.effacer': 'Erase all data',
   'reglages.effacer.sous':
@@ -565,7 +577,7 @@ export const en: Dictionnaire = {
   'fiche.engagement.detail': 'Commitment',
   'fiche.engagement.detail.texte': '{mois} months · {jours}-day notice',
   'fiche.prix.modifier': 'Change price',
-  'fiche.prix.montant': 'New price',
+  'fiche.prix.montant': 'New price ({d})',
   'fiche.prix.montant.ph': '9.99',
   'fiche.prix.date': 'From',
   'fiche.prix.aide':

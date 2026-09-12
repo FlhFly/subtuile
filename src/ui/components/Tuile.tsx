@@ -1,6 +1,6 @@
 import type { CSSProperties } from 'react';
 import { couleurCompteur, type ModeleTuile, type SousTitre } from '../../domain/tuile';
-import type { ModeAffichage } from '../../domain/types';
+import type { Devise, ModeAffichage } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
 import { libelleCompteur } from '../libelles';
 import styles from './Tuile.module.css';
@@ -51,7 +51,9 @@ export function Tuile({ modele, mode, onOuvrir }: Props) {
       ) : null}
     </span>
   );
-  const sous = <span className={styles.sous}>{libelleSousTitre(i18n, modele.sousTitre)}</span>;
+  const sous = (
+    <span className={styles.sous}>{libelleSousTitre(i18n, modele.sousTitre, modele.devise)}</span>
+  );
   const compteur = <span className={chip}>{libelleCompteur(i18n, modele.compteur)}</span>;
 
   return (
@@ -91,8 +93,9 @@ export function Tuile({ modele, mode, onOuvrir }: Props) {
   );
 }
 
-function libelleSousTitre(i18n: I18n, s: SousTitre): string {
-  const { t, montant, periodicite } = i18n;
+function libelleSousTitre(i18n: I18n, s: SousTitre, devise: Devise): string {
+  const { t, periodicite } = i18n;
+  const montant = (v: number) => i18n.montant(v, devise);
   switch (s.type) {
     case 'usage':
       return s.plafond === null

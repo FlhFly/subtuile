@@ -28,7 +28,14 @@ import {
   niveauCompteur,
   prixEffectif,
 } from './dates';
-import type { Abonnement, DateISO, DefautsAlerte, MoyenPaiement, Periodicite } from './types';
+import type {
+  Abonnement,
+  DateISO,
+  DefautsAlerte,
+  Devise,
+  MoyenPaiement,
+  Periodicite,
+} from './types';
 
 export const TYPES_ALERTE = [
   'echeance',
@@ -62,6 +69,7 @@ export interface AlerteEcheance extends AlerteBase {
   type: 'echeance';
   abonnementId: string;
   nom: string;
+  devise: Devise;
   /** montant supporté (part payée si partagé) */
   prix: number;
   montantEstime: boolean;
@@ -72,6 +80,7 @@ export interface AlerteEssai extends AlerteBase {
   type: 'essai';
   abonnementId: string;
   nom: string;
+  devise: Devise;
   prixApres: number;
   periodicite: Periodicite;
 }
@@ -97,6 +106,7 @@ export interface AlerteRegularisation extends AlerteBase {
   type: 'regularisation';
   abonnementId: string;
   nom: string;
+  devise: Devise;
   /** mensualité lissée en vigueur */
   prix: number;
   montantEstime: boolean;
@@ -106,6 +116,7 @@ export interface AlertePrixFutur extends AlerteBase {
   type: 'prix_futur';
   abonnementId: string;
   nom: string;
+  devise: Devise;
   prix: number;
   nouveauPrix: number;
   /** variation arrondie en % (négative pour une baisse) */
@@ -160,7 +171,7 @@ function alertesAbonnement(abo: Abonnement, defauts: DefautsAlerte, jour: DateIS
   const statut = abo.statut.type;
   if (statut === 'archive' || statut === 'resilie_actif_jusquau') return [];
   const alertes: Alerte[] = [];
-  const base = { abonnementId: abo.id, nom: abo.nom, lue: false } as const;
+  const base = { abonnementId: abo.id, nom: abo.nom, devise: abo.devise, lue: false } as const;
 
   if (statut === 'actif') {
     const essaiEnCours = abo.essai !== null && comparerDates(abo.essai.dateFin, jour) >= 0;
