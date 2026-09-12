@@ -14,8 +14,8 @@ Légende : **[M]** must have · **[S]** should have · EF-xx = exigence du CdC.
 | 0 — Initialisation | Dépôt, licence AGPL-3.0, docs, méthode | 0.0.0 · tag `init` | ✅ |
 | 1 — Socle | Modèle, moteur d'échéances, stockage, tuiles, fiche, formulaire, tri/filtres | 0.1.0 · tag `lot-1` | ✅ 2026-09-10 |
 | 2 — Paiement & désabonnement | Moyens de paiement, catalogue complet, deep links, routage résiliation | 0.2.0 · tag `lot-2` | ✅ 2026-09-11 |
-| 3 — Cas particuliers & alertes | Essais, engagement/préavis, statuts, centre d'alertes, ICS | 0.3.0 · tag `lot-3` | ⬜ prochain |
-| 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ⬜ |
+| 3 — Cas particuliers & alertes | Essais, engagement/préavis, statuts, centre d'alertes, ICS | 0.3.0 · tag `lot-3` | ✅ 2026-09-12 |
+| 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ⬜ prochain |
 | 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ⬜ |
 
 Critères de validation par lot : voir CdC §6.
@@ -97,7 +97,8 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ✅ 2026-09-12 |
 | 5 | Écran Échéancier et son entrée dans la barre de navigation ; barre basse refaite à l'identique de la maquette (demande FlhFly du 2026-09-11, pour accueillir aussi Finances au lot 4) | ✅ 2026-09-12 |
 | 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ✅ 2026-09-12 |
-| 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ⬜ |
+| 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ✅ 2026-09-12 (test de recette `lot3.recette.test.ts`, audit des règles d'architecture) |
+| — | Hors découpage, sur retours de recette : écran en haut de page, options avancées repliées avec compteur, format de date au choix (réglage + champ à calendrier), garde contre la perte de saisie avec récapitulatif, barre de navigation et écran Réglages alignés sur la maquette | ✅ 2026-09-12 |
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|

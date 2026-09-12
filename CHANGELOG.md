@@ -7,6 +7,36 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis le tag `lot-3`.
+
+## [0.3.0] — 2026-09-12 — tag `lot-3` — Cas particuliers & alertes
+
+Lot 3 du CdC §6 : moteur d'alertes et centre d'alertes avec défauts réglables, cycle de vie
+automatique des statuts, duplication, fiche enrichie (prix à date, engagement, régularisation),
+écran Échéancier en liste et en calendrier, rappels calendrier .ics et section Automatisation,
+barre de navigation et écran Réglages alignés sur la maquette, format de date au choix, garde
+contre la perte de saisie. Critère de validation « un essai gratuit et un préavis déclenchent
+les bonnes alertes aux bonnes dates » rejoué par un test de recette et vérifié à l'écran par
+FlhFly avant le tag.
+
+### Lot 3 — étape 7 : revue finale et recette (2026-09-12)
+
+#### Ajouté
+- `tests/lot3.recette.test.ts` : rejoue le critère du CdC §6 hors navigateur — six abonnements
+  saisis via le formulaire (essai jusqu'au 17/09, engagement avec date limite le 22/09, hausse
+  annoncée, régularisation, résilié jusqu'au 14/09, pause jusqu'au 13/09) et une carte expirant
+  le mois prochain ; alertes calculées à plusieurs dates : l'essai n'alerte qu'à J-2, le préavis
+  à J-14, le renouvellement selon le seuil propre (J-7), hausse, régularisation et carte dans
+  leurs fenêtres ; libellés fr ; « tout marquer lu » puis nouvelle alerte le lendemain ;
+  échéancier groupé par mois ; rappels .ics aux bonnes alarmes ; cycle de vie persisté au
+  chargement (reprise, archivage, hausse appliquée, régularisation reportée). 261 tests.
+
+#### Modifié
+- Version 0.3.0 ; README (statut lot 3 livré, fonctionnalités réelles) ; ROADMAP (lot 3 ✅,
+  lot 4 « prochain »).
+- Audit des règles d'architecture : Dexie confiné au stockage, aucune requête réseau, libellés
+  fr / en à parité et sans clé orpheline, dates locales, aucune chaîne en dur.
+
 ### Lot 3 — écran Réglages réaligné sur la maquette (2026-09-12)
 
 #### Modifié
