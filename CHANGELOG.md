@@ -31,6 +31,11 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 - `formaterDateSaisie`, `parserDateSaisie`, `formatDateDefaut` ; tests `formatDate.test.ts`.
   Icône calendrier. Le choix sera repris à l'onboarding (C7, lot 4).
 
+#### Corrigé
+- Bouton calendrier : sur ordinateur, un sélecteur natif invisible posé sur l'icône n'ouvrait
+  pas le calendrier (seul le clic sur sa propre icône interne le fait) ; le bouton appelle
+  désormais `showPicker()` sur le sélecteur, avec repli sur le focus (retour FlhFly).
+
 ### Lot 3 — corrections UX après recette de l'étape 4 (2026-09-12)
 
 #### Corrigé

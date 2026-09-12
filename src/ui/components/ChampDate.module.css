@@ -9,22 +9,32 @@
   min-width: 0;
 }
 
-/* Bouton calendrier : le sélecteur natif, invisible, recouvre l'icône */
+/* Bouton calendrier ; le sélecteur natif, invisible, sert d'ancre au calendrier */
 .calendrier {
   position: relative;
   display: flex;
+  flex: none;
+}
+
+.bouton {
+  display: flex;
   align-items: center;
   justify-content: center;
-  flex: none;
   width: 46px;
   border: var(--border);
   border-radius: var(--r-md);
   background: var(--card);
   color: var(--ink);
+  transition: background-color var(--dur-fast) var(--ease);
 }
 
-.calendrier:hover {
+.bouton:hover {
   background: var(--sand);
+}
+
+.bouton:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 1px;
 }
 
 .natif {
@@ -33,6 +43,7 @@
   width: 100% !important;
   height: 100%;
   padding: 0 !important;
+  border: 0 !important;
   opacity: 0;
-  cursor: pointer;
+  pointer-events: none;
 }
