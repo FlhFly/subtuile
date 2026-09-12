@@ -7,6 +7,21 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 2 : écran Finances et onglet dans la barre (2026-09-12)
+
+#### Ajouté
+- Écran **Finances** (§7.5, écran 5 de la maquette) : cartes « Par mois (normalisé) » et
+  « Par an » avec marque « ≈ » et note quand un montant est estimé (EF-40, EF-04b) ;
+  répartition par catégorie en donut aux couleurs de la maquette avec liste montant et part
+  (EF-41) ; prévisionnel 12 mois en barres à montants réels, mois au maximum en rouge,
+  moyenne mensuelle (EF-42) ; dépenses passées 12 mois avec total et état vide « Pas encore
+  d'historique » (EF-43) ; répartition par moyen de paiement avec jauges et bouton « Gérer »
+  vers les moyens de paiement (EF-41) ; état vide « Rien à analyser ». Budget, objectif,
+  doublons, foyer et évolution 24 mois de la maquette arrivent au lot 5.
+- Onglet **Finances** dans la barre de navigation : quatre onglets comme dans la maquette,
+  l'emplacement réservé disparaît. `graphiques.ts` (couleurs de catégorie, donut en
+  `conic-gradient`, hauteurs de barres) testé. Style de date « moisCourt ». 276 tests.
+
 ### Lot 4 — étape 1 : moteur financier (2026-09-12)
 
 #### Ajouté

@@ -2,8 +2,8 @@ import { useI18n } from '../contexts/I18nContext';
 import { Icone, type NomIcone } from './Icone';
 import styles from './BarreNavigation.module.css';
 
-/** Onglets livrés ; Finances rejoint la barre au lot 4 (aucune entrée factice). */
-export type Onglet = 'accueil' | 'echeancier' | 'reglages';
+/** Les quatre onglets de la maquette. */
+export type Onglet = 'accueil' | 'echeancier' | 'finances' | 'reglages';
 
 interface Props {
   actif: Onglet;
@@ -14,6 +14,7 @@ interface Props {
 const ONGLETS: { nom: Onglet; icone: NomIcone }[] = [
   { nom: 'accueil', icone: 'navAccueil' },
   { nom: 'echeancier', icone: 'navEcheancier' },
+  { nom: 'finances', icone: 'navFinances' },
   { nom: 'reglages', icone: 'navReglages' },
 ];
 

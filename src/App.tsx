@@ -13,6 +13,7 @@ import { Catalogue } from './ui/screens/Catalogue';
 import { Echeancier } from './ui/screens/Echeancier';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
+import { Finances } from './ui/screens/Finances';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
 import { Reglages } from './ui/screens/Reglages';
 
@@ -20,6 +21,7 @@ import { Reglages } from './ui/screens/Reglages';
 type Ecran =
   | { nom: 'accueil' }
   | { nom: 'echeancier' }
+  | { nom: 'finances' }
   | { nom: 'reglages' }
   | { nom: 'alertes' }
   | { nom: 'paiements'; retour?: Ecran }
@@ -35,7 +37,7 @@ type Ecran =
       copieDe?: string;
     };
 
-const ONGLETS: readonly Onglet[] = ['accueil', 'echeancier', 'reglages'];
+const ONGLETS: readonly Onglet[] = ['accueil', 'echeancier', 'finances', 'reglages'];
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
@@ -86,6 +88,13 @@ function Navigation() {
       break;
     case 'echeancier':
       contenu = <Echeancier onOuvrir={(id) => ouvrirFiche(id, { nom: 'echeancier' })} />;
+      break;
+    case 'finances':
+      contenu = (
+        <Finances
+          onOuvrirPaiements={() => setEcran({ nom: 'paiements', retour: { nom: 'finances' } })}
+        />
+      );
       break;
     case 'alertes':
       contenu = (

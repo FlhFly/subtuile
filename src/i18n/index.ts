@@ -45,7 +45,9 @@ export type ClePluriel =
   | 'alertes.echeance.titre'
   | 'alertes.carte.sous'
   | 'edition.plus.renseignees'
-  | 'edition.garde.autres';
+  | 'edition.garde.autres'
+  | 'finances.payants'
+  | 'finances.categories';
 
 /** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
 export function libelleDuree(
@@ -99,11 +101,12 @@ export function formaterMontant(langue: Langue, montant: number, devise = 'EUR')
   return f.format(montant);
 }
 
-export type StyleDate = 'court' | 'moyen' | 'long' | 'mois' | 'semaine';
+export type StyleDate = 'court' | 'moyen' | 'long' | 'mois' | 'moisCourt' | 'semaine';
 
 const OPTIONS_DATE: Record<StyleDate, Intl.DateTimeFormatOptions> = {
   mois: { month: 'long', year: 'numeric' },
   semaine: { weekday: 'short' },
+  moisCourt: { month: 'short' },
   court: { day: '2-digit', month: '2-digit', year: 'numeric' },
   moyen: { day: 'numeric', month: 'short', year: 'numeric' },
   long: { day: 'numeric', month: 'long', year: 'numeric' },

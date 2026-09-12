@@ -8,6 +8,7 @@ export const en: Dictionnaire = {
   'nav.retour': 'Back',
   'nav.ajouter': 'Add a subscription',
   'nav.echeancier': 'Schedule',
+  'nav.finances': 'Finances',
   'nav.principale': 'Main navigation',
 
   /* Common actions */
@@ -470,6 +471,35 @@ export const en: Dictionnaire = {
     'All upcoming renewals, trial ends and notice deadlines, each with a reminder, to import into your calendar.',
   'reglages.automatisation.note':
     'Without push notifications (a PWA constraint), reminders go through your calendar: re-import the file after your changes.',
+
+  /* Finances (EF-40 to EF-44, §7.5) */
+  'finances.titre': 'Finances',
+  'finances.payants.un': '{n} paid subscription',
+  'finances.payants.plusieurs': '{n} paid subscriptions',
+  'finances.vide': 'No data yet',
+  'finances.mensuel': 'Per month (normalized)',
+  'finances.annuel': 'Per year',
+  'finances.estime.note':
+    '≈ Estimated totals: at least one subscription has a variable amount (energy, water…).',
+  'finances.repartition': 'Breakdown by category',
+  'finances.categories.un': 'category',
+  'finances.categories.plusieurs': 'categories',
+  'finances.previsionnel': '12-month forecast',
+  'finances.moyenne': 'average {montant} / month',
+  'finances.previsionnel.note':
+    'Actual amounts per month: yearly subscriptions weigh on their renewal month, announced increases apply on their date.',
+  'finances.passe': 'Past spending',
+  'finances.passe.total': 'last 12 months · {montant}',
+  'finances.passe.note':
+    'Rebuilt from past renewals and the price history, each subscription since its start date.',
+  'finances.passe.vide.titre': 'No history yet',
+  'finances.passe.vide.texte': 'Past spending will appear after your first renewals.',
+  'finances.paiement': 'By payment method',
+  'finances.paiement.gerer': 'Manage',
+  'finances.paiement.sans': 'No payment method',
+  'finances.paiement.note': 'Shared subscriptions count for your share.',
+  'finances.rien.titre': 'Nothing to analyse',
+  'finances.rien.texte': 'Charts will appear as soon as you add a subscription.',
 
   /* Schedule (EF-16, §7.4) */
   'echeancier.titre': 'Schedule',

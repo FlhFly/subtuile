@@ -11,6 +11,7 @@ export const fr = {
   'nav.retour': 'Retour',
   'nav.ajouter': 'Ajouter un abonnement',
   'nav.echeancier': 'Échéancier',
+  'nav.finances': 'Finances',
   'nav.principale': 'Navigation principale',
 
   /* Actions communes */
@@ -480,6 +481,35 @@ export const fr = {
     'Toutes les prochaines échéances, fins d’essai et préavis, avec un rappel avant chacun, à importer dans votre calendrier.',
   'reglages.automatisation.note':
     'Sans notification push (contrainte des PWA), les rappels passent par votre calendrier : réimportez le fichier après vos modifications.',
+
+  /* Finances (EF-40 à EF-44, §7.5) */
+  'finances.titre': 'Finances',
+  'finances.payants.un': '{n} abonnement payant',
+  'finances.payants.plusieurs': '{n} abonnements payants',
+  'finances.vide': 'Aucune donnée pour le moment',
+  'finances.mensuel': 'Par mois (normalisé)',
+  'finances.annuel': 'Par an',
+  'finances.estime.note':
+    '≈ Totaux estimés : au moins un abonnement a un montant variable (énergie, eau…).',
+  'finances.repartition': 'Répartition par catégorie',
+  'finances.categories.un': 'catégorie',
+  'finances.categories.plusieurs': 'catégories',
+  'finances.previsionnel': 'Prévisionnel 12 mois',
+  'finances.moyenne': 'moyenne {montant} / mois',
+  'finances.previsionnel.note':
+    'Montants réels par mois : les abonnements annuels pèsent sur leur mois d’échéance, les hausses annoncées s’appliquent à leur date.',
+  'finances.passe': 'Dépenses passées',
+  'finances.passe.total': '12 derniers mois · {montant}',
+  'finances.passe.note':
+    'Reconstitué depuis les échéances passées et l’historique des prix, chaque abonnement depuis sa date de début.',
+  'finances.passe.vide.titre': 'Pas encore d’historique',
+  'finances.passe.vide.texte': 'Les dépenses passées apparaîtront après vos premières échéances.',
+  'finances.paiement': 'Par moyen de paiement',
+  'finances.paiement.gerer': 'Gérer',
+  'finances.paiement.sans': 'Sans moyen de paiement',
+  'finances.paiement.note': 'Les abonnements partagés comptent pour votre part.',
+  'finances.rien.titre': 'Rien à analyser',
+  'finances.rien.texte': 'Les graphiques apparaîtront dès votre premier abonnement.',
 
   /* Échéancier (EF-16, §7.4) */
   'echeancier.titre': 'Échéancier',
