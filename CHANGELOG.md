@@ -7,6 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — étape 6 : rappels calendrier (.ics) et section Automatisation (2026-09-12)
+
+#### Ajouté
+- Fiche : « Ajouter le rappel au calendrier (ICS) » (EF-32, §5.4) — fichier .ics avec les
+  prochains événements de l'abonnement (renouvellement, fin d'essai, date limite de
+  résiliation, fin d'abonnement résilié), événements « journée entière » et alarme
+  d'affichage calée sur les défauts d'alerte (seuil propre de l'abonnement pour ses
+  renouvellements ; le jour même à 9 h pour une fin d'abonnement). Téléchargement réel.
+- Réglages : section « Automatisation » (§7.9) — état de l'avance automatique des échéances
+  (recalcul de la date, hausse appliquée, résilié archivé) et export calendrier de toutes les
+  prochaines échéances en un fichier .ics ; note sur l'absence de push. Les bascules
+  « synchronisation continue » et « notifications push » de la maquette ne sont pas
+  reprises : impossibles dans une PWA 100 % locale (principe « aucune fonctionnalité
+  factice », §4.7).
+- `src/domain/ics.ts` (RFC 5545 : CRLF, échappement, pliage à 75 octets, UID stables,
+  DTSTAMP, VALARM) et tests `ics.test.ts` ; `libellesEcheancier.ts` partagé entre l'écran et
+  les rappels ; `telechargement.ts` (Blob + lien de téléchargement). 253 tests.
+
+#### Modifié
+- Note de l'échéancier : mention du rappel calendrier disponible depuis chaque fiche.
+
 ### Lot 3 — étape 5 : écran Échéancier et barre de navigation de la maquette (2026-09-12)
 
 #### Ajouté

@@ -32,6 +32,7 @@ const TRACES = {
   chevronDroit: 'm9 5.5 6.5 6.5L9 18.5',
   chevronGauche: 'm14.5 5.5-7 6.5 7 6.5',
   calendrier: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
+  horloge: 'M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM12 7v5l3 2',
 } as const;
 
 /** Icônes composées de plusieurs formes (navigation basse de la maquette). */

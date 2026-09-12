@@ -30,6 +30,11 @@ import {
 } from '../../domain/prix';
 import { Champ } from '../components/Champ';
 import { ChampDate } from '../components/ChampDate';
+import { evenementsAVenir } from '../../domain/echeancier';
+import { nomFichierIcs } from '../../domain/ics';
+import { usePreferences } from '../contexts/PreferencesContext';
+import { icsDepuisEvenements } from '../rappelsIcs';
+import { telechargerFichier } from '../telechargement';
 import { couleurCompteur, modeleTuile } from '../../domain/tuile';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
 import type { Abonnement, DateISO, MoyenPaiement, Service, Statut } from '../../domain/types';
@@ -68,6 +73,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const { parId: services } = useCatalogue();
   const [confirmation, setConfirmation] = useState(false);
   const [prixOuvert, setPrixOuvert] = useState(false);
+  const { preferences } = usePreferences();
   const jour = aujourdhui();
 
   const abo = abonnements.find((a) => a.id === id);
@@ -148,6 +154,21 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
         },
       },
     );
+  };
+  /** EF-32 : rappels calendrier de cet abonnement (renouvellement, essai, préavis, fin) en .ics. */
+  const rappelsIcs = evenementsAVenir([abo], jour, () => ({
+    couleur: modele.couleur,
+    initiales: modele.initiales,
+  }));
+  const exporterIcs = () => {
+    const ics = icsDepuisEvenements(
+      i18n,
+      rappelsIcs,
+      preferences.alertes,
+      new Map([[abo.id, abo]]),
+    );
+    telechargerFichier(nomFichierIcs(`${abo.nom} ${t('ics.suffixe')}`), ics, 'text/calendar');
+    toast.afficher(t('toast.icsTelecharge'));
   };
   const copierReference = async () => {
     if (!abo.referenceClient) return;
@@ -400,6 +421,12 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
               {t('fiche.dupliquer')}
             </button>
           </div>
+          {rappelsIcs.length > 0 ? (
+            <button type="button" className={styles.lienIcs} onClick={exporterIcs}>
+              <Icone nom="calendrier" taille={16} />
+              {t('fiche.ics')}
+            </button>
+          ) : null}
         </div>
 
         <section className={styles.danger}>

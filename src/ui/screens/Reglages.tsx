@@ -1,5 +1,12 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
+import { aujourdhui } from '../../domain/dates';
+import { evenementsAVenir } from '../../domain/echeancier';
+import { nomFichierIcs } from '../../domain/ics';
+import { useToast } from '../contexts/ToastContext';
+import { useAbonnements } from '../hooks/useAbonnements';
+import { icsDepuisEvenements } from '../rappelsIcs';
+import { telechargerFichier } from '../telechargement';
 import {
   FORMATS_DATE,
   LANGUES,
@@ -40,7 +47,10 @@ const CHOIX_CARTE = [1, 2, 3] as const;
  * confidentialité, à propos. Export / import arrivent au lot 4.
  */
 export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Props) {
-  const { t, tn, date, changerLangue, langue } = useI18n();
+  const i18n = useI18n();
+  const { t, tn, date, changerLangue, langue } = i18n;
+  const toast = useToast();
+  const { abonnements } = useAbonnements();
   const nombreMoyens = useMoyensPaiement().size;
   const { catalogue } = useCatalogue();
   const { preferences, modifier } = usePreferences();
@@ -65,6 +75,19 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
     modifier({ alertes: { ...preferences.alertes, ...partiel } });
   const jours = (n: number) => t('reglages.alertes.jours', { n });
   const mois = (n: number) => t('reglages.alertes.mois', { n });
+
+  /** EF-32 : toutes les prochaines échéances, fins d'essai et préavis en un fichier .ics. */
+  const evenements = evenementsAVenir(abonnements, aujourdhui());
+  const exporterIcs = () => {
+    const ics = icsDepuisEvenements(
+      i18n,
+      evenements,
+      preferences.alertes,
+      new Map(abonnements.map((a) => [a.id, a])),
+    );
+    telechargerFichier(nomFichierIcs(t('ics.fichier.tout')), ics, 'text/calendar');
+    toast.afficher(t('toast.icsTelecharge'));
+  };
 
   return (
     <div className={styles.ecran}>
@@ -122,6 +145,27 @@ export function Reglages({ onRetour, onOuvrirPaiements, onOuvrirCatalogue }: Pro
           />
         </Ligne>
         <p className={styles.blocTexte}>{t('reglages.alertes.note')}</p>
+      </Section>
+
+      <Section icone="horloge" titre={t('reglages.automatisation')}>
+        <div className={styles.bloc}>
+          <p className={styles.blocTitre}>{t('reglages.automatisation.avance')}</p>
+          <p className={styles.blocTexte}>{t('reglages.automatisation.avance.sous')}</p>
+          <p className={styles.confirmation}>{t('reglages.automatisation.avance.etat')}</p>
+        </div>
+        <div className={styles.bloc}>
+          <p className={styles.blocTitre}>{t('reglages.automatisation.ics')}</p>
+          <p className={styles.blocTexte}>{t('reglages.automatisation.ics.sous')}</p>
+          <button
+            type="button"
+            className={styles.boutonSecondaire}
+            onClick={exporterIcs}
+            disabled={evenements.length === 0}
+          >
+            {t('reglages.automatisation.ics.bouton')}
+          </button>
+        </div>
+        <p className={styles.blocTexte}>{t('reglages.automatisation.note')}</p>
       </Section>
 
       <Section icone="ecran" titre={t('reglages.general')}>

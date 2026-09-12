@@ -96,7 +96,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | 3 | Cycle de vie et statuts : essai → payant, prix futur appliqué, résilié → archivé à l'échéance, archivés hors totaux, pause / reprise, duplication | ✅ 2026-09-11 |
 | 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ✅ 2026-09-12 |
 | 5 | Écran Échéancier et son entrée dans la barre de navigation ; barre basse refaite à l'identique de la maquette (demande FlhFly du 2026-09-11, pour accueillir aussi Finances au lot 4) | ✅ 2026-09-12 |
-| 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ⬜ |
+| 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ✅ 2026-09-12 |
 | 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ⬜ |
 
 | Exigence | Fonctionnalité | Statut |
@@ -111,7 +111,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-16 [S] | Écran Échéancier (liste chronologique) | ✅ lot 3 étape 5 (liste par mois + vue calendrier de la maquette) |
 | EF-30 [M] | Alertes paramétrables J-X, fin d'essai, préavis, expiration de carte ; défauts globaux | ✅ lot 3 étapes 1-2 (moteur, seuil par abonnement, défauts réglables) |
 | EF-31 [M] | Centre d'alertes in-app : badge, liste, « tout marquer comme lu » | ✅ lot 3 étapes 1-2 |
-| EF-32 [S] | Export ICS d'un rappel | ⬜ |
+| EF-32 [S] | Export ICS d'un rappel | ✅ lot 3 étape 6 (depuis la fiche, et toutes les échéances depuis Réglages › Automatisation) |
 
 ## Lot 4 — Finances & données
 
@@ -128,7 +128,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-52 [S] | Import CSV simple | ⬜ |
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ⬜ |
-| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation) et écran À propos | ⬜ |
+| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation) et écran À propos | 🔄 section Automatisation livrée au lot 3 étape 6 ; export/import et À propos au lot 4 |
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; à reprendre dans l'onboarding C7 |
 | — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ⬜ |
 

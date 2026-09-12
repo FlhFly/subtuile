@@ -469,6 +469,25 @@ export const fr = {
   'fiche.dupliquer': 'Dupliquer',
   'edition.copie': '(copie)',
 
+  /* Rappels calendrier (EF-32) et Automatisation (§7.9) */
+  'fiche.ics': 'Ajouter le rappel au calendrier (ICS)',
+  'toast.icsTelecharge': 'Rappel .ics téléchargé',
+  'ics.alarme': 'Rappel Subtuile',
+  'ics.description': 'Ouvrir Subtuile pour gérer cet abonnement.',
+  'ics.suffixe': 'rappel',
+  'ics.fichier.tout': 'subtuile-echeances',
+  'reglages.automatisation': 'Automatisation',
+  'reglages.automatisation.avance': 'Avance automatique des échéances',
+  'reglages.automatisation.avance.sous':
+    'À l’échéance, la prochaine date est recalculée d’elle-même ; une hausse annoncée s’applique à sa date et un abonnement résilié s’archive après sa date de fin.',
+  'reglages.automatisation.avance.etat': 'Activée',
+  'reglages.automatisation.ics': 'Export calendrier (.ics)',
+  'reglages.automatisation.ics.sous':
+    'Toutes les prochaines échéances, fins d’essai et préavis, avec un rappel avant chacun, à importer dans votre calendrier.',
+  'reglages.automatisation.ics.bouton': 'Télécharger le fichier .ics',
+  'reglages.automatisation.note':
+    'Sans notification push (contrainte des PWA), les rappels passent par votre calendrier : réimportez le fichier après vos modifications.',
+
   /* Échéancier (EF-16, §7.4) */
   'echeancier.titre': 'Échéancier',
   'echeancier.sous': 'Prochaines échéances, essais et préavis',
@@ -484,7 +503,8 @@ export const fr = {
   'echeancier.jourVide': 'Aucune échéance ce jour-là.',
   'echeancier.vide.titre': 'Aucune échéance à venir',
   'echeancier.vide.texte': 'Ajoutez un abonnement pour voir son renouvellement ici.',
-  'echeancier.note': 'Touchez une ligne pour ouvrir la fiche.',
+  'echeancier.note':
+    'Touchez une ligne pour ouvrir la fiche · rappel calendrier (.ics) disponible depuis chaque fiche.',
   'echeancier.ev.renouvellement': 'Renouvellement · {periodicite}',
   'echeancier.ev.fin_essai': 'Fin d’essai — puis {montant} {periodicite}',
   'echeancier.ev.preavis': 'Date limite de résiliation (préavis {n} j)',

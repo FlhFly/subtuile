@@ -582,3 +582,29 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Rappel calendrier (EF-32) : bouton texte discret sous les actions, comme dans la maquette */
+.lienIcs {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  align-self: center;
+  height: 40px;
+  padding: 0 14px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+}
+
+.lienIcs:hover {
+  color: var(--ink);
+}
+
+.lienIcs:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

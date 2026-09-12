@@ -15,6 +15,7 @@ import { Icone } from '../components/Icone';
 import { useI18n, type I18n } from '../contexts/I18nContext';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
+import { libellesEvenement } from '../libellesEcheancier';
 import styles from './Echeancier.module.css';
 
 interface Props {
@@ -207,37 +208,8 @@ function LigneEcheance({
   i18n: I18n;
   onOuvrir: (id: string) => void;
 }) {
-  const { t, montant, date, compteur, periodicite } = i18n;
-  const prix = (v: number) =>
-    e.montantEstime ? t('montant.estime', { montant: montant(v) }) : montant(v);
-  let sous: string;
-  let somme: string;
-  let puce: string;
-  switch (e.type) {
-    case 'renouvellement':
-      sous = t('echeancier.ev.renouvellement', { periodicite: periodicite(e.periodicite) });
-      somme = e.montant !== null ? prix(e.montant) : t('commun.vide');
-      puce = compteur(e.jours);
-      break;
-    case 'fin_essai':
-      sous = t('echeancier.ev.fin_essai', {
-        montant: e.montant !== null ? montant(e.montant) : t('commun.vide'),
-        periodicite: periodicite(e.periodicite),
-      });
-      somme = montant(0);
-      puce = t('echeancier.puce.essai', { compteur: compteur(e.jours) });
-      break;
-    case 'preavis':
-      sous = t('echeancier.ev.preavis', { n: e.preavisJours ?? 0 });
-      somme = t('commun.vide');
-      puce = t('echeancier.puce.preavis', { compteur: compteur(e.jours) });
-      break;
-    case 'fin_resilie':
-      sous = t('echeancier.ev.fin_resilie');
-      somme = t('commun.vide');
-      puce = date(e.date);
-      break;
-  }
+  const { date } = i18n;
+  const { sous, somme, puce } = libellesEvenement(i18n, e);
   const classePuce = styles[`puce_${e.niveau}`] ?? '';
   return (
     <li>

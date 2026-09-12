@@ -459,6 +459,25 @@ export const en: Dictionnaire = {
   'fiche.dupliquer': 'Duplicate',
   'edition.copie': '(copy)',
 
+  /* Calendar reminders (EF-32) and Automation (§7.9) */
+  'fiche.ics': 'Add reminder to calendar (ICS)',
+  'toast.icsTelecharge': '.ics reminder downloaded',
+  'ics.alarme': 'Subtuile reminder',
+  'ics.description': 'Open Subtuile to manage this subscription.',
+  'ics.suffixe': 'reminder',
+  'ics.fichier.tout': 'subtuile-schedule',
+  'reglages.automatisation': 'Automation',
+  'reglages.automatisation.avance': 'Auto-advance renewals',
+  'reglages.automatisation.avance.sous':
+    'On renewal, the next date is recomputed automatically; an announced increase applies on its date and a canceled subscription is archived after its end date.',
+  'reglages.automatisation.avance.etat': 'Enabled',
+  'reglages.automatisation.ics': 'Calendar export (.ics)',
+  'reglages.automatisation.ics.sous':
+    'All upcoming renewals, trial ends and notice deadlines, each with a reminder, to import into your calendar.',
+  'reglages.automatisation.ics.bouton': 'Download the .ics file',
+  'reglages.automatisation.note':
+    'Without push notifications (a PWA constraint), reminders go through your calendar: re-import the file after your changes.',
+
   /* Schedule (EF-16, §7.4) */
   'echeancier.titre': 'Schedule',
   'echeancier.sous': 'Upcoming renewals, trials and notice deadlines',
@@ -474,7 +493,8 @@ export const en: Dictionnaire = {
   'echeancier.jourVide': 'Nothing on that day.',
   'echeancier.vide.titre': 'No upcoming renewals',
   'echeancier.vide.texte': 'Add a subscription to see its renewal here.',
-  'echeancier.note': 'Tap a row to open its card.',
+  'echeancier.note':
+    'Tap a row to open its card · calendar reminder (.ics) available from each card.',
   'echeancier.ev.renouvellement': 'Renewal · {periodicite}',
   'echeancier.ev.fin_essai': 'Trial ends — then {montant} {periodicite}',
   'echeancier.ev.preavis': 'Cancellation deadline ({n}-day notice)',
