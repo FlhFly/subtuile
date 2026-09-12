@@ -142,7 +142,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-52 [S] | Import CSV simple | ⬜ |
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ⬜ |
-| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation) et écran À propos | 🔄 section Automatisation livrée au lot 3 étape 6 ; export/import et À propos au lot 4 |
+| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | 🔄 Automatisation (lot 3 étape 6) et « Effacer toutes les données » (lot 4, 2026-09-12, avancé sur demande) livrés ; export/import et À propos à l'étape 6 |
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; à reprendre dans l'onboarding C7 |
 | — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ⬜ |
 
