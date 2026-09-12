@@ -111,7 +111,7 @@ Le catalogue vit dans un **JSON embarqué** dans l'app, éditable, avec une ving
 
 ### 3.5 Champs techniques communs (préparation sync — v1.5)
 
-Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée localement après un délai). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
+Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée localement après un délai). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
 
 ---
 
@@ -304,10 +304,10 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 1. **Accueil** — grille de tuiles + barre de tri/filtre + total mensuel en tête.
 2. **Fiche abonnement** — détail complet + actions.
 3. **Création/édition** — formulaire avec choix catalogue ou saisie libre.
-4. **Échéancier** — liste chronologique des prochaines échéances.
+4. **Échéancier** — liste chronologique des prochaines échéances (groupée par mois), et vue calendrier mensuelle *(maquette v6, livrée au lot 3)*.
 5. **Finances** — totaux, répartitions, prévisionnel.
 6. **Moyens de paiement** — liste, ajout, édition, alerte expiration.
-7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
+7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, langue, format de date *(v1.16 — JJ/MM/AAAA, MM/JJ/AAAA ou AAAA-MM-JJ, pour l'affichage et la saisie ; repris à l'onboarding C7)*, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
 8. **Catalogue** — consultation des services préchargés + « Proposer un service », accessible depuis les réglages. *(issu de la maquette v2)*
 9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don). *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
 

@@ -58,7 +58,7 @@ maquette). Pas d'autre dépendance sans validation.
 - Ids du catalogue : stables, jamais renommés ni réutilisés.
 
 ## Commandes
-npm run dev · npm run test · npm run build
+npm run dev · npm run test · npm run typecheck · npm run lint · npm run format · npm run build
 
 ## Definition of done (toute étape)
 Tests verts + lint OK + conforme au CdC + i18n complet + CHANGELOG.md et

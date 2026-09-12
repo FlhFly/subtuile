@@ -33,7 +33,8 @@ FlhFly avant le tag.
 
 #### Modifié
 - Version 0.3.0 ; README (statut lot 3 livré, fonctionnalités réelles) ; ROADMAP (lot 3 ✅,
-  lot 4 « prochain »).
+  lot 4 « prochain ») ; CdC (préférence « format de date » en §3.5 et §7, vue calendrier de
+  l'échéancier en §7) ; CLAUDE.md (commandes de vérification complètes).
 - Audit des règles d'architecture : Dexie confiné au stockage, aucune requête réseau, libellés
   fr / en à parité et sans clé orpheline, dates locales, aucune chaîne en dur.
 
