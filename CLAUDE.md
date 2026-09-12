@@ -8,7 +8,7 @@ est la référence visuelle (référence, PAS une base de code).
 
 ## Stack
 React 18 + Vite + TypeScript strict · Dexie (IndexedDB) · date-fns ·
-Vitest · CSS avec variables (src/ui/theme/tokens.css, extraites de la
+Vitest · vite-plugin-pwa (manifeste + service worker, §5.2) · CSS avec variables (src/ui/theme/tokens.css, extraites de la
 maquette). Pas d'autre dépendance sans validation.
 
 ## Méthode de travail (impératif)
@@ -58,7 +58,9 @@ maquette). Pas d'autre dépendance sans validation.
 - Ids du catalogue : stables, jamais renommés ni réutilisés.
 
 ## Commandes
-npm run dev · npm run test · npm run typecheck · npm run lint · npm run format · npm run build
+npm run dev · npm run test · npm run typecheck · npm run lint · npm run format · npm run build ·
+node scripts/generer-icones.cjs (régénère les icônes PWA de public/icons/) ·
+déploiement sous un sous-chemin : vite build --base=/chemin/
 
 ## Definition of done (toute étape)
 Tests verts + lint OK + conforme au CdC + i18n complet + CHANGELOG.md et

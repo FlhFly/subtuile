@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
+import { MiseAJourApp } from './ui/components/MiseAJourApp';
 import { AlertesContextProvider } from './ui/contexts/AlertesContext';
 import { PreferencesContextProvider } from './ui/contexts/PreferencesContext';
 import { StorageContextProvider } from './ui/contexts/StorageContext';
@@ -43,8 +44,8 @@ const ONGLETS: readonly Onglet[] = ['accueil', 'echeancier', 'finances', 'reglag
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
- * (§3.5), les toasts (EF-19) et les alertes (EF-31), puis affiche l'écran
- * courant.
+ * (§3.5), les toasts (EF-19) et les alertes (EF-31), enregistre le service
+ * worker (§5.2), puis affiche l'écran courant.
  */
 export default function App() {
   const [storage] = useState(() => creerStorageParDefaut());
@@ -52,6 +53,7 @@ export default function App() {
     <StorageContextProvider storage={storage}>
       <PreferencesContextProvider>
         <ToastContextProvider>
+          <MiseAJourApp />
           <AlertesContextProvider>
             <Navigation />
           </AlertesContextProvider>

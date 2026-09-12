@@ -7,7 +7,7 @@ hors ligne, zéro tracking : vos données ne quittent jamais votre appareil.
 - 🔔 Alertes fins d'essai, préavis, régularisations
 - 💳 Moyens de paiement et canal d'achat (App Store / direct)
 - 📊 Vue financière, prévisionnel 12 mois
-- 🌐 FR / EN — PWA installable
+- 🌐 FR / EN — PWA installable, 100 % hors ligne
 
 **Statut : en développement — lot 3/4 « Cas particuliers & alertes » livré (v0.3.0), lot 4 à venir.**
 

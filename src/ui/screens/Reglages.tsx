@@ -22,6 +22,7 @@ import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
+import { useInstallation } from '../hooks/useInstallation';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { icsDepuisEvenements } from '../rappelsIcs';
 import { telechargerFichier } from '../telechargement';
@@ -48,14 +49,16 @@ type Depliant = 'devise' | 'langue' | 'formatDate' | null;
  * Réglages (§7.7, écran 7 de la maquette) : apparence (EF-17), défauts
  * d'alerte (EF-30), général (langue EF-17b, format de date, moyens de
  * paiement, catalogue), automatisation (§7.9, EF-32), données (jeu de démo,
- * confidentialité), à propos. Devise par défaut, export / import, intro et
- * soutien arrivent au lot 4.
+ * confidentialité), à propos (dépôt public, installation de la PWA §5.2).
+ * « Revoir l'introduction » arrive avec l'onboarding ; « Soutenir le projet »
+ * dès qu'un lien de don existe (§4.7 : rien de factice).
  */
 export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue, onOuvrirImport }: Props) {
   const i18n = useI18n();
   const { t, tn, date, changerLangue, langue } = i18n;
   const taux = useTaux();
   const toast = useToast();
+  const installation = useInstallation();
   const { abonnements } = useAbonnements();
   const nombreMoyens = useMoyensPaiement().size;
   const { catalogue } = useCatalogue();
@@ -348,6 +351,33 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue, onOuvrirImport 
 
       <Section titre={t('reglages.apropos')}>
         <Carte>
+          {installation.installable ? (
+            <button
+              type="button"
+              className={styles.rangeeBouton}
+              onClick={() => void installation.installer()}
+            >
+              <span className={styles.textes}>
+                <span className={styles.libelle}>{t('reglages.apropos.installer')}</span>
+                <span className={styles.sous}>{t('reglages.apropos.installer.sous')}</span>
+              </span>
+              <span className={styles.valeur}>
+                <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+              </span>
+            </button>
+          ) : null}
+          {installation.etat === 'ios' ? (
+            <div className={styles.rangeeTexte}>
+              <span className={styles.libelle}>{t('reglages.apropos.ios')}</span>
+              <span className={styles.sous}>{t('reglages.apropos.ios.sous')}</span>
+            </div>
+          ) : null}
+          {installation.etat === 'installee' ? (
+            <div className={styles.rangeeTexte}>
+              <span className={styles.libelle}>{t('reglages.apropos.installee')}</span>
+              <span className={styles.sous}>{t('reglages.apropos.installee.sous')}</span>
+            </div>
+          ) : null}
           <a className={styles.rangeeBouton} href={URL_DEPOT} target="_blank" rel="noreferrer">
             <span className={styles.textes}>
               <span className={styles.libelle}>{t('reglages.apropos.os')}</span>

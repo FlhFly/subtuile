@@ -632,6 +632,15 @@ export const en: Dictionnaire = {
   'reglages.apropos.os.sous':
     'Public code; any modified hosted version must republish its sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.installer': 'Install the app',
+  'reglages.apropos.installer.sous': 'On your home screen, full screen, offline',
+  'reglages.apropos.ios': 'Install on iPhone / iPad',
+  'reglages.apropos.ios.sous': 'In Safari: Share, then “Add to Home Screen”',
+  'reglages.apropos.installee': 'App installed',
+  'reglages.apropos.installee.sous': 'Works offline; a new version is offered when it opens',
+  'toast.horsLignePrete': 'Ready to work offline',
+  'toast.majDisponible': 'New version available',
+  'toast.majRecharger': 'Reload',
 
   /* Enriched detail (EF-05, EF-08) */
   'fiche.engagement.detail': 'Commitment',

@@ -644,6 +644,16 @@ export const fr = {
   'reglages.apropos.os.sous':
     'Code public ; toute version hébergée modifiée doit republier ses sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.installer': 'Installer l’application',
+  'reglages.apropos.installer.sous': 'Sur l’écran d’accueil, en plein écran, hors ligne',
+  'reglages.apropos.ios': 'Installer sur iPhone / iPad',
+  'reglages.apropos.ios.sous': 'Dans Safari : Partager, puis « Sur l’écran d’accueil »',
+  'reglages.apropos.installee': 'Application installée',
+  'reglages.apropos.installee.sous':
+    'Fonctionne hors ligne ; une nouvelle version est proposée à l’ouverture',
+  'toast.horsLignePrete': 'Prête à fonctionner hors ligne',
+  'toast.majDisponible': 'Nouvelle version disponible',
+  'toast.majRecharger': 'Recharger',
 
   /* Fiche enrichie (EF-05, EF-08) */
   'fiche.engagement.detail': 'Engagement',

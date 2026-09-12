@@ -7,6 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 6 : PWA installable et hors ligne, À propos (2026-09-12)
+
+#### Ajouté
+- PWA (§5.2, EF-51) : manifeste (nom, affichage autonome, couleurs du thème, icônes 192 / 512
+  et maskable), service worker généré par vite-plugin-pwa (outil prévu au CdC §5.1) qui
+  précache tout le bundle, police comprise : l'app fonctionne intégralement hors ligne une
+  fois ouverte. Toast « Prête à fonctionner hors ligne » ; quand une nouvelle version attend,
+  toast « Nouvelle version disponible » avec « Recharger ».
+- Icônes de l'app générées par `scripts/generer-icones.cjs` (PNG écrits sans dépendance,
+  motif de quatre tuiles aux couleurs des tokens), favicon SVG, icône iOS, couleur de barre
+  système clair / sombre.
+- Réglages › À propos : « Installer l'application » quand le navigateur fournit l'invite
+  native (Chrome, Edge, Android) ; sur iPhone / iPad, rappel du chemin Partager → « Sur
+  l'écran d'accueil » ; « Application installée » en mode autonome. « Soutenir le projet »
+  reste masqué tant qu'aucun lien de don n'est fourni (§4.7).
+
+#### Modifié
+- Dépendance de développement ajoutée : vite-plugin-pwa 1.3.0 (workbox), conformément au
+  CdC §5.1. Le chemin de base d'un déploiement sous sous-dossier se passe à la construction
+  (`vite build --base=…`) ; manifeste et service worker le suivent.
+
 ### Lot 4 — étape 5 : réorganisation des tuiles, tri « ordre personnalisé » (2026-09-12)
 
 #### Ajouté
