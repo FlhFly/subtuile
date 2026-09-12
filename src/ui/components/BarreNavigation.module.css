@@ -33,6 +33,11 @@
   color: var(--ink);
 }
 
+.reserve {
+  flex: none;
+  width: 60px;
+}
+
 .ajouter {
   display: flex;
   align-items: center;

@@ -49,6 +49,10 @@ export function BarreNavigation({ actif, onAller, onAjouter }: Props) {
         <Icone nom="plus" taille={24} epaisseur={2.4} />
       </button>
       {ONGLETS.slice(milieu).map(onglet)}
+      {ONGLETS.length % 2 === 1 ? (
+        /* emplacement réservé à Finances (lot 4) : le « + » reste centré comme dans la maquette */
+        <span className={styles.reserve} aria-hidden="true" />
+      ) : null}
     </nav>
   );
 }
