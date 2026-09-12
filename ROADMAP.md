@@ -123,7 +123,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | 1 | Moteur financier (domaine) : totaux normalisés avec part payée et montants estimés, répartition par catégorie et par moyen de paiement, prévisionnel 12 mois à montants réels, dépenses passées 12 mois | ✅ 2026-09-12 |
 | 2 | Écran Finances (écran 5 de la maquette) et onglet Finances dans la barre | ✅ 2026-09-12 |
 | 3 | Devises : taux indicatifs, devise d'affichage (EF-45), devise par abonnement et devise par défaut (EF-45b) | ✅ 2026-09-12 |
-| 4 | Export / import JSON (fusion, remplacement, écran d'import), import CSV, rangées Réglages › Données | ⬜ |
+| 4 | Export / import JSON (fusion, remplacement, écran d'import), import CSV, rangées Réglages › Données | ✅ 2026-09-12 |
 | 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ⬜ |
 | 6 | PWA : manifest, icônes, service worker hors ligne, installation ; écran À propos et rangées restantes des réglages | ⬜ |
 | 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ⬜ |
@@ -138,8 +138,8 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-44 [S] | Prise en compte de partPayee | ✅ lot 4 étape 1 (part payée dans tous les totaux) |
 | EF-45 [S] | Devise d'affichage à taux indicatifs (EUR / USD / GBP / CHF) | ✅ lot 4 étape 3 (réglage « Devise », totaux convertis, note de fraîcheur des taux) |
 | EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ✅ lot 4 étape 3 (chips à côté du prix, défaut = réglage « Devise » ; repris à l'onboarding à l'étape 7) |
-| EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ⬜ |
-| EF-52 [S] | Import CSV simple | ⬜ |
+| EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ✅ lot 4 étape 4 (écran d'import de la maquette, lecture tolérante, confirmation du remplacement) |
+| EF-52 [S] | Import CSV simple | ✅ lot 4 étape 4 (séparateur et en-tête détectés, aperçu, lignes ignorées expliquées) |
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ⬜ |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ⬜ |
 | §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | 🔄 Automatisation (lot 3 étape 6) et « Effacer toutes les données » (lot 4, 2026-09-12, avancé sur demande) livrés ; export/import et À propos à l'étape 6 |

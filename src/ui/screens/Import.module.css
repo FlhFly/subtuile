@@ -1,0 +1,304 @@
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.entreeFichier {
+  display: none;
+}
+
+.sous {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+/* Cartes de choix JSON / CSV */
+.choix {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  width: 100%;
+  padding: 16px;
+  border: 0;
+  border-radius: 20px;
+  background: var(--card);
+  color: var(--ink);
+  text-align: left;
+  transition: background-color var(--dur-fast) var(--ease);
+}
+
+.choix:hover {
+  background: var(--sand);
+}
+
+.badge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  border-radius: 14px;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+
+.badgeJson {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.badgeCsv {
+  background: var(--sand2);
+  color: var(--ink);
+}
+
+.choixTextes {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.choixTitre {
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+}
+
+.choixSous {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+/* Carte d'aperçu (JSON, CSV, erreur) */
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.fichier {
+  display: flex;
+  align-items: center;
+  align-self: flex-start;
+  height: 26px;
+  padding: 0 11px;
+  border-radius: 13px;
+  background: var(--sand);
+  font-size: 11.5px;
+  font-weight: var(--fw-bold);
+}
+
+.resume {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.resumeTitre {
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+}
+
+.resumeSous {
+  font-size: 12px;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.aide {
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  text-align: center;
+}
+
+.boutonPrincipal,
+.boutonRemplacer,
+.boutonSecondaire,
+.boutonDanger {
+  height: 48px;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.boutonPrincipal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.boutonRemplacer {
+  border: 2px solid var(--urg);
+  background: transparent;
+  color: var(--urg);
+}
+
+.boutonSecondaire,
+.boutonDanger {
+  flex: 1;
+  height: 44px;
+  font-size: 13.5px;
+}
+
+.boutonSecondaire {
+  border: 2px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+
+.boutonDanger {
+  border: 0;
+  background: var(--urg);
+  color: #fff;
+}
+
+.boutonPrincipal:disabled,
+.boutonRemplacer:disabled,
+.boutonDanger:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+/* Confirmation de remplacement */
+.confirmation {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 16px;
+  border: 2px solid var(--urg);
+  border-radius: 20px;
+}
+
+.confirmationTitre {
+  font-size: 16px;
+  font-weight: var(--fw-bold);
+  color: var(--urg);
+}
+
+.confirmationTexte {
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--muted);
+}
+
+.confirmationActions {
+  display: flex;
+  gap: 8px;
+}
+
+/* Aperçu CSV */
+.table {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid var(--sand);
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.rangee {
+  display: grid;
+  grid-template-columns: 1.3fr 0.6fr 0.8fr 0.9fr;
+  gap: 6px;
+  padding: 10px 11px;
+  border-bottom: 1px solid var(--sand);
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+}
+
+.rangee:last-child {
+  border-bottom: 0;
+}
+
+.rangeeEnTete {
+  padding: 9px 11px;
+  background: var(--sand);
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
+.rangeePlus {
+  padding: 8px 11px;
+  font-size: 11.5px;
+  color: var(--muted);
+  text-align: center;
+}
+
+.cellule {
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.rejetees {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding: 10px 12px;
+  border-radius: 12px;
+  background: var(--warn-bg);
+}
+
+.rejeteesTitre {
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  color: var(--warn);
+}
+
+.rejetee {
+  font-size: 11px;
+  color: var(--warn);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.erreur {
+  font-size: 13px;
+  font-weight: var(--fw-semibold);
+  color: var(--urg);
+}
+
+.lienDiscret {
+  height: 40px;
+  border: 0;
+  border-radius: 20px;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.lienDiscret:hover {
+  color: var(--ink);
+}
+
+.note {
+  padding: 0 12px;
+  font-size: var(--fs-xs);
+  color: var(--muted);
+  text-align: center;
+}
+
+.choix:focus-visible,
+.boutonPrincipal:focus-visible,
+.boutonRemplacer:focus-visible,
+.boutonSecondaire:focus-visible,
+.boutonDanger:focus-visible,
+.lienDiscret:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

@@ -7,6 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 4 : export et import JSON, import CSV (2026-09-12)
+
+#### Ajouté
+- Réglages › Données : « Exporter (JSON) » télécharge la sauvegarde complète
+  (`subtuile-sauvegarde-AAAA-MM-JJ.json`, schemaVersion, entités vivantes) ; « Importer
+  (JSON / CSV) » ouvre l'écran d'import (EF-50, EF-52).
+- Écran **Import de données** d'après la maquette : choix Sauvegarde JSON ou Tableur CSV
+  (fichier lu sur l'appareil, rien n'est envoyé). JSON : nom du fichier, « n abonnements,
+  n moyens de paiement détectés », date de l'export, « Fusionner avec l'existant » (garde la
+  version la plus récente d'un même identifiant) ou « Tout remplacer » avec confirmation
+  rouge rappelant ce qui sera effacé ; erreurs expliquées (JSON illisible, fichier étranger,
+  schéma plus récent, structure abîmée). CSV : séparateur détecté (« ; », « , », tabulation),
+  en-tête reconnu en français ou en anglais sinon ordre nom / prix / périodicité / échéance,
+  aperçu des lignes reconnues, lignes ignorées avec leur raison, « Importer n lignes » ;
+  échéance à venir posée en surcharge manuelle, échéance passée prise comme date de début,
+  devise du réglage.
+- `src/data/importExport.ts` (lecture tolérante : champs absents complétés par les fabriques,
+  tombstones conservés, devise ou statut inconnus ramenés aux défauts) et `src/domain/csv.ts`
+  (découpage avec guillemets, détection d'en-tête, mots de périodicité, dates au format choisi
+  puis au format inverse). Tests `importExport.test.ts`. 286 tests.
+
 ### Lot 4 — étape 3 : devises — taux indicatifs, devise d'affichage, devise par abonnement (2026-09-12)
 
 #### Ajouté

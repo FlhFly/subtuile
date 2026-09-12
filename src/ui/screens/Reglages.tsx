@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
+import { exporterJson, nomFichierExport } from '../../data/importExport';
 import { aujourdhui } from '../../domain/dates';
 import { evenementsAVenir } from '../../domain/echeancier';
 import { nomFichierIcs } from '../../domain/ics';
@@ -29,6 +30,7 @@ import styles from './Reglages.module.css';
 interface Props {
   onOuvrirPaiements: () => void;
   onOuvrirCatalogue: () => void;
+  onOuvrirImport: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -49,7 +51,7 @@ type Depliant = 'devise' | 'langue' | 'formatDate' | null;
  * confidentialité), à propos. Devise par défaut, export / import, intro et
  * soutien arrivent au lot 4.
  */
-export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
+export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue, onOuvrirImport }: Props) {
   const i18n = useI18n();
   const { t, tn, date, changerLangue, langue } = i18n;
   const taux = useTaux();
@@ -62,6 +64,13 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
   const [chargementDemo, setChargementDemo] = useState(false);
   const [depliant, setDepliant] = useState<Depliant>(null);
   const [confirmationEffacer, setConfirmationEffacer] = useState(false);
+
+  /** EF-50 : sauvegarde JSON complète, téléchargée. */
+  const exporter = async () => {
+    const jour = aujourdhui();
+    telechargerFichier(nomFichierExport(jour), await exporterJson(storage), 'application/json');
+    toast.afficher(t('toast.exporte'));
+  };
 
   /** Réglages › Données : efface toutes les données métier (abonnements, moyens, services). */
   const effacerTout = async () => {
@@ -248,6 +257,24 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
 
       <Section titre={t('reglages.donnees')}>
         <Carte>
+          <button type="button" className={styles.rangeeBouton} onClick={() => void exporter()}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.exporter')}</span>
+              <span className={styles.sous}>{t('reglages.exporter.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
+          <button type="button" className={styles.rangeeBouton} onClick={onOuvrirImport}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.importer')}</span>
+              <span className={styles.sous}>{t('reglages.importer.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
           <button
             type="button"
             className={styles.rangeeBouton}

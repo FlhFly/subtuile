@@ -14,6 +14,7 @@ import { Echeancier } from './ui/screens/Echeancier';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
 import { Finances } from './ui/screens/Finances';
+import { Import } from './ui/screens/Import';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
 import { Reglages } from './ui/screens/Reglages';
 
@@ -26,6 +27,7 @@ type Ecran =
   | { nom: 'alertes' }
   | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
+  | { nom: 'import' }
   | { nom: 'fiche'; id: string; retour?: Ecran }
   | {
       nom: 'edition';
@@ -113,6 +115,7 @@ function Navigation() {
         <Reglages
           onOuvrirPaiements={() => setEcran({ nom: 'paiements' })}
           onOuvrirCatalogue={() => setEcran({ nom: 'catalogue' })}
+          onOuvrirImport={() => setEcran({ nom: 'import' })}
         />
       );
       break;
@@ -121,6 +124,14 @@ function Navigation() {
       contenu = <MoyensPaiement onRetour={() => setEcran(retour)} />;
       break;
     }
+    case 'import':
+      contenu = (
+        <Import
+          onRetour={() => setEcran({ nom: 'reglages' })}
+          onTermine={() => setEcran({ nom: 'accueil' })}
+        />
+      );
+      break;
     case 'catalogue':
       contenu = (
         <Catalogue
