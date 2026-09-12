@@ -7,6 +7,8 @@ export const en: Dictionnaire = {
   'nav.reglages': 'Settings',
   'nav.retour': 'Back',
   'nav.ajouter': 'Add a subscription',
+  'nav.echeancier': 'Schedule',
+  'nav.principale': 'Main navigation',
 
   /* Common actions */
   'commun.annuler': 'Cancel',
@@ -456,6 +458,29 @@ export const en: Dictionnaire = {
   /* Lifecycle (EF-06, EF-07) */
   'fiche.dupliquer': 'Duplicate',
   'edition.copie': '(copy)',
+
+  /* Schedule (EF-16, §7.4) */
+  'echeancier.titre': 'Schedule',
+  'echeancier.sous': 'Upcoming renewals, trials and notice deadlines',
+  'echeancier.vue': 'View',
+  'echeancier.vue.liste': 'List view',
+  'echeancier.vue.calendrier': 'Calendar view',
+  'echeancier.mois.precedent': 'Previous month',
+  'echeancier.mois.suivant': 'Next month',
+  'echeancier.jours': 'M,T,W,T,F,S,S',
+  'echeancier.legende':
+    'Each square marks a renewal, trial end or notice deadline. Tap a day to see only its events.',
+  'echeancier.moisVide': 'No renewals this month.',
+  'echeancier.jourVide': 'Nothing on that day.',
+  'echeancier.vide.titre': 'No upcoming renewals',
+  'echeancier.vide.texte': 'Add a subscription to see its renewal here.',
+  'echeancier.note': 'Tap a row to open its card.',
+  'echeancier.ev.renouvellement': 'Renewal · {periodicite}',
+  'echeancier.ev.fin_essai': 'Trial ends — then {montant} {periodicite}',
+  'echeancier.ev.preavis': 'Cancellation deadline ({n}-day notice)',
+  'echeancier.ev.fin_resilie': 'Subscription ends (canceled)',
+  'echeancier.puce.essai': 'Trial · {compteur}',
+  'echeancier.puce.preavis': 'Notice · {compteur}',
 
   /* Unsaved changes guard */
   'commun.oui': 'Yes',

@@ -95,7 +95,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | 2 | Centre d'alertes : badge sur l'accueil, liste, « tout marquer comme lu » ; défauts d'alerte dans les réglages | ✅ 2026-09-11 |
 | 3 | Cycle de vie et statuts : essai → payant, prix futur appliqué, résilié → archivé à l'échéance, archivés hors totaux, pause / reprise, duplication | ✅ 2026-09-11 |
 | 4 | Fiche enrichie : engagement / préavis et date limite, historique des prix avec hausse à date, régularisation | ✅ 2026-09-12 |
-| 5 | Écran Échéancier et son entrée dans la barre de navigation ; barre basse refaite à l'identique de la maquette (demande FlhFly du 2026-09-11, pour accueillir aussi Finances au lot 4) | ⬜ |
+| 5 | Écran Échéancier et son entrée dans la barre de navigation ; barre basse refaite à l'identique de la maquette (demande FlhFly du 2026-09-11, pour accueillir aussi Finances au lot 4) | ✅ 2026-09-12 |
 | 6 | Export ICS d'un rappel, section « Automatisation » des réglages | ⬜ |
 | 7 | Revue contre le critère CdC §6, test de recette, version 0.3.0, tag `lot-3` | ⬜ |
 
@@ -108,7 +108,7 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-07 [S] | Duplication d'un abonnement | ✅ lot 3 étape 3 |
 | EF-08 [S] | Historique des prix, saisie d'une hausse à date | ✅ lot 1 (historique) + lot 3 étape 4 (« Modifier le prix » à date, passée ou future) |
 | EF-08b [S] | Prix futur programmé (alerte, application automatique) | ✅ lot 3 étapes 1-3 (alerte « hausse annoncée », application automatique à la date versée dans l'historique) |
-| EF-16 [S] | Écran Échéancier (liste chronologique) | ⬜ |
+| EF-16 [S] | Écran Échéancier (liste chronologique) | ✅ lot 3 étape 5 (liste par mois + vue calendrier de la maquette) |
 | EF-30 [M] | Alertes paramétrables J-X, fin d'essai, préavis, expiration de carte ; défauts globaux | ✅ lot 3 étapes 1-2 (moteur, seuil par abonnement, défauts réglables) |
 | EF-31 [M] | Centre d'alertes in-app : badge, liste, « tout marquer comme lu » | ✅ lot 3 étapes 1-2 |
 | EF-32 [S] | Export ICS d'un rappel | ⬜ |

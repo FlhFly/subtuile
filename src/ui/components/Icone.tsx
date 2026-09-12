@@ -3,6 +3,8 @@
  * monochromes en `currentColor`. Aucun asset de marque.
  */
 
+import type { ReactNode } from 'react';
+
 const TRACES = {
   reglages:
     'M12 15.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7Zm7.4-2.1.9.7-1.6 2.8-1.1-.4a6.9 6.9 0 0 1-1.9 1.1l-.2 1.2h-3.2l-.2-1.2a6.9 6.9 0 0 1-1.9-1.1l-1.1.4-1.6-2.8.9-.7a6.9 6.9 0 0 1 0-2.2l-.9-.7 1.6-2.8 1.1.4a6.9 6.9 0 0 1 1.9-1.1l.2-1.2h3.2l.2 1.2a6.9 6.9 0 0 1 1.9 1.1l1.1-.4 1.6 2.8-.9.7a6.9 6.9 0 0 1 0 2.2Z',
@@ -28,19 +30,55 @@ const TRACES = {
   carte: 'M3 6h18v12H3zM3 10h18M7 15h4',
   cloche: 'M6 16v-5a6 6 0 0 1 12 0v5l1.5 2h-15L6 16ZM10 19a2.2 2.2 0 0 0 4 0',
   chevronDroit: 'm9 5.5 6.5 6.5L9 18.5',
+  chevronGauche: 'm14.5 5.5-7 6.5 7 6.5',
   calendrier: 'M4 6h16v14H4zM4 10h16M8 3v4M16 3v4',
 } as const;
 
-export type NomIcone = keyof typeof TRACES;
+/** Icônes composées de plusieurs formes (navigation basse de la maquette). */
+const FORMES: Record<'navAccueil' | 'navEcheancier' | 'navFinances' | 'navReglages', ReactNode> = {
+  navAccueil: (
+    <>
+      <rect x="3.5" y="3.5" width="7.2" height="7.2" rx="2.4" />
+      <rect x="13.3" y="3.5" width="7.2" height="7.2" rx="2.4" />
+      <rect x="3.5" y="13.3" width="7.2" height="7.2" rx="2.4" />
+      <rect x="13.3" y="13.3" width="7.2" height="7.2" rx="2.4" />
+    </>
+  ),
+  navEcheancier: (
+    <>
+      <rect x="3.5" y="5.5" width="17" height="15" rx="2.8" />
+      <path d="M3.5 10.5h17M8.2 3v4M15.8 3v4" />
+      <circle cx="12" cy="15.5" r="1.4" fill="currentColor" stroke="none" />
+    </>
+  ),
+  navFinances: (
+    <>
+      <path d="M4 20.5h16" />
+      <path d="M7 20.5v-6.5M12 20.5v-11M17 20.5v-15" />
+    </>
+  ),
+  navReglages: (
+    <>
+      <path d="M12.2 3.5h9.3M3.5 3.5h3.7M12.2 12h9.3M3.5 12h3.7M17.2 20.5h4.3M3.5 20.5h8.7" />
+      <circle cx="9.5" cy="3.5" r="2.3" />
+      <circle cx="9.5" cy="12" r="2.3" />
+      <circle cx="14.7" cy="20.5" r="2.3" />
+    </>
+  ),
+};
+
+export type NomIcone = keyof typeof TRACES | keyof typeof FORMES;
 
 interface Props {
   nom: NomIcone;
   taille?: number;
+  /** épaisseur du trait (1.75 par défaut, 2.4 dans la navigation basse) */
+  epaisseur?: number;
   /** icône décorative par défaut ; fournir un libellé pour la rendre lisible */
   titre?: string;
 }
 
-export function Icone({ nom, taille = 20, titre }: Props) {
+export function Icone({ nom, taille = 20, epaisseur = 1.75, titre }: Props) {
   return (
     <svg
       width={taille}
@@ -48,14 +86,18 @@ export function Icone({ nom, taille = 20, titre }: Props) {
       viewBox="0 0 24 24"
       fill="none"
       stroke="currentColor"
-      strokeWidth={1.75}
+      strokeWidth={epaisseur}
       strokeLinecap="round"
       strokeLinejoin="round"
       aria-hidden={titre ? undefined : true}
       role={titre ? 'img' : undefined}
     >
       {titre ? <title>{titre}</title> : null}
-      <path d={TRACES[nom]} />
+      {nom in TRACES ? (
+        <path d={TRACES[nom as keyof typeof TRACES]} />
+      ) : (
+        FORMES[nom as keyof typeof FORMES]
+      )}
     </svg>
   );
 }

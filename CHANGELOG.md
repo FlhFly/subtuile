@@ -7,6 +7,29 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 3 — étape 5 : écran Échéancier et barre de navigation de la maquette (2026-09-12)
+
+#### Ajouté
+- Écran **Échéancier** (EF-16, §7.4), onglet de la barre basse : vue liste chronologique
+  groupée par mois — pour chaque abonnement, prochain renouvellement (montant supporté,
+  puce J-X colorée), fin d'essai (puis prix, puce violette), date limite de résiliation
+  (préavis, violette), fin d'abonnement résilié (neutre) ; ligne = jour et semaine, logo,
+  nom et type d'événement, montant et puce, touche → fiche. Vue calendrier : navigation
+  par mois, grille du lundi au dimanche, pastilles aux couleurs des abonnements (« +n » au
+  delà de trois), toutes les occurrences du mois affiché (passées comprises) ; toucher un
+  jour ne montre que ses échéances. États vides et légende de la maquette.
+- `src/domain/echeancier.ts` (événements à venir, événements du mois, groupement par mois,
+  navigation de mois, grille du calendrier) et tests `echeancier.test.ts` dont le jeu de
+  démo. Style de date « semaine » (« sam. »). 249 tests.
+
+#### Modifié
+- Barre de navigation basse refaite à l'identique de la maquette (demande FlhFly) : onglets
+  Accueil, Échéancier, Réglages de 60 px avec les icônes de la maquette (trait 2,4), « + »
+  central de 50 px, bord haut de 2 px, fond translucide. Finances rejoindra la barre au lot 4
+  (aucune entrée factice). Icônes composées de plusieurs formes possibles dans `Icone`.
+- La fiche revient vers l'écran qui l'a ouverte (accueil, échéancier ou alertes) ; la
+  modification et la duplication reviennent à la fiche.
+
 ### Lot 3 — garde contre la perte de saisie dans le formulaire (2026-09-12)
 
 #### Ajouté

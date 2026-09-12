@@ -10,6 +10,7 @@ import { useCatalogue } from './ui/hooks/useCatalogue';
 import { Accueil } from './ui/screens/Accueil';
 import { Alertes } from './ui/screens/Alertes';
 import { Catalogue } from './ui/screens/Catalogue';
+import { Echeancier } from './ui/screens/Echeancier';
 import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
@@ -18,11 +19,12 @@ import { Reglages } from './ui/screens/Reglages';
 /** Écrans livrés ; navigation par état, sans routeur. */
 type Ecran =
   | { nom: 'accueil' }
+  | { nom: 'echeancier' }
   | { nom: 'reglages' }
   | { nom: 'alertes' }
   | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
-  | { nom: 'fiche'; id: string }
+  | { nom: 'fiche'; id: string; retour?: Ecran }
   | {
       nom: 'edition';
       /** abonnement modifié ; null = création */
@@ -32,6 +34,8 @@ type Ecran =
       /** création par duplication (EF-07) */
       copieDe?: string;
     };
+
+const ONGLETS: readonly Onglet[] = ['accueil', 'echeancier', 'reglages'];
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
@@ -63,30 +67,34 @@ function Navigation() {
     window.scrollTo({ top: 0 });
   }, [ecran]);
 
-  const onglet: Onglet = ecran.nom === 'reglages' ? 'reglages' : 'accueil';
-  const avecBarre = ecran.nom === 'accueil' || ecran.nom === 'reglages';
+  const onglet = (ONGLETS as readonly string[]).includes(ecran.nom)
+    ? (ecran.nom as Onglet)
+    : 'accueil';
+  const avecBarre = (ONGLETS as readonly string[]).includes(ecran.nom);
+  const ouvrirFiche = (id: string, retour?: Ecran) => setEcran({ nom: 'fiche', id, retour });
 
   let contenu;
   switch (ecran.nom) {
     case 'accueil':
       contenu = (
         <Accueil
-          onOuvrirAbonnement={(id) => setEcran({ nom: 'fiche', id })}
+          onOuvrirAbonnement={(id) => ouvrirFiche(id)}
           onAjouter={() => setEcran({ nom: 'edition', id: null, retour: { nom: 'accueil' } })}
           onOuvrirAlertes={() => setEcran({ nom: 'alertes' })}
         />
       );
+      break;
+    case 'echeancier':
+      contenu = <Echeancier onOuvrir={(id) => ouvrirFiche(id, { nom: 'echeancier' })} />;
       break;
     case 'alertes':
       contenu = (
         <Alertes
           onRetour={() => setEcran({ nom: 'accueil' })}
           onOuvrir={(a) =>
-            setEcran(
-              a.type === 'carte'
-                ? { nom: 'paiements', retour: { nom: 'alertes' } }
-                : { nom: 'fiche', id: a.abonnementId },
-            )
+            a.type === 'carte'
+              ? setEcran({ nom: 'paiements', retour: { nom: 'alertes' } })
+              : ouvrirFiche(a.abonnementId, { nom: 'alertes' })
           }
         />
       );
@@ -115,19 +123,19 @@ function Navigation() {
         />
       );
       break;
-    case 'fiche':
+    case 'fiche': {
+      const retour = ecran.retour ?? { nom: 'accueil' as const };
       contenu = (
         <Fiche
           key={ecran.id}
           id={ecran.id}
-          onRetour={() => setEcran({ nom: 'accueil' })}
-          onModifier={(id) => setEcran({ nom: 'edition', id, retour: { nom: 'fiche', id } })}
-          onDupliquer={(id) =>
-            setEcran({ nom: 'edition', id: null, retour: { nom: 'fiche', id }, copieDe: id })
-          }
+          onRetour={() => setEcran(retour)}
+          onModifier={(id) => setEcran({ nom: 'edition', id, retour: ecran })}
+          onDupliquer={(id) => setEcran({ nom: 'edition', id: null, retour: ecran, copieDe: id })}
         />
       );
       break;
+    }
     case 'edition': {
       const source = ecran.id ?? ecran.copieDe;
       const charge = source ? abonnements.find((a) => a.id === source) : undefined;
@@ -140,7 +148,7 @@ function Navigation() {
             modele={ecran.copieDe ? charge : undefined}
             serviceInitial={ecran.serviceId ? services.get(ecran.serviceId) : undefined}
             onFermer={() => setEcran(ecran.retour)}
-            onEnregistre={(id) => setEcran({ nom: 'fiche', id })}
+            onEnregistre={(id) => ouvrirFiche(id)}
           />
         );
       break;

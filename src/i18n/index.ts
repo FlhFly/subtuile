@@ -99,10 +99,11 @@ export function formaterMontant(langue: Langue, montant: number, devise = 'EUR')
   return f.format(montant);
 }
 
-export type StyleDate = 'court' | 'moyen' | 'long' | 'mois';
+export type StyleDate = 'court' | 'moyen' | 'long' | 'mois' | 'semaine';
 
 const OPTIONS_DATE: Record<StyleDate, Intl.DateTimeFormatOptions> = {
   mois: { month: 'long', year: 'numeric' },
+  semaine: { weekday: 'short' },
   court: { day: '2-digit', month: '2-digit', year: 'numeric' },
   moyen: { day: 'numeric', month: 'short', year: 'numeric' },
   long: { day: 'numeric', month: 'long', year: 'numeric' },

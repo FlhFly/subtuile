@@ -10,6 +10,8 @@ export const fr = {
   'nav.reglages': 'Réglages',
   'nav.retour': 'Retour',
   'nav.ajouter': 'Ajouter un abonnement',
+  'nav.echeancier': 'Échéancier',
+  'nav.principale': 'Navigation principale',
 
   /* Actions communes */
   'commun.annuler': 'Annuler',
@@ -466,6 +468,29 @@ export const fr = {
   /* Cycle de vie (EF-06, EF-07) */
   'fiche.dupliquer': 'Dupliquer',
   'edition.copie': '(copie)',
+
+  /* Échéancier (EF-16, §7.4) */
+  'echeancier.titre': 'Échéancier',
+  'echeancier.sous': 'Prochaines échéances, essais et préavis',
+  'echeancier.vue': 'Affichage',
+  'echeancier.vue.liste': 'Vue liste',
+  'echeancier.vue.calendrier': 'Vue calendrier',
+  'echeancier.mois.precedent': 'Mois précédent',
+  'echeancier.mois.suivant': 'Mois suivant',
+  'echeancier.jours': 'L,M,M,J,V,S,D',
+  'echeancier.legende':
+    'Chaque carré marque un renouvellement, une fin d’essai ou un préavis. Touchez un jour pour ne voir que ses échéances.',
+  'echeancier.moisVide': 'Aucune échéance ce mois-ci.',
+  'echeancier.jourVide': 'Aucune échéance ce jour-là.',
+  'echeancier.vide.titre': 'Aucune échéance à venir',
+  'echeancier.vide.texte': 'Ajoutez un abonnement pour voir son renouvellement ici.',
+  'echeancier.note': 'Touchez une ligne pour ouvrir la fiche.',
+  'echeancier.ev.renouvellement': 'Renouvellement · {periodicite}',
+  'echeancier.ev.fin_essai': 'Fin d’essai — puis {montant} {periodicite}',
+  'echeancier.ev.preavis': 'Date limite de résiliation (préavis {n} j)',
+  'echeancier.ev.fin_resilie': 'Fin d’abonnement (résilié)',
+  'echeancier.puce.essai': 'Essai · {compteur}',
+  'echeancier.puce.preavis': 'Préavis · {compteur}',
 
   /* Garde contre la perte de saisie */
   'commun.oui': 'Oui',

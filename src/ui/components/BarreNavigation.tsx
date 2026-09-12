@@ -1,8 +1,9 @@
 import { useI18n } from '../contexts/I18nContext';
-import { Icone } from './Icone';
+import { Icone, type NomIcone } from './Icone';
 import styles from './BarreNavigation.module.css';
 
-export type Onglet = 'accueil' | 'reglages';
+/** Onglets livrés ; Finances rejoint la barre au lot 4 (aucune entrée factice). */
+export type Onglet = 'accueil' | 'echeancier' | 'reglages';
 
 interface Props {
   actif: Onglet;
@@ -10,40 +11,44 @@ interface Props {
   onAjouter: () => void;
 }
 
+const ONGLETS: { nom: Onglet; icone: NomIcone }[] = [
+  { nom: 'accueil', icone: 'navAccueil' },
+  { nom: 'echeancier', icone: 'navEcheancier' },
+  { nom: 'reglages', icone: 'navReglages' },
+];
+
 /**
- * Navigation basse de la maquette. En V1 seuls les écrans livrés y figurent
- * (échéancier au lot 3, finances au lot 4) — aucune entrée factice.
+ * Navigation basse, à l'identique de la maquette : onglets de 60 px à icône
+ * de 22 px et libellé de 10,5 px, bouton « + » central de 50 px. Le « + » est
+ * inséré au milieu des onglets.
  */
 export function BarreNavigation({ actif, onAller, onAjouter }: Props) {
   const { t } = useI18n();
+  const milieu = Math.ceil(ONGLETS.length / 2);
+  const onglet = ({ nom, icone }: (typeof ONGLETS)[number]) => (
+    <button
+      key={nom}
+      type="button"
+      className={actif === nom ? styles.ongletActif : styles.onglet}
+      onClick={() => onAller(nom)}
+      aria-current={actif === nom ? 'page' : undefined}
+    >
+      <Icone nom={icone} taille={22} epaisseur={2.4} />
+      {t(`nav.${nom}`)}
+    </button>
+  );
   return (
-    <nav className={styles.barre} aria-label={t('nav.accueil')}>
-      <button
-        type="button"
-        className={actif === 'accueil' ? styles.ongletActif : styles.onglet}
-        onClick={() => onAller('accueil')}
-        aria-current={actif === 'accueil' ? 'page' : undefined}
-      >
-        <Icone nom="tuile" taille={22} />
-        {t('nav.accueil')}
-      </button>
+    <nav className={styles.barre} aria-label={t('nav.principale')}>
+      {ONGLETS.slice(0, milieu).map(onglet)}
       <button
         type="button"
         className={styles.ajouter}
         onClick={onAjouter}
         aria-label={t('nav.ajouter')}
       >
-        <Icone nom="plus" taille={24} />
+        <Icone nom="plus" taille={24} epaisseur={2.4} />
       </button>
-      <button
-        type="button"
-        className={actif === 'reglages' ? styles.ongletActif : styles.onglet}
-        onClick={() => onAller('reglages')}
-        aria-current={actif === 'reglages' ? 'page' : undefined}
-      >
-        <Icone nom="reglages" taille={22} />
-        {t('nav.reglages')}
-      </button>
+      {ONGLETS.slice(milieu).map(onglet)}
     </nav>
   );
 }
