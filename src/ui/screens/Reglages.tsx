@@ -57,6 +57,14 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
   const storage = useStorage();
   const [chargementDemo, setChargementDemo] = useState(false);
   const [depliant, setDepliant] = useState<Depliant>(null);
+  const [confirmationEffacer, setConfirmationEffacer] = useState(false);
+
+  /** Réglages › Données : efface toutes les données métier (abonnements, moyens, services). */
+  const effacerTout = async () => {
+    await storage.effacerTout();
+    setConfirmationEffacer(false);
+    toast.afficher(t('toast.donneesEffacees'));
+  };
 
   const basculer = (d: Exclude<Depliant, null>) => setDepliant((c) => (c === d ? null : d));
   const modifierAlertes = (partiel: Partial<DefautsAlerte>) =>
@@ -237,8 +245,58 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue }: Props) {
             <span className={styles.libelle}>{t('reglages.confidentialite')}</span>
             <span className={styles.sous}>{t('reglages.confidentialite.texte')}</span>
           </div>
+          <button
+            type="button"
+            className={`${styles.rangeeBouton} ${styles.rangeeDanger}`}
+            onClick={() => setConfirmationEffacer(true)}
+          >
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.effacer')}</span>
+              <span className={styles.sous}>{t('reglages.effacer.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
         </Carte>
       </Section>
+
+      {confirmationEffacer ? (
+        <div
+          className={styles.voile}
+          role="presentation"
+          onClick={() => setConfirmationEffacer(false)}
+        >
+          <div
+            className={styles.dialogue}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="effacer-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="effacer-titre" className={styles.dialogueTitre}>
+              {t('reglages.effacer.question')}
+            </h2>
+            <p className={styles.sous}>{t('reglages.effacer.texte')}</p>
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.dialogueSecondaire}
+                onClick={() => setConfirmationEffacer(false)}
+              >
+                {t('commun.annuler')}
+              </button>
+              <button
+                type="button"
+                className={styles.dialogueDanger}
+                onClick={() => void effacerTout()}
+              >
+                {t('reglages.effacer.confirmer')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       <Section titre={t('reglages.apropos')}>
         <Carte>

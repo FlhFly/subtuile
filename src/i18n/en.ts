@@ -472,6 +472,16 @@ export const en: Dictionnaire = {
   'reglages.automatisation.note':
     'Without push notifications (a PWA constraint), reminders go through your calendar: re-import the file after your changes.',
 
+  /* Settings › Data: erase everything */
+  'reglages.effacer': 'Erase all data',
+  'reglages.effacer.sous':
+    'Subscriptions, payment methods and proposed services; settings are kept.',
+  'reglages.effacer.question': 'Erase all data?',
+  'reglages.effacer.texte':
+    'This cannot be undone. Export a backup first if you want to be able to go back.',
+  'reglages.effacer.confirmer': 'Erase everything',
+  'toast.donneesEffacees': 'All data has been erased',
+
   /* Finances (EF-40 to EF-44, §7.5) */
   'finances.titre': 'Finances',
   'finances.payants.un': '{n} paid subscription',

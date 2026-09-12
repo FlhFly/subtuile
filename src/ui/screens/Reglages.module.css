@@ -285,3 +285,69 @@
   outline: 2px solid var(--ink);
   outline-offset: -2px;
 }
+
+/* Effacer toutes les données : rangée rouge et dialogue de confirmation */
+.rangeeDanger .libelle {
+  color: var(--urg);
+}
+
+.voile {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--sp-4);
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 30;
+}
+
+.dialogue {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  width: 100%;
+  max-width: 400px;
+  padding: 20px;
+  border-radius: var(--r-xl);
+  background: var(--card);
+  box-shadow: var(--shadow-modal);
+}
+
+.dialogueTitre {
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-tight);
+}
+
+.dialogueActions {
+  display: flex;
+  gap: 8px;
+}
+
+.dialogueSecondaire,
+.dialogueDanger {
+  flex: 1;
+  height: 44px;
+  border-radius: var(--r-xl);
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+}
+
+.dialogueSecondaire {
+  border: var(--border);
+  background: transparent;
+  color: var(--ink);
+}
+
+.dialogueDanger {
+  border: 0;
+  background: var(--urg);
+  color: #fff;
+}
+
+.dialogueSecondaire:focus-visible,
+.dialogueDanger:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

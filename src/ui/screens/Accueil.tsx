@@ -1,5 +1,6 @@
 import { useMemo, useState } from 'react';
-import { aujourdhui, montantAnnuel, montantMensuel, prixEffectif } from '../../domain/dates';
+import { aujourdhui } from '../../domain/dates';
+import { totaux } from '../../domain/finances';
 import {
   appliquerCriteres,
   compterParStatut,
@@ -70,14 +71,12 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
     [abonnements, criteres, jour],
   );
 
-  /* Totaux sur tous les abonnements actifs, indépendamment des filtres */
+  /* Totaux des abonnements payants, mêmes règles que l'écran Finances (EF-40), indépendamment des filtres */
   const actifs = abonnements.filter((a) => a.statut.type === 'actif');
-  const totalMensuel = actifs.reduce(
-    (s, a) => s + montantMensuel(prixEffectif(a), a.periodicite),
-    0,
-  );
-  const totalAnnuel = actifs.reduce((s, a) => s + montantAnnuel(prixEffectif(a), a.periodicite), 0);
-  const estime = actifs.some((a) => a.montantEstime);
+  const total = totaux(abonnements, jour);
+  const totalMensuel = total.mensuel;
+  const totalAnnuel = total.annuel;
+  const estime = total.estime;
   const marquer = (valeur: number) =>
     estime ? t('montant.estime', { montant: montant(valeur) }) : montant(valeur);
 

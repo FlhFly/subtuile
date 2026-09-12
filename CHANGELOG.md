@@ -7,6 +7,17 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — correctif après recette de l'étape 2 (2026-09-12)
+
+#### Corrigé
+- Le total mensuel de l'accueil comptait les abonnements en essai gratuit à leur plein tarif,
+  alors que Finances les exclut tant que l'essai court (écart de 11,99 € constaté par FlhFly
+  avec Disney+). L'accueil utilise maintenant le même calcul (`totaux`) que Finances.
+
+#### Ajouté
+- Réglages › Données : « Effacer toutes les données » avec confirmation (abonnements, moyens
+  de paiement, services proposés ; les réglages restent), pour repartir de zéro.
+
 ### Lot 4 — étape 2 : écran Finances et onglet dans la barre (2026-09-12)
 
 #### Ajouté

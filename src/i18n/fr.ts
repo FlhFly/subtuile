@@ -482,6 +482,16 @@ export const fr = {
   'reglages.automatisation.note':
     'Sans notification push (contrainte des PWA), les rappels passent par votre calendrier : réimportez le fichier après vos modifications.',
 
+  /* Réglages › Données : tout effacer */
+  'reglages.effacer': 'Effacer toutes les données',
+  'reglages.effacer.sous':
+    'Abonnements, moyens de paiement et services proposés ; les réglages restent.',
+  'reglages.effacer.question': 'Effacer toutes les données ?',
+  'reglages.effacer.texte':
+    'Cette action est irréversible. Exportez une sauvegarde avant si vous voulez pouvoir revenir en arrière.',
+  'reglages.effacer.confirmer': 'Tout effacer',
+  'toast.donneesEffacees': 'Toutes les données ont été effacées',
+
   /* Finances (EF-40 à EF-44, §7.5) */
   'finances.titre': 'Finances',
   'finances.payants.un': '{n} abonnement payant',
