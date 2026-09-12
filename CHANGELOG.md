@@ -7,7 +7,24 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis le tag `lot-3`.
+### Lot 4 — étape 1 : moteur financier (2026-09-12)
+
+#### Ajouté
+- `src/domain/finances.ts` (EF-40 à EF-44) : abonnements « payants » (vivants, actifs,
+  récurrents, hors essai en cours ; archivés, résiliés et en pause hors totaux), total mensuel
+  normalisé et annuel avec part payée (EF-44) et marque « estimé » (EF-04b), répartition par
+  catégorie et par moyen de paiement (la plus lourde d'abord), prévisionnel 12 mois à
+  montants réels (chaque prélèvement du mois civil compte au prix en vigueur à sa date, hausse
+  annoncée comprise ; un annuel pèse sur son mois d'échéance ; un essai paie à sa fin),
+  dépenses passées sur 12 mois au prix de l'époque (historique des prix ; un résilié compte
+  jusqu'à sa date de fin, un archivé ou un abonnement en pause jusqu'à sa dernière
+  modification — approximation V1 documentée).
+- Tests `finances.test.ts` : chaque règle, plus le jeu de démo à sa date de référence vérifié
+  à la main (163,69 € / mois estimé pour 8 abonnements payants ; août 2026 à 242,31 € avec
+  Strava annuel, septembre à 242,21 € avec Prime et deux prélèvements Lycamobile). 273 tests.
+
+#### Modifié
+- ROADMAP : découpage du lot 4 en 8 étapes.
 
 ## [0.3.0] — 2026-09-12 — tag `lot-3` — Cas particuliers & alertes
 

@@ -116,13 +116,26 @@ Déroulé en 7 étapes (un commit validé par étape), validé par FlhFly le 202
 
 ## Lot 4 — Finances & données
 
+Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 2026-09-12 :
+
+| # | Étape | Statut |
+|---|---|---|
+| 1 | Moteur financier (domaine) : totaux normalisés avec part payée et montants estimés, répartition par catégorie et par moyen de paiement, prévisionnel 12 mois à montants réels, dépenses passées 12 mois | ✅ 2026-09-12 |
+| 2 | Écran Finances (écran 5 de la maquette) et onglet Finances dans la barre | ⬜ |
+| 3 | Devises : taux indicatifs, devise d'affichage (EF-45), devise par abonnement et devise par défaut (EF-45b) | ⬜ |
+| 4 | Export / import JSON (fusion, remplacement, écran d'import), import CSV, rangées Réglages › Données | ⬜ |
+| 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ⬜ |
+| 6 | PWA : manifest, icônes, service worker hors ligne, installation ; écran À propos et rangées restantes des réglages | ⬜ |
+| 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ⬜ |
+| 8 | Revue contre le critère CdC §6, recette, version 1.0.0, README finalisé, tag `lot-4`, mise en ligne | ⬜ |
+
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
-| EF-40 [M] | Total mensuel normalisé et total annuel (montants estimés marqués) | ⬜ |
-| EF-41 [M] | Répartition par catégorie et par moyen de paiement | ⬜ |
-| EF-42 [M] | Prévisionnel 12 mois | ⬜ |
-| EF-43 [S] | Historique des dépenses passées (12 mois ; 24 mois au lot 5) | ⬜ |
-| EF-44 [S] | Prise en compte de partPayee | ⬜ |
+| EF-40 [M] | Total mensuel normalisé et total annuel (montants estimés marqués) | 🔄 lot 4 étape 1 (domaine) ; écran à l'étape 2 |
+| EF-41 [M] | Répartition par catégorie et par moyen de paiement | 🔄 lot 4 étape 1 (domaine) ; écran à l'étape 2 |
+| EF-42 [M] | Prévisionnel 12 mois | 🔄 lot 4 étape 1 (domaine, montants réels par mois) ; écran à l'étape 2 |
+| EF-43 [S] | Historique des dépenses passées (12 mois ; 24 mois au lot 5) | 🔄 lot 4 étape 1 (domaine, prix de l'époque) ; écran à l'étape 2 |
+| EF-44 [S] | Prise en compte de partPayee | ✅ lot 4 étape 1 (part payée dans tous les totaux) |
 | EF-45 [S] | Devise d'affichage à taux indicatifs (EUR / USD / GBP / CHF) | ⬜ |
 | EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ⬜ |
 | EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ⬜ |
