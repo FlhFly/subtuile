@@ -182,7 +182,7 @@ version dans l'app.
 | EF-33 | Notifications Web Push (nécessite un serveur d'envoi, §5.4) |
 | §5.6 | Catalogue et taux chargés à distance (lecture seule, fallback embarqué) ; synchronisation multi-appareils |
 | C1 | Rappel de sauvegarde / export automatique périodique |
-| C3 | Détection de doublons à la création manuelle |
+| C3 | Détection de doublons à la création manuelle — ✅ v1.0.3 (avertissement « Déjà suivi ? ») |
 | C7 | Onboarding au premier lancement (dont choix de la devise par défaut, EF-45b) |
 | C8 | Verrouillage de l'app (code / WebAuthn) |
 | C9 | Rapport annuel exportable |

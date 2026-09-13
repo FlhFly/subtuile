@@ -390,7 +390,7 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 |---|---|---|
 | C1 | Rappel de sauvegarde (« dernière sauvegarde il y a X jours ») voire export automatique périodique | Parer le risque de perte des données locales |
 | C2 | Corbeille / annulation après suppression définitive — **réalisé** par l'undo par toast (EF-01b, maquette v4) | Filet de sécurité |
-| C3 | Détection de doublons à la création (service déjà actif) — **couvert en partie** par les doublons de l'import bancaire (EF-73) ; à la création manuelle : reste candidat | Qualité des données |
+| C3 | Détection de doublons à la création (service déjà actif) — **couvert en partie** par les doublons de l'import bancaire (EF-73) ; à la création manuelle : **réalisé** en v1.0.3 (avertissement « Déjà suivi ? » pour un même service du catalogue ou un même nom non archivé) | Qualité des données |
 | C4 | Budget mensuel cible avec seuil d'alerte — **promu** : EF-70, lot 5 (maquette v6) | Pilotage — « abonnements > X €/mois » |
 | C5 | Revue d'usage périodique avec proposition de résiliation — **promu** : EF-71, lot 5 (maquette v6) | Cœur de valeur des apps du genre |
 | C6 | Comparatif mensuel vs annuel via les tarifs du catalogue — **promu** : EF-72, lot 5 (maquette v6) | Économies concrètes |

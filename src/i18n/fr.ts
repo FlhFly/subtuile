@@ -653,6 +653,10 @@ export const fr = {
   'fiche.pause.aide':
     'Facultatif : sans date, l’abonnement reste en pause jusqu’à ce que vous le repreniez.',
   'erreur.dateFuture': 'Doit être postérieure à aujourd’hui',
+  'edition.doublon.titre': 'Déjà suivi ?',
+  'edition.doublon.texte':
+    'Un abonnement du même service ou du même nom est déjà suivi : {nom}. L’ajouter quand même ?',
+  'edition.doublon.ajouter': 'Ajouter quand même',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',

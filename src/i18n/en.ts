@@ -641,6 +641,10 @@ export const en: Dictionnaire = {
   'fiche.pause.aide':
     'Optional: without a date, the subscription stays paused until you resume it.',
   'erreur.dateFuture': 'Must be after today',
+  'edition.doublon.titre': 'Already tracked?',
+  'edition.doublon.texte':
+    'A subscription for the same service or name is already tracked: {nom}. Add it anyway?',
+  'edition.doublon.ajouter': 'Add anyway',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',

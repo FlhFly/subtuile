@@ -54,6 +54,7 @@ import { Interrupteur } from '../components/Interrupteur';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { enregistrerMoyenPaiement } from '../../data/services/moyensPaiement';
+import { doublonsPotentiels } from '../../domain/doublons';
 import {
   formulaireMoyenPaiementVide,
   moyenPaiementDepuisFormulaire,
@@ -62,6 +63,7 @@ import {
 import { FormulaireMoyen } from './MoyensPaiement';
 import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
+import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import styles from './Edition.module.css';
@@ -133,6 +135,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const storage = useStorage();
   const toast = useToast();
   const moyensPaiement = useMoyensPaiement();
+  const { abonnements } = useAbonnements();
   const { catalogue, parId: services } = useCatalogue();
   const { devise: deviseDefaut, taux, convertir } = useConversion();
   const jour = aujourdhui();
@@ -164,6 +167,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   /** repliées par défaut, même en modification : le bouton Enregistrer reste à portée (retour FlhFly) */
   const [plusOuvert, setPlusOuvert] = useState(false);
   const [enregistrement, setEnregistrement] = useState(false);
+  const [doublonDialogue, setDoublonDialogue] = useState(false);
 
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
@@ -291,10 +295,23 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
     return code ? t(`erreur.${code}`) : undefined;
   };
 
-  const enregistrer = async () => {
+  /* C3 : abonnement déjà suivi (même service ou même nom), signalé à la création seulement */
+  const doublons = useMemo(
+    () =>
+      existant || modele
+        ? []
+        : doublonsPotentiels(abonnements, { serviceId: etat.serviceId, nom: etat.nom }),
+    [abonnements, etat.serviceId, etat.nom, existant, modele],
+  );
+
+  const enregistrer = async (ignorerDoublon = false) => {
     const e = validerFormulaire(etat);
     setErreurs(e);
     if (Object.keys(e).length > 0) return;
+    if (!ignorerDoublon && doublons.length > 0) {
+      setDoublonDialogue(true);
+      return;
+    }
     setEnregistrement(true);
     try {
       const abo = abonnementDepuisFormulaire(etat, { jour }, existant);
@@ -969,6 +986,45 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           </button>
         </>
       )}
+
+      {doublonDialogue ? (
+        <div className={styles.voile} role="presentation" onClick={() => setDoublonDialogue(false)}>
+          <div
+            className={styles.dialogue}
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="doublon-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="doublon-titre" className={styles.dialogueTitre}>
+              {t('edition.doublon.titre')}
+            </h2>
+            <p className={styles.aide}>
+              {t('edition.doublon.texte', { nom: doublons.map((a) => a.nom).join(', ') })}
+            </p>
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.enregistrer}
+                disabled={enregistrement}
+                onClick={() => {
+                  setDoublonDialogue(false);
+                  void enregistrer(true);
+                }}
+              >
+                {t('edition.doublon.ajouter')}
+              </button>
+              <button
+                type="button"
+                className={styles.dialogueSecondaire}
+                onClick={() => setDoublonDialogue(false)}
+              >
+                {t('commun.annuler')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {garde ? (
         <div className={styles.voile} role="presentation" onClick={() => setGarde(false)}>

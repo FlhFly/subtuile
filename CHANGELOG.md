@@ -7,6 +7,14 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Avertissement de doublon à la création (2026-09-13)
+
+#### Ajouté
+- À l'enregistrement d'un nouvel abonnement, si un abonnement non archivé porte déjà le même
+  service du catalogue ou le même nom (accents et casse ignorés), un dialogue « Déjà suivi ? »
+  propose « Ajouter quand même » ou « Annuler » (C3). Pas d'avertissement en modification ni en
+  duplication. Domaine `doublons.ts` testé.
+
 ### Pause avec date de reprise automatique (2026-09-13)
 
 #### Ajouté
