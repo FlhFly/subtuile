@@ -7,6 +7,38 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis le tag `lot-4`.
+
+## [1.0.0] — 2026-09-13 — tag `lot-4` — Finances & données, mise en ligne
+
+Lot 4 du CdC §6 : moteur financier et écran Finances (totaux normalisés, répartitions,
+prévisionnel 12 mois, dépenses passées), devises à taux indicatifs et devise par abonnement,
+export / import JSON et import CSV, réorganisation des tuiles par glisser-déposer, PWA
+installable et hors ligne, onboarding à la première ouverture, mise en ligne sur GitHub Pages.
+Critère de validation « totaux vérifiés à la main sur le jeu de démo ; app installée et
+fonctionnelle hors ligne » rejoué par un test de recette (totaux recomposés à la main) et
+vérifié à l'écran par FlhFly (installation, coupure réseau) avant le tag.
+
+### Lot 4 — étape 8 : revue finale, recette, version 1.0.0, mise en ligne (2026-09-13)
+
+#### Ajouté
+- `tests/lot4.recette.test.ts` : jeu de démo chargé dans le stockage à sa date de référence ;
+  total mensuel recomposé à la main abonnement par abonnement (163,69 €, 8 payants, exclusions
+  justifiées : essai, résilié, pause, archivé, à l'usage), répartition par catégorie et
+  prévisionnel août / septembre à la main, conversion en dollars, export JSON relu puis
+  réimporté en fusion et en remplacement dans un second stockage, ordre personnalisé persisté,
+  configuration hors ligne et manifeste, onboarding à la première ouverture. 307 tests.
+- Déploiement continu : `.github/workflows/deploy.yml` (lint, tests, build avec
+  `--base=/subtuile/`, publication sur GitHub Pages à chaque push sur `main`).
+
+#### Modifié
+- Version 1.0.0 ; README finalisé (adresse de l'application, installation Android / iOS /
+  ordinateur, fonctionnalités réelles, déploiement) ; ROADMAP (lot 4 ✅, lot 5 « prochain ») ;
+  CLAUDE.md (adresse en ligne, règle du statut README).
+- Audit des règles d'architecture : Dexie confiné au stockage, aucune requête réseau hors
+  enregistrement du service worker, libellés fr / en à parité, dates locales, aucune chaîne en
+  dur.
+
 ### Lot 4 — étape 7 : onboarding à la première ouverture (2026-09-13)
 
 #### Ajouté

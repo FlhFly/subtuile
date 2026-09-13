@@ -15,8 +15,8 @@ Légende : **[M]** must have · **[S]** should have · EF-xx = exigence du CdC.
 | 1 — Socle | Modèle, moteur d'échéances, stockage, tuiles, fiche, formulaire, tri/filtres | 0.1.0 · tag `lot-1` | ✅ 2026-09-10 |
 | 2 — Paiement & désabonnement | Moyens de paiement, catalogue complet, deep links, routage résiliation | 0.2.0 · tag `lot-2` | ✅ 2026-09-11 |
 | 3 — Cas particuliers & alertes | Essais, engagement/préavis, statuts, centre d'alertes, ICS | 0.3.0 · tag `lot-3` | ✅ 2026-09-12 |
-| 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ⬜ prochain |
-| 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ⬜ |
+| 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ✅ 2026-09-13 |
+| 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ⬜ prochain |
 
 Critères de validation par lot : voir CdC §6.
 
@@ -127,7 +127,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ✅ 2026-09-12 |
 | 6 | PWA : manifest, icônes, service worker hors ligne, installation ; écran À propos et rangées restantes des réglages | ✅ 2026-09-12 (« Revoir l'introduction » avec l'onboarding à l'étape 7 ; « Soutenir le projet » masqué tant qu'aucun lien de don n'est fourni) |
 | 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ✅ 2026-09-13 |
-| 8 | Revue contre le critère CdC §6, recette, version 1.0.0, README finalisé, tag `lot-4`, mise en ligne | ⬜ |
+| 8 | Revue contre le critère CdC §6, recette, version 1.0.0, README finalisé, tag `lot-4`, mise en ligne | ✅ 2026-09-13 (test de recette `lot4.recette.test.ts`, audit des règles d'architecture, déploiement GitHub Pages) |
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
@@ -144,7 +144,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ✅ lot 4 étape 6 (vite-plugin-pwa : précache complet du bundle, toast de mise à jour, invite d'installation, icônes générées) |
 | §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | ✅ Automatisation (lot 3 étape 6), « Effacer toutes les données » (lot 4, avancé sur demande), export / import (étape 4), À propos (étape 6 : dépôt public, installation) et « Revoir l'introduction » (étape 7) livrés ; « Soutenir le projet » masqué tant qu'aucun lien de don n'existe (§4.7) |
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; repris dans l'onboarding (lot 4 étape 7) |
-| — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ⬜ |
+| — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ✅ 2026-09-13 — <https://flhfly.github.io/subtuile/> via `.github/workflows/deploy.yml` ; README finalisé |
 
 ## Lot 5 — Pilotage
 

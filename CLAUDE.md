@@ -5,6 +5,8 @@ PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
 **docs/CdC.md (v1.17) fait foi** sur le périmètre ; docs/maquette-v6.html
 est la référence visuelle (référence, PAS une base de code).
+En ligne : https://flhfly.github.io/subtuile/ (GitHub Pages, déployé par
+.github/workflows/deploy.yml à chaque push sur main).
 
 ## Stack
 React 18 + Vite + TypeScript strict · Dexie (IndexedDB) · date-fns ·
@@ -27,8 +29,8 @@ maquette). Pas d'autre dépendance sans validation.
 - ROADMAP.md : statut des étapes et des exigences livrées (⬜ → 🔄 → ✅,
   avec le tag ou le commit). Jamais de feature livrée sans sa case cochée ;
   toute exigence ajoutée ou déplacée entre lots y est reportée.
-- README.md : ligne « Statut : en développement (lot N/4) » mise à jour à
-  chaque tag de lot ; fonctionnalités listées = fonctionnalités réelles.
+- README.md : ligne « Statut » (lot livré, version, adresse en ligne) mise à
+  jour à chaque tag de lot ; fonctionnalités listées = fonctionnalités réelles.
 - docs/CdC.md : cahier des charges de l'application ; toute évolution du
   périmètre s'y reporte. Il reste strictement centré sur le produit :
   aucune donnée personnelle, aucun sujet hors application.
