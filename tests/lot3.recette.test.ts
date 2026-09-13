@@ -67,7 +67,8 @@ const saisie = (partiel: Partial<EtatFormulaire>): EtatFormulaire => ({
 let storage: DexieProvider;
 let abos: Abonnement[];
 let cb: MoyenPaiement;
-const nomDe = (a: Alerte | Abonnement): string => ('libelle' in a ? a.libelle : a.nom);
+const nomDe = (a: Alerte | Abonnement): string =>
+  'libelle' in a ? a.libelle : 'nom' in a ? a.nom : '';
 const alertesLe = (jour: string, lues: string[] = []): Alerte[] =>
   calculerAlertes({ abonnements: abos, moyensPaiement: [cb], defauts: ALERTES_DEFAUT, jour, lues });
 
@@ -147,7 +148,10 @@ describe('recette lot 3 — essai et préavis alertent aux bonnes dates (CdC §6
   it('le 12/09 : renouvellement J-3, préavis J-10, hausse J-20, régularisation J-27, carte M-1 — pas encore l’essai', () => {
     const liste = alertesLe(JOUR);
     expect(
-      liste.map((a) => `${a.type}:${a.type === 'carte' ? a.libelle : a.nom}:${a.jours}`),
+      liste.map(
+        (a) =>
+          `${a.type}:${a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' ? '' : a.nom}:${a.jours}`,
+      ),
     ).toEqual([
       'echeance:Netflix:3',
       'preavis:Basic-Fit:10',

@@ -645,6 +645,11 @@ export const en: Dictionnaire = {
   'edition.doublon.texte':
     'A subscription for the same service or name is already tracked: {nom}. Add it anyway?',
   'edition.doublon.ajouter': 'Add anyway',
+  'alertes.sauvegarde.pastille': 'Backup',
+  'alertes.sauvegarde.titre.jamais': 'Your data has not been backed up yet',
+  'alertes.sauvegarde.titre': 'Last backup {n} days ago',
+  'alertes.sauvegarde.sous': 'Export a JSON file from Settings › Data',
+  'reglages.exporter.derniere': 'Last backup on {date}',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',

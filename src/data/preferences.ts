@@ -50,6 +50,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     alertes: { ...ALERTES_DEFAUT },
     onboardingVu: false,
     versionVue: null,
+    derniereSauvegarde: null,
   };
 }
 
@@ -87,6 +88,8 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
     },
     onboardingVu: typeof o.onboardingVu === 'boolean' ? o.onboardingVu : defaut.onboardingVu,
     versionVue: typeof o.versionVue === 'string' ? o.versionVue : defaut.versionVue,
+    derniereSauvegarde:
+      typeof o.derniereSauvegarde === 'string' ? o.derniereSauvegarde : defaut.derniereSauvegarde,
   };
 }
 

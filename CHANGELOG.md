@@ -7,6 +7,15 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Rappel de sauvegarde (2026-09-13)
+
+#### Ajouté
+- Centre d'alertes : « Vos données ne sont pas encore sauvegardées » dès trois abonnements sans
+  aucun export, puis « Dernière sauvegarde il y a n jours » au-delà de 30 jours (C1) ; ouvre
+  les réglages. Marquée lue, l'alerte se tait jusqu'à l'export suivant.
+- Réglages › Données › Exporter affiche la date de la dernière sauvegarde (préférence
+  `derniereSauvegarde`, posée à chaque export JSON).
+
 ### Avertissement de doublon à la création (2026-09-13)
 
 #### Ajouté

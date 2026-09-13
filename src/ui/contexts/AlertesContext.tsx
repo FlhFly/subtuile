@@ -36,9 +36,10 @@ export function AlertesContextProvider({ children }: { children: ReactNode }) {
 
   const moyensPaiement = useMemo(() => [...moyensParId.values()], [moyensParId]);
   const defauts = preferences.alertes;
+  const derniereSauvegarde = preferences.derniereSauvegarde;
   const alertes = useMemo(
-    () => calculerAlertes({ abonnements, moyensPaiement, defauts, jour, lues }),
-    [abonnements, moyensPaiement, defauts, jour, lues],
+    () => calculerAlertes({ abonnements, moyensPaiement, defauts, jour, lues, derniereSauvegarde }),
+    [abonnements, moyensPaiement, defauts, jour, lues, derniereSauvegarde],
   );
 
   const marquerToutesLues = useCallback(() => {

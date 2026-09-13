@@ -353,6 +353,8 @@ export interface Preferences {
   onboardingVu: boolean;
   /** dernière version dont les nouveautés ont été consultées ; null = jamais */
   versionVue: string | null;
+  /** date du dernier export JSON (rappel de sauvegarde, C1) ; null = jamais */
+  derniereSauvegarde: DateISO | null;
 }
 
 /* ---------------------------------------------------------------------------

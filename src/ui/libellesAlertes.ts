@@ -44,6 +44,15 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
         titre: t('alertes.preavis.titre', { nom: a.nom, date: date(a.date, 'moyen') }),
         sousTitre: t('alertes.preavis.sous', { n: a.preavisJours }),
       };
+    case 'sauvegarde':
+      return {
+        pastille: t('alertes.sauvegarde.pastille'),
+        titre:
+          a.joursDepuis === null
+            ? t('alertes.sauvegarde.titre.jamais')
+            : t('alertes.sauvegarde.titre', { n: a.joursDepuis }),
+        sousTitre: t('alertes.sauvegarde.sous'),
+      };
     case 'carte': {
       const mois = date(a.date, 'mois');
       return {

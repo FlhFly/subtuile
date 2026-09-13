@@ -47,7 +47,11 @@ describe('moteur d’alertes (EF-30) — échéance J-X', () => {
   it('alerte à J-3 par défaut, pas à J-4 ; seuil propre à l’abonnement prioritaire', () => {
     const j3 = abo({ nom: 'J-3' });
     const j4 = abo({ nom: 'J-4', dateDebut: '2026-01-15' });
-    expect(alertes([j3, j4]).map((a) => (a.type === 'carte' ? a.libelle : a.nom))).toEqual(['J-3']);
+    expect(
+      alertes([j3, j4]).map((a) =>
+        a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' ? '' : a.nom,
+      ),
+    ).toEqual(['J-3']);
     const a = alertes([j3])[0]!;
     expect(a).toMatchObject({
       type: 'echeance',
@@ -310,7 +314,8 @@ describe('moteur d’alertes — tri, état lu (EF-31) et jeu de démo', () => {
       jour: DATE_REFERENCE_DEMO,
     });
     const resume = liste.map(
-      (x) => `${x.type}:${x.type === 'carte' ? x.libelle : x.nom}:${x.jours}`,
+      (x) =>
+        `${x.type}:${x.type === 'carte' ? x.libelle : x.type === 'sauvegarde' ? '' : x.nom}:${x.jours}`,
     );
     expect(resume).toEqual([
       'echeance:Strava:2',

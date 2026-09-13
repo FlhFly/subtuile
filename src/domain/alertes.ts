@@ -44,6 +44,7 @@ export const TYPES_ALERTE = [
   'carte',
   'regularisation',
   'prix_futur',
+  'sauvegarde',
 ] as const;
 export type TypeAlerte = (typeof TYPES_ALERTE)[number];
 
@@ -54,6 +55,10 @@ export type NiveauAlerte = 'urg' | 'warn' | 'trial';
 export const FENETRE_ANNONCE_JOURS = 30;
 /** Les clés « lu » plus anciennes que cette durée sont oubliées. */
 export const RETENTION_LUES_JOURS = 90;
+/** C1 : rappel de sauvegarde au-delà de ce délai depuis le dernier export… */
+export const SAUVEGARDE_RAPPEL_JOURS = 30;
+/** … ou, sans aucun export, dès ce nombre d'abonnements non archivés. */
+export const SAUVEGARDE_MIN_ABONNEMENTS = 3;
 
 interface AlerteBase {
   /** `${type}:${cibleId}:${date}` — stable tant que l'événement ne bouge pas */
@@ -123,13 +128,22 @@ export interface AlertePrixFutur extends AlerteBase {
   variationPourCent: number;
   periodicite: Periodicite;
 }
+export interface AlerteSauvegarde extends AlerteBase {
+  type: 'sauvegarde';
+  /** date du dernier export JSON ; null = jamais */
+  derniereSauvegarde: DateISO | null;
+  /** jours écoulés depuis ; null si jamais */
+  joursDepuis: number | null;
+  nbAbonnements: number;
+}
 export type Alerte =
   | AlerteEcheance
   | AlerteEssai
   | AlertePreavis
   | AlerteCarte
   | AlerteRegularisation
-  | AlertePrixFutur;
+  | AlertePrixFutur
+  | AlerteSauvegarde;
 
 export interface ContexteAlertes {
   abonnements: readonly Abonnement[];
@@ -138,6 +152,8 @@ export interface ContexteAlertes {
   jour: DateISO;
   /** clés déjà lues (état persisté) */
   lues?: readonly string[];
+  /** date du dernier export JSON (rappel C1) ; absent = pas de rappel */
+  derniereSauvegarde?: DateISO | null;
 }
 
 export function cleAlerte(type: TypeAlerte, cibleId: string, date: DateISO): string {
@@ -155,7 +171,7 @@ export function seuilEcheance(
 const ORDRE_NIVEAU: Record<NiveauAlerte, number> = { urg: 0, trial: 1, warn: 2 };
 
 function libelleTri(a: Alerte): string {
-  return a.type === 'carte' ? a.libelle : a.nom;
+  return a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' ? '' : a.nom;
 }
 
 /** Ordre du centre d'alertes : la plus proche d'abord, puis la plus grave, puis le nom. */
@@ -312,8 +328,42 @@ export function calculerAlertes(ctx: ContexteAlertes): Alerte[] {
   const alertes: Alerte[] = [
     ...vivants.flatMap((a) => alertesAbonnement(a, ctx.defauts, ctx.jour)),
     ...alertesCartes(ctx.moyensPaiement, vivants, ctx.defauts, ctx.jour),
+    ...alerteSauvegarde(vivants, ctx.derniereSauvegarde, ctx.jour),
   ];
   return appliquerLues(alertes, ctx.lues ?? []).sort(comparerAlertes);
+}
+
+/**
+ * C1 : rappel de sauvegarde. Sans aucun export : dès SAUVEGARDE_MIN_ABONNEMENTS
+ * abonnements non archivés ; sinon au-delà de SAUVEGARDE_RAPPEL_JOURS jours.
+ * Contexte sans préférence (`undefined`) : pas de rappel. Clé stable par date du
+ * dernier export : marquée lue, l'alerte se tait jusqu'à l'export suivant.
+ * Classée en dernier (jours « infinis »).
+ */
+function alerteSauvegarde(
+  vivants: readonly Abonnement[],
+  derniereSauvegarde: DateISO | null | undefined,
+  jour: DateISO,
+): Alerte[] {
+  if (derniereSauvegarde === undefined) return [];
+  const nbAbonnements = vivants.filter((a) => a.statut.type !== 'archive').length;
+  if (nbAbonnements === 0) return [];
+  if (derniereSauvegarde === null && nbAbonnements < SAUVEGARDE_MIN_ABONNEMENTS) return [];
+  const joursDepuis = derniereSauvegarde === null ? null : joursAvant(jour, derniereSauvegarde);
+  if (joursDepuis !== null && joursDepuis < SAUVEGARDE_RAPPEL_JOURS) return [];
+  return [
+    {
+      type: 'sauvegarde',
+      cle: cleAlerte('sauvegarde', 'global', derniereSauvegarde ?? 'jamais'),
+      niveau: 'warn',
+      date: jour,
+      jours: Number.MAX_SAFE_INTEGER,
+      lue: false,
+      derniereSauvegarde,
+      joursDepuis,
+      nbAbonnements,
+    },
+  ];
 }
 
 export function appliquerLues(alertes: readonly Alerte[], lues: readonly string[]): Alerte[] {

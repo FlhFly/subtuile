@@ -87,6 +87,7 @@ export function Reglages({
   const exporter = async () => {
     const jour = aujourdhui();
     telechargerFichier(nomFichierExport(jour), await exporterJson(storage), 'application/json');
+    modifier({ derniereSauvegarde: jour });
     toast.afficher(t('toast.exporte'));
   };
 
@@ -279,7 +280,13 @@ export function Reglages({
           <button type="button" className={styles.rangeeBouton} onClick={() => void exporter()}>
             <span className={styles.textes}>
               <span className={styles.libelle}>{t('reglages.exporter')}</span>
-              <span className={styles.sous}>{t('reglages.exporter.sous')}</span>
+              <span className={styles.sous}>
+                {preferences.derniereSauvegarde
+                  ? t('reglages.exporter.derniere', {
+                      date: date(preferences.derniereSauvegarde, 'long'),
+                    })
+                  : t('reglages.exporter.sous')}
+              </span>
             </span>
             <span className={styles.valeur}>
               <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />

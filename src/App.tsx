@@ -161,7 +161,9 @@ function Navigation() {
           onOuvrir={(a) =>
             a.type === 'carte'
               ? setEcran({ nom: 'paiements', retour: { nom: 'alertes' } })
-              : ouvrirFiche(a.abonnementId, { nom: 'alertes' })
+              : a.type === 'sauvegarde'
+                ? setEcran({ nom: 'reglages' })
+                : ouvrirFiche(a.abonnementId, { nom: 'alertes' })
           }
         />
       );

@@ -657,6 +657,11 @@ export const fr = {
   'edition.doublon.texte':
     'Un abonnement du même service ou du même nom est déjà suivi : {nom}. L’ajouter quand même ?',
   'edition.doublon.ajouter': 'Ajouter quand même',
+  'alertes.sauvegarde.pastille': 'Sauv.',
+  'alertes.sauvegarde.titre.jamais': 'Vos données ne sont pas encore sauvegardées',
+  'alertes.sauvegarde.titre': 'Dernière sauvegarde il y a {n} jours',
+  'alertes.sauvegarde.sous': 'Exportez un fichier JSON depuis Réglages › Données',
+  'reglages.exporter.derniere': 'Dernière sauvegarde le {date}',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',
