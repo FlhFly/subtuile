@@ -7,7 +7,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis le tag `lot-4`.
+### Lot 4 — correctif de déploiement (2026-09-13)
+
+#### Corrigé
+- Workflow GitHub Pages : le premier déploiement échouait à l'activation automatique de Pages,
+  que le jeton du workflow n'a pas le droit de faire, et le réglage « GitHub Actions » renvoyait
+  une erreur côté GitHub. Le workflow publie désormais `dist/` (avec `.nojekyll`) sur la branche
+  `gh-pages`, que Pages sert en « Deploy from a branch » ; documenté dans le README.
 
 ## [1.0.0] — 2026-09-13 — tag `lot-4` — Finances & données, mise en ligne
 

@@ -67,7 +67,9 @@ Stack : React 18, Vite, TypeScript strict, Dexie (IndexedDB), date-fns, vite-plu
 Règles d'architecture et méthode de travail : [CLAUDE.md](CLAUDE.md).
 
 Déploiement : chaque push sur `main` lance [deploy.yml](.github/workflows/deploy.yml) (lint,
-tests, build avec `--base=/subtuile/`) et publie `dist/` sur GitHub Pages.
+tests, build avec `--base=/subtuile/`) et pousse `dist/` sur la branche `gh-pages`, servie par
+GitHub Pages. Prérequis, une seule fois : Settings › Pages du dépôt, source « Deploy from a
+branch », branche `gh-pages`, dossier `/ (root)`.
 
 ## Licence
 AGPL-3.0 — voir [LICENSE](LICENSE).
