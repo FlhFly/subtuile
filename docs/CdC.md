@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.20 — 13/09/2026 (v1.0.3 : C1 rappel de sauvegarde et C3 doublons réalisés, EF-06 date de reprise)
+**Version :** 1.21 — 13/09/2026 (champ formule libre §3.1, langue en tête de l'onboarding §7.10, catalogue v3)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif

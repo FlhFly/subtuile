@@ -14,6 +14,22 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.4',
+    date: '2026-09-13',
+    notes: {
+      fr: [
+        'Formulaire : formule saisie à la main (« Max », « Famille »…) ; « Autre » ignore les formules du catalogue. Claude Max ajouté au catalogue.',
+        'Réglages : les délais d’alerte par défaut se choisissent dans une liste dépliée, à la même taille que le reste.',
+        'Introduction : la langue se choisit dès le premier écran.',
+      ],
+      en: [
+        'Form: a plan can be typed by hand (“Max”, “Family”…) and “Other” lets you skip the catalog plans; Claude Max added to the catalog.',
+        'Settings: default alert lead times are picked from an expanded list, at the same size as the rest.',
+        'Introduction: the language is chosen on the first screen.',
+      ],
+    },
+  },
+  {
     version: '1.0.3',
     date: '2026-09-13',
     notes: {

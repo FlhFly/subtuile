@@ -7,6 +7,10 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.4.
+
+## [1.0.4] — 2026-09-13 — retours d'usage FlhFly (suite)
+
 ### Formule libre, option « Autre », Claude Max au catalogue (2026-09-13)
 
 #### Ajouté
