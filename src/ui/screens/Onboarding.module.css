@@ -127,48 +127,12 @@
   color: var(--bg);
 }
 
-.langues {
-  display: flex;
-  flex-direction: column;
+/* Écran 1 : choix de la langue en tête (drapeau dans la puce) */
+.chipLangue {
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
-}
-
-.langue,
-.langueActive {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 8px;
-  padding: 11px 12px;
-  border: 2px solid var(--sand2);
-  border-radius: 14px;
-  background: transparent;
-  color: var(--ink);
-  font-size: 14px;
-  font-weight: var(--fw-bold);
-  text-align: left;
-}
-
-.langueActive {
-  background: var(--sand);
-}
-
-.langueGauche {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.coche {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex: none;
-  width: 22px;
-  height: 22px;
-  border-radius: 11px;
-  background: var(--ink);
-  color: var(--bg);
+  padding-left: 6px;
 }
 
 /* Écran 3 : premier abonnement */

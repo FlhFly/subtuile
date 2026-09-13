@@ -693,7 +693,7 @@ export const fr = {
   'onboarding.1.b1': 'Toutes vos échéances, essais et préavis en un coup d’œil',
   'onboarding.1.b2': 'Totaux, répartition et prévisionnel pour voir où part l’argent',
   'onboarding.1.b3': 'Alertes avant chaque renouvellement — plus de surprise',
-  'onboarding.2.titre': 'Devise, langue et dates',
+  'onboarding.2.titre': 'Devise et format de date',
   'onboarding.2.sous': 'Modifiable à tout moment dans les réglages.',
   'onboarding.3.titre': 'Ajoutez votre premier abonnement',
   'onboarding.3.sous':

@@ -680,7 +680,7 @@ export const en: Dictionnaire = {
   'onboarding.1.b1': 'Every renewal, trial and notice deadline at a glance',
   'onboarding.1.b2': 'Totals, breakdown and forecast to see where the money goes',
   'onboarding.1.b3': 'Alerts before each renewal — no more surprises',
-  'onboarding.2.titre': 'Currency, language & dates',
+  'onboarding.2.titre': 'Currency & date format',
   'onboarding.2.sous': 'You can change these anytime in Settings.',
   'onboarding.3.titre': 'Add your first subscription',
   'onboarding.3.sous':

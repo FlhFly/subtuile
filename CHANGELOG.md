@@ -7,6 +7,12 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Onboarding : la langue dès le premier écran (2026-09-13)
+
+#### Modifié
+- Le choix Français / English (drapeaux) est en tête du premier écran, avant la présentation ;
+  le deuxième écran ne porte plus que la devise et le format de date (retour FlhFly).
+
 ### Délais d'alerte par défaut en listes dépliées (2026-09-13)
 
 #### Corrigé

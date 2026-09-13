@@ -20,8 +20,8 @@ const ETAPES = 3;
 
 /**
  * Onboarding (C7, maquette v6) : trois écrans à la première ouverture —
- * présentation, devise / langue / format de date (préférences écrites au fil
- * des choix), puis premier abonnement (catalogue, import, démo, plus tard).
+ * présentation (langue en tête), devise / format de date (préférences écrites
+ * au fil des choix), puis premier abonnement (catalogue, import, démo, plus tard).
  * Rejouable depuis Réglages › « Revoir l'introduction ».
  */
 export function Onboarding({ onTerminer, onCatalogue, onImport, onDemo }: Props) {
@@ -43,6 +43,21 @@ export function Onboarding({ onTerminer, onCatalogue, onImport, onDemo }: Props)
 
       {etape === 0 ? (
         <section className={styles.corps}>
+          <div className={styles.chips} role="radiogroup" aria-label={t('reglages.langue')}>
+            {LANGUES.map((l) => (
+              <button
+                key={l}
+                type="button"
+                role="radio"
+                aria-checked={langue === l}
+                className={`${langue === l ? styles.chipActif : styles.chip} ${styles.chipLangue}`}
+                onClick={() => changerLangue(l)}
+              >
+                <Drapeau langue={l} />
+                {t(`langue.${l}`)}
+              </button>
+            ))}
+          </div>
           <Logo />
           <h1 className={styles.titreGrand}>{t('onboarding.1.titre')}</h1>
           <p className={styles.sousTitre}>{t('onboarding.1.sous')}</p>
@@ -71,29 +86,6 @@ export function Onboarding({ onTerminer, onCatalogue, onImport, onDemo }: Props)
                 onClick={() => modifier({ deviseAffichage: d })}
               >
                 {libelleDevise(d)}
-              </button>
-            ))}
-          </div>
-
-          <span className={styles.legende}>{t('reglages.langue')}</span>
-          <div className={styles.langues}>
-            {LANGUES.map((l) => (
-              <button
-                key={l}
-                type="button"
-                className={langue === l ? styles.langueActive : styles.langue}
-                aria-pressed={langue === l}
-                onClick={() => changerLangue(l)}
-              >
-                <span className={styles.langueGauche}>
-                  <Drapeau langue={l} />
-                  {t(`langue.${l}`)}
-                </span>
-                {langue === l ? (
-                  <span className={styles.coche}>
-                    <Icone nom="coche" taille={12} epaisseur={3} />
-                  </span>
-                ) : null}
               </button>
             ))}
           </div>
