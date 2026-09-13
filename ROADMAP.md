@@ -126,7 +126,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | 4 | Export / import JSON (fusion, remplacement, écran d'import), import CSV, rangées Réglages › Données | ✅ 2026-09-12 |
 | 5 | Réorganisation des tuiles par glisser-déposer, tri « ordre personnalisé » | ✅ 2026-09-12 |
 | 6 | PWA : manifest, icônes, service worker hors ligne, installation ; écran À propos et rangées restantes des réglages | ✅ 2026-09-12 (« Revoir l'introduction » avec l'onboarding à l'étape 7 ; « Soutenir le projet » masqué tant qu'aucun lien de don n'est fourni) |
-| 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ⬜ |
+| 7 | Onboarding à la première ouverture : présentation, langue, devise par défaut, format de date, démo / import / premier abonnement | ✅ 2026-09-13 |
 | 8 | Revue contre le critère CdC §6, recette, version 1.0.0, README finalisé, tag `lot-4`, mise en ligne | ⬜ |
 
 | Exigence | Fonctionnalité | Statut |
@@ -137,13 +137,13 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-43 [S] | Historique des dépenses passées (12 mois ; 24 mois au lot 5) | ✅ lot 4 étapes 1-2 (prix de l'époque) |
 | EF-44 [S] | Prise en compte de partPayee | ✅ lot 4 étape 1 (part payée dans tous les totaux) |
 | EF-45 [S] | Devise d'affichage à taux indicatifs (EUR / USD / GBP / CHF) | ✅ lot 4 étape 3 (réglage « Devise », totaux convertis, note de fraîcheur des taux) |
-| EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ✅ lot 4 étape 3 (chips à côté du prix, défaut = réglage « Devise » ; repris à l'onboarding à l'étape 7) |
+| EF-45b [S] | Devise de saisie par abonnement (EUR / USD / GBP / CHF) + devise par défaut dans les réglages (décision du 2026-09-11, CdC v1.16) | ✅ lot 4 étape 3 (chips à côté du prix, défaut = réglage « Devise », choisi aussi à l'onboarding depuis l'étape 7) |
 | EF-50 [M] | Export JSON (schemaVersion) et import fusion / remplacement | ✅ lot 4 étape 4 (écran d'import de la maquette, lecture tolérante, confirmation du remplacement) |
 | EF-52 [S] | Import CSV simple | ✅ lot 4 étape 4 (séparateur et en-tête détectés, aperçu, lignes ignorées expliquées) |
 | EF-14 [S] | Réorganisation des tuiles par drag & drop, tri « ordre personnalisé » | ✅ lot 4 étape 5 (mode réorganisation de la maquette : glisser au doigt ou à la souris, flèches du clavier ; ordre persisté) |
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ✅ lot 4 étape 6 (vite-plugin-pwa : précache complet du bundle, toast de mise à jour, invite d'installation, icônes générées) |
-| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | 🔄 Automatisation (lot 3 étape 6), « Effacer toutes les données » (lot 4, avancé sur demande), export / import (étape 4) et À propos (étape 6 : dépôt public, installation) livrés ; « Revoir l'introduction » à l'étape 7, « Soutenir le projet » dès qu'un lien de don existe |
-| — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; à reprendre dans l'onboarding C7 |
+| §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | ✅ Automatisation (lot 3 étape 6), « Effacer toutes les données » (lot 4, avancé sur demande), export / import (étape 4), À propos (étape 6 : dépôt public, installation) et « Revoir l'introduction » (étape 7) livrés ; « Soutenir le projet » masqué tant qu'aucun lien de don n'existe (§4.7) |
+| — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; repris dans l'onboarding (lot 4 étape 7) |
 | — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ⬜ |
 
 ## Lot 5 — Pilotage

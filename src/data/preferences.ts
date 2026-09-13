@@ -48,6 +48,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     deviseAffichage: 'EUR',
     formatDate: formatDateDefaut(langue),
     alertes: { ...ALERTES_DEFAUT },
+    onboardingVu: false,
   };
 }
 
@@ -83,6 +84,7 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
       preavisJours: entierPositif(alertesBrut.preavisJours, defaut.alertes.preavisJours),
       carteMois: entierPositif(alertesBrut.carteMois, defaut.alertes.carteMois),
     },
+    onboardingVu: typeof o.onboardingVu === 'boolean' ? o.onboardingVu : defaut.onboardingVu,
   };
 }
 

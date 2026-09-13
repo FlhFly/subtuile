@@ -7,6 +7,24 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — étape 7 : onboarding à la première ouverture (2026-09-13)
+
+#### Ajouté
+- Onboarding (C7, maquette v6) en trois écrans, affiché à la première ouverture : présentation
+  (100 % local et hors ligne, échéances, finances, alertes), puis devise par défaut, langue et
+  format de date (chaque choix est enregistré aussitôt dans les préférences), puis premier
+  abonnement : « Choisir dans le catalogue », « Importer des données (JSON / CSV) »,
+  « Découvrir avec le jeu de démonstration » ou « Plus tard ». « Passer » en haut à droite à
+  tout moment ; pastilles d'étape et bouton « Continuer » / « Commencer » en bas.
+- Réglages › Général › « Revoir l'introduction » rejoue le parcours.
+- Préférence `onboardingVu` (localStorage) : les utilisateurs existants voient l'introduction
+  une fois à la prochaine ouverture.
+
+#### Modifié
+- Écran Import : retour vers l'écran d'origine (accueil depuis l'onboarding, réglages sinon).
+- Drapeaux des langues extraits en composant partagé (réglages, onboarding).
+- CdC v1.17 : onboarding décrit en §7.10, C7 marqué réalisé.
+
 ### Lot 4 — étape 6 : PWA installable et hors ligne, À propos (2026-09-12)
 
 #### Ajouté

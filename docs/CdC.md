@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.16 — 11/09/2026 (devise de saisie par abonnement, EF-45b)
+**Version :** 1.17 — 13/09/2026 (onboarding C7 livré en V1, §7.10)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -310,6 +310,7 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, langue, format de date *(v1.16 — JJ/MM/AAAA, MM/JJ/AAAA ou AAAA-MM-JJ, pour l'affichage et la saisie ; repris à l'onboarding C7)*, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
 8. **Catalogue** — consultation des services préchargés + « Proposer un service », accessible depuis les réglages. *(issu de la maquette v2)*
 9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don). *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
+10. **Onboarding** *(v1.17 — C7 promu en V1, maquette v6)* — trois écrans à la première ouverture : présentation (100 % local, échéances, finances, alertes), devise par défaut / langue / format de date (préférences écrites au fil des choix), puis premier abonnement (catalogue, import JSON / CSV, jeu de démonstration, ou plus tard). « Passer » à tout moment ; rejouable depuis Réglages › Général › « Revoir l'introduction ».
 
 ---
 
@@ -368,6 +369,7 @@ Environ 55 services répartis en 11 catégories. Pour les services souscrits via
 | Maquette de référence | **v6 Claude Design — référence finale** : écarts v1.9-v1.12 couverts, backlog C4/C5/C6/C11/C13 maquetté et promu en lot 5 « Pilotage » (EF-70→73) ; principe « aucune fonctionnalité factice » (push/widget masqués en V1) | 24/08/2026 |
 | Nom de l'app | **Subtuile** — sub(scription) + tuile ; « Subtile » écarté après vérification (collision avec subtile.app, catégorie adjacente) ; choix « pour le moment », révisable jusqu'à la mise en ligne. Le logo et le nom sont des actifs de marque **hors licence AGPL** | 25/08/2026 |
 | Devise de saisie | Par abonnement (EUR / USD / GBP / CHF, EF-45b) avec devise par défaut réglable (Réglages, onboarding C7) ; révise « saisie maintenue en EUR » ; livraison au lot 4 avec EF-45 | 11/09/2026 |
+| Onboarding | C7 promu en V1 : trois écrans à la première ouverture (présentation, devise / langue / format de date, premier abonnement : catalogue, import, démo, plus tard), « Revoir l'introduction » dans les réglages ; livré au lot 4 étape 7 | 13/09/2026 |
 
 ---
 
@@ -392,7 +394,7 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C4 | Budget mensuel cible avec seuil d'alerte — **promu** : EF-70, lot 5 (maquette v6) | Pilotage — « abonnements > X €/mois » |
 | C5 | Revue d'usage périodique avec proposition de résiliation — **promu** : EF-71, lot 5 (maquette v6) | Cœur de valeur des apps du genre |
 | C6 | Comparatif mensuel vs annuel via les tarifs du catalogue — **promu** : EF-72, lot 5 (maquette v6) | Économies concrètes |
-| C7 | Onboarding premier lancement (parcours guidé : import, catalogue, premier abonnement) | Prise en main |
+| C7 | Onboarding premier lancement (parcours guidé : import, catalogue, premier abonnement) — **réalisé** au lot 4 (§7.10, v1.17) | Prise en main |
 | C8 | Verrouillage optionnel de l'app (code / Face ID via WebAuthn) | Confidentialité des dépenses |
 | C9 | Rapport annuel exportable (récap des dépenses) | Bilan de fin d'année |
 | C10 | Logos de marques dans les tuiles (bibliothèque de pictos en dépendance npm + upload perso, cf. §3.4) — la structure `logo` évolutive est provisionnée dès le lot 1, seul le rendu « initiales » est implémenté en V1 | Identité visuelle des tuiles |

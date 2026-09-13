@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react';
+import { chargerJeuDemo } from './data/fixtures/demo';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
 import { MiseAJourApp } from './ui/components/MiseAJourApp';
 import { AlertesContextProvider } from './ui/contexts/AlertesContext';
-import { PreferencesContextProvider } from './ui/contexts/PreferencesContext';
-import { StorageContextProvider } from './ui/contexts/StorageContext';
-import { ToastContextProvider } from './ui/contexts/ToastContext';
+import { useI18n } from './ui/contexts/I18nContext';
+import { PreferencesContextProvider, usePreferences } from './ui/contexts/PreferencesContext';
+import { StorageContextProvider, useStorage } from './ui/contexts/StorageContext';
+import { ToastContextProvider, useToast } from './ui/contexts/ToastContext';
 import { useAbonnements } from './ui/hooks/useAbonnements';
 import { useCatalogue } from './ui/hooks/useCatalogue';
 import { Accueil } from './ui/screens/Accueil';
@@ -17,6 +19,7 @@ import { Fiche } from './ui/screens/Fiche';
 import { Finances } from './ui/screens/Finances';
 import { Import } from './ui/screens/Import';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
+import { Onboarding } from './ui/screens/Onboarding';
 import { Reglages } from './ui/screens/Reglages';
 
 /** Écrans livrés ; navigation par état, sans routeur. */
@@ -28,7 +31,7 @@ type Ecran =
   | { nom: 'alertes' }
   | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
-  | { nom: 'import' }
+  | { nom: 'import'; retour?: Ecran }
   | { nom: 'fiche'; id: string; retour?: Ecran }
   | {
       nom: 'edition';
@@ -67,6 +70,10 @@ function Navigation() {
   const [ecran, setEcran] = useState<Ecran>({ nom: 'accueil' });
   const { abonnements } = useAbonnements();
   const { parId: services } = useCatalogue();
+  const { preferences, modifier } = usePreferences();
+  const storage = useStorage();
+  const toast = useToast();
+  const { t } = useI18n();
 
   /* Chaque écran s'ouvre en haut de page (navigation par état, sans routeur). */
   useEffect(() => {
@@ -78,6 +85,35 @@ function Navigation() {
     : 'accueil';
   const avecBarre = (ONGLETS as readonly string[]).includes(ecran.nom);
   const ouvrirFiche = (id: string, retour?: Ecran) => setEcran({ nom: 'fiche', id, retour });
+
+  /* Onboarding (C7) à la première ouverture, ou rejoué depuis les réglages ; il remplace l'écran courant. */
+  const terminerOnboarding = () => modifier({ onboardingVu: true });
+  if (!preferences.onboardingVu) {
+    return (
+      <div className="coquille">
+        <main className="app">
+          <Onboarding
+            onTerminer={terminerOnboarding}
+            onCatalogue={() => {
+              terminerOnboarding();
+              setEcran({ nom: 'edition', id: null, retour: { nom: 'accueil' } });
+            }}
+            onImport={() => {
+              terminerOnboarding();
+              setEcran({ nom: 'import', retour: { nom: 'accueil' } });
+            }}
+            onDemo={() => {
+              void chargerJeuDemo(storage).then(() => {
+                terminerOnboarding();
+                setEcran({ nom: 'accueil' });
+                toast.afficher(t('reglages.demo.charge'));
+              });
+            }}
+          />
+        </main>
+      </div>
+    );
+  }
 
   let contenu;
   switch (ecran.nom) {
@@ -118,6 +154,7 @@ function Navigation() {
           onOuvrirPaiements={() => setEcran({ nom: 'paiements' })}
           onOuvrirCatalogue={() => setEcran({ nom: 'catalogue' })}
           onOuvrirImport={() => setEcran({ nom: 'import' })}
+          onRevoirIntro={() => modifier({ onboardingVu: false })}
         />
       );
       break;
@@ -129,7 +166,7 @@ function Navigation() {
     case 'import':
       contenu = (
         <Import
-          onRetour={() => setEcran({ nom: 'reglages' })}
+          onRetour={() => setEcran(ecran.retour ?? { nom: 'reglages' })}
           onTermine={() => setEcran({ nom: 'accueil' })}
         />
       );

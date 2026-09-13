@@ -349,6 +349,8 @@ export interface Preferences {
   deviseAffichage: DeviseAffichage;
   formatDate: FormatDate;
   alertes: DefautsAlerte;
+  /** onboarding (C7) déjà parcouru ou passé ; « Revoir l'introduction » le remet à false */
+  onboardingVu: boolean;
 }
 
 /* ---------------------------------------------------------------------------

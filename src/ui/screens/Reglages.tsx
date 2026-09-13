@@ -10,8 +10,8 @@ import {
   THEMES,
   type DefautsAlerte,
   type FormatDate,
-  type Langue,
 } from '../../domain/types';
+import { Drapeau } from '../components/Drapeau';
 import { Icone } from '../components/Icone';
 import { SYMBOLES } from '../../domain/devises';
 import { DEVISES, type Devise } from '../../domain/types';
@@ -32,6 +32,8 @@ interface Props {
   onOuvrirPaiements: () => void;
   onOuvrirCatalogue: () => void;
   onOuvrirImport: () => void;
+  /** rejoue l'onboarding (C7) */
+  onRevoirIntro: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -50,10 +52,15 @@ type Depliant = 'devise' | 'langue' | 'formatDate' | null;
  * d'alerte (EF-30), général (langue EF-17b, format de date, moyens de
  * paiement, catalogue), automatisation (§7.9, EF-32), données (jeu de démo,
  * confidentialité), à propos (dépôt public, installation de la PWA §5.2).
- * « Revoir l'introduction » arrive avec l'onboarding ; « Soutenir le projet »
+ * « Revoir l'introduction » rejoue l'onboarding (C7) ; « Soutenir le projet »
  * dès qu'un lien de don existe (§4.7 : rien de factice).
  */
-export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue, onOuvrirImport }: Props) {
+export function Reglages({
+  onOuvrirPaiements,
+  onOuvrirCatalogue,
+  onOuvrirImport,
+  onRevoirIntro,
+}: Props) {
   const i18n = useI18n();
   const { t, tn, date, changerLangue, langue } = i18n;
   const taux = useTaux();
@@ -223,6 +230,7 @@ export function Reglages({ onOuvrirPaiements, onOuvrirCatalogue, onOuvrirImport 
             valeur={String(nombreMoyens)}
             onClick={onOuvrirPaiements}
           />
+          <RangeeLien libelle={t('reglages.intro')} onClick={onRevoirIntro} />
           <RangeeLien
             libelle={t('catalogue.titre')}
             valeur={tn('catalogue.nombre', catalogue.data.length)}
@@ -514,14 +522,14 @@ function Option({
   );
 }
 
-/** Rangée qui ouvre un autre écran, valeur (compte) et chevron à droite. */
+/** Rangée qui ouvre un autre écran, valeur (compte) facultative et chevron à droite. */
 function RangeeLien({
   libelle,
   valeur,
   onClick,
 }: {
   libelle: string;
-  valeur: string;
+  valeur?: string;
   onClick: () => void;
 }) {
   return (
@@ -532,28 +540,5 @@ function RangeeLien({
         <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
       </span>
     </button>
-  );
-}
-
-/** Drapeaux de la maquette (formes simples, aucun asset externe). */
-function Drapeau({ langue }: { langue: Langue }) {
-  return (
-    <span className={styles.drapeau} aria-hidden="true">
-      {langue === 'fr' ? (
-        <svg width="30" height="30" viewBox="0 0 30 30">
-          <rect width="10" height="30" fill="#26429c" />
-          <rect x="10" width="10" height="30" fill="#fdfaf3" />
-          <rect x="20" width="10" height="30" fill="#c8102e" />
-        </svg>
-      ) : (
-        <svg width="30" height="30" viewBox="0 0 30 30">
-          <rect width="30" height="30" fill="#012169" />
-          <path d="M0 0 30 30M30 0 0 30" stroke="#fdfaf3" strokeWidth="6" />
-          <path d="M0 0 30 30M30 0 0 30" stroke="#c8102e" strokeWidth="2.4" />
-          <path d="M15 0v30M0 15h30" stroke="#fdfaf3" strokeWidth="10" />
-          <path d="M15 0v30M0 15h30" stroke="#c8102e" strokeWidth="5.4" />
-        </svg>
-      )}
-    </span>
   );
 }

@@ -31,6 +31,7 @@ describe('préférences d’interface (§3.5)', () => {
       deviseAffichage: 'EUR',
       formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 2, preavisJours: 14, carteMois: 1 },
+      onboardingVu: false,
     });
     expect(preferencesDefaut('en-US').langue).toBe('en');
     expect(ALERTES_DEFAUT.echeanceJours).toBe(3);
@@ -75,6 +76,7 @@ describe('préférences d’interface (§3.5)', () => {
       deviseAffichage: 'EUR',
       formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 5, preavisJours: 14, carteMois: 1 },
+      onboardingVu: false,
     });
   });
 
@@ -97,5 +99,17 @@ describe('préférences d’interface (§3.5)', () => {
     };
     expect(() => ecrirePreferences(cassé, preferencesDefaut('fr'))).not.toThrow();
     expect(lirePreferences(cassé, 'fr')).toEqual(preferencesDefaut('fr'));
+  });
+});
+
+describe('onboarding (C7)', () => {
+  it('non vu par défaut, conservé à la lecture, valeur étrangère → défaut', () => {
+    expect(preferencesDefaut('fr').onboardingVu).toBe(false);
+    const stockage = stockageMemoire();
+    ecrirePreferences(stockage, { ...preferencesDefaut('fr'), onboardingVu: true });
+    expect(lirePreferences(stockage, 'fr').onboardingVu).toBe(true);
+    const defaut = preferencesDefaut('fr');
+    expect(normaliserPreferences({ onboardingVu: 'oui' }, defaut).onboardingVu).toBe(false);
+    expect(normaliserPreferences({ onboardingVu: true }, defaut).onboardingVu).toBe(true);
   });
 });

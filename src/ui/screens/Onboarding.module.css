@@ -1,0 +1,244 @@
+/* Onboarding — valeurs reprises de la maquette v6 (overlay « Onboarding »). */
+
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  /* remplit la coquille (.app : padding sp-4 en haut, sp-8 en bas) pour caler le bas de page */
+  min-height: calc(100dvh - var(--sp-4) - var(--sp-8));
+  padding-top: 40px;
+}
+
+.haut {
+  display: flex;
+  justify-content: flex-end;
+  flex: none;
+}
+
+.passer,
+.plusTard {
+  padding: 6px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.plusTard {
+  font-size: 13px;
+  text-align: center;
+}
+
+.corps {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.logo {
+  width: 64px;
+  height: 64px;
+}
+
+.titreGrand {
+  font-size: 30px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.12;
+}
+
+.titre {
+  font-size: 28px;
+  font-weight: var(--fw-bold);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+
+.sousTitre {
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+/* Écran 1 : trois points forts */
+.points {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.point {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.pointIcone {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 38px;
+  height: 38px;
+  border-radius: 13px;
+  background: var(--sand);
+}
+
+.pointTexte {
+  font-size: 13.5px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.35;
+}
+
+/* Écran 2 : devise, langue, format de date */
+.legende {
+  margin-top: 4px;
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+
+.chip,
+.chipActif {
+  height: 40px;
+  padding: 0 14px;
+  border: 2px solid var(--line);
+  border-radius: 20px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.chipActif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.langues {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.langue,
+.langueActive {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 11px 12px;
+  border: 2px solid var(--sand2);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+  text-align: left;
+}
+
+.langueActive {
+  background: var(--sand);
+}
+
+.langueGauche {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.coche {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  width: 22px;
+  height: 22px;
+  border-radius: 11px;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+/* Écran 3 : premier abonnement */
+.principal,
+.secondaire {
+  height: 52px;
+  border-radius: 22px;
+  font-size: 14.5px;
+  font-weight: var(--fw-bold);
+}
+
+.principal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.secondaire {
+  border: 2px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+
+/* Bas : pastilles d'étape et bouton d'avancement */
+.bas {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: auto;
+  padding-top: 8px;
+}
+
+.pastilles {
+  display: flex;
+  gap: 6px;
+}
+
+.pastille,
+.pastilleActive {
+  width: 8px;
+  height: 8px;
+  border-radius: 4px;
+  background: var(--sand2);
+}
+
+.pastilleActive {
+  background: var(--ink);
+}
+
+.cta {
+  height: 46px;
+  padding: 0 22px;
+  border: 0;
+  border-radius: 23px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 14px;
+  font-weight: var(--fw-bold);
+}
+
+.passer:focus-visible,
+.plusTard:focus-visible,
+.chip:focus-visible,
+.chipActif:focus-visible,
+.langue:focus-visible,
+.langueActive:focus-visible,
+.principal:focus-visible,
+.secondaire:focus-visible,
+.cta:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
