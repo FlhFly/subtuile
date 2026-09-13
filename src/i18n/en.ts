@@ -634,6 +634,8 @@ export const en: Dictionnaire = {
   'reglages.apropos.os.sous':
     'Public code; any modified hosted version must republish its sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.maj': 'Update available',
+  'reglages.apropos.maj.sous': 'Tap to reload with the new version',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',

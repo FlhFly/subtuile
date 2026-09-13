@@ -3,9 +3,9 @@ import { chargerJeuDemo } from './data/fixtures/demo';
 import { nouveautesNonVues } from './data/notesDeVersion';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
-import { MiseAJourApp } from './ui/components/MiseAJourApp';
 import { AlertesContextProvider } from './ui/contexts/AlertesContext';
 import { useI18n } from './ui/contexts/I18nContext';
+import { MiseAJourProvider } from './ui/contexts/MiseAJourContext';
 import { PreferencesContextProvider, usePreferences } from './ui/contexts/PreferencesContext';
 import { StorageContextProvider, useStorage } from './ui/contexts/StorageContext';
 import { ToastContextProvider, useToast } from './ui/contexts/ToastContext';
@@ -60,10 +60,11 @@ export default function App() {
     <StorageContextProvider storage={storage}>
       <PreferencesContextProvider>
         <ToastContextProvider>
-          <MiseAJourApp />
-          <AlertesContextProvider>
-            <Navigation />
-          </AlertesContextProvider>
+          <MiseAJourProvider>
+            <AlertesContextProvider>
+              <Navigation />
+            </AlertesContextProvider>
+          </MiseAJourProvider>
         </ToastContextProvider>
       </PreferencesContextProvider>
     </StorageContextProvider>

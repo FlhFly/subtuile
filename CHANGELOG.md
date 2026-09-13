@@ -7,7 +7,12 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.2.
+### Rangée « Mise à jour disponible » dans À propos (2026-09-13)
+
+#### Ajouté
+- Quand une nouvelle version attend, Réglages › À propos affiche « Mise à jour disponible —
+  Appuyez pour recharger », en plus du toast de quelques secondes qui se rate facilement. Le
+  service worker est désormais géré par un contexte (`MiseAJourContext`) partagé.
 
 ## [1.0.2] — 2026-09-13 — retours du test iPhone (suite)
 

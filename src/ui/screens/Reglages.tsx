@@ -18,6 +18,7 @@ import { SYMBOLES } from '../../domain/devises';
 import { DEVISES, type Devise } from '../../domain/types';
 import { useTaux } from '../hooks/useTaux';
 import { useI18n } from '../contexts/I18nContext';
+import { useMiseAJour } from '../contexts/MiseAJourContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
@@ -72,6 +73,7 @@ export function Reglages({
   const taux = useTaux();
   const toast = useToast();
   const installation = useInstallation();
+  const miseAJour = useMiseAJour();
   const { abonnements } = useAbonnements();
   const nombreMoyens = useMoyensPaiement().size;
   const { catalogue } = useCatalogue();
@@ -365,6 +367,22 @@ export function Reglages({
 
       <Section titre={t('reglages.apropos')}>
         <Carte>
+          {miseAJour.disponible ? (
+            <button
+              type="button"
+              className={styles.rangeeBouton}
+              onClick={() => void miseAJour.appliquer()}
+            >
+              <span className={styles.textes}>
+                <span className={styles.libelle}>{t('reglages.apropos.maj')}</span>
+                <span className={styles.sous}>{t('reglages.apropos.maj.sous')}</span>
+              </span>
+              <span className={styles.valeur}>
+                <span className={styles.nouveau}>{t('reglages.apropos.nouveau')}</span>
+                <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+              </span>
+            </button>
+          ) : null}
           <button type="button" className={styles.rangeeBouton} onClick={onOuvrirNouveautes}>
             <span className={styles.textes}>
               <span className={styles.libelle}>{t('reglages.apropos.nouveautes')}</span>

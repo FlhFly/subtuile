@@ -646,6 +646,8 @@ export const fr = {
   'reglages.apropos.os.sous':
     'Code public ; toute version hébergée modifiée doit republier ses sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.maj': 'Mise à jour disponible',
+  'reglages.apropos.maj.sous': 'Appuyez pour recharger avec la nouvelle version',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',
