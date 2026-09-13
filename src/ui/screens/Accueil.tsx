@@ -1,4 +1,4 @@
-import { useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
+import { useEffect, useMemo, useRef, useState, type KeyboardEvent, type PointerEvent } from 'react';
 import { enregistrerOrdre } from '../../data/services/abonnements';
 import { aujourdhui } from '../../domain/dates';
 import { totaux } from '../../domain/finances';
@@ -55,6 +55,16 @@ const PAS_CLAVIER: Record<string, (colonnes: number) => number> = {
   ArrowDown: (colonnes) => colonnes,
 };
 
+/** Défilement automatique pendant le glisser (EF-14) : bande de 90 px en haut et au-dessus de la barre basse. */
+const BORD_DEFILEMENT = 90;
+const HAUTEUR_BARRE = 86;
+const PAS_DEFILEMENT = 10;
+function directionDefilement(y: number): -1 | 0 | 1 {
+  if (y < BORD_DEFILEMENT) return -1;
+  if (y > window.innerHeight - HAUTEUR_BARRE - BORD_DEFILEMENT) return 1;
+  return 0;
+}
+
 /** Indice de la tuile sous un point de l'écran (attribut `data-index` du `<li>`). */
 function indexSous(x: number, y: number): number | null {
   const el = document.elementFromPoint(x, y)?.closest<HTMLElement>('[data-index]');
@@ -85,6 +95,9 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
   const [reorg, setReorg] = useState<string[] | null>(null);
   const [enDeplacement, setEnDeplacement] = useState<string | null>(null);
   const glisse = useRef<string | null>(null);
+  const pointeur = useRef<{ x: number; y: number } | null>(null);
+  const animation = useRef<number | null>(null);
+  const idsCourants = useRef<string[]>([]);
   const jour = aujourdhui();
 
   const tri = preferences.tri;
@@ -129,6 +142,9 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
     [visibles, reorg],
   );
   const idsAffiches = affiches.map((a) => a.id);
+  useEffect(() => {
+    idsCourants.current = idsAffiches;
+  });
 
   const persisterOrdre = (ids: string[]) => {
     setReorg(ids);
@@ -143,9 +159,29 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
     setEnDeplacement(id);
     e.currentTarget.setPointerCapture(e.pointerId);
   };
+  /* Près d'un bord, la page défile toute seule et la tuile suit le doigt (boucle d'animation) */
+  const defiler = () => {
+    const p = pointeur.current;
+    const id = glisse.current;
+    const direction = p && id !== null ? directionDefilement(p.y) : 0;
+    if (!p || id === null || direction === 0) {
+      animation.current = null;
+      return;
+    }
+    window.scrollBy(0, direction * PAS_DEFILEMENT);
+    const ids = idsCourants.current;
+    const cible = indexSous(p.x, p.y);
+    const de = ids.indexOf(id);
+    if (cible !== null && de >= 0 && cible !== de) setReorg(deplacer(ids, de, cible));
+    animation.current = requestAnimationFrame(defiler);
+  };
   const poursuivreGlisse = (e: PointerEvent<HTMLUListElement>) => {
     const id = glisse.current;
     if (id === null) return;
+    pointeur.current = { x: e.clientX, y: e.clientY };
+    if (animation.current === null && directionDefilement(e.clientY) !== 0) {
+      animation.current = requestAnimationFrame(defiler);
+    }
     const cible = indexSous(e.clientX, e.clientY);
     const de = idsAffiches.indexOf(id);
     if (cible === null || de < 0 || cible === de) return;
@@ -154,6 +190,9 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
   const finirGlisse = (e: PointerEvent<HTMLUListElement>) => {
     if (glisse.current === null) return;
     glisse.current = null;
+    pointeur.current = null;
+    if (animation.current !== null) cancelAnimationFrame(animation.current);
+    animation.current = null;
     setEnDeplacement(null);
     if (e.currentTarget.hasPointerCapture(e.pointerId)) {
       e.currentTarget.releasePointerCapture(e.pointerId);

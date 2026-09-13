@@ -7,6 +7,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Défilement automatique pendant le glisser des tuiles (2026-09-13)
+
+#### Ajouté
+- En mode réorganisation, approcher le doigt ou la souris du haut de l'écran ou de la barre
+  basse fait défiler la page toute seule, la tuile suivant le pointeur ; utile dès que la liste
+  dépasse un écran.
+
 ### Rappel de sauvegarde (2026-09-13)
 
 #### Ajouté
