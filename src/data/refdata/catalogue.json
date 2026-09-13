@@ -1,6 +1,6 @@
 {
-  "version": 2,
-  "publieLe": "2026-08-24",
+  "version": 3,
+  "publieLe": "2026-09-13",
   "data": [
     {
       "id": "netflix",
@@ -667,6 +667,28 @@
           "periodicite": {
             "type": "recurrente",
             "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "claude_max_5x_mensuel",
+          "nom": "Max 5× — mensuel",
+          "prix": 108,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "claude_max_20x_mensuel",
+          "nom": "Max 20× — mensuel",
+          "prix": 216,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
             "intervalle": 1
           },
           "canal": "direct"

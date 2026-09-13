@@ -323,7 +323,9 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
               })}
             </Detail>
           ) : null}
-          {formule ? <Detail libelle={t('fiche.formule')}>{formule.nom}</Detail> : null}
+          {formule || abo.formule ? (
+            <Detail libelle={t('fiche.formule')}>{formule ? formule.nom : abo.formule}</Detail>
+          ) : null}
           {abo.periodicite.type === 'a_l_usage' && abo.periodicite.plafond !== null ? (
             <Detail libelle={t('fiche.plafond')}>
               {t('montant.parMois', { montant: montant(abo.periodicite.plafond) })}

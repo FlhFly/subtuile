@@ -413,6 +413,11 @@ export const en: Dictionnaire = {
   'edition.catalogue.detacher': 'Unlink',
   'edition.catalogue.changer': 'Change',
   'edition.formules': 'Plan',
+  'edition.formules.autre': 'Other',
+  'edition.formule': 'Plan (optional)',
+  'edition.formule.ph': 'e.g. Max, Family, Duo',
+  'edition.formule.aide':
+    'Name of the plan you subscribed to, when it is not listed or for free entry.',
   'edition.formules.fraicheur': 'indicative prices as of {d}',
   'edition.direct.note': '{direct} direct vs {store} via {canal} — often cheaper direct.',
   'edition.suggestion.titre': 'In the catalogue — pre-fill?',

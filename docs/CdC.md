@@ -48,6 +48,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | id | uuid | |
 | serviceId | ref → Service, nullable | null si saisie libre |
 | formuleId | ref → formule du catalogue, nullable *(v1.11)* | rattache l'abonnement à une formule précise (ex. Netflix Standard) — support futur de la comparaison prix saisi vs prix officiel (C15) ; null si saisie libre ou formule inconnue |
+| formule | texte libre, nullable *(v1.21)* | libellé de formule saisi à la main (ex. « Max ») quand aucune formule du catalogue ne convient (option « Autre ») ou en saisie libre |
 | nom | string | pré-rempli depuis le catalogue |
 | categorie | enum | Streaming, Sport, IA, Cloud, Presse, Musique, Autre… |
 | periodicite | objet | voir §3.2 |

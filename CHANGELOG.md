@@ -7,6 +7,18 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Formule libre, option « Autre », Claude Max au catalogue (2026-09-13)
+
+#### Ajouté
+- Formulaire : champ « Formule (facultatif) » pour nommer l'offre souscrite en saisie libre
+  (« Max », « Famille », « Duo »…), affiché sur la fiche. Avec un service du catalogue, la puce
+  « Autre » ignore les formules proposées et libère le prix et la formule (retour FlhFly :
+  Claude Max absent, blocage sur Pro).
+- Catalogue v3 (tarifs indicatifs au 13/09/2026) : formules Claude Max 5× (108 €/mois) et
+  Max 20× (216 €/mois).
+- Champ `formule` sur l'abonnement (§3.1, CdC v1.21), null par défaut ; les sauvegardes JSON
+  antérieures se relisent sans changement.
+
 ### Onboarding : la langue dès le premier écran (2026-09-13)
 
 #### Modifié

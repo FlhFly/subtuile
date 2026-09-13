@@ -183,6 +183,8 @@ export interface Abonnement extends EntiteTechnique {
   serviceId: string | null;
   /** formule du catalogue (v1.11) ; null si saisie libre ou inconnue */
   formuleId: string | null;
+  /** libellé de formule saisi à la main (v1.21, ex. « Max ») ; null si aucune */
+  formule: string | null;
   nom: string;
   categorie: Categorie;
   periodicite: Periodicite;

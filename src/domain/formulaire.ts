@@ -34,6 +34,8 @@ export interface EtatFormulaire {
   serviceId: string | null;
   /** formule du catalogue choisie (v1.11) */
   formuleId: string | null;
+  /** libellé de formule saisi à la main (v1.21), quand aucune formule du catalogue ne convient */
+  formule: string;
   nom: string;
   prix: string;
   /** devise de saisie (EF-45b), proposée par défaut depuis les réglages */
@@ -217,6 +219,7 @@ export function formulaireVide(jour: DateISO, devise: Devise = 'EUR'): EtatFormu
   return {
     serviceId: null,
     formuleId: null,
+    formule: '',
     nom: '',
     prix: '',
     devise,
@@ -342,6 +345,7 @@ export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): Etat
     ...formulaireVide(jour),
     serviceId: abo.serviceId,
     formuleId: abo.formuleId,
+    formule: abo.formule ?? '',
     nom: abo.nom,
     prix: nombreVersTexte(abo.prix),
     devise: abo.devise,
@@ -494,6 +498,7 @@ export function abonnementDepuisFormulaire(
   const champs = {
     serviceId: etat.serviceId,
     formuleId: etat.serviceId ? etat.formuleId : null,
+    formule: etat.formule.trim() === '' ? null : etat.formule.trim(),
     nom: etat.nom.trim(),
     prix: plafondUsage ? 0 : prix,
     devise: etat.devise,

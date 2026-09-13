@@ -85,6 +85,7 @@ type Mode = 'catalogue' | 'libre';
 const CLE_CHAMP: Record<ChampFormulaire, CleTraduction> = {
   serviceId: 'catalogue.titre',
   formuleId: 'edition.formules',
+  formule: 'edition.formule',
   nom: 'edition.nom',
   prix: 'edition.prix',
   devise: 'edition.devise',
@@ -355,10 +356,15 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
     { valeur: 'catalogue' as const, libelle: t('edition.mode.catalogue') },
     { valeur: 'libre' as const, libelle: t('edition.mode.libre') },
   ];
-  const optionsFormules = (service?.formules ?? []).map((f) => ({
+  const formulesCatalogue = (service?.formules ?? []).map((f) => ({
     valeur: f.id,
     libelle: `${f.nom} · ${montant(f.prix)}`,
   }));
+  /* « Autre » : aucune formule du catalogue ne convient (ex. offre absente), prix et formule saisis à la main */
+  const optionsFormules =
+    formulesCatalogue.length > 0
+      ? [...formulesCatalogue, { valeur: '', libelle: t('edition.formules.autre') }]
+      : [];
 
   const recurrent = etat.typePeriodicite === 'recurrente';
   const usage = etat.typePeriodicite === 'a_l_usage';
@@ -575,8 +581,12 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 options={optionsFormules}
                 valeur={etat.formuleId ?? ''}
                 onChange={(id) => {
+                  if (id === '') {
+                    setEtat((e) => ({ ...e, formuleId: null }));
+                    return;
+                  }
                   const f = trouverFormule(service, id);
-                  if (f) setEtat((e) => appliquerFormule(e, f, cibleDevise));
+                  if (f) setEtat((e) => ({ ...appliquerFormule(e, f, cibleDevise), formule: '' }));
                 }}
               />
               {comparaison ? (
@@ -589,6 +599,21 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 </p>
               ) : null}
             </Bloc>
+          ) : null}
+
+          {etat.formuleId === null ? (
+            <Champ libelle={t('edition.formule')} aide={t('edition.formule.aide')}>
+              {(a) => (
+                <input
+                  {...a}
+                  type="text"
+                  value={etat.formule}
+                  onChange={(e) => maj('formule', e.target.value)}
+                  placeholder={t('edition.formule.ph')}
+                  autoComplete="off"
+                />
+              )}
+            </Champ>
           ) : null}
 
           <Bloc titre={t('edition.categorie')}>

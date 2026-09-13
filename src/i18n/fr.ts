@@ -422,6 +422,11 @@ export const fr = {
   'edition.catalogue.changer': 'Changer',
   'edition.formules': 'Formule',
   'edition.formules.fraicheur': 'tarifs indicatifs au {d}',
+  'edition.formules.autre': 'Autre',
+  'edition.formule': 'Formule (facultatif)',
+  'edition.formule.ph': 'ex. Max, Famille, Duo',
+  'edition.formule.aide':
+    'Nom de l’offre souscrite, quand elle n’est pas dans la liste ou en saisie libre.',
   'edition.direct.note':
     '{direct} en direct vs {store} via {canal} — souvent moins cher en direct.',
   'edition.suggestion.titre': 'Présent au catalogue — pré-remplir ?',

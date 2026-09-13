@@ -49,6 +49,7 @@ export function creerAbonnement(champs: NouvelAbonnement, ctx: ContexteFabrique 
     deletedAt: null,
     serviceId: null,
     formuleId: null,
+    formule: null,
     categorie: 'autre',
     montantEstime: false,
     regularisation: null,
