@@ -520,6 +520,25 @@
 }
 
 /* Prix et devise de saisie (EF-45b) : champ + puces de devise sur la même ligne (maquette) */
+/* « + Ajouter un moyen de paiement » sous les chips (création sans quitter la saisie) */
+.ajouterPaiement {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 0;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.ajouterPaiement:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 .prixLigne {
   display: flex;
   align-items: center;

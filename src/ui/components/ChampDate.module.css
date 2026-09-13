@@ -47,3 +47,11 @@
   opacity: 0;
   pointer-events: none;
 }
+
+/* Sur écran tactile (iPhone, Android), `showPicker` n'ouvre rien : le sélecteur natif,
+   transparent au-dessus du bouton, reçoit le toucher et ouvre lui-même le calendrier. */
+@media (hover: none) and (pointer: coarse) {
+  .natif {
+    pointer-events: auto;
+  }
+}

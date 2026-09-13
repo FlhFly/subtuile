@@ -325,6 +325,8 @@ export const fr = {
   'edition.prixFutur.montant': 'Nouveau prix ({d})',
   'edition.paiement': 'Moyen de paiement',
   'edition.paiement.aucun': 'Aucun',
+  'edition.paiement.aucunMoyen':
+    'Aucun moyen de paiement enregistré : ajoutez-en un ici, il apparaîtra sur vos tuiles et dans les alertes de carte.',
   'edition.canal': 'Canal d’achat',
   'edition.canal.aide':
     'Le canal pilote le bouton « Gérer / Résilier » : App Store et Google Play se résilient dans les réglages du store, pas sur le site du service.',

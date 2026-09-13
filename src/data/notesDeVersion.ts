@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.2',
+    date: '2026-09-13',
+    notes: {
+      fr: [
+        'Sur iPhone et Android, l’icône calendrier des champs de date ouvre bien le sélecteur natif.',
+        'Dans le formulaire, « Ajouter un moyen de paiement » crée une carte, un compte PayPal ou un prélèvement sans quitter la saisie ; il est sélectionné aussitôt.',
+      ],
+      en: [
+        'On iPhone and Android, the calendar icon on date fields now opens the native picker.',
+        'In the form, “Add a payment method” creates a card, PayPal account or direct debit without leaving the entry; it is selected right away.',
+      ],
+    },
+  },
+  {
     version: '1.0.1',
     date: '2026-09-13',
     notes: {

@@ -14,8 +14,8 @@ fonctionne sans réseau.
 - 💾 Export / import JSON, import CSV, rappels calendrier .ics
 - 🌐 FR / EN — PWA installable, 100 % hors ligne
 
-**Statut : v1.0.1 — lot 4/4 « Finances & données » livré, application en ligne ; corrections au
-fil des retours. Lot 5 « Pilotage » à venir.**
+**Statut : v1.0.x — lot 4/4 « Finances & données » livré, application en ligne ; corrections au
+fil des retours (voir « Nouveautés » dans l'app). Lot 5 « Pilotage » à venir.**
 
 ## Installation
 Subtuile est un site web installable (PWA). Ouvrez <https://flhfly.github.io/subtuile/> puis :

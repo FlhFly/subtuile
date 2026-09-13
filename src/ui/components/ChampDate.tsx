@@ -42,15 +42,22 @@ export function ChampDate({ libelle, erreur, aide, valeur, onChange, autoFocus }
     setTexte(brut);
     onChange(parserDateSaisie(brut, format) ?? brut);
   };
-  /** Sur ordinateur, seul `showPicker` ouvre le calendrier natif ; à défaut, le focus + Espace. */
+  /**
+   * Sur ordinateur, seul `showPicker` ouvre le calendrier natif ; à défaut, focus puis clic
+   * sur le sélecteur. Sur écran tactile, le sélecteur reçoit le toucher lui-même (CSS).
+   */
   const ouvrirCalendrier = () => {
     const el = natif.current;
     if (!el) return;
     try {
       if (typeof el.showPicker === 'function') el.showPicker();
-      else el.focus();
+      else {
+        el.focus();
+        el.click();
+      }
     } catch {
       el.focus();
+      el.click();
     }
   };
   const motif = t(`formatDate.${format}`);

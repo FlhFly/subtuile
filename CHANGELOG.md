@@ -7,7 +7,26 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.1.
+Aucune modification depuis la version 1.0.2.
+
+## [1.0.2] — 2026-09-13 — retours du test iPhone (suite)
+
+### Calendrier sur mobile et moyen de paiement depuis le formulaire (2026-09-13)
+
+#### Corrigé
+- Champs de date : sur iPhone (et Android), l'icône calendrier n'ouvrait rien, `showPicker`
+  restant sans effet ; sur écran tactile, le sélecteur natif transparent reçoit désormais le
+  toucher lui-même. Sur ordinateur, repli focus + clic si `showPicker` échoue.
+
+#### Ajouté
+- Formulaire › Paiement : « + Ajouter un moyen de paiement » crée un moyen (type, libellé,
+  carte : 4 derniers chiffres et expiration) sans quitter la saisie, le sélectionne aussitôt ;
+  texte d'aide quand aucun moyen n'est encore enregistré (retour FlhFly : sans moyen, rien à
+  choisir). Le formulaire de moyen de paiement est partagé avec l'écran Moyens de paiement,
+  rendu sans balise `<form>` imbriquée.
+
+#### Modifié
+- Version 1.0.2 et ses notes dans l'app ; README (statut 1.0.x).
 
 ## [1.0.1] — 2026-09-13 — corrections après la mise en ligne
 

@@ -317,6 +317,8 @@ export const en: Dictionnaire = {
   'edition.prixFutur.montant': 'New price ({d})',
   'edition.paiement': 'Payment method',
   'edition.paiement.aucun': 'None',
+  'edition.paiement.aucunMoyen':
+    'No payment method yet: add one here, it will show on your tiles and in card alerts.',
   'edition.canal': 'Purchase channel',
   'edition.canal.aide':
     'The channel drives the “Manage / Cancel” button: App Store and Google Play subscriptions are cancelled in the store settings, not on the service website.',

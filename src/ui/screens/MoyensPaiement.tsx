@@ -175,16 +175,23 @@ function BadgeExpiration({ etat }: { etat: EtatExpiration }) {
   return null;
 }
 
-function FormulaireMoyen({
+/**
+ * Formulaire d'un moyen de paiement (type, libellé, carte : 4 derniers chiffres et
+ * expiration). `imbrique` : rendu dans un autre formulaire (création depuis la fiche
+ * d'abonnement), sans balise <form> ni bouton de soumission.
+ */
+export function FormulaireMoyen({
   initial,
   onAnnuler,
   onEnregistrer,
   onSupprimer,
+  imbrique = false,
 }: {
   initial: FormulaireMoyenPaiement;
   onAnnuler: () => void;
   onEnregistrer: (etat: FormulaireMoyenPaiement) => Promise<void>;
   onSupprimer?: () => Promise<void>;
+  imbrique?: boolean;
 }) {
   const { t } = useI18n();
   const [etat, setEtat] = useState(initial);
@@ -217,15 +224,8 @@ function FormulaireMoyen({
     libelle: t(`paiement.${type}`),
   }));
 
-  return (
-    <form
-      className={styles.formulaire}
-      onSubmit={(e) => {
-        e.preventDefault();
-        void soumettre();
-      }}
-      noValidate
-    >
+  const contenu = (
+    <>
       <Chips
         nom={t('paiements.type')}
         options={optionsType}
@@ -276,7 +276,11 @@ function FormulaireMoyen({
         </div>
       ) : null}
       <div className={styles.actions}>
-        <button type="submit" className={styles.boutonPrincipal}>
+        <button
+          type={imbrique ? 'button' : 'submit'}
+          className={styles.boutonPrincipal}
+          onClick={imbrique ? () => void soumettre() : undefined}
+        >
           {t('commun.enregistrer')}
         </button>
         <button type="button" className={styles.boutonSecondaire} onClick={onAnnuler}>
@@ -288,6 +292,19 @@ function FormulaireMoyen({
           </button>
         ) : null}
       </div>
+    </>
+  );
+  if (imbrique) return <div className={styles.formulaire}>{contenu}</div>;
+  return (
+    <form
+      className={styles.formulaire}
+      onSubmit={(e) => {
+        e.preventDefault();
+        void soumettre();
+      }}
+      noValidate
+    >
+      {contenu}
     </form>
   );
 }

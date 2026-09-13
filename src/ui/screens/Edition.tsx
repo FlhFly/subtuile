@@ -53,6 +53,13 @@ import { Icone } from '../components/Icone';
 import { Interrupteur } from '../components/Interrupteur';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
+import { enregistrerMoyenPaiement } from '../../data/services/moyensPaiement';
+import {
+  formulaireMoyenPaiementVide,
+  moyenPaiementDepuisFormulaire,
+  type FormulaireMoyenPaiement,
+} from '../../domain/moyenPaiement';
+import { FormulaireMoyen } from './MoyensPaiement';
 import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
 import { useCatalogue } from '../hooks/useCatalogue';
@@ -223,6 +230,16 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
     () => servicesPourSelection(catalogue.data, recherche),
     [catalogue.data, recherche],
   );
+
+  /* Moyen de paiement créé sans quitter la saisie (retour FlhFly : sans moyen enregistré, rien à choisir) */
+  const [ajoutPaiement, setAjoutPaiement] = useState(false);
+  const ajouterMoyenPaiement = async (etatMoyen: FormulaireMoyenPaiement) => {
+    const m = moyenPaiementDepuisFormulaire(etatMoyen);
+    await enregistrerMoyenPaiement(storage, m);
+    maj('moyenPaiementId', m.id);
+    setAjoutPaiement(false);
+    toast.afficher(t('toast.paiementCree'));
+  };
 
   const maj = <C extends keyof EtatFormulaire>(champ: C, valeur: EtatFormulaire[C]) => {
     setEtat((e) => ({ ...e, [champ]: valeur }));
@@ -822,13 +839,36 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 ) : null}
               </div>
 
-              <Bloc titre={t('edition.paiement')}>
+              <Bloc
+                titre={t('edition.paiement')}
+                aide={moyensPaiement.size === 0 ? t('edition.paiement.aucunMoyen') : undefined}
+              >
                 <Chips
                   nom={t('edition.paiement')}
                   options={optionsPaiement}
                   valeur={etat.moyenPaiementId ?? ''}
                   onChange={(v) => maj('moyenPaiementId', v === '' ? null : v)}
                 />
+                {ajoutPaiement ? (
+                  <div className={styles.carte}>
+                    <span className={styles.blocTitre}>{t('paiements.nouveau')}</span>
+                    <FormulaireMoyen
+                      imbrique
+                      initial={formulaireMoyenPaiementVide()}
+                      onAnnuler={() => setAjoutPaiement(false)}
+                      onEnregistrer={ajouterMoyenPaiement}
+                    />
+                  </div>
+                ) : (
+                  <button
+                    type="button"
+                    className={styles.ajouterPaiement}
+                    onClick={() => setAjoutPaiement(true)}
+                  >
+                    <Icone nom="plus" taille={14} epaisseur={3} />
+                    {t('paiements.ajouter')}
+                  </button>
+                )}
               </Bloc>
 
               <Bloc titre={t('edition.canal')} aide={t('edition.canal.aide')}>
