@@ -644,6 +644,8 @@ export const fr = {
   'reglages.apropos.os.sous':
     'Code public ; toute version hébergée modifiée doit republier ses sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.don': 'Soutenir le projet',
+  'reglages.apropos.don.sous': 'Don libre — l’app reste gratuite, sans pub ni tracking',
   'reglages.apropos.installer': 'Installer l’application',
   'reglages.apropos.installer.sous': 'Sur l’écran d’accueil, en plein écran, hors ligne',
   'reglages.apropos.ios': 'Installer sur iPhone / iPad',

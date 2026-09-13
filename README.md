@@ -77,7 +77,9 @@ AGPL-3.0 — voir [LICENSE](LICENSE).
 **Logo et nom « Subtuile » : tous droits réservés, hors licence AGPL.**
 
 ## Soutenir
-<!-- lien de don à ajouter : la rangée « Soutenir le projet » des réglages apparaîtra alors -->
+L'app est gratuite, sans pub ni tracking. Un don libre aide à la faire vivre :
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/M1G426XAKZ)
 
 ## Crédits
 - Police [Space Grotesk](https://github.com/floriankarsten/space-grotesk) de Florian Karsten, licence SIL OFL 1.1, embarquée via fontsource.

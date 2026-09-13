@@ -38,6 +38,8 @@ interface Props {
 
 const VERSION_APP = __APP_VERSION__;
 const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
+/** Page de don (Ko-fi) : ouverte dans un nouvel onglet, aucune ressource externe chargée dans l'app */
+const URL_DON = 'https://ko-fi.com/M1G426XAKZ';
 
 /** Choix proposés pour les défauts d'alerte (EF-30), en jours puis en mois. */
 const CHOIX_ECHEANCE = [1, 2, 3, 7, 14] as const;
@@ -53,7 +55,7 @@ type Depliant = 'devise' | 'langue' | 'formatDate' | null;
  * paiement, catalogue), automatisation (§7.9, EF-32), données (jeu de démo,
  * confidentialité), à propos (dépôt public, installation de la PWA §5.2).
  * « Revoir l'introduction » rejoue l'onboarding (C7) ; « Soutenir le projet »
- * dès qu'un lien de don existe (§4.7 : rien de factice).
+ * ouvre la page de don Ko-fi.
  */
 export function Reglages({
   onOuvrirPaiements,
@@ -390,6 +392,15 @@ export function Reglages({
             <span className={styles.textes}>
               <span className={styles.libelle}>{t('reglages.apropos.os')}</span>
               <span className={styles.sous}>{t('reglages.apropos.os.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="externe" taille={13} epaisseur={3} />
+            </span>
+          </a>
+          <a className={styles.rangeeBouton} href={URL_DON} target="_blank" rel="noreferrer">
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.apropos.don')}</span>
+              <span className={styles.sous}>{t('reglages.apropos.don.sous')}</span>
             </span>
             <span className={styles.valeur}>
               <Icone nom="externe" taille={13} epaisseur={3} />

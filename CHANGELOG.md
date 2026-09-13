@@ -7,6 +7,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — rangée « Soutenir le projet » (2026-09-13)
+
+#### Ajouté
+- Réglages › À propos : « Soutenir le projet — Don libre, l'app reste gratuite, sans pub ni
+  tracking » ouvre la page Ko-fi de FlhFly dans un nouvel onglet, comme dans la maquette ;
+  aucune ressource externe n'est chargée dans l'app. Badge Ko-fi dans le README.
+
 ### Lot 4 — corrections après le premier test sur iPhone (2026-09-13)
 
 #### Corrigé

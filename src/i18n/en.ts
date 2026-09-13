@@ -632,6 +632,8 @@ export const en: Dictionnaire = {
   'reglages.apropos.os.sous':
     'Public code; any modified hosted version must republish its sources.',
   'reglages.apropos.version': 'Subtuile {version}',
+  'reglages.apropos.don': 'Support the project',
+  'reglages.apropos.don.sous': 'Free-will donation — the app stays free, no ads, no tracking',
   'reglages.apropos.installer': 'Install the app',
   'reglages.apropos.installer.sous': 'On your home screen, full screen, offline',
   'reglages.apropos.ios': 'Install on iPhone / iPad',
