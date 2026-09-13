@@ -215,7 +215,7 @@ function Navigation() {
 
   return (
     <div className="coquille">
-      <main className="app">{contenu}</main>
+      <main className={avecBarre ? 'app app--barre' : 'app'}>{contenu}</main>
       {avecBarre ? (
         <BarreNavigation
           actif={onglet}

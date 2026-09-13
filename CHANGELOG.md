@@ -7,6 +7,22 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Lot 4 — corrections après le premier test sur iPhone (2026-09-13)
+
+#### Corrigé
+- Barre de navigation basse fixée au bas de la fenêtre : en position collante, Safari iOS la
+  faisait remonter avec le contenu en fin de page. Le contenu des écrans à onglets réserve la
+  place de la barre ; sur grand écran, les onglets restent dans la colonne de l'app.
+- Plus de zoom automatique à l'appui sur un champ : sur écran tactile, les champs de saisie
+  passent à 16 px, seuil en dessous duquel Safari iOS zoome.
+- Formulaire décalé sur le côté sur iPhone : aucun champ ne peut plus élargir la page, les
+  textes d'aide se coupent, et la coquille interdit tout défilement horizontal.
+
+#### Modifié
+- CdC v1.18 : deux candidats ajoutés au backlog (demandes FlhFly du 2026-09-13) — C16 paliers
+  du catalogue vérifiés et proposés à l'ajout, C17 tarifs du catalogue par pays / devise ;
+  repris dans la roadmap.
+
 ### Lot 4 — correctif de déploiement (2026-09-13)
 
 #### Corrigé

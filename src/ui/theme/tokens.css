@@ -90,6 +90,8 @@
 
   /* Gabarit */
   --app-max-width: 480px;
+  /* hauteur de la barre de navigation basse (hors zone sûre), pour réserver la place du contenu */
+  --nav-hauteur: 86px;
   --tile-min-width: 150px;
 }
 

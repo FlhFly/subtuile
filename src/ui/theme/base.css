@@ -34,6 +34,24 @@ textarea {
   color: inherit;
 }
 
+/* Un champ ne doit jamais élargir la page (débordement horizontal vu sur iPhone) */
+input,
+select,
+textarea {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* Safari iOS zoome sur un champ dont la police est < 16 px : sur écran tactile, les champs
+   passent à 16 px (seul écart avec la maquette, qui ne peut pas être évité autrement). */
+@media (hover: none) and (pointer: coarse) {
+  input:not([type='checkbox']):not([type='radio']),
+  select,
+  textarea {
+    font-size: 16px !important;
+  }
+}
+
 button {
   cursor: pointer;
 }
@@ -53,6 +71,8 @@ p {
   display: flex;
   flex-direction: column;
   min-height: 100dvh;
+  /* aucun défilement horizontal, quel que soit l'élément qui déborde */
+  overflow-x: clip;
 }
 
 .app {
@@ -61,6 +81,11 @@ p {
   margin: 0 auto;
   padding: var(--sp-4) var(--sp-4) var(--sp-8);
   flex: 1;
+}
+
+/* Écrans à onglets : la barre est fixée en bas, le contenu garde sa place au-dessus */
+.app--barre {
+  padding-bottom: calc(var(--sp-8) + var(--nav-hauteur) + env(safe-area-inset-bottom, 0px));
 }
 
 .app__brand {

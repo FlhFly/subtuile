@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.17 — 13/09/2026 (onboarding C7 livré en V1, §7.10)
+**Version :** 1.18 — 13/09/2026 (candidats C16 paliers du catalogue et C17 tarifs par pays)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -403,3 +403,5 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C13 | Tags libres (maison, voiture, pro…) en complément des catégories *(v1.9)* — **promu** : champ tags §3.1 + filtre EF-12, lots 1-2 (maquette v6) | Organisation, surtout avec les contrats vie courante |
 | C14 | Rappel libre à date par abonnement (« renégocier la box en janvier », « comparer les offres élec ») *(v1.9)* | Renégociations et échéances de prix fixes |
 | C15 | Veille tarifaire : catalogue distant publié par un pipeline de collecte des prix (formules, promos, fraîcheur), comparaison 100 % locale → alertes de hausse officielles, suggestions de formule/canal moins cher, mises à jour de prix en un tap (cf. §5.6, provision §3.1/§3.4) | Données réelles à jour |
+| C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
+| C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |

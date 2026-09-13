@@ -174,3 +174,5 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | C12 | Compteur d'économies réalisées |
 | C14 | Rappel libre à date par abonnement |
 | C15 | Veille tarifaire : catalogue distant, comparaison locale des prix |
+| C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
+| C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |

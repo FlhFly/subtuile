@@ -50,6 +50,7 @@
 }
 
 .aide {
+  overflow-wrap: anywhere;
   font-size: var(--fs-sm);
   color: var(--muted);
   line-height: 1.45;
