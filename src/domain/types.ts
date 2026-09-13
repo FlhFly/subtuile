@@ -351,6 +351,8 @@ export interface Preferences {
   alertes: DefautsAlerte;
   /** onboarding (C7) déjà parcouru ou passé ; « Revoir l'introduction » le remet à false */
   onboardingVu: boolean;
+  /** dernière version dont les nouveautés ont été consultées ; null = jamais */
+  versionVue: string | null;
 }
 
 /* ---------------------------------------------------------------------------

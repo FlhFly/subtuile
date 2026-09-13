@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
+import { nouveautesNonVues } from '../../data/notesDeVersion';
 import { exporterJson, nomFichierExport } from '../../data/importExport';
 import { aujourdhui } from '../../domain/dates';
 import { evenementsAVenir } from '../../domain/echeancier';
@@ -34,6 +35,8 @@ interface Props {
   onOuvrirImport: () => void;
   /** rejoue l'onboarding (C7) */
   onRevoirIntro: () => void;
+  /** écran Nouveautés (notes de version) */
+  onOuvrirNouveautes: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -62,6 +65,7 @@ export function Reglages({
   onOuvrirCatalogue,
   onOuvrirImport,
   onRevoirIntro,
+  onOuvrirNouveautes,
 }: Props) {
   const i18n = useI18n();
   const { t, tn, date, changerLangue, langue } = i18n;
@@ -361,6 +365,20 @@ export function Reglages({
 
       <Section titre={t('reglages.apropos')}>
         <Carte>
+          <button type="button" className={styles.rangeeBouton} onClick={onOuvrirNouveautes}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.apropos.nouveautes')}</span>
+              <span className={styles.sous}>
+                {t('reglages.apropos.nouveautes.sous', { version: VERSION_APP })}
+              </span>
+            </span>
+            <span className={styles.valeur}>
+              {nouveautesNonVues(preferences.versionVue, VERSION_APP) ? (
+                <span className={styles.nouveau}>{t('reglages.apropos.nouveau')}</span>
+              ) : null}
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
           {installation.installable ? (
             <button
               type="button"

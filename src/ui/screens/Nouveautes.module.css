@@ -1,0 +1,70 @@
+/* Nouveautés — cartes de version dans le style des réglages (fond carte, rayon 20 px) */
+
+.ecran {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+}
+
+.intro {
+  font-size: 13px;
+  color: var(--muted);
+}
+
+.versions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.version {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 14px 16px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.versionEntete {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.numero {
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+}
+
+.actuelle {
+  padding: 2px 8px;
+  border-radius: var(--r-pill);
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+}
+
+.date {
+  margin-left: auto;
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.notes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding-left: 18px;
+}
+
+.note {
+  font-size: 13.5px;
+  line-height: 1.45;
+}

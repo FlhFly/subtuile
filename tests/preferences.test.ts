@@ -32,6 +32,7 @@ describe('préférences d’interface (§3.5)', () => {
       formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 2, preavisJours: 14, carteMois: 1 },
       onboardingVu: false,
+      versionVue: null,
     });
     expect(preferencesDefaut('en-US').langue).toBe('en');
     expect(ALERTES_DEFAUT.echeanceJours).toBe(3);
@@ -77,6 +78,7 @@ describe('préférences d’interface (§3.5)', () => {
       formatDate: 'jma',
       alertes: { echeanceJours: 3, essaiJours: 5, preavisJours: 14, carteMois: 1 },
       onboardingVu: false,
+      versionVue: null,
     });
   });
 

@@ -146,7 +146,19 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; repris dans l'onboarding (lot 4 étape 7) |
 | — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ✅ 2026-09-13 — <https://flhfly.github.io/subtuile/> via `.github/workflows/deploy.yml` ; README finalisé |
 
-## Lot 5 — Pilotage
+## Après la v1.0.0 — corrections et améliorations (avant le lot 5)
+
+Décision FlhFly du 2026-09-13 : le lot 5 attend les retours d'usage de la v1.0.0 ; corrections
+et petites améliorations sont livrées en versions 1.0.x, sans tag de lot, avec leurs notes de
+version dans l'app.
+
+| Demande | Statut |
+|---|---|
+| Barre de navigation fixée, champs sans zoom, formulaire centré (test iPhone) | ✅ 2026-09-13 |
+| Rangée « Soutenir le projet » (lien Ko-fi) | ✅ 2026-09-13 |
+| Écran « Nouveautés » : notes de version par langue dans l'app, pastille et rappel après mise à jour | ✅ 2026-09-13 (v1.0.1) |
+
+## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|

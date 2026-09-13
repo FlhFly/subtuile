@@ -7,6 +7,31 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.1.
+
+## [1.0.1] — 2026-09-13 — corrections après la mise en ligne
+
+Première version corrective après le partage du lien, sans tag de lot (les tags marquent les
+fins de lot) : retours du test iPhone, rangée « Soutenir le projet », écran « Nouveautés ».
+Décision FlhFly du 2026-09-13 : le lot 5 attend les retours d'usage ; d'ici là, corrections et
+petites améliorations en versions 1.0.x.
+
+### Écran « Nouveautés » : notes de version dans l'app (2026-09-13)
+
+#### Ajouté
+- Réglages › À propos › « Nouveautés » : notes de version dans la langue de l'interface, de la
+  plus récente à la plus ancienne (version, date, mention « installée », points concis). Une
+  pastille « Nouveau » reste sur la rangée tant que la version installée n'a pas été consultée ;
+  à l'ouverture qui suit une mise à jour, toast « Nouveautés de la version X » avec « Voir ».
+- `src/data/notesDeVersion.ts` : notes fr / en par version, testées (première entrée = version
+  de package.json, deux langues, au plus dix points de 160 caractères).
+- Préférence `versionVue` (localStorage).
+
+#### Modifié
+- Version 1.0.1 ; CdC v1.19 (§7.9 : nouveautés dans À propos) ; CLAUDE.md (notes de version à
+  tenir à jour à chaque version, versions 1.0.x entre deux lots) ; ROADMAP (section « Après la
+  v1.0.0 ») ; README (statut).
+
 ### Lot 4 — rangée « Soutenir le projet » (2026-09-13)
 
 #### Ajouté

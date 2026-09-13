@@ -1,5 +1,6 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { chargerJeuDemo } from './data/fixtures/demo';
+import { nouveautesNonVues } from './data/notesDeVersion';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
 import { MiseAJourApp } from './ui/components/MiseAJourApp';
@@ -19,6 +20,7 @@ import { Fiche } from './ui/screens/Fiche';
 import { Finances } from './ui/screens/Finances';
 import { Import } from './ui/screens/Import';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
+import { Nouveautes } from './ui/screens/Nouveautes';
 import { Onboarding } from './ui/screens/Onboarding';
 import { Reglages } from './ui/screens/Reglages';
 
@@ -32,6 +34,7 @@ type Ecran =
   | { nom: 'paiements'; retour?: Ecran }
   | { nom: 'catalogue' }
   | { nom: 'import'; retour?: Ecran }
+  | { nom: 'nouveautes'; retour?: Ecran }
   | { nom: 'fiche'; id: string; retour?: Ecran }
   | {
       nom: 'edition';
@@ -44,6 +47,7 @@ type Ecran =
     };
 
 const ONGLETS: readonly Onglet[] = ['accueil', 'echeancier', 'finances', 'reglages'];
+const VERSION_APP = __APP_VERSION__;
 
 /**
  * Racine de l'application : fournit le stockage (§5.6), les préférences
@@ -79,6 +83,19 @@ function Navigation() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [ecran]);
+
+  /* Après une mise à jour, rappel des nouveautés (une fois par ouverture) ; rien à la première ouverture */
+  const rappelFait = useRef(false);
+  useEffect(() => {
+    if (rappelFait.current) return;
+    rappelFait.current = true;
+    if (preferences.versionVue !== null && nouveautesNonVues(preferences.versionVue, VERSION_APP)) {
+      toast.afficherAvecAction(t('toast.nouveautes', { version: VERSION_APP }), {
+        libelle: t('toast.nouveautes.voir'),
+        executer: () => setEcran({ nom: 'nouveautes', retour: { nom: 'accueil' } }),
+      });
+    }
+  }, [preferences.versionVue, toast, t]);
 
   const onglet = (ONGLETS as readonly string[]).includes(ecran.nom)
     ? (ecran.nom as Onglet)
@@ -155,6 +172,7 @@ function Navigation() {
           onOuvrirCatalogue={() => setEcran({ nom: 'catalogue' })}
           onOuvrirImport={() => setEcran({ nom: 'import' })}
           onRevoirIntro={() => modifier({ onboardingVu: false })}
+          onOuvrirNouveautes={() => setEcran({ nom: 'nouveautes' })}
         />
       );
       break;
@@ -170,6 +188,9 @@ function Navigation() {
           onTermine={() => setEcran({ nom: 'accueil' })}
         />
       );
+      break;
+    case 'nouveautes':
+      contenu = <Nouveautes onRetour={() => setEcran(ecran.retour ?? { nom: 'reglages' })} />;
       break;
     case 'catalogue':
       contenu = (

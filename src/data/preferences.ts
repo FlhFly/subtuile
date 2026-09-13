@@ -49,6 +49,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     formatDate: formatDateDefaut(langue),
     alertes: { ...ALERTES_DEFAUT },
     onboardingVu: false,
+    versionVue: null,
   };
 }
 
@@ -85,6 +86,7 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
       carteMois: entierPositif(alertesBrut.carteMois, defaut.alertes.carteMois),
     },
     onboardingVu: typeof o.onboardingVu === 'boolean' ? o.onboardingVu : defaut.onboardingVu,
+    versionVue: typeof o.versionVue === 'string' ? o.versionVue : defaut.versionVue,
   };
 }
 
