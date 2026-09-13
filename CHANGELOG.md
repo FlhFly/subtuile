@@ -7,6 +7,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.3.
+
+## [1.0.3] — 2026-09-13 — petites améliorations validées le 2026-09-13
+
+Cinq améliorations retenues par FlhFly parmi les candidats hors lot 5, une par commit, avec
+leurs notes de version dans l'app.
+
 ### Défilement automatique pendant le glisser des tuiles (2026-09-13)
 
 #### Ajouté

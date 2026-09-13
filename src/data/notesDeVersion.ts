@@ -14,6 +14,26 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.3',
+    date: '2026-09-13',
+    notes: {
+      fr: [
+        'Rappel de sauvegarde dans le centre d’alertes quand vos données n’ont pas été exportées depuis un mois ; date de la dernière sauvegarde dans les réglages.',
+        'Mettre en pause peut fixer une date de reprise : l’abonnement redémarre tout seul ce jour-là.',
+        'À la création, « Déjà suivi ? » prévient si un abonnement du même service ou du même nom existe.',
+        'Quand une nouvelle version attend, « Mise à jour disponible » apparaît dans À propos.',
+        'En réorganisant les tuiles, la page défile toute seule près des bords.',
+      ],
+      en: [
+        'Backup reminder in the alerts centre when your data has not been exported for a month; last backup date in Settings.',
+        'Pausing can set a resume date: the subscription restarts on its own that day.',
+        'When creating, “Already tracked?” warns if a subscription with the same service or name exists.',
+        'When a new version is waiting, “Update available” shows in About.',
+        'While rearranging tiles, the page scrolls on its own near the edges.',
+      ],
+    },
+  },
+  {
     version: '1.0.2',
     date: '2026-09-13',
     notes: {
