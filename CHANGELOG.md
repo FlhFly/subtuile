@@ -7,6 +7,13 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Pause avec date de reprise automatique (2026-09-13)
+
+#### Ajouté
+- Fiche › « Mettre en pause » ouvre un dialogue avec une date de reprise facultative (champ
+  calendrier, postérieure à aujourd'hui) ; l'abonnement redémarre tout seul ce jour-là (EF-06,
+  avancé du lot 5). Sans date, la pause dure jusqu'à « Reprendre ».
+
 ### Rangée « Mise à jour disponible » dans À propos (2026-09-13)
 
 #### Ajouté

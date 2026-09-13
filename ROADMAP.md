@@ -170,7 +170,7 @@ version dans l'app.
 | EF-71 [S] | Usage déclaré & coût réel par utilisation | ⬜ |
 | EF-72 [S] | Suggestions d'économies (annuel vs mensuel, canal moins cher) via les formules du catalogue | ⬜ |
 | EF-73 [S] | Import de relevé bancaire CSV : détection locale des récurrences, doublons, ajout groupé | ⬜ |
-| EF-06 | Pause avec date de reprise automatique | ⬜ |
+| EF-06 | Pause avec date de reprise automatique | ✅ 2026-09-13 (v1.0.3 : date de reprise facultative choisie au moment de la pause ; la reprise automatique existait depuis le lot 3) |
 | EF-13b [S] | Journal « Derniers paiements » sur la fiche | ⬜ |
 | EF-43 [S] | Historique des dépenses étendu à 24 mois | ⬜ |
 | EF-44b [S] | Vue « Foyer & partage » | ⬜ |

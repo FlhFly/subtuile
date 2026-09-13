@@ -648,6 +648,11 @@ export const fr = {
   'reglages.apropos.version': 'Subtuile {version}',
   'reglages.apropos.maj': 'Mise à jour disponible',
   'reglages.apropos.maj.sous': 'Appuyez pour recharger avec la nouvelle version',
+  'fiche.pause.titre': 'Mettre {nom} en pause',
+  'fiche.pause.repriseLe': 'Reprise automatique le',
+  'fiche.pause.aide':
+    'Facultatif : sans date, l’abonnement reste en pause jusqu’à ce que vous le repreniez.',
+  'erreur.dateFuture': 'Doit être postérieure à aujourd’hui',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',

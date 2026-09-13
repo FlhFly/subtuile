@@ -5,6 +5,7 @@ import {
   aujourdhui,
   comparerDates,
   dateLimiteResiliation,
+  estDateISO,
   finEngagement,
   joursAvant,
   montantMensuel,
@@ -75,6 +76,9 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const moyensPaiement = useMoyensPaiement();
   const { parId: services } = useCatalogue();
   const [confirmation, setConfirmation] = useState(false);
+  /* EF-06 : pause avec reprise automatique à une date facultative */
+  const [pauseDialogue, setPauseDialogue] = useState(false);
+  const [repriseLe, setRepriseLe] = useState('');
   const [prixOuvert, setPrixOuvert] = useState(false);
   const { preferences } = usePreferences();
   const { devise: deviseAffichage, convertir } = useConversion();
@@ -111,15 +115,31 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
       toast.afficher(t('toast.actionAnnulee'));
     },
   });
-  const basculerPause = async () => {
+  const reprendre = async () => {
+    const precedent = statut;
+    await changerStatut(storage, id, { type: 'actif' }, jour);
+    toast.afficherAvecAction(t('toast.repris'), annulation(precedent));
+  };
+  const erreurReprise =
+    repriseLe === ''
+      ? undefined
+      : !estDateISO(repriseLe)
+        ? t('erreur.date')
+        : comparerDates(repriseLe, jour) <= 0
+          ? t('erreur.dateFuture')
+          : undefined;
+  const mettreEnPause = async () => {
+    if (erreurReprise) return;
     const precedent = statut;
     await changerStatut(
       storage,
       id,
-      enPause ? { type: 'actif' } : { type: 'en_pause', repriseLe: null },
+      { type: 'en_pause', repriseLe: repriseLe === '' ? null : repriseLe },
       jour,
     );
-    toast.afficherAvecAction(t(enPause ? 'toast.repris' : 'toast.pause'), annulation(precedent));
+    setPauseDialogue(false);
+    setRepriseLe('');
+    toast.afficherAvecAction(t('toast.pause'), annulation(precedent));
   };
   const basculerArchive = async () => {
     const precedent = statut;
@@ -412,7 +432,10 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
               <button
                 type="button"
                 className={styles.boutonSecondaire}
-                onClick={() => void basculerPause()}
+                onClick={() => {
+                  if (enPause) void reprendre();
+                  else setPauseDialogue(true);
+                }}
               >
                 {t(enPause ? 'fiche.reprendre' : 'fiche.pause')}
               </button>
@@ -452,6 +475,46 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
           </button>
         </section>
       </div>
+
+      {pauseDialogue ? (
+        <div className={styles.voile} role="presentation" onClick={() => setPauseDialogue(false)}>
+          <div
+            className={styles.dialogue}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pause-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="pause-titre" className={styles.dialogueTitre}>
+              {t('fiche.pause.titre', { nom: abo.nom })}
+            </h2>
+            <ChampDate
+              libelle={t('fiche.pause.repriseLe')}
+              aide={t('fiche.pause.aide')}
+              erreur={erreurReprise}
+              valeur={repriseLe}
+              onChange={setRepriseLe}
+            />
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.boutonSecondaire}
+                onClick={() => setPauseDialogue(false)}
+              >
+                {t('commun.annuler')}
+              </button>
+              <button
+                type="button"
+                className={styles.boutonPrincipal}
+                disabled={erreurReprise !== undefined}
+                onClick={() => void mettreEnPause()}
+              >
+                {t('fiche.pause')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {confirmation ? (
         <div className={styles.voile} role="presentation" onClick={() => setConfirmation(false)}>

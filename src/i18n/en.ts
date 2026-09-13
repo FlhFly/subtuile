@@ -636,6 +636,11 @@ export const en: Dictionnaire = {
   'reglages.apropos.version': 'Subtuile {version}',
   'reglages.apropos.maj': 'Update available',
   'reglages.apropos.maj.sous': 'Tap to reload with the new version',
+  'fiche.pause.titre': 'Pause {nom}',
+  'fiche.pause.repriseLe': 'Resume automatically on',
+  'fiche.pause.aide':
+    'Optional: without a date, the subscription stays paused until you resume it.',
+  'erreur.dateFuture': 'Must be after today',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',
