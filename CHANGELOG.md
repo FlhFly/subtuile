@@ -7,7 +7,12 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.3.
+### Délais d'alerte par défaut en listes dépliées (2026-09-13)
+
+#### Corrigé
+- Réglages › Alertes par défaut : les quatre délais se choisissent dans une liste dépliée,
+  comme Devise ou Langue, à la même taille que le reste (retour FlhFly : le sélecteur natif
+  s'affichait plus gros sur iPhone, où les champs passent à 16 px).
 
 ## [1.0.3] — 2026-09-13 — petites améliorations validées le 2026-09-13
 

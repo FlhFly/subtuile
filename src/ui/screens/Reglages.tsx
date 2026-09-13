@@ -51,7 +51,8 @@ const CHOIX_ESSAI = [1, 2, 3, 7] as const;
 const CHOIX_PREAVIS = [7, 14, 30] as const;
 const CHOIX_CARTE = [1, 2, 3] as const;
 
-type Depliant = 'devise' | 'langue' | 'formatDate' | null;
+type Depliant =
+  'devise' | 'langue' | 'formatDate' | 'echeance' | 'essai' | 'preavis' | 'carte' | null;
 
 /**
  * Réglages (§7.7, écran 7 de la maquette) : apparence (EF-17), défauts
@@ -150,33 +151,53 @@ export function Reglages({
 
       <Section titre={t('reglages.alertes')}>
         <Carte>
-          <RangeeSelect
+          <RangeeChoix
             libelle={t('reglages.alertes.renouvellement')}
             choix={CHOIX_ECHEANCE}
             valeur={preferences.alertes.echeanceJours}
             format={jours}
-            onChange={(echeanceJours) => modifierAlertes({ echeanceJours })}
+            ouvert={depliant === 'echeance'}
+            onBasculer={() => basculer('echeance')}
+            onChange={(echeanceJours) => {
+              modifierAlertes({ echeanceJours });
+              setDepliant(null);
+            }}
           />
-          <RangeeSelect
+          <RangeeChoix
             libelle={t('reglages.alertes.essai')}
             choix={CHOIX_ESSAI}
             valeur={preferences.alertes.essaiJours}
             format={jours}
-            onChange={(essaiJours) => modifierAlertes({ essaiJours })}
+            ouvert={depliant === 'essai'}
+            onBasculer={() => basculer('essai')}
+            onChange={(essaiJours) => {
+              modifierAlertes({ essaiJours });
+              setDepliant(null);
+            }}
           />
-          <RangeeSelect
+          <RangeeChoix
             libelle={t('reglages.alertes.preavis')}
             choix={CHOIX_PREAVIS}
             valeur={preferences.alertes.preavisJours}
             format={jours}
-            onChange={(preavisJours) => modifierAlertes({ preavisJours })}
+            ouvert={depliant === 'preavis'}
+            onBasculer={() => basculer('preavis')}
+            onChange={(preavisJours) => {
+              modifierAlertes({ preavisJours });
+              setDepliant(null);
+            }}
           />
-          <RangeeSelect
+          <RangeeChoix
             libelle={t('reglages.alertes.carte')}
             choix={CHOIX_CARTE}
             valeur={preferences.alertes.carteMois}
             format={mois}
-            onChange={(carteMois) => modifierAlertes({ carteMois })}
+            ouvert={depliant === 'carte'}
+            onBasculer={() => basculer('carte')}
+            onChange={(carteMois) => {
+              modifierAlertes({ carteMois });
+              setDepliant(null);
+            }}
           />
         </Carte>
         <p className={styles.note}>{t('reglages.alertes.note')}</p>
@@ -470,37 +491,46 @@ function Carte({ children }: { children: ReactNode }) {
   return <div className={styles.carte}>{children}</div>;
 }
 
-/** Rangée « libellé + sélecteur » des défauts d'alerte ; une valeur hors liste reste proposée. */
-function RangeeSelect({
+/**
+ * Rangée des défauts d'alerte, dépliée en options comme Devise ou Langue (un
+ * sélecteur natif s'affichait plus gros que le reste sur iPhone) ; une valeur
+ * hors liste reste proposée.
+ */
+function RangeeChoix({
   libelle,
   choix,
   valeur,
   format,
+  ouvert,
+  onBasculer,
   onChange,
 }: {
   libelle: string;
   choix: readonly number[];
   valeur: number;
   format: (n: number) => string;
+  ouvert: boolean;
+  onBasculer: () => void;
   onChange: (n: number) => void;
 }) {
   const options = choix.includes(valeur) ? choix : [...choix, valeur].sort((a, b) => a - b);
   return (
-    <div className={styles.rangeeCompacte}>
-      <span className={styles.libelle}>{libelle}</span>
-      <select
-        className={styles.select}
-        aria-label={libelle}
-        value={valeur}
-        onChange={(e) => onChange(Number(e.target.value))}
-      >
-        {options.map((n) => (
-          <option key={n} value={n}>
-            {format(n)}
-          </option>
-        ))}
-      </select>
-    </div>
+    <RangeeDepliante
+      libelle={libelle}
+      valeur={format(valeur)}
+      ouvert={ouvert}
+      onBasculer={onBasculer}
+    >
+      {options.map((n) => (
+        <Option
+          key={n}
+          libelle={format(n)}
+          actif={n === valeur}
+          icone={null}
+          onChoisir={() => onChange(n)}
+        />
+      ))}
+    </RangeeDepliante>
   );
 }
 
