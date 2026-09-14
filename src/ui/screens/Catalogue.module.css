@@ -158,6 +158,7 @@
   color: var(--muted);
 }
 
+.envoyer,
 .supprimer {
   display: flex;
   align-items: center;

@@ -7,7 +7,22 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.10.
+Aucune modification depuis la version 1.0.11.
+
+## [1.0.11] — 2026-09-14 — proposition de service par e-mail, dialogue des retours
+
+### Proposition de service envoyée à l'auteur ; dialogue des retours réagencé (2026-09-14)
+
+#### Ajouté
+- Catalogue › « Proposer un service » : après l'ajout local, le toast propose « Envoyer par
+  e-mail » ; chaque entrée de « Mes services » porte aussi un bouton enveloppe. La messagerie
+  s'ouvre vers `contact@subtuile.com` avec nom, catégorie et adresse pré-remplis (retour
+  FlhFly) ; rien n'est envoyé par l'app. Adresse de contact partagée dans `src/data/contact.ts`.
+
+#### Corrigé
+- Réglages › « Un bug, une idée ? » : les libellés débordaient des boutons ; actions empilées
+  sur une colonne (Signaler un bug, Proposer une idée, Annuler), liens stylés comme des boutons.
+
 
 ## [1.0.10] — 2026-09-14 — catalogue vérifié (lot 5, cloud et productivité)
 

@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.23 — 14/09/2026 (devise facultative des formules du catalogue §3.4)
+**Version :** 1.24 — 14/09/2026 (proposition de service envoyée par e-mail à l'auteur, EF-09)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -135,7 +135,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-07 [S]** — Duplication d'un abonnement existant.
 - **EF-08 [S]** — Historique des prix avec saisie d'une hausse à date.
 - **EF-08b [S]** — Prix futur programmé : saisie d'une hausse annoncée { date, montant } ; alerte à l'approche, application automatique à la date, versement dans l'historique des prix. *(ajouté en v1.9)*
-- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)*
+- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)* Envoi facultatif par e-mail à l'auteur pour le catalogue commun, message pré-rempli, rien n'est envoyé par l'app *(v1.24)*.
 
 ### 4.2 Tuiles et navigation
 

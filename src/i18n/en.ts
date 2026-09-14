@@ -399,7 +399,12 @@ export const en: Dictionnaire = {
   'catalogue.proposer.url': 'Management / cancellation address (optional)',
   'catalogue.proposer.url.ph': 'https://…',
   'catalogue.proposer.note':
-    'Colour and initials are generated automatically. The entry joins the local catalogue (“My services” group) and becomes available when creating a subscription.',
+    'Colour and initials are generated automatically. The entry joins the local catalogue (“My services” group) and becomes available when creating a subscription. You can also e-mail it to the author for the shared catalogue.',
+  'catalogue.mesServices.envoyer': 'Suggest for the shared catalogue by e-mail',
+  'toast.serviceEnvoyer': 'Send by e-mail',
+  'retours.sujet.service': '[Subtuile {version}] Service suggestion: {nom}',
+  'retours.corps.service':
+    'Service: {nom}\nCategory: {categorie}\nManagement address: {url}\n\nKnown plans, prices and billing periods (optional):\n\n—\nSubtuile {version} · {appareil} · language {langue}',
   'catalogue.proposer.ajouter': 'Add to the catalogue',
   'catalogue.supprimer': 'Delete',
   'toast.serviceAjoute': 'Service added to the catalogue',

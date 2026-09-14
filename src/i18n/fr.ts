@@ -407,7 +407,12 @@ export const fr = {
   'catalogue.proposer.url': 'Adresse de gestion / résiliation (optionnel)',
   'catalogue.proposer.url.ph': 'https://…',
   'catalogue.proposer.note':
-    'Couleur et initiales générées automatiquement. L’entrée rejoint le catalogue local (groupe « Mes services ») et devient utilisable à la création.',
+    'Couleur et initiales générées automatiquement. L’entrée rejoint le catalogue local (groupe « Mes services ») et devient utilisable à la création. Vous pourrez aussi l’envoyer par e-mail à l’auteur pour le catalogue commun.',
+  'catalogue.mesServices.envoyer': 'Proposer au catalogue commun par e-mail',
+  'toast.serviceEnvoyer': 'Envoyer par e-mail',
+  'retours.sujet.service': '[Subtuile {version}] Proposition de service : {nom}',
+  'retours.corps.service':
+    'Service : {nom}\nCatégorie : {categorie}\nAdresse de gestion : {url}\n\nFormules, tarifs et périodicités connus (facultatif) :\n\n—\nSubtuile {version} · {appareil} · langue {langue}',
   'catalogue.proposer.ajouter': 'Ajouter au catalogue',
   'catalogue.supprimer': 'Supprimer',
   'toast.serviceAjoute': 'Service ajouté au catalogue',

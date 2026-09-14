@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.11',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : un service que vous proposez peut aussi être envoyé par e-mail à l’auteur, pour rejoindre le catalogue de tous.',
+        'Le dialogue « Un bug, une idée ? » est réagencé : un bouton par ligne, plus de texte qui déborde.',
+      ],
+      en: [
+        'Catalog: a service you suggest can also be e-mailed to the author, to join everyone’s catalog.',
+        '“A bug, an idea?” dialog rearranged: one button per line, no more overflowing text.',
+      ],
+    },
+  },
+  {
     version: '1.0.10',
     date: '2026-09-14',
     notes: {

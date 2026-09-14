@@ -1,5 +1,6 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
+import { ADRESSE_CONTACT } from '../../data/contact';
 import { nouveautesNonVues } from '../../data/notesDeVersion';
 import { decrireAppareil, lienRetour, type TypeRetour } from '../../domain/retours';
 import { exporterJson, nomFichierExport } from '../../data/importExport';
@@ -45,11 +46,8 @@ const VERSION_APP = __APP_VERSION__;
 const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 /** Page de don (Ko-fi) : ouverte dans un nouvel onglet, aucune ressource externe chargée dans l'app */
 const URL_DON = 'https://ko-fi.com/M1G426XAKZ';
-/**
- * Adresse des retours utilisateurs (bugs, idées), choisie par FlhFly : e-mail, sans compte
- * ni service tiers. Mise à null, la rangée disparaît (§4.7, rien de factice).
- */
-const ADRESSE_RETOURS: string | null = 'contact@subtuile.com';
+/** Retours utilisateurs (bugs, idées) par e-mail ; mise à null, la rangée disparaît (§4.7). */
+const ADRESSE_RETOURS: string | null = ADRESSE_CONTACT;
 
 /** Choix proposés pour les défauts d'alerte (EF-30), en jours puis en mois. */
 const CHOIX_ECHEANCE = [1, 2, 3, 7, 14] as const;
@@ -387,20 +385,20 @@ export function Reglages({
               {t('reglages.retours.titre')}
             </h2>
             <p className={styles.sous}>{t('reglages.retours.texte')}</p>
-            <div className={styles.dialogueActions}>
+            <div className={styles.dialogueActionsColonne}>
+              <a className={styles.dialoguePrincipal} href={lienRetours('bug')}>
+                {t('reglages.retours.bug')}
+              </a>
+              <a className={styles.dialogueSecondaire} href={lienRetours('idee')}>
+                {t('reglages.retours.idee')}
+              </a>
               <button
                 type="button"
-                className={styles.dialogueSecondaire}
+                className={styles.dialogueLien}
                 onClick={() => setRetoursOuvert(false)}
               >
                 {t('commun.annuler')}
               </button>
-              <a className={styles.dialogueSecondaire} href={lienRetours('idee')}>
-                {t('reglages.retours.idee')}
-              </a>
-              <a className={styles.dialoguePrincipal} href={lienRetours('bug')}>
-                {t('reglages.retours.bug')}
-              </a>
             </div>
           </div>
         </div>

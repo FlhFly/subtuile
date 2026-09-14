@@ -1,4 +1,6 @@
 import { useMemo, useState } from 'react';
+import { ADRESSE_CONTACT } from '../../data/contact';
+import { decrireAppareil, lienRetour } from '../../domain/retours';
 import {
   enregistrerServicePersonnalise,
   restaurerServicePersonnalise,
@@ -29,6 +31,8 @@ import { useToast } from '../contexts/ToastContext';
 import { useCatalogue } from '../hooks/useCatalogue';
 import styles from './Catalogue.module.css';
 
+const VERSION_APP = __APP_VERSION__;
+
 interface Props {
   onRetour: () => void;
   /** « Utiliser » : ouvre la création pré-remplie avec ce service (EF-02) */
@@ -41,7 +45,7 @@ interface Props {
  * tête, puis les services préchargés par catégorie.
  */
 export function Catalogue({ onRetour, onUtiliser }: Props) {
-  const { t, tn, date } = useI18n();
+  const { t, tn, date, langue } = useI18n();
   const storage = useStorage();
   const toast = useToast();
   const { catalogue } = useCatalogue();
@@ -65,10 +69,29 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
     });
   };
 
+  /** E-mail pré-rempli vers l'auteur pour proposer le service au catalogue commun (rien n'est envoyé par l'app). */
+  const lienProposition = (s: Service) =>
+    lienRetour(
+      ADRESSE_CONTACT,
+      t('retours.sujet.service', { version: VERSION_APP, nom: s.nom }),
+      t('retours.corps.service', {
+        nom: s.nom,
+        categorie: t(`categorie.${s.categorie}`),
+        url: s.urlGestion ?? '—',
+        version: VERSION_APP,
+        appareil: decrireAppareil(window.navigator.userAgent, window.navigator.maxTouchPoints),
+        langue,
+      }),
+    );
+
   const proposer = async (etat: FormulaireServicePersonnalise) => {
-    await enregistrerServicePersonnalise(storage, creerServicePersonnalise(etat));
+    const service = creerServicePersonnalise(etat);
+    await enregistrerServicePersonnalise(storage, service);
     setPropositionOuverte(false);
-    toast.afficher(t('toast.serviceAjoute'));
+    toast.afficherAvecAction(t('toast.serviceAjoute'), {
+      libelle: t('toast.serviceEnvoyer'),
+      executer: () => window.location.assign(lienProposition(service)),
+    });
   };
 
   const ligne = (s: Service, personnalise: boolean) => (
@@ -87,6 +110,16 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
           {s.urlGestion ?? s.contactResiliation ?? t(`categorie.${s.categorie}`)}
         </span>
       </span>
+      {personnalise ? (
+        <a
+          className={styles.envoyer}
+          href={lienProposition(s)}
+          aria-label={`${t('catalogue.mesServices.envoyer')} — ${s.nom}`}
+          title={t('catalogue.mesServices.envoyer')}
+        >
+          <Icone nom="courrier" taille={14} />
+        </a>
+      ) : null}
       {personnalise ? (
         <button
           type="button"

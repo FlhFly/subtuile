@@ -318,12 +318,42 @@
   gap: 8px;
 }
 
+/* Variante en colonne (dialogue des retours) : libellés longs, un bouton par ligne */
+.dialogueActionsColonne {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
 .dialogueSecondaire,
-.dialogueDanger {
+.dialogueDanger,
+.dialoguePrincipal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
   flex: 1;
   height: 44px;
+  padding: 0 12px;
   border-radius: var(--r-xl);
   font-size: 13.5px;
+  font-weight: var(--fw-bold);
+  text-align: center;
+  text-decoration: none;
+}
+
+.dialoguePrincipal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.dialogueLien {
+  align-self: center;
+  padding: 6px 12px;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 13px;
   font-weight: var(--fw-bold);
 }
 
@@ -340,7 +370,9 @@
 }
 
 .dialogueSecondaire:focus-visible,
-.dialogueDanger:focus-visible {
+.dialogueDanger:focus-visible,
+.dialoguePrincipal:focus-visible,
+.dialogueLien:focus-visible {
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
