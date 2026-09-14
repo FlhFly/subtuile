@@ -1,5 +1,5 @@
 {
-  "version": 6,
+  "version": 7,
   "publieLe": "2026-09-14",
   "data": [
     {
@@ -1325,7 +1325,7 @@
         {
           "id": "chatgpt_plus_direct",
           "nom": "Plus — direct",
-          "prix": 20,
+          "prix": 23,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -1343,9 +1343,32 @@
             "intervalle": 1
           },
           "canal": "app_store"
+        },
+        {
+          "id": "chatgpt_go",
+          "nom": "Go",
+          "prix": 8,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "chatgpt_pro",
+          "nom": "Pro",
+          "prix": 229,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "gemini",
@@ -1365,11 +1388,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "gemini_ai_pro",
+          "nom": "Google AI Pro",
+          "prix": 21.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "copilot",
@@ -1389,11 +1425,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "copilot_pro",
+          "nom": "Copilot Pro",
+          "prix": 22,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "ghcopilot",
@@ -1404,7 +1453,7 @@
         "type": "initiales",
         "valeur": "GH"
       },
-      "urlGestion": "https://github.com/settings/billing",
+      "urlGestion": "https://github.com/settings/billing/summary",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -1413,11 +1462,37 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "ghcopilot_pro",
+          "nom": "Pro",
+          "prix": 10,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "ghcopilot_pro_plus",
+          "nom": "Pro+",
+          "prix": 39,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "midjourney",
@@ -1435,13 +1510,116 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "midjourney_basic",
+          "nom": "Basic",
+          "prix": 10,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_basic_annuel",
+          "nom": "Basic — annuel",
+          "prix": 96,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_standard",
+          "nom": "Standard",
+          "prix": 30,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_standard_annuel",
+          "nom": "Standard — annuel",
+          "prix": 288,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_pro",
+          "nom": "Pro",
+          "prix": 60,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_pro_annuel",
+          "nom": "Pro — annuel",
+          "prix": 576,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_mega",
+          "nom": "Mega",
+          "prix": 120,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "midjourney_mega_annuel",
+          "nom": "Mega — annuel",
+          "prix": 1152,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "perplexity",
@@ -1459,13 +1637,56 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "perplexity_pro",
+          "nom": "Pro",
+          "prix": 20,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "perplexity_pro_annuel",
+          "nom": "Pro — annuel",
+          "prix": 200,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "perplexity_max",
+          "nom": "Max",
+          "prix": 200,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "mistral",
@@ -1485,11 +1706,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "mistral_pro",
+          "nom": "Pro",
+          "prix": 17.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "icloud",

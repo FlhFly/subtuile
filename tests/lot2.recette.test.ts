@@ -192,12 +192,15 @@ describe('recette lot 2 — moyens de paiement et désabonnement (CdC §6)', () 
     expect(appStoreSeulement(service('icloud'))).toBe(true);
     expect(canalParDefaut(service('icloud'))).toBe('app_store');
     expect(appStoreSeulement(service('chatgpt'))).toBe(false);
-    const formuleStore = service('chatgpt').formules.find((f) => f.id === 'chatgpt_plus_app_store');
-    expect(comparaisonCanaux(service('chatgpt'), formuleStore)).toMatchObject({
-      direct: { id: 'chatgpt_plus_direct', prix: 20 },
-      store: { id: 'chatgpt_plus_app_store', prix: 23 },
-      ecart: 3,
+    const formuleStore = service('youtube').formules.find(
+      (f) => f.id === 'youtube_mensuel_app_store',
+    );
+    const comparaison = comparaisonCanaux(service('youtube'), formuleStore);
+    expect(comparaison).toMatchObject({
+      direct: { id: 'youtube_mensuel', prix: 12.99 },
+      store: { id: 'youtube_mensuel_app_store', prix: 16.99 },
     });
+    expect(comparaison?.ecart).toBeCloseTo(4, 6);
     expect(tuile('netflix').compteur).toMatchObject({
       type: 'echeance',
       jours: 4,

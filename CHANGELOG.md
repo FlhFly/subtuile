@@ -7,7 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.8.
+Aucune modification depuis la version 1.0.9.
+
+## [1.0.9] — 2026-09-14 — catalogue vérifié (lot 4, IA), devise des formules
+
+### Catalogue v7 — lot 4, la catégorie IA revue (2026-09-14)
+
+#### Ajouté
+- Devise facultative sur les formules du catalogue (`Formule.devise`, euros par défaut,
+  CdC v1.23) : les services facturés en dollars (GitHub Copilot, Midjourney, Perplexity)
+  affichent leurs tarifs en dollars, et le formulaire convertit depuis cette devise vers la
+  devise du réglage aux taux indicatifs.
+
+#### Modifié
+- Formules ajoutées ou revues et `verifieLe` posé : ChatGPT (Go 8 €, Plus 23 € TTC, Pro
+  229 €), Google AI Pro (21,99 €), Microsoft Copilot Pro (22 €), GitHub Copilot (Pro 10 $,
+  Pro+ 39 $, page officielle), Midjourney (Basic 10 $ à Mega 120 $, annuels), Perplexity (Pro
+  20 $ ou 200 $/an, Max 200 $), Le Chat Mistral (Pro 17,99 € TTC). Claude revu au lot 1.
+  Sites fermés aux robots (OpenAI, Midjourney, Perplexity) : sources concordantes.
+- Adresse de facturation GitHub corrigée (`github.com/settings/billing/summary`).
+- Catalogue en version 7 ; rapport régénéré.
+
 
 ## [1.0.8] — 2026-09-14 — catalogue vérifié (lot 3, musique)
 

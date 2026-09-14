@@ -7,6 +7,7 @@ import {
   appStoreSeulement,
   comparaisonCanaux,
   detacherDuCatalogue,
+  deviseFormule,
   preRemplirDepuisService,
   servicesPourSelection,
   suggestionsCatalogue,
@@ -140,10 +141,10 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const { catalogue, parId: services } = useCatalogue();
   const { devise: deviseDefaut, taux, convertir } = useConversion();
   const jour = aujourdhui();
-  /** tarifs du catalogue (en euros) convertis dans la devise du réglage, qui reste sélectionnée */
+  /** tarifs du catalogue (euros, ou dollars pour certains services) convertis dans la devise du réglage, qui reste sélectionnée */
   const cibleDevise: CibleDevise = {
     devise: deviseDefaut,
-    depuisEur: (montant) => convertir(montant, 'EUR'),
+    convertir: (montant, de) => convertir(montant, de),
   };
 
   /** état d'ouverture, référence de la garde contre la perte de saisie */
@@ -358,7 +359,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   ];
   const formulesCatalogue = (service?.formules ?? []).map((f) => ({
     valeur: f.id,
-    libelle: `${f.nom} · ${montant(f.prix)}`,
+    libelle: `${f.nom} · ${montant(f.prix, deviseFormule(f))}`,
   }));
   /* « Autre » : aucune formule du catalogue ne convient (ex. offre absente), prix et formule saisis à la main */
   const optionsFormules =
@@ -592,8 +593,8 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
               {comparaison ? (
                 <p className={styles.noteDirect}>
                   {t('edition.direct.note', {
-                    direct: montant(comparaison.direct.prix),
-                    store: montant(comparaison.store.prix),
+                    direct: montant(comparaison.direct.prix, deviseFormule(comparaison.direct)),
+                    store: montant(comparaison.store.prix, deviseFormule(comparaison.store)),
                     canal: t(`canal.${comparaison.store.canal}`),
                   })}
                 </p>

@@ -31,6 +31,7 @@ const CATEGORIES = [
 ];
 const CANAUX = ['direct', 'app_store', 'google_play'];
 const MODES = ['lien', 'espace_client', 'telephone', 'courrier_recommande'];
+const DEVISES = ['EUR', 'USD', 'GBP', 'CHF'];
 const DELAI_MS = 12000;
 const PARALLELE = 6;
 const UA =
@@ -70,6 +71,9 @@ function controlerStructure(services) {
       idsFormules.add(f.id);
       if (!(f.prix > 0)) p(`formule « ${f.id} » : prix non positif`);
       if (!CANAUX.includes(f.canal)) p(`formule « ${f.id} » : canal inconnu « ${f.canal} »`);
+      if (f.devise !== undefined && !DEVISES.includes(f.devise)) {
+        p(`formule « ${f.id} » : devise inconnue « ${f.devise} »`);
+      }
       if (!(s.periodicitesConnues || []).some((q) => memePeriodicite(q, f.periodicite))) {
         p(`formule « ${f.id} » : périodicité absente des périodicités connues`);
       }

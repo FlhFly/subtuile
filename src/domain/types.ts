@@ -266,6 +266,8 @@ export interface Formule {
   prix: number;
   periodicite: Periodicite;
   canal: CanalAchat;
+  /** devise de facturation (v1.23) ; absente = euros */
+  devise?: Devise;
 }
 
 export interface Service {

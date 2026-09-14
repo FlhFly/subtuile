@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.22 — 14/09/2026 (vérification du catalogue : `verifieLe` §3.4 ; retours utilisateurs par e-mail §7.9)
+**Version :** 1.23 — 14/09/2026 (devise facultative des formules du catalogue §3.4)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -102,7 +102,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | urlGestion | page de gestion/résiliation du service |
 | deepLinks | variantes selon canal d'achat (voir §5.3) |
 | periodicitesConnues | pré-remplissage à la création |
-| formules *(v1.11)* | liste : `{ id, nom, prix, periodicite, canal }` — les offres du service (ex. Netflix Essentiel/Standard/Premium ; tarif direct vs App Store). Remplace le champ tarifsIndicatifs. En V1, une seule formule par service suffit ; le schéma en accepte plusieurs sans migration. Les `id` de services et de formules sont **stables** : jamais renommés, jamais réutilisés — ils deviennent un contrat (formuleId des abonnements, futur catalogue distant) |
+| formules *(v1.11)* | liste : `{ id, nom, prix, periodicite, canal, devise? }` *(v1.23 : `devise` facultative, euros par défaut, pour les services facturés en dollars ; le formulaire convertit depuis cette devise)* — les offres du service (ex. Netflix Essentiel/Standard/Premium ; tarif direct vs App Store). Remplace le champ tarifsIndicatifs. En V1, une seule formule par service suffit ; le schéma en accepte plusieurs sans migration. Les `id` de services et de formules sont **stables** : jamais renommés, jamais réutilisés — ils deviennent un contrat (formuleId des abonnements, futur catalogue distant) |
 | verifieLe *(v1.22)* | date ISO facultative — dernière revue manuelle des données du service (adresse, formules, tarifs) ; `scripts/verifier-catalogue.cjs` contrôle la structure, teste les adresses et produit `docs/catalogue-verification.md` |
 
 Le catalogue porte des métadonnées globales *(v1.11)* : `catalogueVersion` (entier incrémenté à chaque publication) et `publieLe` (date de fraîcheur des tarifs, affichable : « tarifs indicatifs au JJ/MM/AAAA »).

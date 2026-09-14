@@ -70,6 +70,9 @@ const memePeriodicite = (a: Periodicite, b: Periodicite): boolean =>
     b.type !== 'recurrente' ||
     (a.unite === b.unite && a.intervalle === b.intervalle));
 
+/** Nom d'une formule sans son suffixe de canal (« Individuel — App Store » → « individuel »). */
+const nomDeBase = (f: Formule): string => (f.nom.split(' — ')[0] ?? f.nom).trim().toLowerCase();
+
 export interface ComparaisonCanaux {
   direct: Formule;
   store: Formule;
@@ -89,9 +92,11 @@ export function comparaisonCanaux(
   const stores = service.formules.filter((f) => f.canal !== 'direct');
   const candidats = formuleChoisie ? [formuleChoisie] : stores;
   for (const store of candidats) {
-    const direct = service.formules
+    const directs = service.formules
       .filter((f) => f.canal === 'direct' && memePeriodicite(f.periodicite, store.periodicite))
-      .sort((a, b) => a.prix - b.prix)[0];
+      .sort((a, b) => a.prix - b.prix);
+    /* même offre en direct si elle existe (« Plus — direct » pour « Plus — App Store »), sinon la moins chère */
+    const direct = directs.find((f) => nomDeBase(f) === nomDeBase(store)) ?? directs[0];
     if (direct && direct.prix < store.prix) {
       return { direct, store, ecart: store.prix - direct.prix };
     }
@@ -101,13 +106,19 @@ export function comparaisonCanaux(
 
 /**
  * Devise de saisie visée (réglage « Devise ») : les tarifs du catalogue, en
- * euros, y sont convertis aux taux indicatifs pour que la sélection reste sur la
- * devise de l'utilisateur (EF-45b). Sans cible, le tarif reste en euros.
+ * euros sauf mention (`Formule.devise`), y sont convertis aux taux indicatifs
+ * pour que la sélection reste sur la devise de l'utilisateur (EF-45b). Sans
+ * cible, le tarif reste dans sa devise.
  */
 export interface CibleDevise {
   devise: Devise;
-  /** conversion d'un montant en euros vers `devise`, arrondie au centime */
-  depuisEur: (montant: number) => number;
+  /** conversion d'un montant depuis la devise `de` vers `devise`, arrondie au centime */
+  convertir: (montant: number, de: Devise) => number;
+}
+
+/** Devise de facturation d'une formule (euros par défaut). */
+export function deviseFormule(formule: Pick<Formule, 'devise'>): Devise {
+  return formule.devise ?? 'EUR';
 }
 
 /** Texte de prix d'une formule dans la devise cible (« 13,49 » → « 14,66 » en USD). */
@@ -115,8 +126,11 @@ export function prixFormule(
   formule: Formule,
   cible?: CibleDevise,
 ): { prix: string; devise: Devise } {
-  const montant = cible ? Math.round(cible.depuisEur(formule.prix) * 100) / 100 : formule.prix;
-  return { prix: String(montant).replace('.', ','), devise: cible?.devise ?? 'EUR' };
+  const source = deviseFormule(formule);
+  const montant = cible
+    ? Math.round(cible.convertir(formule.prix, source) * 100) / 100
+    : formule.prix;
+  return { prix: String(montant).replace('.', ','), devise: cible?.devise ?? source };
 }
 
 /**

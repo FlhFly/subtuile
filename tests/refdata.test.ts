@@ -20,7 +20,7 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
   });
 
   it('contient le catalogue complet de la maquette v6 (annexe A) : 79 services, 10 catégories', () => {
-    expect(CATALOGUE_EMBARQUE.version).toBe(6);
+    expect(CATALOGUE_EMBARQUE.version).toBe(7);
     expect(CATALOGUE_EMBARQUE.data).toHaveLength(79);
     const ids = CATALOGUE_EMBARQUE.data.map((s) => s.id);
     const attendus = [
@@ -153,11 +153,11 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
     }
   });
 
-  it('illustre EF-02 : ChatGPT est moins cher en direct que via l’App Store', () => {
-    const chatgpt = trouverService(CATALOGUE_EMBARQUE, 'chatgpt');
-    expect(chatgpt).toBeDefined();
-    const direct = trouverFormule(chatgpt!, 'chatgpt_plus_direct');
-    const store = trouverFormule(chatgpt!, 'chatgpt_plus_app_store');
+  it('illustre EF-02 : YouTube Premium est moins cher en direct que via l’App Store', () => {
+    const youtube = trouverService(CATALOGUE_EMBARQUE, 'youtube');
+    expect(youtube).toBeDefined();
+    const direct = trouverFormule(youtube!, 'youtube_mensuel');
+    const store = trouverFormule(youtube!, 'youtube_mensuel_app_store');
     expect(direct?.canal).toBe('direct');
     expect(store?.canal).toBe('app_store');
     expect(direct!.prix).toBeLessThan(store!.prix);

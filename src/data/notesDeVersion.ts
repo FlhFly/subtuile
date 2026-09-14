@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.9',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : services d’IA revus (ChatGPT, Gemini, Copilot, GitHub Copilot, Midjourney, Perplexity, Mistral) ; les tarifs en dollars sont affichés en dollars.',
+      ],
+      en: [
+        'Catalog: AI services reviewed (ChatGPT, Gemini, Copilot, GitHub Copilot, Midjourney, Perplexity, Mistral); dollar prices are shown in dollars.',
+      ],
+    },
+  },
+  {
     version: '1.0.8',
     date: '2026-09-14',
     notes: {

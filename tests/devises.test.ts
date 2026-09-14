@@ -2,7 +2,7 @@ import { describe, expect, it } from 'vitest';
 import { TAUX_EMBARQUES } from '../src/data/refdata/RefDataProvider';
 import { calculerAlertes } from '../src/domain/alertes';
 import { ALERTES_DEFAUT } from '../src/data/preferences';
-import { appliquerFormule, preRemplirDepuisService } from '../src/domain/catalogue';
+import { appliquerFormule, preRemplirDepuisService, prixFormule } from '../src/domain/catalogue';
 import { CATALOGUE_EMBARQUE } from '../src/data/refdata/RefDataProvider';
 import {
   contientAutreDevise,
@@ -21,7 +21,7 @@ import {
   validerFormulaire,
 } from '../src/domain/formulaire';
 import { modeleTuile } from '../src/domain/tuile';
-import { DEVISES, PERIODICITES, type Abonnement } from '../src/domain/types';
+import { DEVISES, PERIODICITES, type Abonnement, type Devise } from '../src/domain/types';
 
 const JOUR = '2026-09-12';
 const taux = TAUX_EMBARQUES.data;
@@ -87,7 +87,7 @@ describe('devises (EF-45, EF-45b)', () => {
     // avec une devise cible (réglage), le tarif est converti et la devise du réglage reste sélectionnée
     const cible = {
       devise: 'USD' as const,
-      depuisEur: (m: number) => convertir(m, 'EUR', 'USD', taux),
+      convertir: (m: number, de: Devise) => convertir(m, de, 'USD', taux),
     };
     const enDollars = preRemplirDepuisService(
       formulaireVide(JOUR, 'USD'),
@@ -103,10 +103,28 @@ describe('devises (EF-45, EF-45b)', () => {
       devise: 'USD',
       prix: enDollars.prix,
     });
-    expect(appliquerFormule(f, formule, { devise: 'EUR', depuisEur: (m) => m })).toMatchObject({
+    expect(appliquerFormule(f, formule, { devise: 'EUR', convertir: (m) => m })).toMatchObject({
       devise: 'EUR',
       prix: String(formule.prix).replace('.', ','),
     });
+  });
+
+  it('une formule facturée en dollars garde ses dollars, ou se convertit depuis le dollar', () => {
+    const formuleUsd = {
+      id: 'x',
+      nom: 'X',
+      prix: 10,
+      periodicite: PERIODICITES.mensuelle,
+      canal: 'direct' as const,
+      devise: 'USD' as const,
+    };
+    expect(prixFormule(formuleUsd)).toEqual({ prix: '10', devise: 'USD' });
+    const enEuros = prixFormule(formuleUsd, {
+      devise: 'EUR',
+      convertir: (m, de) => convertir(m, de, 'EUR', taux),
+    });
+    expect(enEuros.devise).toBe('EUR');
+    expect(Number(enEuros.prix.replace(',', '.'))).toBeCloseTo(10 / taux.taux.USD, 2);
   });
 
   it('la devise suit l’abonnement sur la tuile, dans les alertes et l’échéancier', () => {

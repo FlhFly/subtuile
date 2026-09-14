@@ -145,6 +145,9 @@ function validerFormule(v: unknown, chemin: string): Formule {
     prix: nombre(o.prix, `${chemin}.prix`),
     periodicite: validerPeriodicite(o.periodicite, `${chemin}.periodicite`),
     canal: parmi(o.canal, CANAUX_ACHAT, `${chemin}.canal`),
+    ...(o.devise === undefined
+      ? {}
+      : { devise: parmi(o.devise, DEVISES_AFFICHAGE, `${chemin}.devise`) }),
   };
 }
 

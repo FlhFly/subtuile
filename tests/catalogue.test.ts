@@ -136,25 +136,37 @@ describe('pré-remplissage depuis le catalogue (EF-02)', () => {
     const abo = abonnementDepuisFormulaire(f, { jour: JOUR });
     expect(abo.serviceId).toBe('chatgpt');
     expect(abo.formuleId).toBe('chatgpt_plus_direct');
-    expect(abo.prix).toBe(20);
+    expect(abo.prix).toBe(23);
   });
 });
 
 describe('comparaison des canaux (EF-02, « souvent moins cher en direct »)', () => {
-  it('ChatGPT : la formule App Store a un équivalent direct moins cher', () => {
-    const chatgpt = service('chatgpt');
-    const store = trouverFormule(chatgpt, 'chatgpt_plus_app_store')!;
-    expect(comparaisonCanaux(chatgpt, store)).toEqual({
-      direct: trouverFormule(chatgpt, 'chatgpt_plus_direct'),
+  it('YouTube Premium : la formule App Store a un équivalent direct moins cher', () => {
+    const youtube = service('youtube');
+    const store = trouverFormule(youtube, 'youtube_mensuel_app_store')!;
+    const comparaison = comparaisonCanaux(youtube, store);
+    expect(comparaison).toMatchObject({
+      direct: trouverFormule(youtube, 'youtube_mensuel'),
       store,
-      ecart: 3,
     });
+    expect(comparaison?.ecart).toBeCloseTo(4, 6);
     // sans formule choisie : première paire trouvée
-    expect(comparaisonCanaux(chatgpt)?.ecart).toBe(3);
+    expect(comparaisonCanaux(youtube)?.ecart).toBeCloseTo(4, 6);
     // formule directe choisie : rien à signaler
+    expect(comparaisonCanaux(youtube, trouverFormule(youtube, 'youtube_mensuel'))).toBeUndefined();
+  });
+
+  it('la même offre en direct est préférée à une formule moins chère d’un autre palier', () => {
+    const chatgpt = service('chatgpt');
+    // Plus — App Store (23 €) contre Plus — direct (23 €) : rien à signaler, Go (8 €) n'est pas un équivalent
     expect(
-      comparaisonCanaux(chatgpt, trouverFormule(chatgpt, 'chatgpt_plus_direct')),
+      comparaisonCanaux(chatgpt, trouverFormule(chatgpt, 'chatgpt_plus_app_store')),
     ).toBeUndefined();
+    const youtube = service('youtube');
+    // Individuel — App Store contre Individuel, pas contre Premium Lite
+    expect(
+      comparaisonCanaux(youtube, trouverFormule(youtube, 'youtube_mensuel_app_store'))?.direct.id,
+    ).toBe('youtube_mensuel');
   });
 
   it('services sans double canal ou sans formule : rien', () => {
