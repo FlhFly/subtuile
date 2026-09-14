@@ -163,7 +163,7 @@ version dans l'app.
 | Retours FlhFly du 2026-09-13 (suite) : délais d'alerte en listes dépliées ; langue en tête de l'onboarding ; formule libre et option « Autre » ; catalogue v3 (Claude Max) | ✅ 2026-09-13 (v1.0.4) |
 | Canal de retours utilisateurs (bugs, idées) : e-mail `contact@subtuile.com` (domaine subtuile.com acheté par FlhFly) ; rangée « Signaler un bug ou proposer une idée » dans À propos | ✅ 2026-09-14 (v1.0.6) |
 | Domaine personnalisé subtuile.com (GitHub Pages, `public/CNAME`, build à la racine) ; ancienne adresse redirigée | ✅ 2026-09-14 |
-| Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | 🔄 script et rapport livrés ; lot 1 « populaires » (12 services, catalogue v4) et lot 2 « streaming » (13 services, catalogue v5) revus le 2026-09-14 ; lots suivants par catégorie |
+| Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | 🔄 script et rapport livrés ; lot 1 « populaires » (12 services, catalogue v4) , lot 2 « streaming » (13 services, catalogue v5) et lot 3 « musique » (7 services, catalogue v6) revus le 2026-09-14 ; lots suivants par catégorie |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

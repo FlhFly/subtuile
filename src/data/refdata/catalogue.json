@@ -1,5 +1,5 @@
 {
-  "version": 5,
+  "version": 6,
   "publieLe": "2026-09-14",
   "data": [
     {
@@ -1017,11 +1017,46 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "applemusic_individuel",
+          "nom": "Individuel",
+          "prix": 11.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "applemusic_famille",
+          "nom": "Familial",
+          "prix": 19.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "applemusic_etudiant",
+          "nom": "Étudiant",
+          "prix": 6.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "amazonmusic",
@@ -1041,11 +1076,46 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "amazonmusic_individuel",
+          "nom": "Unlimited Individuel",
+          "prix": 12.14,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "amazonmusic_individuel_prime",
+          "nom": "Unlimited Individuel — membres Prime",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "amazonmusic_famille",
+          "nom": "Unlimited Famille",
+          "prix": 21.24,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "ytmusic",
@@ -1056,7 +1126,7 @@
         "type": "initiales",
         "valeur": "YM"
       },
-      "urlGestion": "https://youtube.com/paid_memberships",
+      "urlGestion": "https://music.youtube.com/paid_memberships",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -1089,11 +1159,35 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "tidal_individuel",
+          "nom": "Individuel",
+          "prix": 12.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "tidal_famille",
+          "nom": "Famille",
+          "prix": 21.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "audible",
@@ -1113,11 +1207,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "audible_mensuel",
+          "nom": "Audible",
+          "prix": 9.95,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "claude",

@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.8',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : services de musique revus (Apple Music, Amazon Music, Tidal, Audible) ; formules Famille et Étudiant ajoutées.',
+      ],
+      en: [
+        'Catalog: music services reviewed (Apple Music, Amazon Music, Tidal, Audible); Family and Student plans added.',
+      ],
+    },
+  },
+  {
     version: '1.0.7',
     date: '2026-09-14',
     notes: {

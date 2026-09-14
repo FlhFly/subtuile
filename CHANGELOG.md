@@ -7,7 +7,20 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.7.
+Aucune modification depuis la version 1.0.8.
+
+## [1.0.8] — 2026-09-14 — catalogue vérifié (lot 3, musique)
+
+### Catalogue v6 — lot 3, la catégorie musique revue (2026-09-14)
+
+#### Modifié
+- Formules ajoutées et `verifieLe` posé : Apple Music (Individuel 11,99 €, Familial 19,99 €,
+  Étudiant 6,99 €, page officielle), Amazon Music Unlimited (Individuel 12,14 €, membres Prime
+  10,99 €, Famille 21,24 €), Tidal (Individuel 12,99 €, Famille 21,99 €, tarifs d'août 2026),
+  Audible (9,95 €). YouTube Music : tarifs non confirmés sur une page officielle, formules laissées vides ; adresse de gestion YouTube Music sur `music.youtube.com`. Spotify et
+  Deezer revus au lot 1. Sites fermés aux robots (Amazon, Tidal, Audible) : sources concordantes.
+- Catalogue en version 6 ; rapport régénéré.
+
 
 ## [1.0.7] — 2026-09-14 — catalogue vérifié (lot 2, streaming)
 
