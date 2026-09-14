@@ -3,7 +3,7 @@
 Suivi d'abonnements et de contrats récurrents. Gratuit, open source,
 hors ligne, zéro tracking : vos données ne quittent jamais votre appareil.
 
-**Application : <https://flhfly.github.io/subtuile/>** — s'installe sur l'écran d'accueil et
+**Application : <https://subtuile.com>** — s'installe sur l'écran d'accueil et
 fonctionne sans réseau.
 
 - 🗂 Tuiles avec compteur de renouvellement, ordre personnalisé
@@ -18,7 +18,7 @@ fonctionne sans réseau.
 fil des retours (voir « Nouveautés » dans l'app). Lot 5 « Pilotage » à venir.**
 
 ## Installation
-Subtuile est un site web installable (PWA). Ouvrez <https://flhfly.github.io/subtuile/> puis :
+Subtuile est un site web installable (PWA). Ouvrez <https://subtuile.com> puis :
 
 - **Android (Chrome)** : menu ⋮ → « Installer l'application », ou la rangée « Installer
   l'application » dans Réglages › À propos.
@@ -67,7 +67,7 @@ Stack : React 18, Vite, TypeScript strict, Dexie (IndexedDB), date-fns, vite-plu
 Règles d'architecture et méthode de travail : [CLAUDE.md](CLAUDE.md).
 
 Déploiement : chaque push sur `main` lance [deploy.yml](.github/workflows/deploy.yml) (lint,
-tests, build avec `--base=/subtuile/`) et pousse `dist/` sur la branche `gh-pages`, servie par
+tests, build) et pousse `dist/` (avec le fichier `CNAME`) sur la branche `gh-pages`, servie par
 GitHub Pages. Prérequis, une seule fois : Settings › Pages du dépôt, source « Deploy from a
 branch », branche `gh-pages`, dossier `/ (root)`.
 

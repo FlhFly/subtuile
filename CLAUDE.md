@@ -5,7 +5,8 @@ PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
 **docs/CdC.md (v1.22) fait foi** sur le périmètre ; docs/maquette-v6.html
 est la référence visuelle (référence, PAS une base de code).
-En ligne : https://flhfly.github.io/subtuile/ (GitHub Pages, déployé par
+En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
+public/CNAME, déployé par
 .github/workflows/deploy.yml à chaque push sur main : build puis push de
 dist/ sur la branche gh-pages, publiée par Pages en « Deploy from a branch »).
 
@@ -67,7 +68,7 @@ maquette). Pas d'autre dépendance sans validation.
 ## Commandes
 npm run dev · npm run test · npm run typecheck · npm run lint · npm run format · npm run build ·
 node scripts/generer-icones.cjs (régénère les icônes PWA de public/icons/) ·
-déploiement sous un sous-chemin : vite build --base=/chemin/
+build servi à la racine du domaine (aucun --base)
 
 ## Definition of done (toute étape)
 Tests verts + lint OK + conforme au CdC + i18n complet + CHANGELOG.md et

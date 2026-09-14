@@ -144,7 +144,7 @@ Déroulé en 8 étapes (un commit validé par étape), validé par FlhFly le 202
 | EF-51 [M] / §5.2 | PWA : manifest, service worker, 100 % hors ligne | ✅ lot 4 étape 6 (vite-plugin-pwa : précache complet du bundle, toast de mise à jour, invite d'installation, icônes générées) |
 | §7.7 / §7.9 | Réglages complets (export/import, Confidentialité, Automatisation, tout effacer) et écran À propos | ✅ Automatisation (lot 3 étape 6), « Effacer toutes les données » (lot 4, avancé sur demande), export / import (étape 4), À propos (étape 6 : dépôt public, installation) et « Revoir l'introduction » (étape 7) livrés ; « Soutenir le projet » livré le 2026-09-13 avec le lien Ko-fi |
 | — | Réglage « Format de date » (JJ/MM/AAAA, MM/JJ/AAAA, AAAA-MM-JJ) pour l'affichage et la saisie (demande FlhFly du 2026-09-12) | ✅ livré au lot 3 le 2026-09-12 (réglage + champ `ChampDate`) ; repris dans l'onboarding (lot 4 étape 7) |
-| — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ✅ 2026-09-13 — <https://flhfly.github.io/subtuile/> via `.github/workflows/deploy.yml` ; README finalisé |
+| — | Mise en ligne (GitHub Pages ou Netlify), README finalisé | ✅ 2026-09-13 — <https://subtuile.com> (domaine personnalisé depuis le 2026-09-14, anciennement flhfly.github.io/subtuile) via `.github/workflows/deploy.yml` ; README finalisé |
 
 ## Après la v1.0.0 — corrections et améliorations (avant le lot 5)
 
