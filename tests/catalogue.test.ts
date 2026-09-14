@@ -61,7 +61,7 @@ describe('pré-remplissage depuis le catalogue (EF-02)', () => {
       formuleId: 'netflix_standard_pub',
       nom: 'Netflix',
       categorie: 'streaming',
-      prix: '6,99',
+      prix: '7,99',
       urlGestion: 'https://www.netflix.com/cancelplan',
       canalAchat: 'direct',
       modeResiliation: 'lien',
@@ -102,11 +102,11 @@ describe('pré-remplissage depuis le catalogue (EF-02)', () => {
       trouverFormule(strava, 'strava_annuel'),
     );
     expect(f.preset).toBe('annuelle');
-    expect(f.prix).toBe('79,99');
+    expect(f.prix).toBe('59,99');
     const mensuel = appliquerFormule(f, trouverFormule(strava, 'strava_mensuel')!);
     expect(mensuel).toMatchObject({
       preset: 'mensuelle',
-      prix: '11,99',
+      prix: '9,99',
       formuleId: 'strava_mensuel',
     });
   });

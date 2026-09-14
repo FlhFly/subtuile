@@ -7,6 +7,21 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Catalogue v4 — lot 1, les douze services populaires revus (2026-09-14)
+
+#### Modifié
+- Tarifs revus sur les pages officielles (ou sources concordantes quand le site est fermé aux
+  robots) et `verifieLe` posé : Netflix (Standard avec pub 7,99 €), Disney+ (avec pub 6,99 €,
+  Standard 10,99 €, annuels 109,90 € et 159,90 €), Spotify (12,14 €, Duo 17,20 €, Famille
+  21,24 €, Étudiant 7,07 €), Deezer (Premium 11,99 € ou 107,99 €/an, Duo, Famille, Étudiant :
+  aucune formule auparavant), YouTube Premium (Individuel 12,99 €, App Store 16,99 €, Lite
+  7,99 €, Famille 29,99 €), iCloud+ (6 To et 12 To ajoutés), Strava (annuel 59,99 €, mensuel
+  9,99 €, Famille et Étudiant), Amazon Prime, Claude et Dropbox confirmés.
+- Canal+ : adresse de l'espace client corrigée (`client.canalplus.com`) ; tarifs non
+  vérifiables, formule inchangée. ChatGPT : page tarifaire inaccessible, formules inchangées.
+- Catalogue en version 4, tarifs indicatifs au 14/09/2026 ; rapport
+  `docs/catalogue-verification.md` régénéré.
+
 ### Vérification du catalogue : script et rapport ; retours par e-mail (2026-09-14)
 
 #### Ajouté

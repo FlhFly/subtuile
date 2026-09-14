@@ -1,6 +1,6 @@
 {
-  "version": 3,
-  "publieLe": "2026-09-13",
+  "version": 4,
+  "publieLe": "2026-09-14",
   "data": [
     {
       "id": "netflix",
@@ -24,7 +24,7 @@
         {
           "id": "netflix_standard_pub",
           "nom": "Standard avec pub",
-          "prix": 6.99,
+          "prix": 7.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -55,7 +55,8 @@
           "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "prime",
@@ -104,7 +105,8 @@
           "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "disney",
@@ -135,7 +137,7 @@
         {
           "id": "disney_standard_pub",
           "nom": "Standard avec pub",
-          "prix": 5.99,
+          "prix": 6.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -146,10 +148,21 @@
         {
           "id": "disney_standard",
           "nom": "Standard",
-          "prix": 11.99,
+          "prix": 10.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "disney_standard_annuel",
+          "nom": "Standard — annuel",
+          "prix": 109.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
             "intervalle": 1
           },
           "canal": "direct"
@@ -164,9 +177,21 @@
             "intervalle": 1
           },
           "canal": "direct"
+        },
+        {
+          "id": "disney_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 159.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "hbomax",
@@ -227,7 +252,7 @@
         "type": "initiales",
         "valeur": "C+"
       },
-      "urlGestion": "https://espaceclient.canalplus.com",
+      "urlGestion": "https://client.canalplus.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -335,7 +360,9 @@
         "valeur": "YT"
       },
       "urlGestion": "https://youtube.com/paid_memberships",
-      "deepLinks": {},
+      "deepLinks": {
+        "app_store": "itms-apps://apps.apple.com/account/subscriptions"
+      },
       "periodicitesConnues": [
         {
           "type": "recurrente",
@@ -346,8 +373,41 @@
       "formules": [
         {
           "id": "youtube_mensuel",
-          "nom": "Mensuel",
+          "nom": "Individuel",
           "prix": 12.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "youtube_mensuel_app_store",
+          "nom": "Individuel — App Store",
+          "prix": 16.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "youtube_lite",
+          "nom": "Premium Lite (sans YouTube Music)",
+          "prix": 7.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "youtube_famille",
+          "nom": "Famille",
+          "prix": 29.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -359,7 +419,8 @@
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "molotov",
@@ -455,7 +516,7 @@
         {
           "id": "spotify_premium",
           "nom": "Premium",
-          "prix": 11.12,
+          "prix": 12.14,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -466,7 +527,29 @@
         {
           "id": "spotify_duo",
           "nom": "Premium Duo",
-          "prix": 15.24,
+          "prix": 17.2,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "spotify_famille",
+          "nom": "Premium Famille",
+          "prix": 21.24,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "spotify_etudiant",
+          "nom": "Premium Étudiant",
+          "prix": 7.07,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -475,7 +558,8 @@
           "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "deezer",
@@ -493,13 +577,75 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "deezer_premium",
+          "nom": "Premium",
+          "prix": 11.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "deezer_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 107.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "deezer_duo",
+          "nom": "Duo",
+          "prix": 15.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "deezer_famille",
+          "nom": "Famille",
+          "prix": 19.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "deezer_etudiant",
+          "nom": "Étudiant",
+          "prix": 5.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "applemusic",
@@ -694,7 +840,8 @@
           "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "chatgpt",
@@ -940,9 +1087,32 @@
             "intervalle": 1
           },
           "canal": "app_store"
+        },
+        {
+          "id": "icloud_6to",
+          "nom": "6 To",
+          "prix": 29.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "icloud_12to",
+          "nom": "12 To",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "googleone",
@@ -1015,7 +1185,8 @@
           "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "ms365",
@@ -1286,7 +1457,7 @@
         {
           "id": "strava_annuel",
           "nom": "Strava — annuel",
-          "prix": 79.99,
+          "prix": 59.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "an",
@@ -1297,16 +1468,39 @@
         {
           "id": "strava_mensuel",
           "nom": "Strava — mensuel",
-          "prix": 11.99,
+          "prix": 9.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
             "intervalle": 1
           },
           "canal": "direct"
+        },
+        {
+          "id": "strava_famille_annuel",
+          "nom": "Famille (4 comptes) — annuel",
+          "prix": 99.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "strava_etudiant_annuel",
+          "nom": "Étudiant — annuel",
+          "prix": 29.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
         }
       ],
-      "populaire": true
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "basicfit",
