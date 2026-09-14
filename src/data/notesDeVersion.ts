@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.5',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : tarifs des douze services les plus courants revus sur les pages officielles ; formules Famille, Étudiant et annuelles ajoutées.',
+        'Adresse de l’espace client Canal+ corrigée.',
+      ],
+      en: [
+        'Catalog: prices of the twelve most common services checked on official pages; Family, Student and yearly plans added.',
+        'Canal+ customer area address fixed.',
+      ],
+    },
+  },
+  {
     version: '1.0.4',
     date: '2026-09-13',
     notes: {

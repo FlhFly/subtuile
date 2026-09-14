@@ -7,6 +7,10 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.5.
+
+## [1.0.5] — 2026-09-14 — catalogue vérifié (lot 1) et outils de suivi
+
 ### Catalogue v4 — lot 1, les douze services populaires revus (2026-09-14)
 
 #### Modifié
