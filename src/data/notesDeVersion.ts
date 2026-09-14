@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.6',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Nouvelle adresse : subtuile.com. Si l’app venait de l’ancienne adresse, exportez vos données, désinstallez-la et réinstallez-la depuis subtuile.com.',
+        'Réglages › À propos : « Signaler un bug ou proposer une idée » ouvre votre messagerie vers contact@subtuile.com, message pré-rempli.',
+      ],
+      en: [
+        'New address: subtuile.com. If the app came from the old address, export your data, uninstall it and reinstall it from subtuile.com.',
+        'Settings › About: “Report a bug or suggest an idea” opens your mail app to contact@subtuile.com with a prefilled message.',
+      ],
+    },
+  },
+  {
     version: '1.0.5',
     date: '2026-09-14',
     notes: {

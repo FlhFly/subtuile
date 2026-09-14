@@ -47,9 +47,9 @@ const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 const URL_DON = 'https://ko-fi.com/M1G426XAKZ';
 /**
  * Adresse des retours utilisateurs (bugs, idées), choisie par FlhFly : e-mail, sans compte
- * ni service tiers. Tant qu'elle est vide, la rangée n'apparaît pas (§4.7, rien de factice).
+ * ni service tiers. Mise à null, la rangée disparaît (§4.7, rien de factice).
  */
-const ADRESSE_RETOURS: string | null = null;
+const ADRESSE_RETOURS: string | null = 'contact@subtuile.com';
 
 /** Choix proposés pour les défauts d'alerte (EF-30), en jours puis en mois. */
 const CHOIX_ECHEANCE = [1, 2, 3, 7, 14] as const;

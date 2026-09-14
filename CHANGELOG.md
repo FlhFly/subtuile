@@ -7,6 +7,18 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.6.
+
+## [1.0.6] — 2026-09-14 — subtuile.com et retours par e-mail
+
+### Retours utilisateurs par e-mail (2026-09-14)
+
+#### Ajouté
+- Réglages › À propos › « Signaler un bug ou proposer une idée » : la rangée est active, vers
+  `contact@subtuile.com` (adresse dédiée choisie par FlhFly, sans compte ni formulaire). Deux
+  boutons, bug ou idée, ouvrent la messagerie avec sujet et corps pré-remplis (version,
+  appareil, langue) ; l'app n'envoie rien elle-même.
+
 ### Domaine subtuile.com (2026-09-14)
 
 #### Modifié
