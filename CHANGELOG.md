@@ -11,9 +11,9 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 #### Modifié
 - L'application est servie sur <https://subtuile.com> (domaine personnalisé GitHub Pages) ;
-  l'ancienne adresse redirige. Fichier  copié à la racine de  à
-  chaque build ; build à la racine (plus d'option ), manifeste et service worker
-  suivent ( et  sur ).
+  l'ancienne adresse redirige. Fichier `public/CNAME` copié à la racine de `gh-pages` à
+  chaque build ; build à la racine (plus d'option `--base`), manifeste et service worker
+  suivent (`start_url` et `scope` sur `/`).
 - **Note pour les utilisateurs** : une app installée depuis l'ancienne adresse
   (flhfly.github.io/subtuile) reste figée en version 1.0.5, son service worker ne pouvant plus
   se mettre à jour après la redirection. Il faut la désinstaller puis la réinstaller depuis
