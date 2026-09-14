@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.10',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : cloud et productivité revus (Google One, Microsoft 365, pCloud, kDrive, Adobe, Canva, Notion, 1Password, Bitwarden) ; formules à jour.',
+      ],
+      en: [
+        'Catalog: cloud and productivity reviewed (Google One, Microsoft 365, pCloud, kDrive, Adobe, Canva, Notion, 1Password, Bitwarden); plans updated.',
+      ],
+    },
+  },
+  {
     version: '1.0.9',
     date: '2026-09-14',
     notes: {

@@ -7,7 +7,26 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.9.
+Aucune modification depuis la version 1.0.10.
+
+## [1.0.10] — 2026-09-14 — catalogue vérifié (lot 5, cloud et productivité)
+
+### Catalogue v8 — lot 5, cloud et productivité revus (2026-09-14)
+
+#### Modifié
+- Formules ajoutées et `verifieLe` posé : Google One (100 Go 1,99 €, 200 Go 2,99 €, Google AI
+  Plus 2 To 9,99 €), Microsoft 365 (Personnel 10 € ou 99 €/an, Famille 13 € ou 129 €/an,
+  Premium 22 € ou 219 €/an), kDrive Solo 2 To (5,54 €), pCloud (500 Go 49,99 €/an, 2 To
+  99,99 €/an, 10 To 299,99 €/an), Adobe Creative Cloud (Photographie 23,99 €, application
+  unique 26,21 €, Standard 62,47 €, Pro 78,62 €), Canva Pro (12,99 € ou 110 €/an), Notion
+  (Plus 9,50 €, Business 19,50 € par utilisateur), 1Password (Individuel 47,88 $/an, Familles
+  71,88 $/an), Bitwarden (Premium 19,80 $/an, Familles 47,88 $/an). Pages officielles pour
+  Google, Microsoft, Adobe, Notion, 1Password, Bitwarden ; sources concordantes sinon.
+- Dashlane (Premium 59,88 €/an) et LinkedIn Premium (Career 39,99 €, Business 59,99 €) :
+  formules indicatives sans date de vérification, sources divergentes.
+- Adresse de gestion pCloud corrigée (`my.pcloud.com`). Catalogue en version 8 ; rapport
+  régénéré.
+
 
 ## [1.0.9] — 2026-09-14 — catalogue vérifié (lot 4, IA), devise des formules
 
@@ -26,6 +45,9 @@ Aucune modification depuis la version 1.0.9.
   20 $ ou 200 $/an, Max 200 $), Le Chat Mistral (Pro 17,99 € TTC). Claude revu au lot 1.
   Sites fermés aux robots (OpenAI, Midjourney, Perplexity) : sources concordantes.
 - Adresse de facturation GitHub corrigée (`github.com/settings/billing/summary`).
+- « Souvent moins cher en direct » : la même offre en direct est préférée à une formule moins
+  chère d'un autre palier (YouTube Individuel plutôt que Premium Lite) ; l'exemple des tests
+  passe de ChatGPT à YouTube Premium.
 - Catalogue en version 7 ; rapport régénéré.
 
 

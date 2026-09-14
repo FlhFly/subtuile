@@ -1,5 +1,5 @@
 {
-  "version": 7,
+  "version": 8,
   "publieLe": "2026-09-14",
   "data": [
     {
@@ -1823,11 +1823,46 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "googleone_100go",
+          "nom": "Basic 100 Go",
+          "prix": 1.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "googleone_200go",
+          "nom": "Standard 200 Go",
+          "prix": 2.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "googleone_2to",
+          "nom": "Google AI Plus 2 To",
+          "prix": 9.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "dropbox",
@@ -1895,13 +1930,86 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "ms365_personnel",
+          "nom": "Personnel",
+          "prix": 10,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ms365_personnel_annuel",
+          "nom": "Personnel — annuel",
+          "prix": 99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ms365_famille",
+          "nom": "Famille",
+          "prix": 13,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ms365_famille_annuel",
+          "nom": "Famille — annuel",
+          "prix": 129,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ms365_premium",
+          "nom": "Premium",
+          "prix": 22,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ms365_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 219,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "kdrive",
@@ -1921,11 +2029,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "kdrive_solo",
+          "nom": "Solo 2 To — engagement 1 an",
+          "prix": 5.54,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "pcloud",
@@ -1936,20 +2057,60 @@
         "type": "initiales",
         "valeur": "pC"
       },
-      "urlGestion": "https://pcloud.com",
+      "urlGestion": "https://my.pcloud.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "pcloud_500go_annuel",
+          "nom": "Premium 500 Go — annuel",
+          "prix": 49.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "pcloud_2to_annuel",
+          "nom": "Premium Plus 2 To — annuel",
+          "prix": 99.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "pcloud_10to_annuel",
+          "nom": "Ultra 10 To — annuel",
+          "prix": 299.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "adobe",
@@ -1969,11 +2130,57 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "adobe_photo",
+          "nom": "Photographie",
+          "prix": 23.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "adobe_app_unique",
+          "nom": "Application unique (Photoshop, Illustrator…)",
+          "prix": 26.21,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "adobe_standard",
+          "nom": "Creative Cloud Standard (toutes les applications)",
+          "prix": 62.47,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "adobe_pro",
+          "nom": "Creative Cloud Pro (toutes les applications)",
+          "prix": 78.62,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "canva",
@@ -1991,13 +2198,42 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "canva_pro",
+          "nom": "Pro",
+          "prix": 12.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "canva_pro_annuel",
+          "nom": "Pro — annuel",
+          "prix": 110,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "notion",
@@ -2017,11 +2253,35 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "notion_plus",
+          "nom": "Plus",
+          "prix": 9.5,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "notion_business",
+          "nom": "Business",
+          "prix": 19.5,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "notion.so → réglages",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "onepass",
@@ -2039,13 +2299,44 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "onepass_individuel_annuel",
+          "nom": "Individuel — annuel",
+          "prix": 47.88,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "onepass_familles_annuel",
+          "nom": "Familles — annuel",
+          "prix": 71.88,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "bitwarden",
@@ -2063,13 +2354,44 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "bitwarden_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 19.8,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "bitwarden_familles_annuel",
+          "nom": "Familles — annuel",
+          "prix": 47.88,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "dashlane",
@@ -2087,9 +2409,26 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "dashlane_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 59.88,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
@@ -2113,7 +2452,30 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "linkedin_career",
+          "nom": "Premium Career",
+          "prix": 39.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "linkedin_business",
+          "nom": "Premium Business",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
