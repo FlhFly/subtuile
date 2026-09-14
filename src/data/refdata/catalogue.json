@@ -1,5 +1,5 @@
 {
-  "version": 4,
+  "version": 5,
   "publieLe": "2026-09-14",
   "data": [
     {
@@ -209,13 +209,86 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "hbomax_basic_pub",
+          "nom": "Basic avec pub",
+          "prix": 6.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "hbomax_basic_pub_annuel",
+          "nom": "Basic avec pub — annuel",
+          "prix": 69.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "hbomax_standard",
+          "nom": "Standard",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "hbomax_standard_annuel",
+          "nom": "Standard — annuel",
+          "prix": 109,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "hbomax_premium",
+          "nom": "Premium",
+          "prix": 15.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "hbomax_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 159,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "appletv",
@@ -237,11 +310,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "appletv_mensuel",
+          "nom": "Apple TV+",
+          "prix": 9.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "canal",
@@ -264,8 +350,41 @@
       "formules": [
         {
           "id": "canal_essentiel",
-          "nom": "Canal+ — engagement 24 mois",
-          "prix": 22.99,
+          "nom": "Canal+ — sans engagement",
+          "prix": 24.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "canal_cine_series",
+          "nom": "Ciné Séries — sans engagement",
+          "prix": 34.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "canal_sport",
+          "nom": "Sport — sans engagement",
+          "prix": 39.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "canal_totale",
+          "nom": "La Totale — engagement 24 mois",
+          "prix": 75.99,
           "periodicite": {
             "type": "recurrente",
             "unite": "mois",
@@ -275,8 +394,9 @@
         }
       ],
       "modeResiliation": "espace_client",
-      "contactResiliation": "https://espaceclient.canalplus.com",
-      "populaire": true
+      "contactResiliation": "https://client.canalplus.com",
+      "populaire": true,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "paramount",
@@ -294,13 +414,64 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "paramount_standard",
+          "nom": "Standard",
+          "prix": 7.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "paramount_standard_annuel",
+          "nom": "Standard — annuel",
+          "prix": 79.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "paramount_premium",
+          "nom": "Premium",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "paramount_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 97.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "crunchy",
@@ -311,20 +482,71 @@
         "type": "initiales",
         "valeur": "Cr"
       },
-      "urlGestion": "https://crunchyroll.com/account/membership",
+      "urlGestion": "https://www.crunchyroll.com/fr/account/membership",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "crunchy_fan",
+          "nom": "Fan",
+          "prix": 6.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "crunchy_fan_annuel",
+          "nom": "Fan — annuel",
+          "prix": 69.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "crunchy_megafan",
+          "nom": "Mega Fan",
+          "prix": 8.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "crunchy_megafan_annuel",
+          "nom": "Mega Fan — annuel",
+          "prix": 89.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "adn",
@@ -342,13 +564,53 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "adn_starter",
+          "nom": "Starter (720p, 1 écran)",
+          "prix": 3.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "adn_premium",
+          "nom": "Premium",
+          "prix": 6.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "adn_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "youtube",
@@ -431,20 +693,71 @@
         "type": "initiales",
         "valeur": "Mo"
       },
-      "urlGestion": "https://molotov.tv",
+      "urlGestion": "https://www.molotov.tv/account",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "molotov_extra",
+          "nom": "Extra",
+          "prix": 6.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "molotov_extra_annuel",
+          "nom": "Extra — annuel",
+          "prix": 39.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "molotov_extended",
+          "nom": "Extended",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "molotov_extended_annuel",
+          "nom": "Extended — annuel",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "dazn",
@@ -455,7 +768,7 @@
         "type": "initiales",
         "valeur": "DZ"
       },
-      "urlGestion": "https://dazn.com",
+      "urlGestion": "https://www.dazn.com/fr-FR/myaccount",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -464,11 +777,35 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "dazn_seul",
+          "nom": "DAZN",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "dazn_ligue1",
+          "nom": "DAZN + Ligue 1+ — sans engagement",
+          "prix": 27.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "bein",
@@ -479,7 +816,7 @@
         "type": "initiales",
         "valeur": "bS"
       },
-      "urlGestion": "https://beinsports.com",
+      "urlGestion": "https://www.beinsports.com/fr-fr/mon-compte",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -488,11 +825,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "bein_connect",
+          "nom": "beIN SPORTS Connect — sans engagement",
+          "prix": 14.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-14"
     },
     {
       "id": "spotify",

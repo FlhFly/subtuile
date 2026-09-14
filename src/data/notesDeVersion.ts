@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.7',
+    date: '2026-09-14',
+    notes: {
+      fr: [
+        'Catalogue : services de streaming revus (HBO Max, Canal+, Paramount+, Crunchyroll, ADN, Molotov, DAZN, beIN, Apple TV+) ; formules et adresses à jour.',
+      ],
+      en: [
+        'Catalog: streaming services reviewed (HBO Max, Canal+, Paramount+, Crunchyroll, ADN, Molotov, DAZN, beIN, Apple TV+); plans and addresses updated.',
+      ],
+    },
+  },
+  {
     version: '1.0.6',
     date: '2026-09-14',
     notes: {

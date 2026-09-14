@@ -1,41 +1,41 @@
 # Vérification du catalogue
 
-Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalogue v4, tarifs indicatifs au 2026-09-14.
+Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalogue v5, tarifs indicatifs au 2026-09-14.
 
 ## Résumé
 
-- 79 services, 42 formules ; 66 services sans formule ; 10 services revus manuellement (`verifieLe`).
+- 79 services, 70 formules ; 58 services sans formule ; 19 services revus manuellement (`verifieLe`).
 - Structure : aucun problème.
-- Réseau : 70 adresses testées, 45 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
+- Réseau : 70 adresses testées, 44 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
 
 ## Services
 
 | Service | Catégorie | Formules | Adresse de gestion | Réponse | Vérifié le |
 |---|---|---|---|---|---|
-| Netflix ★ (`netflix`) | streaming | 3 | <https://www.netflix.com/cancelplan> | OK | 2026-09-14 |
+| Netflix ★ (`netflix`) | streaming | 3 | <https://www.netflix.com/cancelplan> | injoignable (ECONNRESET) | 2026-09-14 |
 | Amazon Prime ★ (`prime`) | streaming | 2 | <https://www.amazon.fr/mc> | injoignable (ECONNRESET) | 2026-09-14 |
 | Disney+ ★ (`disney`) | streaming | 5 | <https://www.disneyplus.com/account> | OK | 2026-09-14 |
-| HBO Max (`hbomax`) | streaming | 0 | <https://hbomax.com/account> | injoignable (ECONNRESET) | — |
-| Apple TV+ (`appletv`) | streaming | 0 | — | — (lien profond) | — |
-| Canal+ ★ (`canal`) | streaming | 1 | <https://client.canalplus.com> | OK | — |
-| Paramount+ (`paramount`) | streaming | 0 | <https://paramountplus.com/account> | HTTP 403 (anti-robot probable) | — |
-| Crunchyroll (`crunchy`) | streaming | 0 | <https://crunchyroll.com/account/membership> | HTTP 403 (anti-robot probable) | — |
-| ADN (`adn`) | streaming | 0 | <https://animationdigitalnetwork.com> | OK | — |
+| HBO Max (`hbomax`) | streaming | 6 | <https://hbomax.com/account> | injoignable (ECONNRESET) | 2026-09-14 |
+| Apple TV+ (`appletv`) | streaming | 1 | — | — (lien profond) | 2026-09-14 |
+| Canal+ ★ (`canal`) | streaming | 4 | <https://client.canalplus.com> | OK | 2026-09-14 |
+| Paramount+ (`paramount`) | streaming | 4 | <https://paramountplus.com/account> | HTTP 403 (anti-robot probable) | 2026-09-14 |
+| Crunchyroll (`crunchy`) | streaming | 4 | <https://www.crunchyroll.com/fr/account/membership> | HTTP 403 (anti-robot probable) | 2026-09-14 |
+| ADN (`adn`) | streaming | 3 | <https://animationdigitalnetwork.com> | OK | 2026-09-14 |
 | YouTube Premium ★ (`youtube`) | streaming | 4 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | 2026-09-14 |
-| Molotov (`molotov`) | streaming | 0 | <https://molotov.tv> | OK | — |
-| DAZN (`dazn`) | streaming | 0 | <https://dazn.com> | OK | — |
-| beIN Sports (`bein`) | streaming | 0 | <https://beinsports.com> | OK | — |
+| Molotov (`molotov`) | streaming | 4 | <https://www.molotov.tv/account> | OK | 2026-09-14 |
+| DAZN (`dazn`) | streaming | 2 | <https://www.dazn.com/fr-FR/myaccount> | OK | 2026-09-14 |
+| beIN Sports (`bein`) | streaming | 1 | <https://www.beinsports.com/fr-fr/mon-compte> | OK | 2026-09-14 |
 | Spotify ★ (`spotify`) | musique | 4 | <https://www.spotify.com/account/subscription> | OK | 2026-09-14 |
 | Deezer ★ (`deezer`) | musique | 5 | <https://deezer.com/account> | OK | 2026-09-14 |
 | Apple Music (`applemusic`) | musique | 0 | — | — (lien profond) | — |
-| Amazon Music (`amazonmusic`) | musique | 0 | <https://amazon.fr/music/settings> | injoignable (ECONNRESET) | — |
+| Amazon Music (`amazonmusic`) | musique | 0 | <https://amazon.fr/music/settings> | OK | — |
 | YouTube Music (`ytmusic`) | musique | 0 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | — |
 | Tidal (`tidal`) | musique | 0 | <https://tidal.com/account> | HTTP 403 (anti-robot probable) | — |
-| Audible (`audible`) | musique | 0 | <https://audible.fr/account> | OK, redirigé vers amazon.fr | — |
+| Audible (`audible`) | musique | 0 | <https://audible.fr/account> | injoignable (ECONNRESET) | — |
 | Claude ★ (`claude`) | ia | 4 | <https://claude.ai/settings/billing> | OK | 2026-09-14 |
 | ChatGPT ★ (`chatgpt`) | ia | 2 | <https://chatgpt.com/#settings/Subscription> | OK | — |
 | Gemini / Google AI (`gemini`) | ia | 0 | <https://one.google.com/plans> | OK | — |
-| Copilot Pro (`copilot`) | ia | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| Copilot Pro (`copilot`) | ia | 0 | <https://account.microsoft.com/services> | injoignable (fetch failed) | — |
 | GitHub Copilot (`ghcopilot`) | ia | 0 | <https://github.com/settings/billing> | HTTP 404 | — |
 | Midjourney (`midjourney`) | ia | 0 | <https://midjourney.com/account> | HTTP 403 (anti-robot probable) | — |
 | Perplexity (`perplexity`) | ia | 0 | <https://perplexity.ai/settings> | HTTP 403 (anti-robot probable) | — |
@@ -43,7 +43,7 @@ Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalog
 | iCloud+ ★ (`icloud`) | cloud | 5 | — | — (lien profond) | 2026-09-14 |
 | Google One (`googleone`) | cloud | 0 | <https://one.google.com/plans> | OK | — |
 | Dropbox ★ (`dropbox`) | cloud | 2 | <https://www.dropbox.com/account/plan> | OK | 2026-09-14 |
-| Microsoft 365 (`ms365`) | cloud | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| Microsoft 365 (`ms365`) | cloud | 0 | <https://account.microsoft.com/services> | injoignable (fetch failed) | — |
 | kDrive Infomaniak (`kdrive`) | cloud | 0 | <https://manager.infomaniak.com> | OK, redirigé vers login.infomaniak.com | — |
 | pCloud (`pcloud`) | cloud | 0 | <https://pcloud.com> | OK | — |
 | Adobe Creative Cloud (`adobe`) | productivite | 0 | <https://account.adobe.com/plans> | OK | — |
@@ -68,7 +68,7 @@ Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalog
 | Les Échos (`lesechos`) | presse | 0 | <https://lesechos.fr> | OK | — |
 | Cafeyn (`cafeyn`) | presse | 0 | <https://cafeyn.co> | OK | — |
 | PlayStation Plus (`psplus`) | gaming | 0 | <https://playstation.com> | OK | — |
-| Xbox Game Pass (`gamepass`) | gaming | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| Xbox Game Pass (`gamepass`) | gaming | 0 | <https://account.microsoft.com/services> | injoignable (fetch failed) | — |
 | Nintendo Switch Online (`nintendo`) | gaming | 0 | <https://accounts.nintendo.com> | OK | — |
 | GeForce Now (`geforce`) | gaming | 0 | <https://nvidia.com/geforce-now> | OK | — |
 | Apple Arcade (`arcade`) | gaming | 0 | — | — (lien profond) | — |
@@ -84,7 +84,7 @@ Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalog
 | Babbel (`babbel`) | vie_courante | 0 | <https://babbel.com> | injoignable (fetch failed) | — |
 | Duolingo Super (`duolingo`) | vie_courante | 0 | — | — (lien profond) | — |
 | Headspace (`headspace`) | vie_courante | 0 | <https://headspace.com> | OK | — |
-| Calm (`calm`) | vie_courante | 0 | <https://calm.com> | injoignable (ECONNRESET) | — |
+| Calm (`calm`) | vie_courante | 0 | <https://calm.com> | OK | — |
 | Petit BamBou (`petitbambou`) | vie_courante | 0 | — | — (lien profond) | — |
 | EDF (`edf`) | vie_courante | 0 | <https://particulier.edf.fr/fr/accueil/espace-client.html> | OK | — |
 | Engie (`engie`) | vie_courante | 0 | <https://particuliers.engie.fr/espace-client.html> | OK | — |

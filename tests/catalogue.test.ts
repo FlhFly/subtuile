@@ -79,7 +79,7 @@ describe('pré-remplissage depuis le catalogue (EF-02)', () => {
     const f = preRemplirDepuisService(formulaireVide(JOUR), appletv);
     expect(f.canalAchat).toBe('app_store');
     expect(f.urlGestion).toBe('');
-    expect(f.prix).toBe(''); // pas de tarif connu
+    expect(f.prix).toBe('9,99'); // formule App Store du catalogue v5
     expect(f.preset).toBe('mensuelle');
   });
 

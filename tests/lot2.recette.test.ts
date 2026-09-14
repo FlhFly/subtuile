@@ -251,8 +251,8 @@ describe('recette lot 2 — moyens de paiement et désabonnement (CdC §6)', () 
     });
     expect(action('canal')).toEqual({
       type: 'espace_client',
-      url: 'https://espaceclient.canalplus.com',
-      contact: 'https://espaceclient.canalplus.com',
+      url: 'https://client.canalplus.com',
+      contact: 'https://client.canalplus.com',
     });
     expect(cleEtapes(abo('edf'))).toBe('telephone');
     expect(cleEtapes(abo('maif'))).toBe('courrier_recommande');

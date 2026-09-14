@@ -7,7 +7,26 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.6.
+Aucune modification depuis la version 1.0.7.
+
+## [1.0.7] — 2026-09-14 — catalogue vérifié (lot 2, streaming)
+
+### Catalogue v5 — lot 2, la catégorie streaming revue (2026-09-14)
+
+#### Modifié
+- Formules ajoutées ou revues, `verifieLe` posé sur les neuf services restants de la
+  catégorie : HBO Max (Basic avec pub 6,99 €, Standard 10,99 €, Premium 15,99 €, annuels
+  69,90 €, 109 €, 159 €, page officielle), Apple TV+ (9,99 €, page officielle), Canal+ (sans
+  engagement 24,99 €, Ciné Séries 34,99 €, Sport 39,99 €, La Totale 75,99 € sur 24 mois),
+  Paramount+ (Standard 7,99 € ou 79,90 €/an, Premium 10,99 € ou 97,99 €/an), Crunchyroll (Fan
+  6,99 € ou 69,99 €/an, Mega Fan 8,99 € ou 89,99 €/an), ADN (Starter 3,99 €, Premium 6,99 € ou
+  59,99 €/an), Molotov (Extra 6,99 € ou 39,99 €/an, Extended 10,99 € ou 59,99 €/an), DAZN
+  (10,99 €, avec Ligue 1+ 27,99 €), beIN SPORTS Connect (14,99 €). Sites fermés aux robots
+  (Canal+, Paramount+, Crunchyroll, DAZN, beIN) : sources concordantes de septembre 2026.
+- Adresses de gestion corrigées : Crunchyroll, Molotov, DAZN, beIN SPORTS ; contact de
+  résiliation Canal+ (`client.canalplus.com`).
+- Catalogue en version 5 ; rapport `docs/catalogue-verification.md` régénéré.
+
 
 ## [1.0.6] — 2026-09-14 — subtuile.com et retours par e-mail
 
