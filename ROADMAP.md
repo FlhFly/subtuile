@@ -161,7 +161,8 @@ version dans l'app.
 | « + Ajouter un moyen de paiement » depuis le formulaire, aide quand aucun moyen n'existe | ✅ 2026-09-13 (v1.0.2) |
 | Petites améliorations validées le 2026-09-13 : rangée « Mise à jour disponible » dans À propos ; pause avec date de reprise (EF-06) ; avertissement de doublon à la création (C3) ; rappel de sauvegarde (C1) ; défilement automatique pendant le glisser | ✅ 2026-09-13 (v1.0.3) |
 | Retours FlhFly du 2026-09-13 (suite) : délais d'alerte en listes dépliées ; langue en tête de l'onboarding ; formule libre et option « Autre » ; catalogue v3 (Claude Max) | ✅ 2026-09-13 (v1.0.4) |
-| Canal de retours utilisateurs (bugs, idées) | ⬜ à décider (options proposées) |
+| Canal de retours utilisateurs (bugs, idées) : e-mail choisi par FlhFly le 2026-09-14 ; rangée « Signaler un bug ou proposer une idée » prête, masquée tant que l'adresse n'est pas renseignée | 🔄 adresse en attente |
+| Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | 🔄 script et rapport livrés ; lots à venir |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

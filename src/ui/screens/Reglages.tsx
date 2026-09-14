@@ -1,6 +1,7 @@
 import { useState, type ReactNode } from 'react';
 import { chargerJeuDemo } from '../../data/fixtures/demo';
 import { nouveautesNonVues } from '../../data/notesDeVersion';
+import { decrireAppareil, lienRetour, type TypeRetour } from '../../domain/retours';
 import { exporterJson, nomFichierExport } from '../../data/importExport';
 import { aujourdhui } from '../../domain/dates';
 import { evenementsAVenir } from '../../domain/echeancier';
@@ -44,6 +45,11 @@ const VERSION_APP = __APP_VERSION__;
 const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 /** Page de don (Ko-fi) : ouverte dans un nouvel onglet, aucune ressource externe chargée dans l'app */
 const URL_DON = 'https://ko-fi.com/M1G426XAKZ';
+/**
+ * Adresse des retours utilisateurs (bugs, idées), choisie par FlhFly : e-mail, sans compte
+ * ni service tiers. Tant qu'elle est vide, la rangée n'apparaît pas (§4.7, rien de factice).
+ */
+const ADRESSE_RETOURS: string | null = null;
 
 /** Choix proposés pour les défauts d'alerte (EF-30), en jours puis en mois. */
 const CHOIX_ECHEANCE = [1, 2, 3, 7, 14] as const;
@@ -83,6 +89,18 @@ export function Reglages({
   const [chargementDemo, setChargementDemo] = useState(false);
   const [depliant, setDepliant] = useState<Depliant>(null);
   const [confirmationEffacer, setConfirmationEffacer] = useState(false);
+  const [retoursOuvert, setRetoursOuvert] = useState(false);
+  /** message pré-rempli : sujet typé, corps avec version, appareil et langue ; rien d'autre */
+  const lienRetours = (type: TypeRetour) =>
+    lienRetour(
+      ADRESSE_RETOURS ?? '',
+      t(`retours.sujet.${type}`, { version: VERSION_APP }),
+      t('retours.corps', {
+        version: VERSION_APP,
+        appareil: decrireAppareil(window.navigator.userAgent, window.navigator.maxTouchPoints),
+        langue,
+      }),
+    );
 
   /** EF-50 : sauvegarde JSON complète, téléchargée. */
   const exporter = async () => {
@@ -356,6 +374,38 @@ export function Reglages({
         </Carte>
       </Section>
 
+      {retoursOuvert ? (
+        <div className={styles.voile} role="presentation" onClick={() => setRetoursOuvert(false)}>
+          <div
+            className={styles.dialogue}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="retours-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="retours-titre" className={styles.dialogueTitre}>
+              {t('reglages.retours.titre')}
+            </h2>
+            <p className={styles.sous}>{t('reglages.retours.texte')}</p>
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.dialogueSecondaire}
+                onClick={() => setRetoursOuvert(false)}
+              >
+                {t('commun.annuler')}
+              </button>
+              <a className={styles.dialogueSecondaire} href={lienRetours('idee')}>
+                {t('reglages.retours.idee')}
+              </a>
+              <a className={styles.dialoguePrincipal} href={lienRetours('bug')}>
+                {t('reglages.retours.bug')}
+              </a>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
       {confirmationEffacer ? (
         <div
           className={styles.voile}
@@ -461,6 +511,21 @@ export function Reglages({
               <Icone nom="externe" taille={13} epaisseur={3} />
             </span>
           </a>
+          {ADRESSE_RETOURS !== null ? (
+            <button
+              type="button"
+              className={styles.rangeeBouton}
+              onClick={() => setRetoursOuvert(true)}
+            >
+              <span className={styles.textes}>
+                <span className={styles.libelle}>{t('reglages.retours')}</span>
+                <span className={styles.sous}>{t('reglages.retours.sous')}</span>
+              </span>
+              <span className={styles.valeur}>
+                <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+              </span>
+            </button>
+          ) : null}
           <a className={styles.rangeeBouton} href={URL_DON} target="_blank" rel="noreferrer">
             <span className={styles.textes}>
               <span className={styles.libelle}>{t('reglages.apropos.don')}</span>

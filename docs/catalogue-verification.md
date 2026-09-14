@@ -1,0 +1,97 @@
+# Vérification du catalogue
+
+Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalogue v3, tarifs indicatifs au 2026-09-13.
+
+## Résumé
+
+- 79 services, 26 formules ; 67 services sans formule ; 0 services revus manuellement (`verifieLe`).
+- Structure : aucun problème.
+- Réseau : 70 adresses testées, 44 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
+
+## Services
+
+| Service | Catégorie | Formules | Adresse de gestion | Réponse | Vérifié le |
+|---|---|---|---|---|---|
+| Netflix ★ (`netflix`) | streaming | 3 | <https://www.netflix.com/cancelplan> | injoignable (ECONNRESET) | — |
+| Amazon Prime ★ (`prime`) | streaming | 2 | <https://www.amazon.fr/mc> | OK | — |
+| Disney+ ★ (`disney`) | streaming | 3 | <https://www.disneyplus.com/account> | OK | — |
+| HBO Max (`hbomax`) | streaming | 0 | <https://hbomax.com/account> | injoignable (ECONNRESET) | — |
+| Apple TV+ (`appletv`) | streaming | 0 | — | — (lien profond) | — |
+| Canal+ ★ (`canal`) | streaming | 1 | <https://espaceclient.canalplus.com> | injoignable (ENOTFOUND) | — |
+| Paramount+ (`paramount`) | streaming | 0 | <https://paramountplus.com/account> | HTTP 403 (anti-robot probable) | — |
+| Crunchyroll (`crunchy`) | streaming | 0 | <https://crunchyroll.com/account/membership> | HTTP 403 (anti-robot probable) | — |
+| ADN (`adn`) | streaming | 0 | <https://animationdigitalnetwork.com> | injoignable (ECONNRESET) | — |
+| YouTube Premium ★ (`youtube`) | streaming | 1 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | — |
+| Molotov (`molotov`) | streaming | 0 | <https://molotov.tv> | OK | — |
+| DAZN (`dazn`) | streaming | 0 | <https://dazn.com> | injoignable (ECONNRESET) | — |
+| beIN Sports (`bein`) | streaming | 0 | <https://beinsports.com> | OK | — |
+| Spotify ★ (`spotify`) | musique | 2 | <https://www.spotify.com/account/subscription> | OK | — |
+| Deezer ★ (`deezer`) | musique | 0 | <https://deezer.com/account> | OK | — |
+| Apple Music (`applemusic`) | musique | 0 | — | — (lien profond) | — |
+| Amazon Music (`amazonmusic`) | musique | 0 | <https://amazon.fr/music/settings> | OK | — |
+| YouTube Music (`ytmusic`) | musique | 0 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | — |
+| Tidal (`tidal`) | musique | 0 | <https://tidal.com/account> | HTTP 403 (anti-robot probable) | — |
+| Audible (`audible`) | musique | 0 | <https://audible.fr/account> | OK, redirigé vers amazon.fr | — |
+| Claude ★ (`claude`) | ia | 4 | <https://claude.ai/settings/billing> | OK | — |
+| ChatGPT ★ (`chatgpt`) | ia | 2 | <https://chatgpt.com/#settings/Subscription> | OK | — |
+| Gemini / Google AI (`gemini`) | ia | 0 | <https://one.google.com/plans> | OK | — |
+| Copilot Pro (`copilot`) | ia | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| GitHub Copilot (`ghcopilot`) | ia | 0 | <https://github.com/settings/billing> | HTTP 404 | — |
+| Midjourney (`midjourney`) | ia | 0 | <https://midjourney.com/account> | HTTP 403 (anti-robot probable) | — |
+| Perplexity (`perplexity`) | ia | 0 | <https://perplexity.ai/settings> | HTTP 403 (anti-robot probable) | — |
+| Le Chat Mistral (`mistral`) | ia | 0 | <https://chat.mistral.ai> | HTTP 403 (anti-robot probable) | — |
+| iCloud+ ★ (`icloud`) | cloud | 3 | — | — (lien profond) | — |
+| Google One (`googleone`) | cloud | 0 | <https://one.google.com/plans> | OK | — |
+| Dropbox ★ (`dropbox`) | cloud | 2 | <https://www.dropbox.com/account/plan> | OK | — |
+| Microsoft 365 (`ms365`) | cloud | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| kDrive Infomaniak (`kdrive`) | cloud | 0 | <https://manager.infomaniak.com> | OK, redirigé vers login.infomaniak.com | — |
+| pCloud (`pcloud`) | cloud | 0 | <https://pcloud.com> | OK | — |
+| Adobe Creative Cloud (`adobe`) | productivite | 0 | <https://account.adobe.com/plans> | OK | — |
+| Canva Pro (`canva`) | productivite | 0 | <https://canva.com/settings/billing> | HTTP 403 (anti-robot probable) | — |
+| Notion (`notion`) | productivite | 0 | <https://notion.so> | OK, redirigé vers notion.com | — |
+| 1Password (`onepass`) | productivite | 0 | <https://start.1password.com> | OK | — |
+| Bitwarden (`bitwarden`) | productivite | 0 | <https://vault.bitwarden.com> | OK | — |
+| Dashlane (`dashlane`) | productivite | 0 | <https://app.dashlane.com> | HTTP 403 (anti-robot probable) | — |
+| LinkedIn Premium (`linkedin`) | productivite | 0 | <https://linkedin.com/premium/manage> | OK | — |
+| Strava ★ (`strava`) | sport | 2 | <https://www.strava.com/account> | injoignable (ECONNRESET) | — |
+| Basic-Fit (`basicfit`) | sport | 1 | <https://my.basic-fit.com> | OK, redirigé vers login.basic-fit.com | — |
+| Fitness Park (`fitnesspark`) | sport | 0 | — | — (espace_client) | — |
+| Zwift (`zwift`) | sport | 0 | <https://zwift.com/account> | HTTP 404 | — |
+| TrainingPeaks (`trainingpeaks`) | sport | 0 | <https://trainingpeaks.com> | OK | — |
+| Komoot Premium (`komoot`) | sport | 0 | <https://komoot.com> | OK | — |
+| AllTrails+ (`alltrails`) | sport | 0 | <https://alltrails.com> | OK | — |
+| Garmin Connect+ (`garmin`) | sport | 0 | <https://garmin.com> | HTTP 403 (anti-robot probable) | — |
+| Apple Fitness+ (`applefit`) | sport | 0 | — | — (lien profond) | — |
+| Le Monde (`lemonde`) | presse | 0 | <https://moncompte.lemonde.fr> | OK, redirigé vers secure.lemonde.fr | — |
+| L’Équipe (`lequipe`) | presse | 0 | <https://lequipe.fr> | OK | — |
+| Mediapart (`mediapart`) | presse | 0 | <https://mediapart.fr> | OK | — |
+| Les Échos (`lesechos`) | presse | 0 | <https://lesechos.fr> | OK | — |
+| Cafeyn (`cafeyn`) | presse | 0 | <https://cafeyn.co> | OK | — |
+| PlayStation Plus (`psplus`) | gaming | 0 | <https://playstation.com> | OK | — |
+| Xbox Game Pass (`gamepass`) | gaming | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
+| Nintendo Switch Online (`nintendo`) | gaming | 0 | <https://accounts.nintendo.com> | OK | — |
+| GeForce Now (`geforce`) | gaming | 0 | <https://nvidia.com/geforce-now> | OK | — |
+| Apple Arcade (`arcade`) | gaming | 0 | — | — (lien profond) | — |
+| Twitch (`twitch`) | gaming | 0 | <https://twitch.tv/subscriptions> | OK | — |
+| NordVPN (`nordvpn`) | securite | 0 | <https://my.nordaccount.com> | HTTP 403 (anti-robot probable) | — |
+| Proton (`proton`) | securite | 0 | <https://account.proton.me> | OK | — |
+| Surfshark (`surfshark`) | securite | 0 | <https://my.surfshark.com> | HTTP 403 (anti-robot probable) | — |
+| ExpressVPN (`expressvpn`) | securite | 0 | <https://expressvpn.com> | OK | — |
+| Uber One (`uberone`) | vie_courante | 0 | — | — (espace_client) | — |
+| Deliveroo Plus (`deliveroo`) | vie_courante | 0 | <https://deliveroo.fr> | OK | — |
+| Fnac+ (`fnac`) | vie_courante | 0 | <https://fnac.com> | HTTP 403 (anti-robot probable) | — |
+| Télépéage Ulys (`ulys`) | vie_courante | 0 | — | — (espace_client) | — |
+| Babbel (`babbel`) | vie_courante | 0 | <https://babbel.com> | injoignable (fetch failed) | — |
+| Duolingo Super (`duolingo`) | vie_courante | 0 | — | — (lien profond) | — |
+| Headspace (`headspace`) | vie_courante | 0 | <https://headspace.com> | OK | — |
+| Calm (`calm`) | vie_courante | 0 | <https://calm.com> | injoignable (ECONNRESET) | — |
+| Petit BamBou (`petitbambou`) | vie_courante | 0 | — | — (lien profond) | — |
+| EDF (`edf`) | vie_courante | 0 | <https://particulier.edf.fr/fr/accueil/espace-client.html> | OK | — |
+| Engie (`engie`) | vie_courante | 0 | <https://particuliers.engie.fr/espace-client.html> | OK | — |
+| TotalEnergies (`totalenergies`) | vie_courante | 0 | <https://totalenergies.fr> | OK | — |
+| Veolia Eau (`veolia`) | vie_courante | 0 | <https://eau.veolia.fr> | OK | — |
+| MAIF (`maif`) | vie_courante | 0 | <https://maif.fr> | OK | — |
+
+## Liens profonds (magasins)
+
+- <https://play.google.com/store/account/subscriptions> : OK, redirigé vers accounts.google.com

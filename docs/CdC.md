@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.21 — 13/09/2026 (champ formule libre §3.1, langue en tête de l'onboarding §7.10, catalogue v3)
+**Version :** 1.22 — 14/09/2026 (vérification du catalogue : `verifieLe` §3.4 ; retours utilisateurs par e-mail §7.9)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -103,6 +103,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | deepLinks | variantes selon canal d'achat (voir §5.3) |
 | periodicitesConnues | pré-remplissage à la création |
 | formules *(v1.11)* | liste : `{ id, nom, prix, periodicite, canal }` — les offres du service (ex. Netflix Essentiel/Standard/Premium ; tarif direct vs App Store). Remplace le champ tarifsIndicatifs. En V1, une seule formule par service suffit ; le schéma en accepte plusieurs sans migration. Les `id` de services et de formules sont **stables** : jamais renommés, jamais réutilisés — ils deviennent un contrat (formuleId des abonnements, futur catalogue distant) |
+| verifieLe *(v1.22)* | date ISO facultative — dernière revue manuelle des données du service (adresse, formules, tarifs) ; `scripts/verifier-catalogue.cjs` contrôle la structure, teste les adresses et produit `docs/catalogue-verification.md` |
 
 Le catalogue porte des métadonnées globales *(v1.11)* : `catalogueVersion` (entier incrémenté à chaque publication) et `publieLe` (date de fraîcheur des tarifs, affichable : « tarifs indicatifs au JJ/MM/AAAA »).
 
@@ -310,7 +311,7 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 6. **Moyens de paiement** — liste, ajout, édition, alerte expiration.
 7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, langue, format de date *(v1.16 — JJ/MM/AAAA, MM/JJ/AAAA ou AAAA-MM-JJ, pour l'affichage et la saisie ; repris à l'onboarding C7)*, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
 8. **Catalogue** — consultation des services préchargés + « Proposer un service », accessible depuis les réglages. *(issu de la maquette v2)*
-9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don), écran « Nouveautés » *(v1.19)* : notes de version dans la langue de l'interface, pastille tant que la version installée n'a pas été consultée, rappel à l'ouverture après une mise à jour. *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
+9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don), retours utilisateurs par e-mail *(v1.22 : « Signaler un bug ou proposer une idée » ouvre la messagerie avec version, appareil et langue pré-remplis ; l'app n'envoie rien elle-même)*, écran « Nouveautés » *(v1.19)* : notes de version dans la langue de l'interface, pastille tant que la version installée n'a pas été consultée, rappel à l'ouverture après une mise à jour. *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
 10. **Onboarding** *(v1.17 — C7 promu en V1, maquette v6)* — trois écrans à la première ouverture : présentation (langue en tête dès le premier écran *(v1.21)*, 100 % local, échéances, finances, alertes), devise par défaut / format de date (préférences écrites au fil des choix), puis premier abonnement (catalogue, import JSON / CSV, jeu de démonstration, ou plus tard). « Passer » à tout moment ; rejouable depuis Réglages › Général › « Revoir l'introduction ».
 
 ---

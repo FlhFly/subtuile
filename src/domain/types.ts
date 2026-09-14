@@ -289,6 +289,8 @@ export interface Service {
   montantEstime: boolean;
   /** mis en avant dans la sélection du formulaire avant toute recherche (maquette v3) */
   populaire: boolean;
+  /** date de la dernière revue manuelle des données du service (C16) ; absent = jamais revu */
+  verifieLe?: DateISO;
 }
 
 /** EF-09 : entrée « Mes services », réutilisable comme une entrée du catalogue. */

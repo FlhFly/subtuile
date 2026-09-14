@@ -667,6 +667,17 @@ export const fr = {
   'alertes.sauvegarde.titre': 'Dernière sauvegarde il y a {n} jours',
   'alertes.sauvegarde.sous': 'Exportez un fichier JSON depuis Réglages › Données',
   'reglages.exporter.derniere': 'Dernière sauvegarde le {date}',
+  'reglages.retours': 'Signaler un bug ou proposer une idée',
+  'reglages.retours.sous': 'Par e-mail, sans compte ni formulaire',
+  'reglages.retours.titre': 'Un bug, une idée ?',
+  'reglages.retours.texte':
+    'Votre messagerie s’ouvre avec un message pré-rempli (version, appareil, langue) ; rien d’autre n’est envoyé. Votre adresse ne sera visible que de l’auteur.',
+  'reglages.retours.bug': 'Signaler un bug',
+  'reglages.retours.idee': 'Proposer une idée',
+  'retours.sujet.bug': '[Subtuile {version}] Bug : ',
+  'retours.sujet.idee': '[Subtuile {version}] Idée : ',
+  'retours.corps':
+    'Décrivez ce qui se passe ou votre idée, les étapes pour le reproduire, et ce que vous attendiez.\n\n—\nSubtuile {version} · {appareil} · langue {langue}',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',

@@ -7,7 +7,16 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.4.
+### Vérification du catalogue : script et rapport ; retours par e-mail (2026-09-14)
+
+#### Ajouté
+- `scripts/verifier-catalogue.cjs` : contrôles de structure du catalogue (identifiants,
+  catégories, couleurs, logos, modes et contacts de résiliation, formules et périodicités,
+  liens profonds) puis test de réponse de chaque adresse de gestion ; rapport dans
+  `docs/catalogue-verification.md`. Champ facultatif `verifieLe` par service (CdC v1.22).
+- Réglages › À propos : « Signaler un bug ou proposer une idée » ouvre la messagerie avec un
+  message pré-rempli (version, appareil, langue) ; rien n'est envoyé par l'app. La rangée reste
+  masquée tant que l'adresse de réception n'est pas renseignée. Domaine `retours.ts` testé.
 
 ## [1.0.4] — 2026-09-13 — retours d'usage FlhFly (suite)
 

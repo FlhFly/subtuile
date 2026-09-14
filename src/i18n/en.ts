@@ -655,6 +655,17 @@ export const en: Dictionnaire = {
   'alertes.sauvegarde.titre': 'Last backup {n} days ago',
   'alertes.sauvegarde.sous': 'Export a JSON file from Settings › Data',
   'reglages.exporter.derniere': 'Last backup on {date}',
+  'reglages.retours': 'Report a bug or suggest an idea',
+  'reglages.retours.sous': 'By e-mail, no account or form needed',
+  'reglages.retours.titre': 'A bug, an idea?',
+  'reglages.retours.texte':
+    'Your mail app opens with a prefilled message (version, device, language); nothing else is sent. Your address is only seen by the author.',
+  'reglages.retours.bug': 'Report a bug',
+  'reglages.retours.idee': 'Suggest an idea',
+  'retours.sujet.bug': '[Subtuile {version}] Bug: ',
+  'retours.sujet.idee': '[Subtuile {version}] Idea: ',
+  'retours.corps':
+    'Describe what happens or your idea, the steps to reproduce it, and what you expected.\n\n—\nSubtuile {version} · {appareil} · language {langue}',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',

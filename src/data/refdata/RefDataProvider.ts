@@ -190,6 +190,7 @@ export function validerService(v: unknown, chemin = 'service'): Service {
     contactResiliation: chaineOuNull(o.contactResiliation, `${c}.contactResiliation`),
     montantEstime: booleen(o.montantEstime, `${c}.montantEstime`),
     populaire: booleen(o.populaire, `${c}.populaire`),
+    verifieLe: o.verifieLe === undefined ? undefined : chaine(o.verifieLe, `${c}.verifieLe`),
   };
 }
 
