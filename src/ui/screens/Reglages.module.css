@@ -325,6 +325,14 @@
   gap: 8px;
 }
 
+/* Dans la colonne, même gabarit que les boutons du formulaire et de la fiche (52 px) */
+.dialogueActionsColonne > .dialoguePrincipal,
+.dialogueActionsColonne > .dialogueSecondaire {
+  flex: none;
+  height: 52px;
+  font-size: 14.5px;
+}
+
 .dialogueSecondaire,
 .dialogueDanger,
 .dialoguePrincipal {

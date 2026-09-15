@@ -7,7 +7,14 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.11.
+Aucune modification depuis la version 1.0.12.
+
+## [1.0.12] — 2026-09-15 — hauteur des boutons du dialogue des retours
+
+#### Corrigé
+- Réglages › « Un bug, une idée ? » : « Signaler un bug » et « Proposer une idée » passent à
+  52 px, la hauteur des boutons du formulaire d'ajout et de la fiche (retour FlhFly) ; « Annuler »
+  reste en lien discret dessous.
 
 ## [1.0.11] — 2026-09-14 — proposition de service par e-mail, dialogue des retours
 

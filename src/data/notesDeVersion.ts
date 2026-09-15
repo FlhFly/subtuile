@@ -14,6 +14,16 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.12',
+    date: '2026-09-15',
+    notes: {
+      fr: [
+        'Dialogue « Un bug, une idée ? » : boutons à la même hauteur que ceux du formulaire et de la fiche.',
+      ],
+      en: ['“A bug, an idea?” dialog: buttons now match the height of the form and sheet buttons.'],
+    },
+  },
+  {
     version: '1.0.11',
     date: '2026-09-14',
     notes: {
