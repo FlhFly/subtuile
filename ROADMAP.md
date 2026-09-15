@@ -163,6 +163,9 @@ version dans l'app.
 | Retours FlhFly du 2026-09-13 (suite) : délais d'alerte en listes dépliées ; langue en tête de l'onboarding ; formule libre et option « Autre » ; catalogue v3 (Claude Max) | ✅ 2026-09-13 (v1.0.4) |
 | Proposition de service envoyée par e-mail à l'auteur (catalogue commun) ; dialogue des retours réagencé | ✅ 2026-09-14 (v1.0.11) |
 | Canal de retours utilisateurs (bugs, idées) : e-mail `contact@subtuile.com` (domaine subtuile.com acheté par FlhFly) ; rangée « Signaler un bug ou proposer une idée » dans À propos | ✅ 2026-09-14 (v1.0.6) |
+| Hauteur des boutons du dialogue des retours alignée sur le formulaire et la fiche | ✅ 2026-09-15 (v1.0.12) |
+| Remplacement d'une entrée « Mes services » par la version officielle quand elle rejoint le catalogue (EF-09) : proposition explicite, migration des abonnements liés, refus mémorisé | 🔄 approche validée par FlhFly le 2026-09-15, à livrer après sa vérification du catalogue |
+| Thème sombre « OLED » (noirs purs) en troisième choix d'apparence (C18) ; maquette possible via Claude Design avant intégration | ⬜ demande FlhFly du 2026-09-15, pas avant les lots de catalogue |
 | Domaine personnalisé subtuile.com (GitHub Pages, `public/CNAME`, build à la racine) ; ancienne adresse redirigée | ✅ 2026-09-14 |
 | Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | 🔄 script et rapport livrés ; lot 1 « populaires » (12 services, catalogue v4), lot 2 « streaming » (13 services, catalogue v5) , lot 3 « musique » (7 services, catalogue v6) , lot 4 « IA » (8 services, catalogue v7) et lot 5 « cloud + productivité » (13 services, catalogue v8) revus le 2026-09-14 ; restent sport, presse, gaming, sécurité, vie courante |
 
@@ -196,3 +199,4 @@ version dans l'app.
 | C15 | Veille tarifaire : catalogue distant, comparaison locale des prix |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
 | C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |
+| C18 | Thème sombre « OLED » (noirs purs) en troisième choix du réglage d'apparence, à côté de clair / sombre / système — EF-17 (demande FlhFly du 2026-09-15) |

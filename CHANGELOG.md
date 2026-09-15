@@ -7,7 +7,16 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.12.
+### Périmètre : migration vers le catalogue commun, thème sombre OLED (2026-09-15)
+
+#### Modifié
+- CdC v1.25 et roadmap : EF-09 décrit le remplacement d'une entrée « Mes services » par la
+  version officielle quand le service rejoint le catalogue embarqué — proposition explicite,
+  migration des abonnements liés (prix, périodicité, devise et moyen de paiement conservés),
+  suppression annulable de l'entrée maison, refus mémorisé, jamais de bascule silencieuse.
+  Approche validée par FlhFly le 2026-09-15, à livrer après sa vérification du catalogue.
+- Nouveau candidat C18 : thème sombre « OLED » (noirs purs) en troisième choix du réglage
+  d'apparence (EF-17), demande FlhFly du 2026-09-15 ; palette à définir avant intégration.
 
 ## [1.0.12] — 2026-09-15 — hauteur des boutons du dialogue des retours
 

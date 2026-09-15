@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.24 — 14/09/2026 (proposition de service envoyée par e-mail à l'auteur, EF-09)
+**Version :** 1.25 — 15/09/2026 (migration « Mes services » → catalogue commun EF-09 ; candidat C18 thème sombre OLED)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -135,7 +135,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-07 [S]** — Duplication d'un abonnement existant.
 - **EF-08 [S]** — Historique des prix avec saisie d'une hausse à date.
 - **EF-08b [S]** — Prix futur programmé : saisie d'une hausse annoncée { date, montant } ; alerte à l'approche, application automatique à la date, versement dans l'historique des prix. *(ajouté en v1.9)*
-- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)* Envoi facultatif par e-mail à l'auteur pour le catalogue commun, message pré-rempli, rien n'est envoyé par l'app *(v1.24)*.
+- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)* Envoi facultatif par e-mail à l'auteur pour le catalogue commun, message pré-rempli, rien n'est envoyé par l'app *(v1.24)*. Quand une entrée « Mes services » correspond à un service désormais présent au catalogue embarqué (nom rapproché, accents et casse ignorés), l'app le signale et **propose** de basculer : les abonnements liés passent sur l'entrée officielle en conservant prix, périodicité, devise et moyen de paiement, l'entrée maison est supprimée (annulable par toast), le prix saisi n'est jamais remplacé par un tarif du catalogue et le refus est mémorisé. Jamais de bascule silencieuse *(v1.25, approche validée le 15/09/2026)*.
 
 ### 4.2 Tuiles et navigation
 
@@ -407,3 +407,4 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C15 | Veille tarifaire : catalogue distant publié par un pipeline de collecte des prix (formules, promos, fraîcheur), comparaison 100 % locale → alertes de hausse officielles, suggestions de formule/canal moins cher, mises à jour de prix en un tap (cf. §5.6, provision §3.1/§3.4) | Données réelles à jour |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |
+| C18 | Thème sombre « OLED » : noirs purs, en troisième choix du réglage d'apparence à côté de clair / sombre / système (EF-17) ; palette à définir avant intégration *(v1.25, demande du 15/09/2026)* | Confort de lecture de nuit, autonomie sur écrans OLED |
