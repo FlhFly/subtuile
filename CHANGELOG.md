@@ -7,7 +7,7 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-### Périmètre : migration vers le catalogue commun, thème sombre OLED (2026-09-15)
+### Périmètre : catalogue commun (service inconnu, migration), thème sombre OLED (2026-09-15)
 
 #### Modifié
 - CdC v1.25 et roadmap : EF-09 décrit le remplacement d'une entrée « Mes services » par la
@@ -15,6 +15,11 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
   migration des abonnements liés (prix, périodicité, devise et moyen de paiement conservés),
   suppression annulable de l'entrée maison, refus mémorisé, jamais de bascule silencieuse.
   Approche validée par FlhFly le 2026-09-15, à livrer après sa vérification du catalogue.
+- CdC v1.26 et roadmap : EF-09 couvre aussi le chemin inverse — un abonnement saisi librement
+  sous un nom inconnu du catalogue et de « Mes services » fera l'objet, à l'enregistrement,
+  d'une proposition d'entrée créée depuis les données saisies (nom, catégorie, adresse), puis
+  d'un envoi facultatif à l'adresse de contact avec le message pré-rempli de la v1.0.11.
+  Demande FlhFly du 2026-09-15.
 - Nouveau candidat C18 : thème sombre « OLED » (noirs purs) en troisième choix du réglage
   d'apparence (EF-17), demande FlhFly du 2026-09-15 ; palette à définir avant intégration.
 

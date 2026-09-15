@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.25 — 15/09/2026 (migration « Mes services » → catalogue commun EF-09 ; candidat C18 thème sombre OLED)
+**Version :** 1.26 — 15/09/2026 (EF-09 : service inconnu proposé depuis la saisie libre ; migration vers le catalogue commun ; candidat C18 thème sombre OLED)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -135,7 +135,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-07 [S]** — Duplication d'un abonnement existant.
 - **EF-08 [S]** — Historique des prix avec saisie d'une hausse à date.
 - **EF-08b [S]** — Prix futur programmé : saisie d'une hausse annoncée { date, montant } ; alerte à l'approche, application automatique à la date, versement dans l'historique des prix. *(ajouté en v1.9)*
-- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)* Envoi facultatif par e-mail à l'auteur pour le catalogue commun, message pré-rempli, rien n'est envoyé par l'app *(v1.24)*. Quand une entrée « Mes services » correspond à un service désormais présent au catalogue embarqué (nom rapproché, accents et casse ignorés), l'app le signale et **propose** de basculer : les abonnements liés passent sur l'entrée officielle en conservant prix, périodicité, devise et moyen de paiement, l'entrée maison est supprimée (annulable par toast), le prix saisi n'est jamais remplacé par un tarif du catalogue et le refus est mémorisé. Jamais de bascule silencieuse *(v1.25, approche validée le 15/09/2026)*.
+- **EF-09 [S]** — Ajout d'un service personnalisé au catalogue local (« proposer un service ») : l'entrée créée devient réutilisable comme une entrée du catalogue embarqué. *(issu de la maquette v1)* Envoi facultatif par e-mail à l'auteur pour le catalogue commun, message pré-rempli, rien n'est envoyé par l'app *(v1.24)*. Quand une entrée « Mes services » correspond à un service désormais présent au catalogue embarqué (nom rapproché, accents et casse ignorés), l'app le signale et **propose** de basculer : les abonnements liés passent sur l'entrée officielle en conservant prix, périodicité, devise et moyen de paiement, l'entrée maison est supprimée (annulable par toast), le prix saisi n'est jamais remplacé par un tarif du catalogue et le refus est mémorisé. Jamais de bascule silencieuse *(v1.25, approche validée le 15/09/2026)*. À l'inverse, quand un abonnement est saisi librement sous un nom inconnu du catalogue embarqué **et** de « Mes services » (aucune suggestion EF-02b retenue), l'app propose à l'enregistrement d'en créer l'entrée « Mes services » à partir des données déjà saisies — nom, catégorie, adresse de gestion — puis, facultativement, de l'envoyer à l'adresse de contact par le même message pré-rempli que « Proposer un service » *(v1.26, demande du 15/09/2026)*.
 
 ### 4.2 Tuiles et navigation
 
