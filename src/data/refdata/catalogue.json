@@ -1,5 +1,5 @@
 {
-  "version": 10,
+  "version": 11,
   "publieLe": "2026-09-16",
   "data": [
     {
@@ -4246,13 +4246,42 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "uberone_mensuel",
+          "nom": "Uber One — mensuel",
+          "prix": 5.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "uberone_annuel",
+          "nom": "Uber One — annuel",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "App Uber → Uber One",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "deliveroo",
@@ -4263,7 +4292,7 @@
         "type": "initiales",
         "valeur": "De"
       },
-      "urlGestion": "https://deliveroo.fr",
+      "urlGestion": "https://deliveroo.fr/fr/account",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -4272,11 +4301,24 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "deliveroo_plus_or",
+          "nom": "Plus Or — mensuel",
+          "prix": 3.49,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "deliveroo.fr → compte",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "fnac",
@@ -4287,20 +4329,38 @@
         "type": "initiales",
         "valeur": "Fn"
       },
-      "urlGestion": "https://fnac.com",
+      "urlGestion": "https://www.fnac.com/fnacplus",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
-          "unite": "mois",
+          "unite": "an",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 3
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "fnac_plus_3ans",
+          "nom": "Carte Fnac+ — 3 ans (offre 2026)",
+          "prix": 14.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 3
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "fnac.com → compte",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "ulys",
@@ -4311,7 +4371,7 @@
         "type": "initiales",
         "valeur": "Ul"
       },
-      "urlGestion": null,
+      "urlGestion": "https://ulys.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -4320,11 +4380,57 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "ulys_frequence",
+          "nom": "Fréquence — 1,90 € chaque mois",
+          "prix": 1.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ulys_classic",
+          "nom": "Classic — par mois d’utilisation",
+          "prix": 2.2,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ulys_edrive",
+          "nom": "e-Drive — par mois d’utilisation",
+          "prix": 2.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "ulys_premium",
+          "nom": "Premium — par mois d’utilisation",
+          "prix": 3.8,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
-      "contactResiliation": "Espace client Ulys",
-      "montantEstime": false,
-      "populaire": false
+      "contactResiliation": "Espace client Ulys (ulys.com)",
+      "montantEstime": true,
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "babbel",
@@ -4335,20 +4441,76 @@
         "type": "initiales",
         "valeur": "Bb"
       },
-      "urlGestion": "https://babbel.com",
+      "urlGestion": "https://my.babbel.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "mois",
+          "intervalle": 3
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "babbel_1m_app",
+          "nom": "1 langue, 1 mois — App Store",
+          "prix": 16.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "babbel_3m_app",
+          "nom": "1 langue, 3 mois — App Store",
+          "prix": 41.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 3
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "babbel_12m_app",
+          "nom": "1 langue, 12 mois — App Store",
+          "prix": 83.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "babbel_toutes_12m_app",
+          "nom": "Toutes les langues, 12 mois — App Store",
+          "prix": 95.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "duolingo",
@@ -4359,22 +4521,51 @@
         "type": "initiales",
         "valeur": "Du"
       },
-      "urlGestion": null,
+      "urlGestion": "https://www.duolingo.com/settings/super",
       "deepLinks": {
         "app_store": "itms-apps://apps.apple.com/account/subscriptions"
       },
       "periodicitesConnues": [
         {
           "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
+        },
+        {
+          "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "duolingo_super_annuel_app",
+          "nom": "Super Duolingo — annuel, App Store",
+          "prix": 110.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "duolingo_famille_annuel_app",
+          "nom": "Super Duolingo Famille — annuel, App Store",
+          "prix": 122.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "headspace",
@@ -4385,20 +4576,49 @@
         "type": "initiales",
         "valeur": "Hs"
       },
-      "urlGestion": "https://headspace.com",
+      "urlGestion": "https://my.headspace.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "headspace_mensuel_app",
+          "nom": "Headspace — mensuel, App Store",
+          "prix": 12.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "headspace_annuel_app",
+          "nom": "Headspace — annuel, App Store",
+          "prix": 57.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "calm",
@@ -4409,20 +4629,38 @@
         "type": "initiales",
         "valeur": "Cm"
       },
-      "urlGestion": "https://calm.com",
+      "urlGestion": "https://www.calm.com",
       "deepLinks": {},
       "periodicitesConnues": [
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
+        },
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "calm_premium_annuel_app",
+          "nom": "Calm Premium — annuel, App Store",
+          "prix": 49.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "petitbambou",
@@ -4433,7 +4671,7 @@
         "type": "initiales",
         "valeur": "PB"
       },
-      "urlGestion": null,
+      "urlGestion": "https://www.petitbambou.com/fr/subscriptions",
       "deepLinks": {
         "app_store": "itms-apps://apps.apple.com/account/subscriptions"
       },
@@ -4442,13 +4680,58 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "mois",
+          "intervalle": 6
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "petitbambou_mensuel_app",
+          "nom": "Petit BamBou — mensuel, App Store",
+          "prix": 9.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "petitbambou_semestriel_app",
+          "nom": "Petit BamBou — 6 mois, App Store",
+          "prix": 41.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 6
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "petitbambou_annuel_app",
+          "nom": "Petit BamBou — annuel, App Store",
+          "prix": 69.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "edf",
@@ -4477,7 +4760,8 @@
       "modeResiliation": "telephone",
       "contactResiliation": "09 69 32 15 15 (EDF particuliers)",
       "montantEstime": true,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "engie",
@@ -4504,9 +4788,10 @@
       ],
       "formules": [],
       "modeResiliation": "telephone",
-      "contactResiliation": "09 69 39 99 93 (Engie)",
+      "contactResiliation": "09 69 32 43 24 (Engie particuliers)",
       "montantEstime": true,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "totalenergies",
@@ -4517,7 +4802,7 @@
         "type": "initiales",
         "valeur": "TE"
       },
-      "urlGestion": "https://totalenergies.fr",
+      "urlGestion": "https://www.totalenergies.fr/clients/espace-client",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -4528,9 +4813,10 @@
       ],
       "formules": [],
       "modeResiliation": "espace_client",
-      "contactResiliation": "totalenergies.fr → espace client",
+      "contactResiliation": "09 70 80 69 69 (TotalEnergies) ou espace client",
       "montantEstime": true,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "veolia",
@@ -4541,7 +4827,7 @@
         "type": "initiales",
         "valeur": "Ve"
       },
-      "urlGestion": "https://eau.veolia.fr",
+      "urlGestion": "https://www.eau.veolia.fr",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -4552,9 +4838,10 @@
       ],
       "formules": [],
       "modeResiliation": "espace_client",
-      "contactResiliation": "eau.veolia.fr",
+      "contactResiliation": "Espace client eau.veolia.fr",
       "montantEstime": true,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "maif",
@@ -4565,7 +4852,7 @@
         "type": "initiales",
         "valeur": "Mf"
       },
-      "urlGestion": "https://maif.fr",
+      "urlGestion": "https://www.maif.fr/espace-personnel",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -4576,9 +4863,10 @@
       ],
       "formules": [],
       "modeResiliation": "courrier_recommande",
-      "contactResiliation": "MAIF — 200 av. Salvador-Allende, 79038 Niort",
+      "contactResiliation": "MAIF — 200 av. Salvador-Allende, 79038 Niort Cedex 9",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     }
   ]
 }

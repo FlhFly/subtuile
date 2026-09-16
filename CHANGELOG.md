@@ -7,7 +7,31 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.16.
+Aucune modification depuis la version 1.0.17.
+
+## [1.0.17] — 2026-09-16 — catalogue vérifié (lot 8, vie courante) : fin de la revue
+
+### Catalogue v11 — lot 8, vie courante revue (2026-09-16)
+
+#### Modifié
+- Formules ajoutées et `verifieLe` posé : Uber One (5,99 € ou 59,99 €/an), Deliveroo Plus Or
+  (3,49 €), carte Fnac+ (14,99 € pour 3 ans, offre en cours), télépéage Ulys (Fréquence 1,90 €
+  chaque mois ; Classic 2,20 €, e-Drive 2,90 €, Premium 3,80 € par mois d'utilisation, montant
+  estimé), Babbel (1 langue 16,99 € / 41,99 € par 3 mois / 83,99 €/an, toutes les langues
+  95,99 €/an), Duolingo (Super 110,99 €/an, Famille 122,99 €/an), Headspace (12,99 € ou
+  57,99 €/an), Calm Premium (49,99 €/an), Petit BamBou (9,99 €, 41,99 € par 6 mois, 69,99 €/an).
+  Pages officielles pour Uber, Deliveroo et Ulys ; fiches App Store (canal `app_store`) pour
+  Babbel, Duolingo, Headspace, Calm et Petit BamBou, dont les sites n'affichent pas de prix
+  fixe ; sources concordantes pour Fnac+.
+- Contrats à montant variable revus sans formule : EDF (09 69 32 15 15, numéro confirmé), Engie
+  (09 69 32 43 24), TotalEnergies (09 70 80 69 69, espace client), Veolia Eau
+  (`www.eau.veolia.fr`), MAIF (siège de Niort avec son cedex, espace personnel ; téléphone 09 72 72 15 15).
+- Adresses de gestion mises à jour : Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace,
+  Petit BamBou, Engie, TotalEnergies, Veolia, MAIF. Catalogue en version 11 ; rapport régénéré.
+- Bilan de la revue C16 (huit lots du 2026-09-14 au 2026-09-16) : 74 services sur 79 datés
+  `verifieLe`, 233 formules. Restent indicatifs, faute de source fiable : YouTube Music,
+  Dashlane, LinkedIn Premium, Fitness Park (tarifs par club) et L'Équipe.
+
 
 ## [1.0.16] — 2026-09-16 — catalogue vérifié (lot 7, jeux vidéo et sécurité)
 

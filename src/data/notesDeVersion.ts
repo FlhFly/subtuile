@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.17',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Catalogue : vie courante revue (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou, énergie, MAIF). 79 services revus.',
+      ],
+      en: [
+        'Catalog: everyday life reviewed (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou, energy, MAIF). All 79 services reviewed.',
+      ],
+    },
+  },
+  {
     version: '1.0.16',
     date: '2026-09-16',
     notes: {

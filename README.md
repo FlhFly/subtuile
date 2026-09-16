@@ -35,8 +35,8 @@ ordre personnalisé par glisser-déposer), filtres, recherche, grille ou liste ;
 d'alertes (renouvellement, fin d'essai, préavis, carte expirant, régularisation, hausse
 annoncée ; défauts réglables) ; échéancier en liste par mois ou en calendrier ; fiche détail
 (engagement et date limite, historique des prix, changement de prix à date, duplication, rappel
-.ics) ; création et édition en saisie libre ou depuis le catalogue (79 services avec formules et
-tarifs indicatifs, « moins cher en direct », suggestions, « Proposer un service »), garde contre
+.ics) ; création et édition en saisie libre ou depuis le catalogue (79 services et 233 formules aux
+tarifs revus en septembre 2026, « moins cher en direct », suggestions, « Proposer un service »), garde contre
 la perte de saisie ; moyens de paiement ; « Gérer / Résilier » routé selon le canal, démarches
 hors ligne, « résilié — actif jusqu'au » ; cycle de vie automatique (essai → payant, hausse
 appliquée, résilié archivé, pause reprise, régularisation reportée) ; toutes périodicités ;

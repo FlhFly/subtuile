@@ -250,7 +250,7 @@ describe('recette lot 2 — moyens de paiement et désabonnement (CdC §6)', () 
     expect(lienTelephone('09 69 32 15 15 (EDF particuliers)')).toBe('tel:0969321515');
     expect(action('maif')).toEqual({
       type: 'courrier_recommande',
-      contact: 'MAIF — 200 av. Salvador-Allende, 79038 Niort',
+      contact: 'MAIF — 200 av. Salvador-Allende, 79038 Niort Cedex 9',
     });
     expect(action('canal')).toEqual({
       type: 'espace_client',

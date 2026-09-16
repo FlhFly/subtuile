@@ -20,7 +20,7 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
   });
 
   it('contient le catalogue complet de la maquette v6 (annexe A) : 79 services, 10 catégories', () => {
-    expect(CATALOGUE_EMBARQUE.version).toBe(10);
+    expect(CATALOGUE_EMBARQUE.version).toBe(11);
     expect(CATALOGUE_EMBARQUE.data).toHaveLength(79);
     const ids = CATALOGUE_EMBARQUE.data.map((s) => s.id);
     const attendus = [
@@ -76,15 +76,7 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
   });
 
   it('services App Store seulement : deep link, pas d’adresse de gestion (EF-21)', () => {
-    for (const id of [
-      'appletv',
-      'applemusic',
-      'applefit',
-      'arcade',
-      'duolingo',
-      'petitbambou',
-      'icloud',
-    ]) {
+    for (const id of ['appletv', 'applemusic', 'applefit', 'arcade', 'icloud']) {
       const s = trouverService(CATALOGUE_EMBARQUE, id)!;
       expect(s.urlGestion, id).toBeNull();
       expect(s.deepLinks.app_store, id).toBe('itms-apps://apps.apple.com/account/subscriptions');
