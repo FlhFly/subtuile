@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.13',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Catalogue : quand un service que vous aviez ajouté vous-même rejoint le catalogue commun, l’app propose de basculer vos abonnements sur la version officielle.',
+      ],
+      en: [
+        'Catalog: when a service you added yourself joins the shared catalog, the app offers to move your subscriptions to the official version.',
+      ],
+    },
+  },
+  {
     version: '1.0.12',
     date: '2026-09-15',
     notes: {

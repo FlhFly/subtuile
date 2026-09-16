@@ -3,9 +3,11 @@ import { ADRESSE_CONTACT } from '../../data/contact';
 import { decrireAppareil, lienRetour } from '../../domain/retours';
 import {
   enregistrerServicePersonnalise,
+  migrerVersOfficiel,
   restaurerServicePersonnalise,
   supprimerServicePersonnalise,
 } from '../../data/services/servicesPersonnalises';
+import { correspondancesOfficielles, type Correspondance } from '../../domain/migrationServices';
 import {
   appStoreSeulement,
   grouperAvecMesServices,
@@ -14,6 +16,7 @@ import {
 import {
   couleurPourNom,
   creerServicePersonnalise,
+  estServicePersonnalise,
   formulaireServiceVide,
   validerServicePersonnalise,
   type ErreursService,
@@ -26,6 +29,7 @@ import { Chips } from '../components/Chips';
 import { EnTete } from '../components/EnTete';
 import { Icone } from '../components/Icone';
 import { useI18n } from '../contexts/I18nContext';
+import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
 import { useCatalogue } from '../hooks/useCatalogue';
@@ -48,7 +52,8 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
   const { t, tn, date, langue } = useI18n();
   const storage = useStorage();
   const toast = useToast();
-  const { catalogue } = useCatalogue();
+  const { preferences, modifier } = usePreferences();
+  const { catalogue, personnalises } = useCatalogue();
   const [recherche, setRecherche] = useState('');
   const [propositionOuverte, setPropositionOuverte] = useState(false);
 
@@ -83,6 +88,32 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
         langue,
       }),
     );
+
+  /* EF-09 : entrées maison qui ont désormais un homonyme officiel ; proposition, jamais de bascule silencieuse */
+  const embarques = useMemo(
+    () => catalogue.data.filter((s) => !estServicePersonnalise(s)),
+    [catalogue.data],
+  );
+  const correspondances = useMemo(
+    () => correspondancesOfficielles(personnalises, embarques, preferences.migrationsRefusees),
+    [personnalises, embarques, preferences.migrationsRefusees],
+  );
+  const migrer = async (c: Correspondance) => {
+    const bilan = await migrerVersOfficiel(storage, c);
+    const message =
+      bilan.nbAbonnements === 0
+        ? t('toast.migration.aucun', { nom: c.officiel.nom })
+        : tn('toast.migration', bilan.nbAbonnements, { nom: c.officiel.nom });
+    toast.afficherAvecAction(message, {
+      libelle: t('toast.annuler'),
+      executer: async () => {
+        await bilan.annuler();
+        toast.afficher(t('toast.actionAnnulee'));
+      },
+    });
+  };
+  const refuserMigration = (c: Correspondance) =>
+    modifier({ migrationsRefusees: [...preferences.migrationsRefusees, c.personnalise.id] });
 
   const proposer = async (etat: FormulaireServicePersonnalise) => {
     const service = creerServicePersonnalise(etat);
@@ -182,6 +213,30 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
             {t('catalogue.mesServices')} · {groupes.mesServices.length}
           </h2>
           <p className={styles.groupeTexte}>{t('catalogue.mesServices.texte')}</p>
+          {correspondances.map((c) => (
+            <div key={c.personnalise.id} className={styles.migration} role="status">
+              <span className={styles.migrationTitre}>
+                {t('catalogue.migration.titre', { nom: c.officiel.nom })}
+              </span>
+              <span className={styles.migrationTexte}>{t('catalogue.migration.texte')}</span>
+              <div className={styles.propositionActions}>
+                <button
+                  type="button"
+                  className={styles.boutonPrincipal}
+                  onClick={() => void migrer(c)}
+                >
+                  {t('catalogue.migration.accepter')}
+                </button>
+                <button
+                  type="button"
+                  className={styles.boutonSecondaire}
+                  onClick={() => refuserMigration(c)}
+                >
+                  {t('catalogue.migration.refuser')}
+                </button>
+              </div>
+            </div>
+          ))}
           <ul className={styles.liste}>{groupes.mesServices.map((s) => ligne(s, true))}</ul>
         </section>
       ) : null}

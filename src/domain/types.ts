@@ -361,6 +361,8 @@ export interface Preferences {
   versionVue: string | null;
   /** date du dernier export JSON (rappel de sauvegarde, C1) ; null = jamais */
   derniereSauvegarde: DateISO | null;
+  /** entrées « Mes services » dont l'utilisateur a refusé la bascule vers l'officiel (EF-09) */
+  migrationsRefusees: string[];
 }
 
 /* ---------------------------------------------------------------------------

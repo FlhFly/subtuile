@@ -401,6 +401,14 @@ export const en: Dictionnaire = {
   'catalogue.proposer.note':
     'Colour and initials are generated automatically. The entry joins the local catalogue (“My services” group) and becomes available when creating a subscription. You can also e-mail it to the author for the shared catalogue.',
   'catalogue.mesServices.envoyer': 'Suggest for the shared catalogue by e-mail',
+  'catalogue.migration.titre': '{nom} is now in the shared catalogue',
+  'catalogue.migration.texte':
+    'Linked subscriptions keep their price, billing period and payment method, and gain the official plans and address. Your entry will be removed from “My services”.',
+  'catalogue.migration.accepter': 'Use the official version',
+  'catalogue.migration.refuser': 'Keep mine',
+  'toast.migration.un': '{nom}: {n} subscription moved to the official version',
+  'toast.migration.plusieurs': '{nom}: {n} subscriptions moved to the official version',
+  'toast.migration.aucun': '{nom}: entry replaced by the official version',
   'toast.serviceEnvoyer': 'Send by e-mail',
   'retours.sujet.service': '[Subtuile {version}] Service suggestion: {nom}',
   'retours.corps.service':

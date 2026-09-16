@@ -153,6 +153,28 @@
 }
 
 /* Mes services (EF-09) */
+/* Proposition de bascule vers la version officielle (EF-09) */
+.migration {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg);
+  background: var(--ok-bg);
+}
+
+.migrationTitre {
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+  color: var(--ok);
+}
+
+.migrationTexte {
+  font-size: 12.5px;
+  line-height: 1.4;
+  color: var(--muted);
+}
+
 .groupeTexte {
   font-size: var(--fs-sm);
   color: var(--muted);

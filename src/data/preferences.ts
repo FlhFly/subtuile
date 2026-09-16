@@ -51,6 +51,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     onboardingVu: false,
     versionVue: null,
     derniereSauvegarde: null,
+    migrationsRefusees: [],
   };
 }
 
@@ -90,6 +91,9 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
     versionVue: typeof o.versionVue === 'string' ? o.versionVue : defaut.versionVue,
     derniereSauvegarde:
       typeof o.derniereSauvegarde === 'string' ? o.derniereSauvegarde : defaut.derniereSauvegarde,
+    migrationsRefusees: Array.isArray(o.migrationsRefusees)
+      ? o.migrationsRefusees.filter((x): x is string => typeof x === 'string')
+      : [...defaut.migrationsRefusees],
   };
 }
 

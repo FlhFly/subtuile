@@ -41,6 +41,7 @@ export type ClePluriel =
   | 'duree.mois'
   | 'paiements.nombre'
   | 'catalogue.nombre'
+  | 'toast.migration'
   | 'alertes.nonLues'
   | 'alertes.echeance.titre'
   | 'alertes.carte.sous'

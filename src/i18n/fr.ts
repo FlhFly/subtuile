@@ -409,6 +409,14 @@ export const fr = {
   'catalogue.proposer.note':
     'Couleur et initiales générées automatiquement. L’entrée rejoint le catalogue local (groupe « Mes services ») et devient utilisable à la création. Vous pourrez aussi l’envoyer par e-mail à l’auteur pour le catalogue commun.',
   'catalogue.mesServices.envoyer': 'Proposer au catalogue commun par e-mail',
+  'catalogue.migration.titre': '{nom} est maintenant dans le catalogue commun',
+  'catalogue.migration.texte':
+    'Vos abonnements liés garderont leur prix, leur périodicité et leur moyen de paiement, et profiteront des formules et de l’adresse officielles. Votre entrée sera retirée de « Mes services ».',
+  'catalogue.migration.accepter': 'Utiliser la version officielle',
+  'catalogue.migration.refuser': 'Garder la mienne',
+  'toast.migration.un': '{nom} : {n} abonnement passé sur la version officielle',
+  'toast.migration.plusieurs': '{nom} : {n} abonnements passés sur la version officielle',
+  'toast.migration.aucun': '{nom} : entrée remplacée par la version officielle',
   'toast.serviceEnvoyer': 'Envoyer par e-mail',
   'retours.sujet.service': '[Subtuile {version}] Proposition de service : {nom}',
   'retours.corps.service':

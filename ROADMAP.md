@@ -164,7 +164,7 @@ version dans l'app.
 | Proposition de service envoyée par e-mail à l'auteur (catalogue commun) ; dialogue des retours réagencé | ✅ 2026-09-14 (v1.0.11) |
 | Canal de retours utilisateurs (bugs, idées) : e-mail `contact@subtuile.com` (domaine subtuile.com acheté par FlhFly) ; rangée « Signaler un bug ou proposer une idée » dans À propos | ✅ 2026-09-14 (v1.0.6) |
 | Hauteur des boutons du dialogue des retours alignée sur le formulaire et la fiche | ✅ 2026-09-15 (v1.0.12) |
-| Remplacement d'une entrée « Mes services » par la version officielle quand elle rejoint le catalogue (EF-09) : proposition explicite, migration des abonnements liés, refus mémorisé | 🔄 approche validée par FlhFly le 2026-09-15, à livrer après sa vérification du catalogue |
+| Remplacement d'une entrée « Mes services » par la version officielle quand elle rejoint le catalogue (EF-09) : proposition explicite, migration des abonnements liés, refus mémorisé | ✅ 2026-09-16 (v1.0.13, approche validée le 2026-09-15) |
 | Thème sombre « OLED » (noirs purs) en troisième choix d'apparence (C18) ; maquette possible via Claude Design avant intégration | ⬜ demande FlhFly du 2026-09-15, pas avant les lots de catalogue |
 | Saisie libre : à l'enregistrement d'un service inconnu du catalogue et de « Mes services », proposer d'en créer l'entrée depuis les données saisies, puis de l'envoyer à `contact@subtuile.com` avec le message pré-rempli de la v1.0.11 (EF-09) | ⬜ demande FlhFly du 2026-09-15 |
 | Domaine personnalisé subtuile.com (GitHub Pages, `public/CNAME`, build à la racine) ; ancienne adresse redirigée | ✅ 2026-09-14 |

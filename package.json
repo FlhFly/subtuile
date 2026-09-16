@@ -1,7 +1,7 @@
 {
   "name": "subtuile",
   "private": true,
-  "version": "1.0.12",
+  "version": "1.0.13",
   "description": "Suivi d'abonnements et de contrats récurrents — 100 % local, hors ligne, zéro tracking.",
   "license": "AGPL-3.0-only",
   "author": "FlhFly",

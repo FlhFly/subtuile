@@ -7,6 +7,24 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+Aucune modification depuis la version 1.0.13.
+
+## [1.0.13] — 2026-09-16 — bascule d'une entrée « Mes services » vers la version officielle
+
+### Migration vers le catalogue commun (2026-09-16)
+
+#### Ajouté
+- Catalogue › Mes services : quand une entrée maison a désormais un homonyme dans le catalogue
+  embarqué (nom rapproché : accents, casse et ponctuation ignorés), une carte le signale et
+  propose « Utiliser la version officielle » ou « Garder la mienne » (EF-09). La bascule
+  réécrit les abonnements liés vers le service officiel en conservant prix, périodicité,
+  devise, moyen de paiement, statut et notes ; la formule est à rechoisir ; l'adresse de gestion
+  et le mode de résiliation ne sont repris de l'officiel que s'ils venaient de l'entrée maison.
+  L'entrée maison est retirée, annulable depuis le toast. Le refus est mémorisé (préférence
+  `migrationsRefusees`). Jamais de bascule silencieuse.
+- Domaine `migrationServices.ts` (nom rapproché, correspondances, réécriture) et service
+  `migrerVersOfficiel` avec annulation, testés.
+
 ### Périmètre : catalogue commun (service inconnu, migration), thème sombre OLED (2026-09-15)
 
 #### Modifié
