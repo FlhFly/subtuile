@@ -171,6 +171,7 @@ version dans l'app.
 | Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | ✅ 2026-09-16 (v1.0.17, catalogue v11) : script et rapport, puis huit lots — populaires, streaming, musique, IA, cloud + productivité (2026-09-14), sport + presse, gaming + sécurité, vie courante (2026-09-16) ; 74 services sur 79 datés `verifieLe`, 233 formules ; restent indicatifs YouTube Music, Dashlane, LinkedIn, Fitness Park, L'Équipe |
 | Store par plateforme (C19) : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil | ⬜ demande FlhFly du 2026-09-16, à prévoir plus tard |
 | Export CSV des abonnements, mêmes colonnes que l'import (EF-52) | ⬜ après l'import à colonnes manuelles ; colonnes à valider avec FlhFly |
+| Import CSV : choix manuel du séparateur, de l'en-tête et des colonnes quand la détection ne convient pas (EF-52) | ✅ 2026-09-16 (v1.0.18) |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

@@ -47,8 +47,19 @@ export interface LigneRejetee {
 export interface AnalyseCsv {
   separateur: Separateur;
   enTete: boolean;
+  /** colonne de chaque champ (index dans la ligne, -1 = absente) */
+  colonnes: ColonnesCsv;
+  /** champs de la première ligne du fichier, pour nommer les colonnes à l'écran */
+  premiereLigne: string[];
   reconnues: LigneCsv[];
   rejetees: LigneRejetee[];
+}
+
+/** Réglages choisis à la main quand la détection automatique ne convient pas (v1.27). */
+export interface OptionsCsv {
+  separateur?: Separateur;
+  enTete?: boolean;
+  colonnes?: ColonnesCsv;
 }
 
 /** Découpe une ligne CSV en champs (guillemets doubles, guillemet doublé = échappement). */
@@ -115,14 +126,18 @@ const MOTS_COLONNES = {
     'due',
   ],
 } as const;
-type Colonne = keyof typeof MOTS_COLONNES;
+export type Colonne = keyof typeof MOTS_COLONNES;
+export type ColonnesCsv = Record<Colonne, number>;
+export const COLONNES_CSV: readonly Colonne[] = ['nom', 'prix', 'periodicite', 'echeance'];
+export const SEPARATEURS_CSV: readonly Separateur[] = [';', ',', '\t'];
+const COLONNES_PAR_DEFAUT: ColonnesCsv = { nom: 0, prix: 1, periodicite: 2, echeance: 3 };
 
 function normaliser(texte: string): string {
   return texte.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 }
 
 /** Reconnaît un en-tête : au moins « nom » et « prix » identifiés. Renvoie l'index de chaque colonne. */
-export function reconnaitreEnTete(champs: readonly string[]): Record<Colonne, number> | null {
+export function reconnaitreEnTete(champs: readonly string[]): ColonnesCsv | null {
   const index: Partial<Record<Colonne, number>> = {};
   champs.forEach((champ, i) => {
     const c = normaliser(champ);
@@ -180,28 +195,28 @@ function lireDate(
   return parser(t, format) ?? parser(t, format === 'mja' ? 'jma' : 'mja');
 }
 
-/** Analyse complète d'un texte CSV : lignes reconnues et rejetées, avec leurs raisons. */
+/**
+ * Analyse complète d'un texte CSV : lignes reconnues et rejetées, avec leurs
+ * raisons. Sans option, tout est détecté (séparateur, en-tête fr / en, sinon
+ * ordre nom, prix, périodicité, échéance) ; les options imposent le séparateur,
+ * la présence d'un en-tête ou la colonne de chaque champ (v1.27).
+ */
 export function analyserCsv(
   texte: string,
   format: FormatDate,
   parserDate: (t: string, f: FormatDate) => DateISO | null,
+  options: OptionsCsv = {},
 ): AnalyseCsv {
-  const separateur = detecterSeparateur(texte);
+  const separateur = options.separateur ?? detecterSeparateur(texte);
   const lignes = texte.split(/\r?\n/).filter((l) => l.trim() !== '');
   const reconnues: LigneCsv[] = [];
   const rejetees: LigneRejetee[] = [];
-  let colonnes: Record<Colonne, number> = { nom: 0, prix: 1, periodicite: 2, echeance: 3 };
-  let enTete = false;
-  let depart = 0;
   const premiere = lignes[0];
-  if (premiere !== undefined) {
-    const detectees = reconnaitreEnTete(decouperLigne(premiere, separateur));
-    if (detectees) {
-      colonnes = detectees;
-      enTete = true;
-      depart = 1;
-    }
-  }
+  const premiereLigne = premiere === undefined ? [] : decouperLigne(premiere, separateur);
+  const detectees = reconnaitreEnTete(premiereLigne);
+  const enTete = options.enTete ?? detectees !== null;
+  const colonnes: ColonnesCsv = options.colonnes ?? detectees ?? COLONNES_PAR_DEFAUT;
+  const depart = enTete ? 1 : 0;
   const champ = (champs: string[], colonne: Colonne): string =>
     colonnes[colonne] >= 0 ? (champs[colonnes[colonne]] ?? '') : '';
 
@@ -223,7 +238,7 @@ export function analyserCsv(
     reconnues.push({ numero, nom, prix: String(prix).replace('.', ','), periodicite, echeance });
     return undefined;
   });
-  return { separateur, enTete, reconnues, rejetees };
+  return { separateur, enTete, colonnes, premiereLigne, reconnues, rejetees };
 }
 
 /**

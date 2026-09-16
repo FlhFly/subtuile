@@ -197,6 +197,34 @@
   gap: 8px;
 }
 
+/* Choix manuel des colonnes (EF-52, v1.27) */
+.colonnes {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid var(--sand);
+  border-radius: 12px;
+}
+
+.colonnesTitre {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.colonne {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.colonneLibelle {
+  font-size: 10px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+
 /* Aperçu CSV */
 .table {
   display: flex;

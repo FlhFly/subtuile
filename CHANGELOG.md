@@ -7,7 +7,29 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.17.
+Aucune modification depuis la version 1.0.18.
+
+## [1.0.18] — 2026-09-16 — import CSV : colonnes choisies à la main
+
+### Import CSV à colonnes manuelles (EF-52, CdC v1.27) (2026-09-16)
+
+#### Ajouté
+- Écran d'import, tableur CSV : panneau « Colonnes du fichier » avec le séparateur (« ; »,
+  « , », tabulation), l'interrupteur « La première ligne est un titre » et, pour chaque
+  information (nom, prix, périodicité, échéance), le choix de la colonne parmi celles du
+  fichier — nommées d'après le titre quand il y en a un, sinon « Colonne n » ; périodicité et
+  échéance acceptent « Aucune ». Chaque changement relance l'analyse et l'aperçu. Le panneau
+  s'ouvre de lui-même quand des lignes sont ignorées ou qu'aucune n'est reconnue, et reste
+  accessible par « Modifier les colonnes ».
+- `analyserCsv` accepte des options (séparateur, en-tête, colonnes) et renvoie les colonnes
+  retenues et la première ligne du fichier ; la détection automatique reste inchangée sans
+  option.
+
+#### Documentation
+- CdC v1.27 : EF-52 étendu (colonnes manuelles, export CSV prévu), candidat C19 « store par
+  plateforme » (détection iOS / Android et réglage « Boutique d'applications », demande de
+  FlhFly du 2026-09-16, à prévoir plus tard).
+
 
 ## [1.0.17] — 2026-09-16 — catalogue vérifié (lot 8, vie courante) : fin de la revue
 

@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.18',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Import CSV : quand le fichier n’est pas reconnu, choisissez vous-même le séparateur, le titre et la colonne de chaque information ; l’aperçu se met à jour.',
+      ],
+      en: [
+        'CSV import: when the file is not recognised, pick the separator, the header and the column of each field yourself; the preview updates at once.',
+      ],
+    },
+  },
+  {
     version: '1.0.17',
     date: '2026-09-16',
     notes: {

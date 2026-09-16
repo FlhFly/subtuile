@@ -233,6 +233,44 @@ describe('import CSV (EF-52)', () => {
     ]);
   });
 
+  it('colonnes choisies à la main : en-tête étranger, ordre différent, séparateur imposé (v1.27)', () => {
+    const etranger =
+      'Dienst;Preis;Zyklus;Fällig\nNetflix;13,49;Monat;04/10/2026\nStrava;59,99;Jahr;';
+    const auto = analyserCsv(etranger, 'jma', parser);
+    expect(auto.enTete).toBe(false);
+    expect(auto.colonnes).toEqual({ nom: 0, prix: 1, periodicite: 2, echeance: 3 });
+    expect(auto.premiereLigne).toEqual(['Dienst', 'Preis', 'Zyklus', 'Fällig']);
+    // l'en-tête passe pour une ligne au prix illisible, « Monat » et « Jahr » sont inconnus
+    expect(auto.rejetees.map((r) => r.raison)).toEqual(['prix', 'periodicite', 'periodicite']);
+    const manuel = analyserCsv(etranger, 'jma', parser, {
+      enTete: true,
+      colonnes: { nom: 0, prix: 1, periodicite: -1, echeance: 3 },
+    });
+    expect(manuel.enTete).toBe(true);
+    expect(manuel.rejetees).toEqual([]);
+    expect(manuel.reconnues.map((l) => [l.nom, l.prix, l.echeance])).toEqual([
+      ['Netflix', '13,49', '2026-10-04'],
+      ['Strava', '59,99', null],
+    ]);
+    expect(manuel.reconnues.map((l) => l.periodicite)).toEqual([
+      PERIODICITES.mensuelle,
+      PERIODICITES.mensuelle,
+    ]);
+    // sans en-tête, prix avant nom
+    const inverse = analyserCsv('11,99;Le Monde\n5;Ancien', 'jma', parser, {
+      colonnes: { nom: 1, prix: 0, periodicite: -1, echeance: -1 },
+    });
+    expect(inverse.reconnues.map((l) => [l.nom, l.prix])).toEqual([
+      ['Le Monde', '11,99'],
+      ['Ancien', '5'],
+    ]);
+    // séparateur imposé : la virgule malgré autant de points-virgules dans le nom
+    const virgule = analyserCsv('"Ciné;séries;plus",9,mois', 'jma', parser, { separateur: ',' });
+    expect(virgule.separateur).toBe(',');
+    expect(virgule.enTete).toBe(false);
+    expect(virgule.reconnues[0]?.nom).toBe('Ciné;séries;plus');
+  });
+
   it('abonnements créés : échéance future en surcharge, passée comme date de début, devise du réglage', () => {
     const a = analyserCsv(
       'nom;prix;périodicité;échéance\nLe Monde;11,99;mois;04/10/2026\nAncien;5;an;01/01/2026\nSans date;3;mois;',

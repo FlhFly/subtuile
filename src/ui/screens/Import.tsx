@@ -1,10 +1,20 @@
 import { useRef, useState, type ChangeEvent } from 'react';
 import { ErreurImport, lireExportJson, type ApercuImport } from '../../data/importExport';
-import { abonnementsDepuisCsv, analyserCsv, type AnalyseCsv } from '../../domain/csv';
+import {
+  abonnementsDepuisCsv,
+  analyserCsv,
+  COLONNES_CSV,
+  SEPARATEURS_CSV,
+  type AnalyseCsv,
+  type Colonne,
+  type OptionsCsv,
+} from '../../domain/csv';
 import { aujourdhui } from '../../domain/dates';
 import { parserDateSaisie } from '../../i18n';
+import { Chips } from '../components/Chips';
 import { EnTete } from '../components/EnTete';
 import { Icone } from '../components/Icone';
+import { Interrupteur } from '../components/Interrupteur';
 import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
@@ -23,10 +33,32 @@ interface Props {
 type Etat =
   | { etape: 'choix' }
   | { etape: 'json'; nomFichier: string; apercu: ApercuImport; confirmation: boolean }
-  | { etape: 'csv'; nomFichier: string; analyse: AnalyseCsv }
+  | {
+      etape: 'csv';
+      nomFichier: string;
+      texte: string;
+      /** réglages choisis à la main (vide : tout est détecté) */
+      options: OptionsCsv;
+      analyse: AnalyseCsv;
+      /** panneau des colonnes : null = ouvert seulement si des lignes sont ignorées */
+      colonnesOuvertes: boolean | null;
+    }
   | { etape: 'erreur'; nomFichier: string; code: ErreurImport['code'] | 'lecture'; detail: string };
 
 const APERCU_MAX = 5;
+type EtatCsv = Extract<Etat, { etape: 'csv' }>;
+
+/** Libellé court d'une colonne : en-tête du fichier, sinon « Colonne n ». */
+function libelleColonne(
+  entete: string | undefined,
+  enTete: boolean,
+  n: number,
+  t: (cle: 'import.csv.colonne.numero', p: { n: number }) => string,
+): string {
+  const brut = enTete ? (entete ?? '').trim() : '';
+  if (brut === '') return t('import.csv.colonne.numero', { n });
+  return brut.length > 18 ? `${brut.slice(0, 17)}…` : brut;
+}
 
 /**
  * Import de données (EF-50, EF-52, écran « Import de données » de la maquette) :
@@ -68,7 +100,14 @@ export function Import({ onRetour, onTermine }: Props) {
       }
     } else {
       const analyse = analyserCsv(texte, preferences.formatDate, parserDateSaisie);
-      setEtat({ etape: 'csv', nomFichier: fichier.name, analyse });
+      setEtat({
+        etape: 'csv',
+        nomFichier: fichier.name,
+        texte,
+        options: {},
+        analyse,
+        colonnesOuvertes: null,
+      });
     }
   };
   const surChoix = (type: 'json' | 'csv') => (e: ChangeEvent<HTMLInputElement>) => {
@@ -98,6 +137,26 @@ export function Import({ onRetour, onTermine }: Props) {
       setOccupe(false);
     }
   };
+
+  /** Réanalyse le fichier avec les réglages choisis à la main (v1.27). */
+  const reglerCsv = (courant: EtatCsv, options: OptionsCsv) => {
+    const analyse = analyserCsv(courant.texte, preferences.formatDate, parserDateSaisie, options);
+    setEtat({ ...courant, options, analyse, colonnesOuvertes: true });
+  };
+  const optionsColonne = (courant: EtatCsv, colonne: Colonne) => {
+    const { premiereLigne, enTete } = courant.analyse;
+    const nb = Math.max(premiereLigne.length, 1);
+    const options = Array.from({ length: nb }, (_, i) => ({
+      valeur: i,
+      libelle: libelleColonne(premiereLigne[i], enTete, i + 1, t),
+    }));
+    return colonne === 'nom' || colonne === 'prix'
+      ? options
+      : [...options, { valeur: -1, libelle: t('import.csv.colonne.aucune') }];
+  };
+  const panneauOuvert = (courant: EtatCsv) =>
+    courant.colonnesOuvertes ??
+    (courant.analyse.reconnues.length === 0 || courant.analyse.rejetees.length > 0);
 
   const retourChoix = () => setEtat({ etape: 'choix' });
   const separateurLisible = (s: AnalyseCsv['separateur']) =>
@@ -229,6 +288,48 @@ export function Import({ onRetour, onTermine }: Props) {
       {etat.etape === 'csv' ? (
         <section className={styles.carte}>
           <span className={styles.fichier}>{etat.nomFichier}</span>
+          {panneauOuvert(etat) ? (
+            <div className={styles.colonnes}>
+              <span className={styles.colonnesTitre}>{t('import.csv.colonnes')}</span>
+              <span className={styles.resumeSous}>{t('import.csv.colonnes.aide')}</span>
+              <div className={styles.colonne}>
+                <span className={styles.colonneLibelle}>{t('import.csv.separateur')}</span>
+                <Chips
+                  nom={t('import.csv.separateur')}
+                  options={SEPARATEURS_CSV.map((s) => ({
+                    valeur: s,
+                    libelle: s === '\t' ? t('import.csv.tabulation') : `« ${s} »`,
+                  }))}
+                  valeur={etat.analyse.separateur}
+                  onChange={(separateur) => reglerCsv(etat, { separateur })}
+                />
+              </div>
+              <Interrupteur
+                libelle={t('import.csv.enTete')}
+                actif={etat.analyse.enTete}
+                onChange={(enTete) => reglerCsv(etat, { ...etat.options, enTete })}
+              />
+              {COLONNES_CSV.map((colonne) => (
+                <div key={colonne} className={styles.colonne}>
+                  <span className={styles.colonneLibelle}>
+                    {t(`import.csv.colonne.${colonne}`)}
+                  </span>
+                  <Chips
+                    nom={t(`import.csv.colonne.${colonne}`)}
+                    options={optionsColonne(etat, colonne)}
+                    valeur={etat.analyse.colonnes[colonne]}
+                    onChange={(index) =>
+                      reglerCsv(etat, {
+                        ...etat.options,
+                        enTete: etat.analyse.enTete,
+                        colonnes: { ...etat.analyse.colonnes, [colonne]: index },
+                      })
+                    }
+                  />
+                </div>
+              ))}
+            </div>
+          ) : null}
           {etat.analyse.reconnues.length > 0 ? (
             <>
               <span className={styles.resumeSous}>
@@ -284,6 +385,15 @@ export function Import({ onRetour, onTermine }: Props) {
               {tn('import.csv.importer', etat.analyse.reconnues.length)}
             </button>
           ) : null}
+          <button
+            type="button"
+            className={styles.lienDiscret}
+            onClick={() => setEtat({ ...etat, colonnesOuvertes: !panneauOuvert(etat) })}
+          >
+            {panneauOuvert(etat)
+              ? t('import.csv.colonnes.fermer')
+              : t('import.csv.colonnes.modifier')}
+          </button>
           <button type="button" className={styles.lienDiscret} onClick={retourChoix}>
             {t('import.autre')}
           </button>
