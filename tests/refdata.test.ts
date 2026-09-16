@@ -20,7 +20,7 @@ describe('catalogue embarqué (§3.4, §5.6)', () => {
   });
 
   it('contient le catalogue complet de la maquette v6 (annexe A) : 79 services, 10 catégories', () => {
-    expect(CATALOGUE_EMBARQUE.version).toBe(8);
+    expect(CATALOGUE_EMBARQUE.version).toBe(9);
     expect(CATALOGUE_EMBARQUE.data).toHaveLength(79);
     const ids = CATALOGUE_EMBARQUE.data.map((s) => s.id);
     const attendus = [

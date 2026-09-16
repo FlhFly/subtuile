@@ -1,12 +1,12 @@
 # Vérification du catalogue
 
-Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalogue v8, tarifs indicatifs au 2026-09-14.
+Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalogue v9, tarifs indicatifs au 2026-09-16.
 
 ## Résumé
 
-- 79 services, 125 formules ; 37 services sans formule ; 39 services revus manuellement (`verifieLe`).
+- 79 services, 157 formules ; 26 services sans formule ; 50 services revus manuellement (`verifieLe`).
 - Structure : aucun problème.
-- Réseau : 70 adresses testées, 45 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
+- Réseau : 71 adresses testées, 49 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
 
 ## Services
 
@@ -20,18 +20,18 @@ Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalog
 | Canal+ ★ (`canal`) | streaming | 4 | <https://client.canalplus.com> | OK | 2026-09-14 |
 | Paramount+ (`paramount`) | streaming | 4 | <https://paramountplus.com/account> | HTTP 403 (anti-robot probable) | 2026-09-14 |
 | Crunchyroll (`crunchy`) | streaming | 4 | <https://www.crunchyroll.com/fr/account/membership> | HTTP 403 (anti-robot probable) | 2026-09-14 |
-| ADN (`adn`) | streaming | 3 | <https://animationdigitalnetwork.com> | OK | 2026-09-14 |
+| ADN (`adn`) | streaming | 3 | <https://animationdigitalnetwork.com> | injoignable (ECONNRESET) | 2026-09-14 |
 | YouTube Premium ★ (`youtube`) | streaming | 4 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | 2026-09-14 |
 | Molotov (`molotov`) | streaming | 4 | <https://www.molotov.tv/account> | OK | 2026-09-14 |
-| DAZN (`dazn`) | streaming | 2 | <https://www.dazn.com/fr-FR/myaccount> | injoignable (ECONNRESET) | 2026-09-14 |
+| DAZN (`dazn`) | streaming | 2 | <https://www.dazn.com/fr-FR/myaccount> | OK | 2026-09-14 |
 | beIN Sports (`bein`) | streaming | 1 | <https://www.beinsports.com/fr-fr/mon-compte> | OK | 2026-09-14 |
 | Spotify ★ (`spotify`) | musique | 4 | <https://www.spotify.com/account/subscription> | OK | 2026-09-14 |
 | Deezer ★ (`deezer`) | musique | 5 | <https://deezer.com/account> | OK | 2026-09-14 |
 | Apple Music (`applemusic`) | musique | 3 | — | — (lien profond) | 2026-09-14 |
-| Amazon Music (`amazonmusic`) | musique | 3 | <https://amazon.fr/music/settings> | injoignable (ECONNRESET) | 2026-09-14 |
+| Amazon Music (`amazonmusic`) | musique | 3 | <https://amazon.fr/music/settings> | OK | 2026-09-14 |
 | YouTube Music (`ytmusic`) | musique | 0 | <https://music.youtube.com/paid_memberships> | OK | — |
 | Tidal (`tidal`) | musique | 2 | <https://tidal.com/account> | HTTP 403 (anti-robot probable) | 2026-09-14 |
-| Audible (`audible`) | musique | 1 | <https://audible.fr/account> | OK, redirigé vers amazon.fr | 2026-09-14 |
+| Audible (`audible`) | musique | 1 | <https://audible.fr/account> | injoignable (ECONNRESET) | 2026-09-14 |
 | Claude ★ (`claude`) | ia | 4 | <https://claude.ai/settings/billing> | OK | 2026-09-14 |
 | ChatGPT ★ (`chatgpt`) | ia | 4 | <https://chatgpt.com/#settings/Subscription> | OK | 2026-09-14 |
 | Gemini / Google AI (`gemini`) | ia | 1 | <https://one.google.com/plans> | OK | 2026-09-14 |
@@ -53,20 +53,20 @@ Rapport généré le 2026-09-14 par `scripts/verifier-catalogue.cjs` — catalog
 | Bitwarden (`bitwarden`) | productivite | 2 | <https://vault.bitwarden.com> | OK | 2026-09-14 |
 | Dashlane (`dashlane`) | productivite | 1 | <https://app.dashlane.com> | HTTP 403 (anti-robot probable) | — |
 | LinkedIn Premium (`linkedin`) | productivite | 2 | <https://linkedin.com/premium/manage> | OK | — |
-| Strava ★ (`strava`) | sport | 4 | <https://www.strava.com/account> | injoignable (ECONNRESET) | 2026-09-14 |
-| Basic-Fit (`basicfit`) | sport | 1 | <https://my.basic-fit.com> | OK, redirigé vers login.basic-fit.com | — |
-| Fitness Park (`fitnesspark`) | sport | 0 | — | — (espace_client) | — |
-| Zwift (`zwift`) | sport | 0 | <https://zwift.com/account> | HTTP 404 | — |
-| TrainingPeaks (`trainingpeaks`) | sport | 0 | <https://trainingpeaks.com> | OK | — |
-| Komoot Premium (`komoot`) | sport | 0 | <https://komoot.com> | OK | — |
-| AllTrails+ (`alltrails`) | sport | 0 | <https://alltrails.com> | OK | — |
-| Garmin Connect+ (`garmin`) | sport | 0 | <https://garmin.com> | HTTP 403 (anti-robot probable) | — |
-| Apple Fitness+ (`applefit`) | sport | 0 | — | — (lien profond) | — |
-| Le Monde (`lemonde`) | presse | 0 | <https://moncompte.lemonde.fr> | OK, redirigé vers secure.lemonde.fr | — |
-| L’Équipe (`lequipe`) | presse | 0 | <https://lequipe.fr> | OK | — |
-| Mediapart (`mediapart`) | presse | 0 | <https://mediapart.fr> | OK | — |
-| Les Échos (`lesechos`) | presse | 0 | <https://lesechos.fr> | OK | — |
-| Cafeyn (`cafeyn`) | presse | 0 | <https://cafeyn.co> | OK | — |
+| Strava ★ (`strava`) | sport | 4 | <https://www.strava.com/account> | OK | 2026-09-14 |
+| Basic-Fit (`basicfit`) | sport | 6 | <https://my.basic-fit.com> | OK, redirigé vers login.basic-fit.com | 2026-09-16 |
+| Fitness Park (`fitnesspark`) | sport | 0 | <https://www.fitnesspark.fr> | OK | — |
+| Zwift (`zwift`) | sport | 2 | <https://my.zwift.com> | OK | 2026-09-16 |
+| TrainingPeaks (`trainingpeaks`) | sport | 2 | <https://app.trainingpeaks.com> | OK | 2026-09-16 |
+| Komoot Premium (`komoot`) | sport | 2 | <https://www.komoot.com/account> | OK | 2026-09-16 |
+| AllTrails (`alltrails`) | sport | 2 | <https://www.alltrails.com> | OK | 2026-09-16 |
+| Garmin Connect+ (`garmin`) | sport | 2 | <https://connect.garmin.com> | OK | 2026-09-16 |
+| Apple Fitness+ (`applefit`) | sport | 2 | — | — (lien profond) | 2026-09-16 |
+| Le Monde (`lemonde`) | presse | 3 | <https://moncompte.lemonde.fr> | OK, redirigé vers secure.lemonde.fr | 2026-09-16 |
+| L’Équipe (`lequipe`) | presse | 3 | <https://lequipe.fr> | OK | — |
+| Mediapart (`mediapart`) | presse | 4 | <https://moncompte.mediapart.fr> | OK | 2026-09-16 |
+| Les Échos (`lesechos`) | presse | 2 | <https://lesechos.fr> | OK | 2026-09-16 |
+| Cafeyn (`cafeyn`) | presse | 3 | <https://www.cafeyn.co/fr/account> | OK | 2026-09-16 |
 | PlayStation Plus (`psplus`) | gaming | 0 | <https://playstation.com> | OK | — |
 | Xbox Game Pass (`gamepass`) | gaming | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
 | Nintendo Switch Online (`nintendo`) | gaming | 0 | <https://accounts.nintendo.com> | OK | — |

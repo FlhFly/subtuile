@@ -1,6 +1,6 @@
 {
-  "version": 8,
-  "publieLe": "2026-09-14",
+  "version": 9,
+  "publieLe": "2026-09-16",
   "data": [
     {
       "id": "netflix",
@@ -2569,19 +2569,74 @@
       "periodicitesConnues": [
         {
           "type": "recurrente",
-          "unite": "mois",
-          "intervalle": 1
+          "unite": "jour",
+          "intervalle": 28
         }
       ],
       "formules": [
         {
-          "id": "basicfit_mensuel",
-          "nom": "Mensuel",
+          "id": "basicfit_comfort",
+          "nom": "Comfort — 4 semaines",
           "prix": 24.99,
           "periodicite": {
             "type": "recurrente",
-            "unite": "mois",
-            "intervalle": 1
+            "unite": "jour",
+            "intervalle": 28
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "basicfit_premium",
+          "nom": "Premium — 4 semaines",
+          "prix": 29.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "jour",
+            "intervalle": 28
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "basicfit_ultimate",
+          "nom": "Ultimate — 4 semaines",
+          "prix": 34.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "jour",
+            "intervalle": 28
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "basicfit_comfort_flex",
+          "nom": "Comfort Flex (sans engagement) — 4 semaines",
+          "prix": 34.98,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "jour",
+            "intervalle": 28
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "basicfit_premium_flex",
+          "nom": "Premium Flex (sans engagement) — 4 semaines",
+          "prix": 39.98,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "jour",
+            "intervalle": 28
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "basicfit_ultimate_flex",
+          "nom": "Ultimate Flex (sans engagement) — 4 semaines",
+          "prix": 44.98,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "jour",
+            "intervalle": 28
           },
           "canal": "direct"
         }
@@ -2589,7 +2644,8 @@
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "fitnesspark",
@@ -2600,9 +2656,14 @@
         "type": "initiales",
         "valeur": "FP"
       },
-      "urlGestion": null,
+      "urlGestion": "https://www.fitnesspark.fr",
       "deepLinks": {},
       "periodicitesConnues": [
+        {
+          "type": "recurrente",
+          "unite": "jour",
+          "intervalle": 28
+        },
         {
           "type": "recurrente",
           "unite": "mois",
@@ -2624,20 +2685,49 @@
         "type": "initiales",
         "valeur": "Zw"
       },
-      "urlGestion": "https://zwift.com/account",
+      "urlGestion": "https://my.zwift.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "zwift_mensuel",
+          "nom": "Zwift — mensuel",
+          "prix": 19.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "zwift_annuel",
+          "nom": "Zwift — annuel",
+          "prix": 199.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "trainingpeaks",
@@ -2648,20 +2738,51 @@
         "type": "initiales",
         "valeur": "TP"
       },
-      "urlGestion": "https://trainingpeaks.com",
+      "urlGestion": "https://app.trainingpeaks.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "trainingpeaks_premium_mensuel",
+          "nom": "Premium — mensuel",
+          "prix": 19.95,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        },
+        {
+          "id": "trainingpeaks_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 134.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct",
+          "devise": "USD"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "komoot",
@@ -2672,44 +2793,97 @@
         "type": "initiales",
         "valeur": "Ko"
       },
-      "urlGestion": "https://komoot.com",
+      "urlGestion": "https://www.komoot.com/account",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "komoot_premium_mensuel",
+          "nom": "Premium — mensuel",
+          "prix": 4.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "komoot_premium_annuel",
+          "nom": "Premium — annuel",
+          "prix": 59.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "alltrails",
-      "nom": "AllTrails+",
+      "nom": "AllTrails",
       "categorie": "sport",
       "couleur": "#428813",
       "logo": {
         "type": "initiales",
         "valeur": "AT"
       },
-      "urlGestion": "https://alltrails.com",
+      "urlGestion": "https://www.alltrails.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
-          "unite": "mois",
+          "unite": "an",
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "alltrails_plus_annuel",
+          "nom": "Plus — annuel",
+          "prix": 35.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "alltrails_peak_annuel",
+          "nom": "Peak — annuel",
+          "prix": 79.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "garmin",
@@ -2720,20 +2894,49 @@
         "type": "initiales",
         "valeur": "Ga"
       },
-      "urlGestion": "https://garmin.com",
+      "urlGestion": "https://connect.garmin.com",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "garmin_connectplus_mensuel",
+          "nom": "Connect+ — mensuel",
+          "prix": 8.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "garmin_connectplus_annuel",
+          "nom": "Connect+ — annuel",
+          "prix": 89.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
-      "contactResiliation": "garmin.com → compte",
+      "contactResiliation": "connect.garmin.com → compte",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "applefit",
@@ -2753,13 +2956,42 @@
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "applefit_mensuel",
+          "nom": "Fitness+ — mensuel",
+          "prix": 9.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "applefit_annuel",
+          "nom": "Fitness+ — annuel",
+          "prix": 79.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "lemonde",
@@ -2779,11 +3011,46 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "lemonde_essentiel",
+          "nom": "Essentiel (1 compte)",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "lemonde_duo",
+          "nom": "Duo (2 comptes)",
+          "prix": 16.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "lemonde_famille",
+          "nom": "Famille (4 comptes)",
+          "prix": 20.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "lequipe",
@@ -2803,7 +3070,41 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "lequipe_essentiel_app",
+          "nom": "Essentiel — App Store",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "lequipe_integrale_app",
+          "nom": "Intégrale — App Store",
+          "prix": 15.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "lequipe_ligue1_engagement",
+          "nom": "L’Équipe + Ligue 1+ — engagement 12 mois",
+          "prix": 22.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "lequipe.fr → abonnement",
       "montantEstime": false,
@@ -2818,20 +3119,71 @@
         "type": "initiales",
         "valeur": "Mp"
       },
-      "urlGestion": "https://mediapart.fr",
+      "urlGestion": "https://moncompte.mediapart.fr",
       "deepLinks": {},
       "periodicitesConnues": [
         {
           "type": "recurrente",
           "unite": "mois",
           "intervalle": 1
+        },
+        {
+          "type": "recurrente",
+          "unite": "an",
+          "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "mediapart_normal",
+          "nom": "Tarif normal — mensuel",
+          "prix": 12,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "mediapart_normal_annuel",
+          "nom": "Tarif normal — annuel",
+          "prix": 120,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "mediapart_soutien",
+          "nom": "Tarif soutien — mensuel",
+          "prix": 16,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "mediapart_soutien_annuel",
+          "nom": "Tarif soutien — annuel",
+          "prix": 160,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "an",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
-      "contactResiliation": "mediapart.fr → mon compte",
+      "contactResiliation": "moncompte.mediapart.fr",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "lesechos",
@@ -2851,11 +3203,35 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "lesechos_selection",
+          "nom": "La Sélection",
+          "prix": 12.9,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "lesechos_premium",
+          "nom": "Premium",
+          "prix": 39,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        }
+      ],
       "modeResiliation": "espace_client",
       "contactResiliation": "lesechos.fr → mes abonnements",
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "cafeyn",
@@ -2866,7 +3242,7 @@
         "type": "initiales",
         "valeur": "Cf"
       },
-      "urlGestion": "https://cafeyn.co",
+      "urlGestion": "https://www.cafeyn.co/fr/account",
       "deepLinks": {},
       "periodicitesConnues": [
         {
@@ -2875,11 +3251,46 @@
           "intervalle": 1
         }
       ],
-      "formules": [],
+      "formules": [
+        {
+          "id": "cafeyn_mensuel",
+          "nom": "Cafeyn — mensuel",
+          "prix": 10.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "direct"
+        },
+        {
+          "id": "cafeyn_premium_app",
+          "nom": "Premium — App Store",
+          "prix": 12.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        },
+        {
+          "id": "cafeyn_duo_app",
+          "nom": "Duo — App Store",
+          "prix": 15.99,
+          "periodicite": {
+            "type": "recurrente",
+            "unite": "mois",
+            "intervalle": 1
+          },
+          "canal": "app_store"
+        }
+      ],
       "modeResiliation": "lien",
       "contactResiliation": null,
       "montantEstime": false,
-      "populaire": false
+      "populaire": false,
+      "verifieLe": "2026-09-16"
     },
     {
       "id": "psplus",

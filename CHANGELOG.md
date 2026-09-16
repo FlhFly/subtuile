@@ -7,7 +7,31 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.14.
+Aucune modification depuis la version 1.0.15.
+
+## [1.0.15] — 2026-09-16 — catalogue vérifié (lot 6, sport et presse)
+
+### Catalogue v9 — lot 6, sport et presse revus (2026-09-16)
+
+#### Modifié
+- Formules ajoutées et `verifieLe` posé : Basic-Fit (Comfort 24,99 €, Premium 29,99 €,
+  Ultimate 34,99 € par 4 semaines, +9,99 € en Flex sans engagement), Zwift (19,99 € ou
+  199,99 €/an), TrainingPeaks Premium (19,95 $ ou 134,99 $/an), komoot Premium (4,99 € ou
+  59,99 €/an), AllTrails (Plus 35,99 €/an, Peak 79,99 €/an), Garmin Connect+ (8,99 € ou
+  89,99 €/an), Apple Fitness+ (9,99 € ou 79,99 €/an), Le Monde (Essentiel 10,99 €, Duo
+  16,99 €, Famille 20,99 €), Mediapart (normal 12 € ou 120 €/an, soutien 16 € ou 160 €/an),
+  Les Échos (La Sélection 12,90 €, Premium 39 €), Cafeyn (10,99 € ; Premium 12,99 € et Duo
+  15,99 € via l'App Store). Pages officielles pour Basic-Fit, Zwift, TrainingPeaks, Apple,
+  Le Monde, Mediapart, Les Échos ; fiche App Store et sources concordantes sinon.
+- L'Équipe : formules indicatives sans date de vérification (Essentiel 10,99 € et Intégrale
+  15,99 € via l'App Store, L'Équipe + Ligue 1+ 22,99 € avec engagement), site d'abonnement
+  injoignable. Fitness Park : tarifs fixés par club, aucune formule nationale.
+- Adresses de gestion mises à jour : Zwift (`my.zwift.com`), TrainingPeaks
+  (`app.trainingpeaks.com`), komoot, AllTrails, Garmin (`connect.garmin.com`), Mediapart
+  (`moncompte.mediapart.fr`), Cafeyn, Fitness Park. « AllTrails+ » renommé « AllTrails »
+  (offres Plus et Peak). Basic-Fit facturé toutes les 4 semaines. Catalogue en version 9 ;
+  rapport régénéré.
+
 
 ## [1.0.14] — 2026-09-16 — proposition depuis la saisie libre
 

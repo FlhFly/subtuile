@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.15',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Catalogue : sport et presse revus (Basic-Fit, Zwift, komoot, AllTrails, Garmin, Apple Fitness+, Le Monde, Mediapart, Les Échos, Cafeyn) ; formules à jour.',
+      ],
+      en: [
+        'Catalog: sport and press reviewed (Basic-Fit, Zwift, komoot, AllTrails, Garmin, Apple Fitness+, Le Monde, Mediapart, Les Échos, Cafeyn); plans updated.',
+      ],
+    },
+  },
+  {
     version: '1.0.14',
     date: '2026-09-16',
     notes: {
