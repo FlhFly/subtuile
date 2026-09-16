@@ -1,12 +1,12 @@
 # Vérification du catalogue
 
-Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalogue v9, tarifs indicatifs au 2026-09-16.
+Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalogue v10, tarifs indicatifs au 2026-09-16.
 
 ## Résumé
 
-- 79 services, 157 formules ; 26 services sans formule ; 50 services revus manuellement (`verifieLe`).
+- 79 services, 213 formules ; 16 services sans formule ; 60 services revus manuellement (`verifieLe`).
 - Structure : aucun problème.
-- Réseau : 71 adresses testées, 49 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
+- Réseau : 71 adresses testées, 52 répondent 2xx ; les 403 / 429 viennent le plus souvent d'une protection anti-robot et se vérifient à la main.
 
 ## Services
 
@@ -15,12 +15,12 @@ Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalog
 | Netflix ★ (`netflix`) | streaming | 3 | <https://www.netflix.com/cancelplan> | injoignable (ECONNRESET) | 2026-09-14 |
 | Amazon Prime ★ (`prime`) | streaming | 2 | <https://www.amazon.fr/mc> | injoignable (ECONNRESET) | 2026-09-14 |
 | Disney+ ★ (`disney`) | streaming | 5 | <https://www.disneyplus.com/account> | OK | 2026-09-14 |
-| HBO Max (`hbomax`) | streaming | 6 | <https://hbomax.com/account> | injoignable (ECONNRESET) | 2026-09-14 |
+| HBO Max (`hbomax`) | streaming | 6 | <https://hbomax.com/account> | OK | 2026-09-14 |
 | Apple TV+ (`appletv`) | streaming | 1 | — | — (lien profond) | 2026-09-14 |
 | Canal+ ★ (`canal`) | streaming | 4 | <https://client.canalplus.com> | OK | 2026-09-14 |
 | Paramount+ (`paramount`) | streaming | 4 | <https://paramountplus.com/account> | HTTP 403 (anti-robot probable) | 2026-09-14 |
 | Crunchyroll (`crunchy`) | streaming | 4 | <https://www.crunchyroll.com/fr/account/membership> | HTTP 403 (anti-robot probable) | 2026-09-14 |
-| ADN (`adn`) | streaming | 3 | <https://animationdigitalnetwork.com> | injoignable (ECONNRESET) | 2026-09-14 |
+| ADN (`adn`) | streaming | 3 | <https://animationdigitalnetwork.com> | OK | 2026-09-14 |
 | YouTube Premium ★ (`youtube`) | streaming | 4 | <https://youtube.com/paid_memberships> | OK, redirigé vers accounts.google.com | 2026-09-14 |
 | Molotov (`molotov`) | streaming | 4 | <https://www.molotov.tv/account> | OK | 2026-09-14 |
 | DAZN (`dazn`) | streaming | 2 | <https://www.dazn.com/fr-FR/myaccount> | OK | 2026-09-14 |
@@ -53,7 +53,7 @@ Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalog
 | Bitwarden (`bitwarden`) | productivite | 2 | <https://vault.bitwarden.com> | OK | 2026-09-14 |
 | Dashlane (`dashlane`) | productivite | 1 | <https://app.dashlane.com> | HTTP 403 (anti-robot probable) | — |
 | LinkedIn Premium (`linkedin`) | productivite | 2 | <https://linkedin.com/premium/manage> | OK | — |
-| Strava ★ (`strava`) | sport | 4 | <https://www.strava.com/account> | OK | 2026-09-14 |
+| Strava ★ (`strava`) | sport | 4 | <https://www.strava.com/account> | injoignable (ECONNRESET) | 2026-09-14 |
 | Basic-Fit (`basicfit`) | sport | 6 | <https://my.basic-fit.com> | OK, redirigé vers login.basic-fit.com | 2026-09-16 |
 | Fitness Park (`fitnesspark`) | sport | 0 | <https://www.fitnesspark.fr> | OK | — |
 | Zwift (`zwift`) | sport | 2 | <https://my.zwift.com> | OK | 2026-09-16 |
@@ -67,16 +67,16 @@ Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalog
 | Mediapart (`mediapart`) | presse | 4 | <https://moncompte.mediapart.fr> | OK | 2026-09-16 |
 | Les Échos (`lesechos`) | presse | 2 | <https://lesechos.fr> | OK | 2026-09-16 |
 | Cafeyn (`cafeyn`) | presse | 3 | <https://www.cafeyn.co/fr/account> | OK | 2026-09-16 |
-| PlayStation Plus (`psplus`) | gaming | 0 | <https://playstation.com> | OK | — |
-| Xbox Game Pass (`gamepass`) | gaming | 0 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | — |
-| Nintendo Switch Online (`nintendo`) | gaming | 0 | <https://accounts.nintendo.com> | OK | — |
-| GeForce Now (`geforce`) | gaming | 0 | <https://nvidia.com/geforce-now> | OK | — |
-| Apple Arcade (`arcade`) | gaming | 0 | — | — (lien profond) | — |
-| Twitch (`twitch`) | gaming | 0 | <https://twitch.tv/subscriptions> | OK | — |
-| NordVPN (`nordvpn`) | securite | 0 | <https://my.nordaccount.com> | HTTP 403 (anti-robot probable) | — |
-| Proton (`proton`) | securite | 0 | <https://account.proton.me> | OK | — |
-| Surfshark (`surfshark`) | securite | 0 | <https://my.surfshark.com> | HTTP 403 (anti-robot probable) | — |
-| ExpressVPN (`expressvpn`) | securite | 0 | <https://expressvpn.com> | OK | — |
+| PlayStation Plus (`psplus`) | gaming | 9 | <https://www.playstation.com/fr-fr/support/subscriptions/> | OK | 2026-09-16 |
+| Xbox Game Pass (`gamepass`) | gaming | 4 | <https://account.microsoft.com/services> | OK, redirigé vers login.microsoftonline.com | 2026-09-16 |
+| Nintendo Switch Online (`nintendo`) | gaming | 6 | <https://accounts.nintendo.com> | OK | 2026-09-16 |
+| GeForce Now (`geforce`) | gaming | 4 | <https://play.geforcenow.com> | OK | 2026-09-16 |
+| Apple Arcade (`arcade`) | gaming | 2 | — | — (lien profond) | 2026-09-16 |
+| Twitch (`twitch`) | gaming | 4 | <https://twitch.tv/subscriptions> | OK | 2026-09-16 |
+| NordVPN (`nordvpn`) | securite | 9 | <https://my.nordaccount.com> | HTTP 403 (anti-robot probable) | 2026-09-16 |
+| Proton (`proton`) | securite | 8 | <https://account.proton.me> | OK | 2026-09-16 |
+| Surfshark (`surfshark`) | securite | 4 | <https://my.surfshark.com> | HTTP 403 (anti-robot probable) | 2026-09-16 |
+| ExpressVPN (`expressvpn`) | securite | 6 | <https://www.expressvpn.com/subscriptions> | OK | 2026-09-16 |
 | Uber One (`uberone`) | vie_courante | 0 | — | — (espace_client) | — |
 | Deliveroo Plus (`deliveroo`) | vie_courante | 0 | <https://deliveroo.fr> | OK | — |
 | Fnac+ (`fnac`) | vie_courante | 0 | <https://fnac.com> | HTTP 403 (anti-robot probable) | — |
@@ -84,12 +84,12 @@ Rapport généré le 2026-09-16 par `scripts/verifier-catalogue.cjs` — catalog
 | Babbel (`babbel`) | vie_courante | 0 | <https://babbel.com> | injoignable (fetch failed) | — |
 | Duolingo Super (`duolingo`) | vie_courante | 0 | — | — (lien profond) | — |
 | Headspace (`headspace`) | vie_courante | 0 | <https://headspace.com> | OK | — |
-| Calm (`calm`) | vie_courante | 0 | <https://calm.com> | injoignable (ECONNRESET) | — |
+| Calm (`calm`) | vie_courante | 0 | <https://calm.com> | OK | — |
 | Petit BamBou (`petitbambou`) | vie_courante | 0 | — | — (lien profond) | — |
 | EDF (`edf`) | vie_courante | 0 | <https://particulier.edf.fr/fr/accueil/espace-client.html> | OK | — |
 | Engie (`engie`) | vie_courante | 0 | <https://particuliers.engie.fr/espace-client.html> | OK | — |
 | TotalEnergies (`totalenergies`) | vie_courante | 0 | <https://totalenergies.fr> | OK | — |
-| Veolia Eau (`veolia`) | vie_courante | 0 | <https://eau.veolia.fr> | injoignable (ECONNRESET) | — |
+| Veolia Eau (`veolia`) | vie_courante | 0 | <https://eau.veolia.fr> | OK | — |
 | MAIF (`maif`) | vie_courante | 0 | <https://maif.fr> | OK | — |
 
 ## Liens profonds (magasins)

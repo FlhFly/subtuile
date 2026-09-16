@@ -7,7 +7,35 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.15.
+Aucune modification depuis la version 1.0.16.
+
+## [1.0.16] — 2026-09-16 — catalogue vérifié (lot 7, jeux vidéo et sécurité)
+
+### Catalogue v10 — lot 7, jeux vidéo et sécurité revus (2026-09-16)
+
+#### Modifié
+- Formules ajoutées et `verifieLe` posé : PlayStation Plus (Essential 9,99 € / 27,99 € par
+  3 mois / 71,99 €/an, Extra 15,99 / 43,99 / 125,99 €, Premium 18,99 / 54,99 / 151,99 €),
+  Xbox Game Pass (Essential 8,99 €, Premium 12,99 €, PC Game Pass 12,99 €, Ultimate 20,99 €),
+  Nintendo Switch Online (3,99 € / 7,99 € par 3 mois / 19,99 €/an, familial 34,99 €/an, pack
+  additionnel 39,99 €/an et 69,99 €/an), GeForce NOW (Performance 10,99 € ou 109,99 €/an,
+  Ultimate 21,99 € ou 219,99 €/an), Apple Arcade (6,99 € ou 49,99 €/an), Twitch (paliers 4,99 €,
+  9,99 €, 24,99 €, Turbo 11,99 €), NordVPN (Basique, Premium, Ultime Max : mensuel 14,99 /
+  19,99 / 23,79 €, renouvellement annuel 139,08 / 219,48 / 338,28 €, première période de 2 ans
+  + 3 mois 94,23 / 121,23 / 229,23 €), Proton (Mail Plus 4,99 € ou 47,88 €/an, Unlimited
+  12,99 € ou 119,88 €/an, Duo 19,99 € ou 179,88 €/an, Family 29,99 € ou 287,88 €/an),
+  Surfshark (Starter 15,45 € ; 2 ans + 3 mois Starter 67,23 €, One 75,33 €, One+ 121,23 €),
+  ExpressVPN (renouvellement annuel Basique 79,95 €, Avancé 109,95 €, Express Pro 179,95 € ;
+  2 ans + 4 mois 69,72 / 97,72 / 167,72 €). Pages officielles pour PlayStation, Nintendo,
+  Apple, NordVPN, Proton, Surfshark, ExpressVPN ; sources concordantes 2026 pour Xbox,
+  GeForce NOW et Twitch, dont les pages n'affichent les prix qu'en script.
+- Les VPN affichent leurs prix hors TVA : les formules le précisent dans leur nom. Les
+  premières périodes de 2 ans sont enregistrées avec une périodicité de 2 ans (le
+  renouvellement se fait ensuite au tarif annuel).
+- Adresses de gestion mises à jour : PlayStation (page d'assistance abonnements), GeForce NOW
+  (`play.geforcenow.com`), ExpressVPN (`expressvpn.com/subscriptions`). Catalogue en
+  version 10 ; rapport régénéré.
+
 
 ## [1.0.15] — 2026-09-16 — catalogue vérifié (lot 6, sport et presse)
 

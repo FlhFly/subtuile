@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.16',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Catalogue : jeux vidéo et sécurité revus (PlayStation Plus, Xbox Game Pass, Nintendo, GeForce NOW, Twitch, NordVPN, Proton, Surfshark, ExpressVPN).',
+      ],
+      en: [
+        'Catalog: gaming and security reviewed (PlayStation Plus, Xbox Game Pass, Nintendo, GeForce NOW, Twitch, NordVPN, Proton, Surfshark, ExpressVPN).',
+      ],
+    },
+  },
+  {
     version: '1.0.15',
     date: '2026-09-16',
     notes: {
