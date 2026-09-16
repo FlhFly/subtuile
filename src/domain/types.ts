@@ -363,6 +363,8 @@ export interface Preferences {
   derniereSauvegarde: DateISO | null;
   /** entrées « Mes services » dont l'utilisateur a refusé la bascule vers l'officiel (EF-09) */
   migrationsRefusees: string[];
+  /** proposer d'ajouter à « Mes services » un service saisi librement et inconnu (EF-09) */
+  proposerAuCatalogue: boolean;
 }
 
 /* ---------------------------------------------------------------------------

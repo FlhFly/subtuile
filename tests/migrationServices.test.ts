@@ -10,8 +10,9 @@ import {
   cleNom,
   correspondancesOfficielles,
   migrerAbonnements,
+  serviceConnu,
 } from '../src/domain/migrationServices';
-import { creerServicePersonnalise } from '../src/domain/servicePersonnalise';
+import { creerServicePersonnalise, nomDejaPris } from '../src/domain/servicePersonnalise';
 import { PERIODICITES, type Abonnement } from '../src/domain/types';
 
 const JOUR = '2026-09-16';
@@ -93,6 +94,29 @@ describe('migration « Mes services » → catalogue commun (EF-09)', () => {
       moyenPaiementId: 'mp-1',
       nom: 'lie',
     });
+  });
+});
+
+describe('service inconnu du catalogue (proposition depuis la saisie libre, EF-09)', () => {
+  const catalogue = [...CATALOGUE_EMBARQUE.data, maison];
+
+  it('connu : même nom rapproché, entrée maison comprise, ou nom d’un service contenu dans la saisie', () => {
+    expect(serviceConnu('netflix', catalogue)).toBe(true);
+    expect(serviceConnu('BASIC FIT', catalogue)).toBe(true);
+    expect(serviceConnu('Canal famille', catalogue)).toBe(true);
+    expect(serviceConnu('basic fit', catalogue)).toBe(true); // « Mes services »
+    expect(serviceConnu('', catalogue)).toBe(true); // rien à proposer
+  });
+
+  it('inconnu : nom sans homonyme ni service contenu', () => {
+    expect(serviceConnu('Ma salle de quartier', catalogue)).toBe(false);
+    expect(serviceConnu('Loyer', catalogue)).toBe(false);
+  });
+
+  it('le formulaire « Proposer un service » refuse aussi les variantes de ponctuation', () => {
+    expect(nomDejaPris('basic fit', CATALOGUE_EMBARQUE.data)).toBe(true);
+    expect(nomDejaPris('canal', CATALOGUE_EMBARQUE.data)).toBe(true);
+    expect(nomDejaPris('Ma salle', CATALOGUE_EMBARQUE.data)).toBe(false);
   });
 });
 

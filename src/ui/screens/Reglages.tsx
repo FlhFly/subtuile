@@ -16,6 +16,7 @@ import {
 } from '../../domain/types';
 import { Drapeau } from '../components/Drapeau';
 import { Icone } from '../components/Icone';
+import { Interrupteur } from '../components/Interrupteur';
 import { SYMBOLES } from '../../domain/devises';
 import { DEVISES, type Devise } from '../../domain/types';
 import { useTaux } from '../hooks/useTaux';
@@ -282,6 +283,14 @@ export function Reglages({
             valeur={tn('catalogue.nombre', catalogue.data.length)}
             onClick={onOuvrirCatalogue}
           />
+          <div className={styles.rangeeInterrupteur}>
+            <Interrupteur
+              libelle={t('reglages.catalogue.proposer')}
+              sousLibelle={t('reglages.catalogue.proposer.sous')}
+              actif={preferences.proposerAuCatalogue}
+              onChange={(actif) => modifier({ proposerAuCatalogue: actif })}
+            />
+          </div>
         </Carte>
       </Section>
 

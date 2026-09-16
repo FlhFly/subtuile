@@ -52,6 +52,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     versionVue: null,
     derniereSauvegarde: null,
     migrationsRefusees: [],
+    proposerAuCatalogue: true,
   };
 }
 
@@ -94,6 +95,10 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
     migrationsRefusees: Array.isArray(o.migrationsRefusees)
       ? o.migrationsRefusees.filter((x): x is string => typeof x === 'string')
       : [...defaut.migrationsRefusees],
+    proposerAuCatalogue:
+      typeof o.proposerAuCatalogue === 'boolean'
+        ? o.proposerAuCatalogue
+        : defaut.proposerAuCatalogue,
   };
 }
 

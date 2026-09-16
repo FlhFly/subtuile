@@ -1,5 +1,6 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
 import { enregistrerAbonnement } from '../../data/services/abonnements';
+import { enregistrerServicePersonnalise } from '../../data/services/servicesPersonnalises';
 import { ALERTES_DEFAUT } from '../../data/preferences';
 import { trouverFormule } from '../../data/refdata/RefDataProvider';
 import {
@@ -56,6 +57,9 @@ import { useI18n } from '../contexts/I18nContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { enregistrerMoyenPaiement } from '../../data/services/moyensPaiement';
 import { doublonsPotentiels } from '../../domain/doublons';
+import { serviceConnu } from '../../domain/migrationServices';
+import { creerServicePersonnalise } from '../../domain/servicePersonnalise';
+import { lienPropositionService } from '../lienProposition';
 import {
   formulaireMoyenPaiementVide,
   moyenPaiementDepuisFormulaire,
@@ -132,8 +136,8 @@ const RECAP_MAX = 5;
  * alerte, tags, notes.
  */
 export function Edition({ existant, serviceInitial, modele, onFermer, onEnregistre }: Props) {
-  const { t, tn, date, montant } = useI18n();
-  const { preferences } = usePreferences();
+  const { t, tn, date, montant, langue } = useI18n();
+  const { preferences, modifier } = usePreferences();
   const storage = useStorage();
   const toast = useToast();
   const moyensPaiement = useMoyensPaiement();
@@ -170,6 +174,8 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
   const [plusOuvert, setPlusOuvert] = useState(false);
   const [enregistrement, setEnregistrement] = useState(false);
   const [doublonDialogue, setDoublonDialogue] = useState(false);
+  /** EF-09 : abonnement enregistré sous un nom inconnu du catalogue → proposer d'en faire une entrée « Mes services » */
+  const [propositionCatalogue, setPropositionCatalogue] = useState<Abonnement | null>(null);
 
   const service = etat.serviceId ? services.get(etat.serviceId) : undefined;
   const formule = service ? trouverFormule(service, etat.formuleId) : undefined;
@@ -306,6 +312,23 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
     [abonnements, etat.serviceId, etat.nom, existant, modele],
   );
 
+  const terminerProposition = (id: string) => {
+    setPropositionCatalogue(null);
+    onEnregistre(id);
+  };
+  const ajouterAuCatalogue = async (abo: Abonnement, envoyer: boolean) => {
+    const service = creerServicePersonnalise({
+      nom: abo.nom,
+      categorie: abo.categorie,
+      urlGestion: abo.urlGestion ?? '',
+    });
+    await enregistrerServicePersonnalise(storage, service);
+    await enregistrerAbonnement(storage, { ...abo, serviceId: service.id }, jour);
+    toast.afficher(t('toast.serviceAjoute'));
+    if (envoyer) window.location.assign(lienPropositionService(t, langue, service));
+    terminerProposition(abo.id);
+  };
+
   const enregistrer = async (ignorerDoublon = false) => {
     const e = validerFormulaire(etat);
     setErreurs(e);
@@ -319,6 +342,16 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
       const abo = abonnementDepuisFormulaire(etat, { jour }, existant);
       const enregistre = await enregistrerAbonnement(storage, abo, jour);
       toast.afficher(t(existant ? 'toast.enregistre' : 'toast.cree'));
+      if (
+        !existant &&
+        !modele &&
+        enregistre.serviceId === null &&
+        preferences.proposerAuCatalogue &&
+        !serviceConnu(enregistre.nom, catalogue.data)
+      ) {
+        setPropositionCatalogue(enregistre);
+        return;
+      }
       onEnregistre(enregistre.id);
     } finally {
       setEnregistrement(false);
@@ -1012,6 +1045,60 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
           </button>
         </>
       )}
+
+      {propositionCatalogue ? (
+        <div
+          className={styles.voile}
+          role="presentation"
+          onClick={() => terminerProposition(propositionCatalogue.id)}
+        >
+          <div
+            className={styles.dialogue}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="proposition-titre"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <h2 id="proposition-titre" className={styles.dialogueTitre}>
+              {t('edition.proposition.titre', { nom: propositionCatalogue.nom })}
+            </h2>
+            <p className={styles.aide}>{t('edition.proposition.texte')}</p>
+            <div className={styles.dialogueActions}>
+              <button
+                type="button"
+                className={styles.enregistrer}
+                onClick={() => void ajouterAuCatalogue(propositionCatalogue, false)}
+              >
+                {t('edition.proposition.ajouter')}
+              </button>
+              <button
+                type="button"
+                className={styles.dialogueSecondaire}
+                onClick={() => void ajouterAuCatalogue(propositionCatalogue, true)}
+              >
+                {t('edition.proposition.ajouterEnvoyer')}
+              </button>
+              <button
+                type="button"
+                className={styles.lienDiscret}
+                onClick={() => terminerProposition(propositionCatalogue.id)}
+              >
+                {t('edition.proposition.non')}
+              </button>
+              <button
+                type="button"
+                className={styles.lienDiscret}
+                onClick={() => {
+                  modifier({ proposerAuCatalogue: false });
+                  terminerProposition(propositionCatalogue.id);
+                }}
+              >
+                {t('edition.proposition.jamais')}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
 
       {doublonDialogue ? (
         <div className={styles.voile} role="presentation" onClick={() => setDoublonDialogue(false)}>

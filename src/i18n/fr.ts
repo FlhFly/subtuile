@@ -691,6 +691,16 @@ export const fr = {
   'retours.sujet.idee': '[Subtuile {version}] Idée : ',
   'retours.corps':
     'Décrivez ce qui se passe ou votre idée, les étapes pour le reproduire, et ce que vous attendiez.\n\n—\nSubtuile {version} · {appareil} · langue {langue}',
+  'edition.proposition.titre': 'Ajouter « {nom} » à Mes services ?',
+  'edition.proposition.texte':
+    'Ce service n’est pas dans le catalogue. Ajouté à « Mes services », vous le retrouverez à la prochaine saisie avec sa catégorie et son adresse ; vous pouvez aussi l’envoyer à l’auteur pour le catalogue commun.',
+  'edition.proposition.ajouter': 'Ajouter à Mes services',
+  'edition.proposition.ajouterEnvoyer': 'Ajouter et envoyer par e-mail',
+  'edition.proposition.non': 'Non merci',
+  'edition.proposition.jamais': 'Ne plus me le proposer',
+  'reglages.catalogue.proposer': 'Proposer les services inconnus',
+  'reglages.catalogue.proposer.sous':
+    'Après l’ajout d’un abonnement dont le service n’est pas au catalogue, proposer de l’enregistrer dans « Mes services »',
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',

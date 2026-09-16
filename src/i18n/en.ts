@@ -679,6 +679,16 @@ export const en: Dictionnaire = {
   'retours.sujet.idee': '[Subtuile {version}] Idea: ',
   'retours.corps':
     'Describe what happens or your idea, the steps to reproduce it, and what you expected.\n\n—\nSubtuile {version} · {appareil} · language {langue}',
+  'edition.proposition.titre': 'Add “{nom}” to My services?',
+  'edition.proposition.texte':
+    'This service is not in the catalogue. Added to “My services”, you will find it next time with its category and address; you can also e-mail it to the author for the shared catalogue.',
+  'edition.proposition.ajouter': 'Add to My services',
+  'edition.proposition.ajouterEnvoyer': 'Add and send by e-mail',
+  'edition.proposition.non': 'No thanks',
+  'edition.proposition.jamais': 'Don’t offer this again',
+  'reglages.catalogue.proposer': 'Offer unknown services',
+  'reglages.catalogue.proposer.sous':
+    'After adding a subscription whose service is not in the catalogue, offer to save it in “My services”',
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',

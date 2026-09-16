@@ -7,7 +7,28 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.13.
+Aucune modification depuis la version 1.0.14.
+
+## [1.0.14] — 2026-09-16 — proposition depuis la saisie libre
+
+### Service inconnu proposé à « Mes services » (2026-09-16)
+
+#### Ajouté
+- Formulaire : à l'enregistrement d'un nouvel abonnement en saisie libre dont le nom ne
+  correspond à aucun service du catalogue ni de « Mes services », un dialogue propose
+  « Ajouter à Mes services » (entrée créée depuis le nom, la catégorie et l'adresse saisis,
+  abonnement relié), « Ajouter et envoyer par e-mail » (même chose, puis messagerie ouverte
+  vers `contact@subtuile.com`), « Non merci » ou « Ne plus me le proposer » (EF-09). Un nom
+  qui contient celui d'un service connu, comme « Canal famille », n'est pas proposé.
+- Réglages › Général : interrupteur « Proposer les services inconnus » (préférence
+  `proposerAuCatalogue`, activée par défaut) pour réactiver la proposition.
+
+#### Corrigé
+- « Proposer un service » refuse désormais aussi les variantes de ponctuation d'un nom déjà au
+  catalogue (« basic fit » pour Basic-Fit), avec le même rapprochement que la bascule vers la
+  version officielle. Fonction `cleNom` partagée dans `tri.ts`, lien de proposition partagé
+  dans `lienProposition.ts`.
+
 
 ## [1.0.13] — 2026-09-16 — bascule d'une entrée « Mes services » vers la version officielle
 

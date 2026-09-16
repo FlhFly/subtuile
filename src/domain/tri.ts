@@ -169,6 +169,13 @@ export function normaliserTexte(texte: string): string {
     .trim();
 }
 
+/** Nom rapproché : accents, casse et ponctuation ignorés (« Basic-Fit » ≡ « basic fit »). */
+export function cleNom(nom: string): string {
+  return normaliserTexte(nom)
+    .replace(/[^\p{L}\p{N}]+/gu, ' ')
+    .trim();
+}
+
 /** Recherche textuelle sur le nom, les tags, la référence client et les notes. */
 export function rechercher(abonnements: readonly Abonnement[], texte: string): Abonnement[] {
   const requete = normaliserTexte(texte);

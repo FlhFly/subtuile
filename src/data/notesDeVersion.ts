@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.14',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Service inconnu à l’ajout d’un abonnement : l’app propose de l’enregistrer dans « Mes services » et de l’envoyer à l’auteur. Réglable dans Réglages › Général.',
+      ],
+      en: [
+        'Unknown service when adding a subscription: the app offers to save it in “My services” and to e-mail it to the author. Adjustable in Settings › General.',
+      ],
+    },
+  },
+  {
     version: '1.0.13',
     date: '2026-09-16',
     notes: {

@@ -7,7 +7,7 @@
  */
 
 import { estServicePersonnalise } from './servicePersonnalise';
-import { normaliserTexte } from './tri';
+import { cleNom } from './tri';
 import type { Abonnement, Service, ServicePersonnalise } from './types';
 
 export interface Correspondance {
@@ -15,11 +15,21 @@ export interface Correspondance {
   officiel: Service;
 }
 
-/** Nom rapproché : accents, casse et ponctuation ignorés (« Basic-Fit » ≡ « basic fit »). */
-export function cleNom(nom: string): string {
-  return normaliserTexte(nom)
-    .replace(/[^\p{L}\p{N}]+/gu, ' ')
-    .trim();
+export { cleNom };
+
+/**
+ * Vrai si le nom saisi désigne un service déjà connu du catalogue fourni
+ * (embarqué et « Mes services ») : même nom rapproché, ou nom d'un service
+ * contenu tel quel dans la saisie (« Canal famille » → Canal+). Sert à ne
+ * proposer l'ajout à « Mes services » que pour un service vraiment inconnu.
+ */
+export function serviceConnu(nom: string, catalogue: readonly Service[]): boolean {
+  const cle = cleNom(nom);
+  if (cle === '') return true;
+  return catalogue.some((s) => {
+    const c = cleNom(s.nom);
+    return c !== '' && (c === cle || ` ${cle} `.includes(` ${c} `));
+  });
 }
 
 /**

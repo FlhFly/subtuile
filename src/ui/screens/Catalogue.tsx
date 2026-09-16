@@ -1,6 +1,4 @@
 import { useMemo, useState } from 'react';
-import { ADRESSE_CONTACT } from '../../data/contact';
-import { decrireAppareil, lienRetour } from '../../domain/retours';
 import {
   enregistrerServicePersonnalise,
   migrerVersOfficiel,
@@ -33,9 +31,8 @@ import { usePreferences } from '../contexts/PreferencesContext';
 import { useStorage } from '../contexts/StorageContext';
 import { useToast } from '../contexts/ToastContext';
 import { useCatalogue } from '../hooks/useCatalogue';
+import { lienPropositionService } from '../lienProposition';
 import styles from './Catalogue.module.css';
-
-const VERSION_APP = __APP_VERSION__;
 
 interface Props {
   onRetour: () => void;
@@ -75,19 +72,7 @@ export function Catalogue({ onRetour, onUtiliser }: Props) {
   };
 
   /** E-mail pré-rempli vers l'auteur pour proposer le service au catalogue commun (rien n'est envoyé par l'app). */
-  const lienProposition = (s: Service) =>
-    lienRetour(
-      ADRESSE_CONTACT,
-      t('retours.sujet.service', { version: VERSION_APP, nom: s.nom }),
-      t('retours.corps.service', {
-        nom: s.nom,
-        categorie: t(`categorie.${s.categorie}`),
-        url: s.urlGestion ?? '—',
-        version: VERSION_APP,
-        appareil: decrireAppareil(window.navigator.userAgent, window.navigator.maxTouchPoints),
-        langue,
-      }),
-    );
+  const lienProposition = (s: Service) => lienPropositionService(t, langue, s);
 
   /* EF-09 : entrées maison qui ont désormais un homonyme officiel ; proposition, jamais de bascule silencieuse */
   const embarques = useMemo(

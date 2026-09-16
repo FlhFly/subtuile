@@ -8,7 +8,7 @@
 import { estUrlValide, normaliserUrl } from './formulaire';
 import { nouvelId } from '../lib/ids';
 import { maintenant } from '../lib/horloge';
-import { normaliserTexte } from './tri';
+import { cleNom, normaliserTexte } from './tri';
 import { initialesDuNom } from './tuile';
 import type { Categorie, Service, ServicePersonnalise } from './types';
 
@@ -52,9 +52,10 @@ export function formulaireServiceVide(): FormulaireServicePersonnalise {
 }
 
 /** Vrai si un service (embarqué ou personnalisé) porte déjà ce nom. */
+/** Même nom rapproché qu'un service existant (accents, casse et ponctuation ignorés), comme la bascule EF-09. */
 export function nomDejaPris(nom: string, existants: readonly Service[]): boolean {
-  const cle = normaliserTexte(nom);
-  return cle !== '' && existants.some((s) => normaliserTexte(s.nom) === cle);
+  const cle = cleNom(nom);
+  return cle !== '' && existants.some((s) => cleNom(s.nom) === cle);
 }
 
 export function validerServicePersonnalise(
