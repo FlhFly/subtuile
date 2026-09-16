@@ -514,9 +514,12 @@ export const en: Dictionnaire = {
   /* Export / import (EF-50, EF-52) */
   'reglages.exporter': 'Export (JSON)',
   'reglages.exporter.sous': 'Full backup',
+  'reglages.exporterCsv': 'Export (CSV)',
+  'reglages.exporterCsv.sous': 'Spreadsheet: one row per subscription',
   'reglages.importer': 'Import (JSON / CSV)',
   'reglages.importer.sous': 'Merge or replace',
   'toast.exporte': 'Backup downloaded',
+  'toast.exporteCsv': 'CSV table downloaded',
   'toast.importe': '{a} subscriptions and {m} payment methods imported',
   'toast.importeCsv.un': '{n} subscription imported',
   'toast.importeCsv.plusieurs': '{n} subscriptions imported',

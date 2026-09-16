@@ -4,6 +4,7 @@ import { ADRESSE_CONTACT } from '../../data/contact';
 import { nouveautesNonVues } from '../../data/notesDeVersion';
 import { decrireAppareil, lienRetour, type TypeRetour } from '../../domain/retours';
 import { exporterJson, nomFichierExport } from '../../data/importExport';
+import { csvDepuisAbonnements, nomFichierCsv } from '../../domain/csv';
 import { aujourdhui } from '../../domain/dates';
 import { evenementsAVenir } from '../../domain/echeancier';
 import { nomFichierIcs } from '../../domain/ics';
@@ -81,8 +82,9 @@ export function Reglages({
   const installation = useInstallation();
   const miseAJour = useMiseAJour();
   const { abonnements } = useAbonnements();
-  const nombreMoyens = useMoyensPaiement().size;
-  const { catalogue } = useCatalogue();
+  const moyens = useMoyensPaiement();
+  const nombreMoyens = moyens.size;
+  const { catalogue, parId } = useCatalogue();
   const { preferences, modifier } = usePreferences();
   const storage = useStorage();
   const [chargementDemo, setChargementDemo] = useState(false);
@@ -107,6 +109,19 @@ export function Reglages({
     telechargerFichier(nomFichierExport(jour), await exporterJson(storage), 'application/json');
     modifier({ derniereSauvegarde: jour });
     toast.afficher(t('toast.exporte'));
+  };
+
+  /** EF-52 : tableau CSV, une ligne par abonnement, relisible par l'import. */
+  const exporterCsv = () => {
+    const contenu = csvDepuisAbonnements(abonnements, langue, {
+      categorie: (c) => t(`categorie.${c}`),
+      statut: (s) => t(`statut.${s}`),
+      canal: (c) => t(`canal.${c}`),
+      service: (id) => parId.get(id)?.nom ?? null,
+      moyenPaiement: (id) => moyens.get(id)?.libelle ?? null,
+    });
+    telechargerFichier(nomFichierCsv(aujourdhui()), contenu, 'text/csv;charset=utf-8');
+    toast.afficher(t('toast.exporteCsv'));
   };
 
   /** Réglages › Données : efface toutes les données métier (abonnements, moyens, services). */
@@ -333,6 +348,15 @@ export function Reglages({
                     })
                   : t('reglages.exporter.sous')}
               </span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
+          <button type="button" className={styles.rangeeBouton} onClick={exporterCsv}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.exporterCsv')}</span>
+              <span className={styles.sous}>{t('reglages.exporterCsv.sous')}</span>
             </span>
             <span className={styles.valeur}>
               <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />

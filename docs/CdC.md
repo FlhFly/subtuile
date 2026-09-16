@@ -182,7 +182,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 - **EF-50 [M]** — Export JSON complet (sauvegarde) et import avec fusion ou remplacement.
 - **EF-51 [M]** — Fonctionnement 100 % hors ligne après installation.
-- **EF-52 [S]** — Import CSV simple (nom, prix, périodicité, échéance) pour la saisie initiale en masse. Séparateur et en-tête (fr / en) détectés ; quand l'en-tête n'est pas reconnu ou que des lignes sont ignorées, l'utilisateur choisit à la main le séparateur, la présence d'un en-tête et la colonne de chaque champ, l'aperçu se recalculant aussitôt *(v1.27)*. Export CSV des abonnements, mêmes colonnes, pour tableur *(v1.27, prévu)*.
+- **EF-52 [S]** — Import CSV simple (nom, prix, périodicité, échéance) pour la saisie initiale en masse. Séparateur et en-tête (fr / en) détectés ; quand l'en-tête n'est pas reconnu ou que des lignes sont ignorées, l'utilisateur choisit à la main le séparateur, la présence d'un en-tête et la colonne de chaque champ, l'aperçu se recalculant aussitôt *(v1.27)*. Export CSV des abonnements pour tableur — nom, prix, devise, périodicité, échéance, catégorie, statut, service, canal, moyen de paiement, date de début, notes ; séparateur « ; », relu tel quel par l'import *(v1.27, livré en 1.0.19)*.
 
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 

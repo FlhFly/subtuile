@@ -9,10 +9,12 @@ import { creerDexieProvider, type DexieProvider } from '../src/data/storage/dexi
 import {
   abonnementsDepuisCsv,
   analyserCsv,
+  csvDepuisAbonnements,
   decouperLigne,
   detecterSeparateur,
   periodiciteDepuisTexte,
   reconnaitreEnTete,
+  texteDepuisPeriodicite,
 } from '../src/domain/csv';
 import { creerAbonnement, creerMoyenPaiement } from '../src/domain/fabriques';
 import { PERIODICITES, SCHEMA_VERSION } from '../src/domain/types';
@@ -294,5 +296,120 @@ describe('import CSV (EF-52)', () => {
     ]);
     expect(abos[0]?.periodicite).toEqual(PERIODICITES.mensuelle);
     expect(abos[1]?.periodicite).toEqual(PERIODICITES.annuelle);
+  });
+});
+
+describe('export CSV (EF-52, v1.27)', () => {
+  const libelles = {
+    categorie: (c: string) => `cat:${c}`,
+    statut: (s: string) => `statut:${s}`,
+    canal: (c: string) => `canal:${c}`,
+    service: (id: string) => (id === 'netflix' ? 'Netflix' : null),
+    moyenPaiement: (id: string) => (id === 'mp-1' ? 'CB perso' : null),
+  };
+  const abos = [
+    creerAbonnement(
+      {
+        nom: 'Netflix',
+        prix: 13.49,
+        devise: 'EUR',
+        categorie: 'streaming',
+        periodicite: PERIODICITES.mensuelle,
+        dateDebut: '2026-09-01',
+        serviceId: 'netflix',
+        moyenPaiementId: 'mp-1',
+        notes: 'Compte "famille"\nPartagé',
+      },
+      { jour: JOUR },
+    ),
+    creerAbonnement(
+      {
+        nom: 'Salle; quartier',
+        prix: 30,
+        devise: 'EUR',
+        categorie: 'sport',
+        periodicite: { type: 'recurrente', unite: 'an', intervalle: 2 },
+        dateDebut: '2026-01-15',
+      },
+      { jour: JOUR },
+    ),
+    {
+      ...creerAbonnement(
+        { nom: 'Supprimé', prix: 1, periodicite: PERIODICITES.annuelle, dateDebut: '2026-01-01' },
+        { jour: JOUR },
+      ),
+      deletedAt: '2026-09-01T00:00:00.000Z',
+    },
+  ];
+
+  it('une ligne par abonnement vivant, en-tête par langue, champs protégés', () => {
+    const csv = csvDepuisAbonnements(abos, 'fr', libelles);
+    expect(csv.startsWith('\uFEFF')).toBe(true);
+    const lignes = csv
+      .slice(1)
+      .split('\r\n')
+      .filter((l) => l !== '');
+    expect(lignes[0]).toBe(
+      'nom;prix;devise;périodicité;échéance;catégorie;statut;service;canal;moyen de paiement;date de début;notes',
+    );
+    expect(lignes).toHaveLength(3);
+    expect(lignes[1]).toBe(
+      'Netflix;13,49;EUR;mois;2026-10-01;cat:streaming;statut:actif;Netflix;canal:direct;CB perso;2026-09-01;"Compte ""famille"" / Partagé"',
+    );
+    expect(lignes[2]).toBe(
+      '"Salle; quartier";30;EUR;2 ans;2028-01-15;cat:sport;statut:actif;;canal:direct;;2026-01-15;',
+    );
+    expect(csvDepuisAbonnements(abos, 'en', libelles).slice(1).split('\r\n')[0]).toBe(
+      'name;price;currency;cycle;due date;category;status;service;channel;payment method;start date;notes',
+    );
+  });
+
+  it('aller-retour : le fichier exporté est relu par l’import, BOM compris', () => {
+    const a = analyserCsv(csvDepuisAbonnements(abos, 'fr', libelles), 'jma', parserDateSaisie);
+    expect(a.enTete).toBe(true);
+    expect(a.colonnes).toEqual({ nom: 0, prix: 1, periodicite: 3, echeance: 4 });
+    expect(a.rejetees).toEqual([]);
+    expect(a.reconnues.map((l) => [l.nom, l.prix, l.periodicite, l.echeance])).toEqual([
+      ['Netflix', '13,49', PERIODICITES.mensuelle, '2026-10-01'],
+      ['Salle; quartier', '30', { type: 'recurrente', unite: 'an', intervalle: 2 }, '2028-01-15'],
+    ]);
+    const en = analyserCsv(csvDepuisAbonnements(abos, 'en', libelles), 'mja', parserDateSaisie);
+    expect(en.colonnes).toEqual({ nom: 0, prix: 1, periodicite: 3, echeance: 4 });
+    expect(en.rejetees).toEqual([]);
+    expect(en.reconnues.map((l) => l.prix)).toEqual(['13,49', '30']);
+  });
+
+  it('périodicités en texte : aller-retour, « 2 ans », « 10 jours », « à vie », « usage »', () => {
+    expect(texteDepuisPeriodicite(PERIODICITES.vingtHuitJours, 'fr')).toBe('28 jours');
+    expect(texteDepuisPeriodicite(PERIODICITES.trimestrielle, 'en')).toBe('3 months');
+    expect(texteDepuisPeriodicite(PERIODICITES.aVie, 'fr')).toBe('à vie');
+    const toutes = [
+      PERIODICITES.hebdomadaire,
+      PERIODICITES.vingtHuitJours,
+      PERIODICITES.mensuelle,
+      PERIODICITES.trimestrielle,
+      PERIODICITES.semestrielle,
+      PERIODICITES.annuelle,
+      PERIODICITES.aVie,
+      PERIODICITES.aLUsage,
+      { type: 'recurrente', unite: 'an', intervalle: 2 },
+    ] as const;
+    for (const p of toutes) {
+      expect(periodiciteDepuisTexte(texteDepuisPeriodicite(p, 'fr'))).toEqual(p);
+      expect(periodiciteDepuisTexte(texteDepuisPeriodicite(p, 'en'))).toEqual(p);
+    }
+    expect(periodiciteDepuisTexte('10 jours')).toEqual({
+      type: 'recurrente',
+      unite: 'jour',
+      intervalle: 10,
+    });
+    expect(periodiciteDepuisTexte('lifetime')).toEqual(PERIODICITES.aVie);
+    expect(periodiciteDepuisTexte('daily')).toEqual({
+      type: 'recurrente',
+      unite: 'jour',
+      intervalle: 1,
+    });
+    expect(periodiciteDepuisTexte('0 mois')).toBeNull();
+    expect(periodiciteDepuisTexte('lunaire')).toBeNull();
   });
 });

@@ -11,7 +11,7 @@ fonctionne sans réseau.
 - 💳 Moyens de paiement et canal d'achat (App Store / direct)
 - 📊 Vue financière : totaux, répartitions, prévisionnel 12 mois, dépenses passées
 - 💱 Devises EUR / USD / GBP / CHF à taux indicatifs
-- 💾 Export / import JSON, import CSV, rappels calendrier .ics
+- 💾 Export / import JSON, export et import CSV, rappels calendrier .ics
 - 🌐 FR / EN — PWA installable, 100 % hors ligne
 
 **Statut : v1.0.x — lot 4/4 « Finances & données » livré, application en ligne ; corrections au
@@ -42,7 +42,7 @@ hors ligne, « résilié — actif jusqu'au » ; cycle de vie automatique (essai
 appliquée, résilié archivé, pause reprise, régularisation reportée) ; toutes périodicités ;
 finances (total mensuel normalisé et annuel, répartition par catégorie et par moyen de paiement,
 prévisionnel 12 mois, dépenses passées) ; devise par abonnement et devise d'affichage à taux
-indicatifs ; export / import JSON (fusion ou remplacement), import CSV ; PWA hors ligne ;
+indicatifs ; export / import JSON (fusion ou remplacement), export et import CSV ; PWA hors ligne ;
 onboarding à la première ouverture ; thème clair / sombre / système, format de date au choix,
 interface FR / EN, jeu de démonstration.
 

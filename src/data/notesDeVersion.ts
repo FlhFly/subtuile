@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.19',
+    date: '2026-09-16',
+    notes: {
+      fr: [
+        'Réglages › Données : « Exporter (CSV) » télécharge un tableau (une ligne par abonnement) lisible dans Excel ou Numbers et réimportable dans l’app.',
+      ],
+      en: [
+        'Settings › Data: “Export (CSV)” downloads a table (one row per subscription) readable in Excel or Numbers and re-importable into the app.',
+      ],
+    },
+  },
+  {
     version: '1.0.18',
     date: '2026-09-16',
     notes: {

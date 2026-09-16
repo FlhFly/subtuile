@@ -7,7 +7,23 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.18.
+Aucune modification depuis la version 1.0.19.
+
+## [1.0.19] — 2026-09-16 — export CSV des abonnements
+
+### Export CSV (EF-52, CdC v1.27, colonnes validées par FlhFly le 2026-09-16) (2026-09-16)
+
+#### Ajouté
+- Réglages › Données : rangée « Exporter (CSV) » qui télécharge
+  `subtuile-abonnements-<date>.csv` : une ligne par abonnement (hors supprimés), colonnes nom,
+  prix, devise, périodicité, échéance, catégorie, statut, service, canal, moyen de paiement,
+  date de début, notes ; séparateur « ; », BOM UTF-8 et fins de ligne CRLF pour Excel, dates
+  ISO, prix à la virgule en français, en-têtes dans la langue de l'app. Le fichier est relu tel
+  quel par l'import (nom, prix, périodicité, échéance).
+- Périodicités en texte élargies dans l'import : « 2 ans », « 10 jours », « 3 months », « à
+  vie » / « lifetime », « à l'usage » / « usage », quotidien ; le BOM en tête des fichiers
+  Excel est ignoré ; « due date » reconnu comme échéance.
+
 
 ## [1.0.18] — 2026-09-16 — import CSV : colonnes choisies à la main
 

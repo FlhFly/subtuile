@@ -17,10 +17,14 @@ import {
 import {
   PERIODICITES,
   type Abonnement,
+  type CanalAchat,
+  type Categorie,
   type DateISO,
   type Devise,
   type FormatDate,
+  type Langue,
   type Periodicite,
+  type TypeStatut,
 } from './types';
 
 export type Separateur = ';' | ',' | '\t';
@@ -124,6 +128,8 @@ const MOTS_COLONNES = {
     'prochaine',
     'next',
     'due',
+    'due date',
+    'next due',
   ],
 } as const;
 export type Colonne = keyof typeof MOTS_COLONNES;
@@ -174,12 +180,50 @@ const MOTS_PERIODICITE: [Periodicite, string[]][] = [
   ],
 ];
 
-/** « mois » / « monthly » / « an »… → périodicité ; vide → mensuelle ; inconnu → null. */
+const UNITES_PAR_MOT: Record<string, 'jour' | 'semaine' | 'mois' | 'an'> = {
+  jour: 'jour',
+  jours: 'jour',
+  day: 'jour',
+  days: 'jour',
+  semaine: 'semaine',
+  semaines: 'semaine',
+  week: 'semaine',
+  weeks: 'semaine',
+  mois: 'mois',
+  month: 'mois',
+  months: 'mois',
+  an: 'an',
+  ans: 'an',
+  annee: 'an',
+  annees: 'an',
+  year: 'an',
+  years: 'an',
+};
+const MOTS_A_VIE = ['à vie', 'a vie', 'vie', 'lifetime', 'one-time', 'one time'];
+const MOTS_USAGE = ["à l'usage", 'à l’usage', "a l'usage", 'a l’usage', 'usage', 'pay as you go'];
+const MOTS_QUOTIDIEN = ['jour', 'quotidien', 'quotidienne', 'day', 'daily', 'd'];
+
+/**
+ * « mois » / « monthly » / « an »… → périodicité ; vide → mensuelle ; « 2 ans »,
+ * « 10 jours », « à vie », « usage » compris (v1.27, aller-retour avec l'export) ;
+ * inconnu → null.
+ */
 export function periodiciteDepuisTexte(texte: string): Periodicite | null {
   const t = normaliser(texte).replace(/\.$/, '');
   if (t === '') return PERIODICITES.mensuelle;
   for (const [periodicite, mots] of MOTS_PERIODICITE) {
     if (mots.some((m) => normaliser(m) === t)) return periodicite;
+  }
+  if (MOTS_A_VIE.some((m) => normaliser(m) === t)) return PERIODICITES.aVie;
+  if (MOTS_USAGE.some((m) => normaliser(m) === t)) return PERIODICITES.aLUsage;
+  if (MOTS_QUOTIDIEN.includes(t)) return { type: 'recurrente', unite: 'jour', intervalle: 1 };
+  const m = /^(\d+)\s*([a-z]+)$/.exec(t);
+  if (m) {
+    const unite = UNITES_PAR_MOT[m[2] ?? ''];
+    const intervalle = Number(m[1]);
+    if (unite && Number.isInteger(intervalle) && intervalle >= 1) {
+      return { type: 'recurrente', unite, intervalle };
+    }
   }
   return null;
 }
@@ -207,8 +251,10 @@ export function analyserCsv(
   parserDate: (t: string, f: FormatDate) => DateISO | null,
   options: OptionsCsv = {},
 ): AnalyseCsv {
-  const separateur = options.separateur ?? detecterSeparateur(texte);
-  const lignes = texte.split(/\r?\n/).filter((l) => l.trim() !== '');
+  // marque d'ordre des octets (BOM) des fichiers Excel ignorée
+  const brut = texte.replace(/^\uFEFF/, '');
+  const separateur = options.separateur ?? detecterSeparateur(brut);
+  const lignes = brut.split(/\r?\n/).filter((l) => l.trim() !== '');
   const reconnues: LigneCsv[] = [];
   const rejetees: LigneRejetee[] = [];
   const premiere = lignes[0];
@@ -267,4 +313,119 @@ export function abonnementsDepuisCsv(
     }
     return abonnementDepuisFormulaire(etat, { jour });
   });
+}
+
+/* ---------------------------------------------------------------------------
+ * Export CSV (EF-52, v1.27) : une ligne par abonnement, relisible par l'import
+ * ------------------------------------------------------------------------- */
+
+/** En-têtes par langue ; nom, prix, périodicité et échéance sont reconnus par l'import. */
+export const EN_TETES_CSV: Record<Langue, readonly string[]> = {
+  fr: [
+    'nom',
+    'prix',
+    'devise',
+    'périodicité',
+    'échéance',
+    'catégorie',
+    'statut',
+    'service',
+    'canal',
+    'moyen de paiement',
+    'date de début',
+    'notes',
+  ],
+  en: [
+    'name',
+    'price',
+    'currency',
+    'cycle',
+    'due date',
+    'category',
+    'status',
+    'service',
+    'channel',
+    'payment method',
+    'start date',
+    'notes',
+  ],
+};
+
+/** Libellés lisibles fournis par l'écran (i18n, catalogue, moyens de paiement). */
+export interface LibellesExportCsv {
+  categorie: (c: Categorie) => string;
+  statut: (s: TypeStatut) => string;
+  canal: (c: CanalAchat) => string;
+  service: (id: string) => string | null;
+  moyenPaiement: (id: string) => string | null;
+}
+
+const UNITES_TEXTE: Record<Langue, Record<'jour' | 'semaine' | 'mois' | 'an', [string, string]>> = {
+  fr: {
+    jour: ['jour', 'jours'],
+    semaine: ['semaine', 'semaines'],
+    mois: ['mois', 'mois'],
+    an: ['an', 'ans'],
+  },
+  en: {
+    jour: ['day', 'days'],
+    semaine: ['week', 'weeks'],
+    mois: ['month', 'months'],
+    an: ['year', 'years'],
+  },
+};
+
+/** Périodicité en texte relu par `periodiciteDepuisTexte` : « mois », « 2 ans », « à vie ». */
+export function texteDepuisPeriodicite(p: Periodicite, langue: Langue): string {
+  if (p.type === 'a_vie') return langue === 'fr' ? 'à vie' : 'lifetime';
+  if (p.type === 'a_l_usage') return langue === 'fr' ? 'à l’usage' : 'usage';
+  const [singulier, pluriel] = UNITES_TEXTE[langue][p.unite];
+  return p.intervalle === 1 ? singulier : `${p.intervalle} ${pluriel}`;
+}
+
+/** Champ CSV : guillemets si séparateur ou guillemet (doublé) ; retours à la ligne remplacés. */
+export function champCsv(valeur: string, separateur: Separateur = ';'): string {
+  const v = valeur.replace(/\r?\n/g, ' / ');
+  return v.includes(separateur) || v.includes('"') ? `"${v.replace(/"/g, '""')}"` : v;
+}
+
+function prixCsv(prix: number, langue: Langue): string {
+  const texte = String(prix);
+  return langue === 'fr' ? texte.replace('.', ',') : texte;
+}
+
+/**
+ * Tableau CSV des abonnements (hors supprimés) : séparateur « ; », BOM UTF-8
+ * pour Excel, fins de ligne CRLF, dates ISO, prix à la virgule en français.
+ */
+export function csvDepuisAbonnements(
+  abonnements: readonly Abonnement[],
+  langue: Langue,
+  libelles: LibellesExportCsv,
+): string {
+  const lignes = [EN_TETES_CSV[langue].map((c) => champCsv(c))];
+  for (const a of abonnements) {
+    if (a.deletedAt !== null) continue;
+    lignes.push(
+      [
+        a.nom,
+        prixCsv(a.prix, langue),
+        String(a.devise),
+        texteDepuisPeriodicite(a.periodicite, langue),
+        a.prochaineEcheance ?? '',
+        libelles.categorie(a.categorie),
+        libelles.statut(a.statut.type),
+        a.serviceId === null ? '' : (libelles.service(a.serviceId) ?? ''),
+        libelles.canal(a.canalAchat),
+        a.moyenPaiementId === null ? '' : (libelles.moyenPaiement(a.moyenPaiementId) ?? ''),
+        a.dateDebut,
+        a.notes,
+      ].map((v) => champCsv(v)),
+    );
+  }
+  return `\uFEFF${lignes.map((l) => l.join(';')).join('\r\n')}\r\n`;
+}
+
+export function nomFichierCsv(jour: DateISO): string {
+  return `subtuile-abonnements-${jour}.csv`;
 }

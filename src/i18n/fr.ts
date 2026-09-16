@@ -524,9 +524,12 @@ export const fr = {
   /* Export / import (EF-50, EF-52) */
   'reglages.exporter': 'Exporter (JSON)',
   'reglages.exporter.sous': 'Sauvegarde complète',
+  'reglages.exporterCsv': 'Exporter (CSV)',
+  'reglages.exporterCsv.sous': 'Tableur : une ligne par abonnement',
   'reglages.importer': 'Importer (JSON / CSV)',
   'reglages.importer.sous': 'Fusion ou remplacement',
   'toast.exporte': 'Sauvegarde téléchargée',
+  'toast.exporteCsv': 'Tableau CSV téléchargé',
   'toast.importe': '{a} abonnements et {m} moyens de paiement importés',
   'toast.importeCsv.un': '{n} abonnement importé',
   'toast.importeCsv.plusieurs': '{n} abonnements importés',
