@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.26 — 15/09/2026 (EF-09 : service inconnu proposé depuis la saisie libre ; migration vers le catalogue commun ; candidat C18 thème sombre OLED)
+**Version :** 1.27 — 16/09/2026 (EF-52 : colonnes CSV choisies à la main, export CSV prévu ; candidat C19 store par plateforme)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -182,7 +182,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 - **EF-50 [M]** — Export JSON complet (sauvegarde) et import avec fusion ou remplacement.
 - **EF-51 [M]** — Fonctionnement 100 % hors ligne après installation.
-- **EF-52 [S]** — Import CSV simple (nom, prix, périodicité, échéance) pour la saisie initiale en masse.
+- **EF-52 [S]** — Import CSV simple (nom, prix, périodicité, échéance) pour la saisie initiale en masse. Séparateur et en-tête (fr / en) détectés ; quand l'en-tête n'est pas reconnu ou que des lignes sont ignorées, l'utilisateur choisit à la main le séparateur, la présence d'un en-tête et la colonne de chaque champ, l'aperçu se recalculant aussitôt *(v1.27)*. Export CSV des abonnements, mêmes colonnes, pour tableur *(v1.27, prévu)*.
 
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 
@@ -408,3 +408,4 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |
 | C18 | Thème sombre « OLED » : noirs purs, en troisième choix du réglage d'apparence à côté de clair / sombre / système (EF-17) ; palette à définir avant intégration *(v1.25, demande du 15/09/2026)* | Confort de lecture de nuit, autonomie sur écrans OLED |
+| C19 | Store par plateforme : détection locale de l'appareil (iOS, Android, autre) et réglage « Boutique d'applications » (Automatique / App Store / Google Play / Les deux) pour ne proposer que les formules et le canal du store de l'utilisateur, et ne comparer « moins cher en direct » qu'avec ce store ; les services sans tarif direct gardent leurs formules App Store à titre indicatif. Limite connue : le catalogue n'a pas de prix Google Play (Apple affiche le prix de chaque abonnement, Google une fourchette) *(v1.27, demande du 16/09/2026)* | Formules pertinentes selon l'appareil |
