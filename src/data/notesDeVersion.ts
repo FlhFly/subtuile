@@ -14,14 +14,34 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.21',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Moyens de paiement : le tiret de la date d’expiration s’ajoute tout seul après l’année (2027 puis 09 donne 2027-09), même au clavier numérique.',
+        'Nouveautés : chaque version détaille désormais ses changements en plusieurs points ; les versions récentes ont été complétées.',
+      ],
+      en: [
+        'Payment methods: the dash in the expiry date is added automatically after the year (2027 then 09 gives 2027-09), even on the numeric keypad.',
+        'What’s new: each version now lists its changes in several points; recent versions have been completed.',
+      ],
+    },
+  },
+  {
     version: '1.0.20',
     date: '2026-09-17',
     notes: {
       fr: [
-        'Protection des données : l’app refuse un numéro de carte complet, avertit dans les notes, assainit les imports et purge les suppressions après 30 jours.',
+        'Moyen de paiement : un numéro de carte complet est refusé dans le libellé ; seuls les 4 derniers chiffres sont prévus.',
+        'Abonnement : une mise en garde s’affiche si les notes ou la référence client ressemblent à un numéro de carte.',
+        'Import JSON : les moyens de paiement importés ne gardent que les 4 derniers chiffres ; un numéro complet est masqué.',
+        'Les éléments supprimés depuis plus de 30 jours sont définitivement effacés à l’ouverture de l’app.',
       ],
       en: [
-        'Data protection: the app rejects full card numbers, warns in notes, sanitises imports and purges deleted items after 30 days.',
+        'Payment method: a full card number is rejected in the label; only the last 4 digits are expected.',
+        'Subscription: a warning appears when the notes or the customer reference look like a card number.',
+        'JSON import: imported payment methods keep only the last 4 digits; a full number is masked.',
+        'Items deleted more than 30 days ago are permanently erased when the app opens.',
       ],
     },
   },
@@ -30,10 +50,14 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Réglages › Données : « Exporter (CSV) » télécharge un tableau (une ligne par abonnement) lisible dans Excel ou Numbers et réimportable dans l’app.',
+        'Réglages › Données : « Exporter (CSV) » télécharge un tableau, une ligne par abonnement, lisible dans Excel ou Numbers.',
+        'Colonnes : nom, prix, devise, périodicité, échéance, catégorie, statut, service, canal, moyen de paiement, date de début, notes.',
+        'Le fichier exporté se réimporte tel quel ; l’import comprend aussi « 2 ans », « 10 jours », « à vie » ou « usage ».',
       ],
       en: [
-        'Settings › Data: “Export (CSV)” downloads a table (one row per subscription) readable in Excel or Numbers and re-importable into the app.',
+        'Settings › Data: “Export (CSV)” downloads a table, one row per subscription, readable in Excel or Numbers.',
+        'Columns: name, price, currency, cycle, due date, category, status, service, channel, payment method, start date, notes.',
+        'The exported file imports back as is; the import also understands “2 years”, “10 days”, “lifetime” or “usage”.',
       ],
     },
   },
@@ -42,10 +66,12 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Import CSV : quand le fichier n’est pas reconnu, choisissez vous-même le séparateur, le titre et la colonne de chaque information ; l’aperçu se met à jour.',
+        'Import CSV : quand le fichier n’est pas reconnu, choisissez vous-même le séparateur, le titre et la colonne de chaque information.',
+        'L’aperçu se met à jour à chaque changement ; le panneau des colonnes s’ouvre de lui-même si des lignes sont ignorées.',
       ],
       en: [
-        'CSV import: when the file is not recognised, pick the separator, the header and the column of each field yourself; the preview updates at once.',
+        'CSV import: when the file is not recognised, pick the separator, the header and the column of each field yourself.',
+        'The preview updates at each change; the columns panel opens by itself when rows are skipped.',
       ],
     },
   },
@@ -54,10 +80,14 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Catalogue : vie courante revue (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou, énergie, MAIF). 79 services revus.',
+        'Catalogue : vie courante revue (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou), tarifs et formules à jour.',
+        'EDF, Engie, TotalEnergies, Veolia et MAIF : adresses de gestion et contacts de résiliation vérifiés.',
+        'Fin de la revue du catalogue : 74 services sur 79 datés, 233 formules ; restent indicatifs YouTube Music, Dashlane, LinkedIn, Fitness Park, L’Équipe.',
       ],
       en: [
-        'Catalog: everyday life reviewed (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou, energy, MAIF). All 79 services reviewed.',
+        'Catalog: everyday life reviewed (Uber One, Deliveroo, Fnac+, Ulys, Babbel, Duolingo, Headspace, Calm, Petit BamBou), prices and plans updated.',
+        'EDF, Engie, TotalEnergies, Veolia and MAIF: management addresses and cancellation contacts checked.',
+        'Catalog review complete: 74 of 79 services dated, 233 plans; YouTube Music, Dashlane, LinkedIn, Fitness Park and L’Équipe stay indicative.',
       ],
     },
   },
@@ -66,10 +96,12 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Catalogue : jeux vidéo et sécurité revus (PlayStation Plus, Xbox Game Pass, Nintendo, GeForce NOW, Twitch, NordVPN, Proton, Surfshark, ExpressVPN).',
+        'Catalogue : jeux vidéo revus — PlayStation Plus (1, 3 et 12 mois des trois paliers), Xbox Game Pass, Nintendo Switch Online, GeForce NOW, Apple Arcade, Twitch.',
+        'Sécurité revue — NordVPN, Proton, Surfshark, ExpressVPN : prix hors TVA, renouvellement annuel et première période de 2 ans.',
       ],
       en: [
-        'Catalog: gaming and security reviewed (PlayStation Plus, Xbox Game Pass, Nintendo, GeForce NOW, Twitch, NordVPN, Proton, Surfshark, ExpressVPN).',
+        'Catalog: gaming reviewed — PlayStation Plus (1, 3 and 12 months of all three tiers), Xbox Game Pass, Nintendo Switch Online, GeForce NOW, Apple Arcade, Twitch.',
+        'Security reviewed — NordVPN, Proton, Surfshark, ExpressVPN: prices before VAT, annual renewal and first 2-year period.',
       ],
     },
   },
@@ -78,10 +110,12 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Catalogue : sport et presse revus (Basic-Fit, Zwift, komoot, AllTrails, Garmin, Apple Fitness+, Le Monde, Mediapart, Les Échos, Cafeyn) ; formules à jour.',
+        'Catalogue : sport revu — Basic-Fit (facturé par 4 semaines), Zwift, TrainingPeaks, komoot, AllTrails, Garmin Connect+, Apple Fitness+.',
+        'Presse revue — Le Monde, Mediapart, Les Échos, Cafeyn ; L’Équipe reste indicatif, Fitness Park sans formule (tarifs par club).',
       ],
       en: [
-        'Catalog: sport and press reviewed (Basic-Fit, Zwift, komoot, AllTrails, Garmin, Apple Fitness+, Le Monde, Mediapart, Les Échos, Cafeyn); plans updated.',
+        'Catalog: sport reviewed — Basic-Fit (billed every 4 weeks), Zwift, TrainingPeaks, komoot, AllTrails, Garmin Connect+, Apple Fitness+.',
+        'Press reviewed — Le Monde, Mediapart, Les Échos, Cafeyn; L’Équipe stays indicative, Fitness Park has no plan (club prices).',
       ],
     },
   },
@@ -90,10 +124,14 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Service inconnu à l’ajout d’un abonnement : l’app propose de l’enregistrer dans « Mes services » et de l’envoyer à l’auteur. Réglable dans Réglages › Général.',
+        'Après l’ajout d’un abonnement dont le service est inconnu, l’app propose de l’enregistrer dans « Mes services » et de l’envoyer à l’auteur.',
+        'Réglages › Général : interrupteur « Proposer les services inconnus » pour désactiver ou réactiver cette proposition.',
+        '« Proposer un service » refuse aussi les variantes de ponctuation d’un nom déjà au catalogue (« basic fit » pour Basic-Fit).',
       ],
       en: [
-        'Unknown service when adding a subscription: the app offers to save it in “My services” and to e-mail it to the author. Adjustable in Settings › General.',
+        'After adding a subscription whose service is unknown, the app offers to save it in “My services” and to send it to the author.',
+        'Settings › General: “Offer unknown services” switch to turn this suggestion off or on.',
+        '“Suggest a service” also rejects punctuation variants of a name already in the catalog (“basic fit” for Basic-Fit).',
       ],
     },
   },
@@ -102,10 +140,12 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     date: '2026-09-16',
     notes: {
       fr: [
-        'Catalogue : quand un service que vous aviez ajouté vous-même rejoint le catalogue commun, l’app propose de basculer vos abonnements sur la version officielle.',
+        'Catalogue › Mes services : quand un service proposé rejoint le catalogue officiel, l’app propose de basculer vers la version officielle.',
+        'Les abonnements liés passent sur l’entrée officielle en gardant prix, périodicité, devise et moyen de paiement ; annulable, refus mémorisé.',
       ],
       en: [
-        'Catalog: when a service you added yourself joins the shared catalog, the app offers to move your subscriptions to the official version.',
+        'Catalog › My services: when a suggested service joins the official catalog, the app offers to switch to the official entry.',
+        'Linked subscriptions move to the official entry keeping price, cycle, currency and payment method; undoable, refusal remembered.',
       ],
     },
   },

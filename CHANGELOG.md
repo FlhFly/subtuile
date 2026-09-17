@@ -7,7 +7,24 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.20.
+Aucune modification depuis la version 1.0.21.
+
+## [1.0.21] — 2026-09-17 — date d'expiration au clavier numérique, notes de version détaillées
+
+### Retours FlhFly du 2026-09-17 (2026-09-17)
+
+#### Corrigé
+- Moyens de paiement : le clavier numérique de l'iPhone n'offre pas le tiret, si bien que la
+  date d'expiration ne pouvait pas être saisie au format AAAA-MM. Le tiret s'ajoute désormais de
+  lui-même après l'année (`formaterSaisieExpiration` : « 2027 » puis « 09 » → « 2027-09 »,
+  effacement du tiret toléré, chiffres en trop ignorés) ; les formes « 09/2027 » et « 09-2027 »
+  restent acceptées et normalisées à la validation. Champ limité à 7 caractères.
+
+#### Modifié
+- Nouveautés : les notes de version passent à plusieurs points par version (une puce par
+  changement notable, 2 à 6 pour une version importante, ≤ 160 caractères chacune) ; les
+  versions 1.0.13 à 1.0.20 sont complétées sur ce modèle. Règle ajoutée à CLAUDE.md.
+
 
 ## [1.0.20] — 2026-09-17 — revue RGPD (1/3) : numéro de carte, imports, purge
 

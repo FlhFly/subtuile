@@ -6,6 +6,7 @@ import {
 } from '../../data/services/moyensPaiement';
 import { aujourdhui, etatExpirationCarte, type EtatExpiration } from '../../domain/dates';
 import {
+  formaterSaisieExpiration,
   formulaireDepuisMoyenPaiement,
   formulaireMoyenPaiementVide,
   moyenPaiementDepuisFormulaire,
@@ -267,7 +268,8 @@ export function FormulaireMoyen({
                 type="text"
                 inputMode="numeric"
                 value={etat.dateExpiration}
-                onChange={(e) => maj('dateExpiration', e.target.value)}
+                onChange={(e) => maj('dateExpiration', formaterSaisieExpiration(e.target.value))}
+                maxLength={7}
                 placeholder={t('paiements.expiration.ph')}
                 autoComplete="off"
               />

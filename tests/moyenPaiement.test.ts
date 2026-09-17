@@ -3,6 +3,7 @@ import { jeuDemo } from '../src/data/fixtures/demo';
 import { dernierJourDuMois, estAnneeMois, etatExpirationCarte } from '../src/domain/dates';
 import { creerMoyenPaiement, COULEURS_MOYEN_PAIEMENT } from '../src/domain/fabriques';
 import {
+  formaterSaisieExpiration,
   formulaireDepuisMoyenPaiement,
   formulaireMoyenPaiementVide,
   moyenPaiementDepuisFormulaire,
@@ -44,6 +45,18 @@ describe('formulaire moyen de paiement (§3.3)', () => {
     expect(normaliserAnneeMois('2026/09')).toBe('2026-09');
     expect(normaliserAnneeMois(' 2026-09 ')).toBe('2026-09');
     expect(normaliserAnneeMois('sept 2026')).toBe('sept 2026');
+  });
+
+  it('tiret automatique de la saisie d’expiration au clavier numérique (v1.0.21)', () => {
+    expect(formaterSaisieExpiration('2027')).toBe('2027');
+    expect(formaterSaisieExpiration('20270')).toBe('2027-0');
+    expect(formaterSaisieExpiration('202709')).toBe('2027-09');
+    expect(formaterSaisieExpiration('2027-09')).toBe('2027-09');
+    expect(formaterSaisieExpiration('2027-')).toBe('2027'); // effacement du tiret
+    expect(formaterSaisieExpiration('2027091')).toBe('2027-09'); // chiffres en trop ignorés
+    expect(formaterSaisieExpiration('09/2027')).toBe('09/2027'); // formes libres normalisées à la validation
+    expect(formaterSaisieExpiration('09-2027')).toBe('09-2027');
+    expect(formaterSaisieExpiration('')).toBe('');
   });
 
   it('valide libellé, 4 chiffres et mois', () => {

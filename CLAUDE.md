@@ -29,7 +29,9 @@ maquette). Pas d'autre dépendance sans validation.
   lot, la section devient une version : 0.N.0 = lot N, 1.0.0 = mise en
   ligne (lot 4).
 - src/data/notesDeVersion.ts : à chaque nouvelle version (tag de lot ou
-  correctif 1.0.x), notes destinées aux utilisateurs, en fr et en en, concises ;
+  correctif 1.0.x), notes destinées aux utilisateurs, en fr et en en : une puce par changement
+  notable (2 à 6 pour une version importante), chacune ≤ 160 caractères et
+  formulée pour l'utilisateur (ce qui change, où le trouver) ;
   la première entrée est la version de package.json (test). Entre deux lots,
   les corrections sortent en 1.0.x : section CHANGELOG, sans tag.
 - ROADMAP.md : statut des étapes et des exigences livrées (⬜ → 🔄 → ✅,

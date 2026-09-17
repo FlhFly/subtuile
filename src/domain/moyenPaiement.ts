@@ -51,6 +51,18 @@ export function normaliserAnneeMois(texte: string): string {
   return t;
 }
 
+/**
+ * Saisie de l'expiration au clavier numérique (v1.0.21) : le tiret s'ajoute
+ * après l'année — « 2027 » puis « 09 » donne « 2027-09 ». Une saisie avec
+ * « / », des lettres ou un mois en tête (« 09-2027 ») est laissée telle
+ * quelle et normalisée à la validation.
+ */
+export function formaterSaisieExpiration(brut: string): string {
+  if (/[^\d-]/.test(brut) || /^\d{1,2}-/.test(brut)) return brut;
+  const chiffres = brut.replace(/-/g, '').slice(0, 6);
+  return chiffres.length > 4 ? `${chiffres.slice(0, 4)}-${chiffres.slice(4)}` : chiffres;
+}
+
 export function validerMoyenPaiement(etat: FormulaireMoyenPaiement): ErreursMoyenPaiement {
   const erreurs: ErreursMoyenPaiement = {};
   if (etat.libelle.trim() === '') erreurs.libelle = 'requis';
