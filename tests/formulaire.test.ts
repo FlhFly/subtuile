@@ -159,6 +159,19 @@ describe('validation', () => {
       prixFuturDate: 'requis',
       prixFuturMontant: 'requis',
     });
+    // EF-74 : un rappel a une date et un texte, ou rien
+    expect(validerFormulaire(etat({ rappelTexte: 'renégocier' }))).toMatchObject({
+      rappelDate: 'requis',
+    });
+    expect(validerFormulaire(etat({ rappelDate: '2027-01-15' }))).toMatchObject({
+      rappelTexte: 'requis',
+    });
+    expect(validerFormulaire(etat({ rappelDate: 'x', rappelTexte: 'renégocier' })).rappelDate).toBe(
+      'date',
+    );
+    expect(
+      validerFormulaire(etat({ rappelDate: '2027-01-15', rappelTexte: 'renégocier' })),
+    ).toEqual({});
     expect(validerFormulaire(etat({ urlGestion: 'https://' })).urlGestion).toBe('url');
     expect(validerFormulaire(etat({ urlGestion: 'strava.com/account' }))).toEqual({});
     expect(validerFormulaire(etat({ echeanceManuelle: '2020-01-01' })).echeanceManuelle).toBe(
@@ -202,6 +215,19 @@ describe('conversion vers Abonnement', () => {
     expect(abo.alerteJoursAvant).toBe(7);
     expect(abo.statut).toEqual({ type: 'actif' });
     expect(abo.deletedAt).toBeNull();
+  });
+
+  it('rappel libre à date (EF-74) : aller-retour formulaire ↔ abonnement', () => {
+    const abo = abonnementDepuisFormulaire(
+      etat({ rappelDate: '2027-01-15', rappelTexte: ' renégocier la box ' }),
+      { jour: JOUR },
+    );
+    expect(abo.rappel).toEqual({ date: '2027-01-15', texte: 'renégocier la box' });
+    expect(formulaireDepuisAbonnement(abo, JOUR)).toMatchObject({
+      rappelDate: '2027-01-15',
+      rappelTexte: 'renégocier la box',
+    });
+    expect(abonnementDepuisFormulaire(etat(), { jour: JOUR }).rappel).toBeNull();
   });
 
   it('création avec essai, engagement, partage, montant estimé, hausse, à l’usage', () => {

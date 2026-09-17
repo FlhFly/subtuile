@@ -45,6 +45,7 @@ export type ClePluriel =
   | 'alertes.nonLues'
   | 'alertes.echeance.titre'
   | 'alertes.carte.sous'
+  | 'alertes.rappel.depuis'
   | 'edition.plus.renseignees'
   | 'edition.garde.autres'
   | 'finances.payants'

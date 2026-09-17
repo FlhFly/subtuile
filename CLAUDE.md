@@ -3,7 +3,7 @@
 ## Projet
 PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
-**docs/CdC.md (v1.30) fait foi** sur le périmètre ; docs/maquette-v6.html
+**docs/CdC.md (v1.31) fait foi** sur le périmètre ; docs/maquette-v6.html
 est la référence visuelle (référence, PAS une base de code).
 En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
 public/CNAME, déployé par

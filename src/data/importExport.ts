@@ -6,7 +6,7 @@
  */
 
 import { masquerNumerosDeCarte, quatreDerniersDepuis } from '../domain/carte';
-import { estAnneeMois } from '../domain/dates';
+import { estAnneeMois, estDateISO } from '../domain/dates';
 import { normaliserAnneeMois } from '../domain/moyenPaiement';
 import { creerAbonnement, creerMoyenPaiement } from '../domain/fabriques';
 import {
@@ -66,10 +66,16 @@ function normaliserAbonnement(brut: unknown, i: number, jour: DateISO): Abonneme
       ? brut.statut
       : { type: 'actif' };
   const devise = (DEVISES as readonly unknown[]).includes(brut.devise) ? brut.devise : 'EUR';
+  // EF-74 : rappel gardé s'il est complet (date ISO et texte), sinon aucun
+  const rappel =
+    estObjet(brut.rappel) && estDateISO(brut.rappel.date) && estChaine(brut.rappel.texte)
+      ? { date: brut.rappel.date, texte: brut.rappel.texte }
+      : null;
   const champs = {
     ...brut,
     statut,
     devise,
+    rappel,
     deletedAt: horodatage(brut.deletedAt) ?? null,
   } as unknown as Parameters<typeof creerAbonnement>[0];
   return creerAbonnement(champs, { jour, instant: horodatage(brut.updatedAt) });

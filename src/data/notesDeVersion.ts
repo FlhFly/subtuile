@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.24',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Rappel à une date : dans les options avancées d’un abonnement, notez une date et un mot (« renégocier la box ») ; l’app vous le rappelle ce jour-là.',
+        'Le rappel apparaît sur la fiche et dans le centre d’alertes pendant 30 jours à partir de sa date, même pour un abonnement résilié.',
+      ],
+      en: [
+        'Reminder on a date: in the advanced options of a subscription, set a date and a note (“renegotiate the box”); the app reminds you that day.',
+        'The reminder shows on the details page and in the alert centre for 30 days from its date, even for a cancelled subscription.',
+      ],
+    },
+  },
+  {
     version: '1.0.23',
     date: '2026-09-17',
     notes: {

@@ -309,6 +309,14 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
               </button>
             </Detail>
           ) : null}
+          {abo.rappel ? (
+            <Detail libelle={t('fiche.rappel')}>
+              {t('fiche.rappel.valeur', {
+                date: i18n.date(abo.rappel.date, 'moyen'),
+                texte: abo.rappel.texte,
+              })}
+            </Detail>
+          ) : null}
           <Detail libelle={t('fiche.echeance')}>
             {abo.prochaineEcheance
               ? date(abo.prochaineEcheance, 'long')

@@ -149,6 +149,33 @@ describe('export / import JSON (EF-50)', () => {
     ]);
   });
 
+  it('rappel libre (EF-74) : gardé s’il est complet, sinon aucun', () => {
+    const base = {
+      id: 'a',
+      nom: 'Box',
+      prix: 30,
+      periodicite: PERIODICITES.mensuelle,
+      dateDebut: '2026-01-01',
+    };
+    const apercu = lireExportJson(
+      JSON.stringify({
+        app: 'subtuile',
+        schemaVersion: SCHEMA_VERSION,
+        abonnements: [
+          { ...base, rappel: { date: '2027-01-15', texte: 'renégocier' } },
+          { ...base, id: 'b', rappel: { date: 'demain', texte: 'x' } },
+          { ...base, id: 'c' },
+        ],
+      }),
+      JOUR,
+    );
+    expect(apercu.donnees.abonnements.map((a) => a.rappel)).toEqual([
+      { date: '2027-01-15', texte: 'renégocier' },
+      null,
+      null,
+    ]);
+  });
+
   it('refus : JSON illisible, fichier étranger, schéma trop récent, structure invalide', () => {
     const code = (texte: string) => {
       try {

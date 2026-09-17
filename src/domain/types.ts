@@ -146,6 +146,11 @@ export interface Partage {
 export interface Regularisation {
   date: DateISO;
 }
+/** EF-74 : rappel libre à une date (« renégocier la box en janvier ») */
+export interface Rappel {
+  date: DateISO;
+  texte: string;
+}
 /** EF-08b : hausse annoncée, appliquée automatiquement à la date */
 export interface PrixFutur {
   date: DateISO;
@@ -194,6 +199,8 @@ export interface Abonnement extends EntiteTechnique {
   montantEstime: boolean;
   regularisation: Regularisation | null;
   prixFutur: PrixFutur | null;
+  /** EF-74 : rappel libre à une date, alerte du jour J pendant 30 jours (v1.31) */
+  rappel: Rappel | null;
   modeResiliation: ModeResiliation;
   /** contact associé au mode de résiliation : n° de téléphone, adresse postale, URL espace client */
   contactResiliation: string | null;

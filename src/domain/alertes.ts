@@ -14,7 +14,8 @@
  *   expirant dans ≤ défaut « carte » mois (M-1) ou déjà expiré ;
  * - régularisation annuelle et hausse annoncée : dans ≤ 30 jours (fenêtre
  *   d'annonce), abonnement actif ou en pause ;
- * - jamais d'alerte pour un abonnement archivé ou résilié.
+ * - rappel libre (EF-74) : du jour J jusqu'à 30 jours après, sauf archivé ;
+ * - jamais d'autre alerte pour un abonnement archivé ou résilié.
  */
 
 import {
@@ -44,6 +45,7 @@ export const TYPES_ALERTE = [
   'carte',
   'regularisation',
   'prix_futur',
+  'rappel',
   'sauvegarde',
 ] as const;
 export type TypeAlerte = (typeof TYPES_ALERTE)[number];
@@ -128,6 +130,12 @@ export interface AlertePrixFutur extends AlerteBase {
   variationPourCent: number;
   periodicite: Periodicite;
 }
+export interface AlerteRappel extends AlerteBase {
+  type: 'rappel';
+  abonnementId: string;
+  nom: string;
+  texte: string;
+}
 export interface AlerteSauvegarde extends AlerteBase {
   type: 'sauvegarde';
   /** date du dernier export JSON ; null = jamais */
@@ -143,6 +151,7 @@ export type Alerte =
   | AlerteCarte
   | AlerteRegularisation
   | AlertePrixFutur
+  | AlerteRappel
   | AlerteSauvegarde;
 
 export interface ContexteAlertes {
@@ -185,8 +194,9 @@ export function comparerAlertes(a: Alerte, b: Alerte): number {
 
 function alertesAbonnement(abo: Abonnement, defauts: DefautsAlerte, jour: DateISO): Alerte[] {
   const statut = abo.statut.type;
-  if (statut === 'archive' || statut === 'resilie_actif_jusquau') return [];
-  const alertes: Alerte[] = [];
+  if (statut === 'archive') return [];
+  const alertes: Alerte[] = alerteRappel(abo, jour);
+  if (statut === 'resilie_actif_jusquau') return alertes;
   const base = { abonnementId: abo.id, nom: abo.nom, devise: abo.devise, lue: false } as const;
 
   if (statut === 'actif') {
@@ -283,6 +293,27 @@ function alertesAbonnement(abo: Abonnement, defauts: DefautsAlerte, jour: DateIS
   }
 
   return alertes;
+}
+
+/** EF-74 : rappel libre, du jour J jusqu'à FENETRE_ANNONCE_JOURS après ; clé stable par date. */
+function alerteRappel(abo: Abonnement, jour: DateISO): Alerte[] {
+  const rappel = abo.rappel;
+  if (!rappel) return [];
+  const jours = joursAvant(rappel.date, jour);
+  if (jours > 0 || jours < -FENETRE_ANNONCE_JOURS) return [];
+  return [
+    {
+      type: 'rappel',
+      cle: cleAlerte('rappel', abo.id, rappel.date),
+      niveau: 'warn',
+      date: rappel.date,
+      jours,
+      lue: false,
+      abonnementId: abo.id,
+      nom: abo.nom,
+      texte: rappel.texte,
+    },
+  ];
 }
 
 function alertesCartes(

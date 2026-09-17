@@ -71,6 +71,9 @@ export interface EtatFormulaire {
   urlGestion: string;
   /** null = défaut global (EF-30) */
   alerteJoursAvant: number | null;
+  /** EF-74 : rappel libre à une date (les deux champs vont ensemble) */
+  rappelDate: string;
+  rappelTexte: string;
   tags: string;
   notes: string;
 }
@@ -262,6 +265,8 @@ export function formulaireVide(jour: DateISO, devise: Devise = 'EUR'): EtatFormu
     referenceClient: '',
     urlGestion: '',
     alerteJoursAvant: null,
+    rappelDate: '',
+    rappelTexte: '',
     tags: '',
     notes: '',
   };
@@ -290,6 +295,8 @@ export function formulairePourDuplication(
     dateDebut: jour,
     echeanceManuelle: '',
     referenceClient: '',
+    rappelDate: '',
+    rappelTexte: '',
     ...(essaiPasse ? { essai: false, essaiFin: '', essaiPrix: '' } : {}),
     ...(haussePassee ? { prixFutur: false, prixFuturDate: '', prixFuturMontant: '' } : {}),
   };
@@ -313,6 +320,7 @@ export function compterOptionsAvancees(etat: EtatFormulaire): number {
     etat.referenceClient.trim() !== '',
     etat.urlGestion.trim() !== '',
     etat.alerteJoursAvant !== null,
+    etat.rappelDate.trim() !== '' || etat.rappelTexte.trim() !== '',
     etat.tags.trim() !== '',
     etat.notes.trim() !== '',
   ];
@@ -384,6 +392,8 @@ export function formulaireDepuisAbonnement(abo: Abonnement, jour: DateISO): Etat
     referenceClient: abo.referenceClient ?? '',
     urlGestion: abo.urlGestion ?? '',
     alerteJoursAvant: abo.alerteJoursAvant,
+    rappelDate: abo.rappel?.date ?? '',
+    rappelTexte: abo.rappel?.texte ?? '',
     tags: abo.tags.join(', '),
     notes: abo.notes,
   };
@@ -473,6 +483,11 @@ export function validerFormulaire(etat: EtatFormulaire): Erreurs {
     const plein = parserMontant(etat.prix);
     if (part !== null && plein !== null && part > plein) erreurs.partagePart = 'partSuperieure';
   }
+  // EF-74 : un rappel a une date et un texte, ou rien
+  if (etat.rappelDate.trim() !== '' || etat.rappelTexte.trim() !== '') {
+    verifierDate(erreurs, 'rappelDate', etat.rappelDate, true);
+    if (etat.rappelTexte.trim() === '') erreurs.rappelTexte = 'requis';
+  }
   if (etat.montantEstime)
     verifierDate(erreurs, 'regularisationDate', etat.regularisationDate, false);
   if (etat.prixFutur) {
@@ -541,6 +556,10 @@ export function abonnementDepuisFormulaire(
     prixFutur:
       etat.prixFutur && estDateISO(etat.prixFuturDate)
         ? { date: etat.prixFuturDate, montant: parserMontant(etat.prixFuturMontant) ?? 0 }
+        : null,
+    rappel:
+      etat.rappelTexte.trim() !== '' && estDateISO(etat.rappelDate)
+        ? { date: etat.rappelDate, texte: etat.rappelTexte.trim() }
         : null,
     moyenPaiementId: etat.moyenPaiementId,
     canalAchat: etat.canalAchat,

@@ -122,6 +122,8 @@ const CLE_CHAMP: Record<ChampFormulaire, CleTraduction> = {
   modeResiliation: 'edition.resiliation',
   contactResiliation: 'edition.resiliation',
   referenceClient: 'edition.ref',
+  rappelDate: 'edition.rappel.date',
+  rappelTexte: 'edition.rappel.texte',
   urlGestion: 'edition.url',
   alerteJoursAvant: 'edition.alerte',
   tags: 'edition.tags',
@@ -978,6 +980,28 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                     aria-label={t('edition.resiliation')}
                   />
                 ) : null}
+              </Bloc>
+
+              <Bloc titre={t('edition.rappel')} aide={t('edition.rappel.aide')}>
+                <div className={styles.rangee}>
+                  <ChampDate
+                    libelle={t('edition.rappel.date')}
+                    erreur={erreur('rappelDate')}
+                    valeur={etat.rappelDate}
+                    onChange={(v) => maj('rappelDate', v)}
+                  />
+                  <Champ libelle={t('edition.rappel.texte')} erreur={erreur('rappelTexte')}>
+                    {(a) => (
+                      <input
+                        {...a}
+                        type="text"
+                        value={etat.rappelTexte}
+                        onChange={(e) => maj('rappelTexte', e.target.value)}
+                        placeholder={t('edition.rappel.texte.ph')}
+                      />
+                    )}
+                  </Champ>
+                </div>
               </Bloc>
 
               <Champ

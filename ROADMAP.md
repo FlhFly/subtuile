@@ -177,6 +177,7 @@ version dans l'app.
 | Revue RGPD (3/3) : export JSON chiffré par mot de passe (C20), verrouillage de l'app (C8) | ⬜ candidats |
 | Retours FlhFly du 2026-09-17 : tiret automatique de la date d'expiration au clavier numérique ; notes de version en plusieurs points, versions récentes complétées | ✅ 2026-09-17 (v1.0.21) |
 | Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
+| Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 
@@ -204,7 +205,7 @@ version dans l'app.
 | C9 | Rapport annuel exportable |
 | C10 | Pictos de marques (dépendance npm) + upload de logo personnel |
 | C12 | Compteur d'économies réalisées |
-| C14 | Rappel libre à date par abonnement |
+| C14 | Rappel libre à date par abonnement — promu EF-74, ✅ 2026-09-17 (v1.0.24) |
 | C15 | Veille tarifaire : catalogue distant, comparaison locale des prix |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
 | C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |

@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.30 — 17/09/2026 (EF-31 : ouvrir une alerte la marque lue)
+**Version :** 1.31 — 17/09/2026 (C14 promu EF-74 : rappel libre à une date par abonnement)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -56,6 +56,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | montantEstime | bool *(v1.9)* | montant variable affiché « ~X € » ; les totaux incluant des montants estimés sont marqués comme tels |
 | regularisation | objet nullable *(v1.9)* | { date } — échéance annuelle de régularisation (mensualités lissées énergie), avec alerte dédiée |
 | prixFutur | objet nullable *(v1.9)* | { date, montant } — hausse annoncée : alerte à l'approche, application automatique à la date, versement dans historiquePrix |
+| rappel | objet nullable *(v1.31)* | { date, texte } — rappel libre à une date (« renégocier la box en janvier ») : ligne sur la fiche, alerte du jour J pendant 30 jours, même résilié (ex-C14, EF-74) |
 | modeResiliation | enum *(v1.9)* | lien (défaut), telephone, courrier_recommande, espace_client — avec contact associé ; adapte le bouton « Gérer / Résilier » (EF-21b) |
 | referenceClient | string optionnel *(v1.9)* | n° client / n° de contrat, affiché en évidence sur la fiche |
 | devise | enum *(v1.16)* | devise de saisie de l'abonnement : EUR, USD, GBP ou CHF (EF-45b) ; la devise proposée par défaut à la création est un réglage. Jusqu'au lot 4 : EUR |
@@ -189,6 +190,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-70 [S]** — Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire »). *(ex-C4)*
 - **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
+- **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.
 - **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)*
 
 **Principe « aucune fonctionnalité factice »** *(v1.14)* : les éléments montrés en démo/aperçu dans la maquette mais irréalisables en V1 (notifications push sans serveur — §5.4, widget d'écran d'accueil natif — §2) sont **masqués en production** et n'apparaîtront que lorsqu'ils seront réellement fonctionnels.
@@ -403,7 +405,7 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C11 | Détection d'abonnements depuis un export bancaire CSV : repérage local des prélèvements récurrents, proposition de création — aucun agrégateur, 100 % local *(v1.9)* — **promu** : EF-73, lot 5 (maquette v6) | Résout le vrai problème : la saisie initiale |
 | C12 | Compteur d'économies réalisées : cumul des mensualités évitées depuis chaque résiliation — brique de gamification la plus saine *(v1.9)* | Motivation, valeur perçue |
 | C13 | Tags libres (maison, voiture, pro…) en complément des catégories *(v1.9)* — **promu** : champ tags §3.1 + filtre EF-12, lots 1-2 (maquette v6) | Organisation, surtout avec les contrats vie courante |
-| C14 | Rappel libre à date par abonnement (« renégocier la box en janvier », « comparer les offres élec ») *(v1.9)* | Renégociations et échéances de prix fixes |
+| C14 | Rappel libre à date par abonnement (« renégocier la box en janvier », « comparer les offres élec ») *(v1.9)* — **promu** : EF-74, livré en 1.0.24 *(v1.31)* | Renégociations et échéances de prix fixes |
 | C15 | Veille tarifaire : catalogue distant publié par un pipeline de collecte des prix (formules, promos, fraîcheur), comparaison 100 % locale → alertes de hausse officielles, suggestions de formule/canal moins cher, mises à jour de prix en un tap (cf. §5.6, provision §3.1/§3.4) | Données réelles à jour |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |

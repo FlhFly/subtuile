@@ -7,7 +7,22 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.23.
+Aucune modification depuis la version 1.0.24.
+
+## [1.0.24] — 2026-09-17 — rappel libre à une date (C14 → EF-74)
+
+### Rappel libre par abonnement (CdC v1.31) (2026-09-17)
+
+#### Ajouté
+- Modèle : champ `rappel` nullable `{ date, texte }` sur l'abonnement (fabrique à null, import
+  JSON gardant un rappel complet et ignorant le reste, anciens enregistrements lus sans rappel).
+- Formulaire, options avancées : bloc « Rappel à une date » (date + texte, les deux ensemble ou
+  rien) ; compté dans les options renseignées ; remis à zéro quand un abonnement sert de modèle.
+- Fiche : ligne « Rappel » avec la date et le texte.
+- Alertes : nouveau type `rappel` (pastille « Rappel », « {nom} : {texte} », « il y a n jours »),
+  du jour J jusqu'à 30 jours après, clé stable par date, pour tout abonnement non archivé —
+  y compris résilié, contrairement aux autres alertes. Ouvrir l'alerte mène à la fiche.
+
 
 ## [1.0.23] — 2026-09-17 — une alerte ouverte est lue
 

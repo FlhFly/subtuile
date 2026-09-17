@@ -232,6 +232,30 @@ describe('moteur d’alertes — régularisation (EF-04b) et hausse annoncée (E
     expect(alertes([{ ...edf, regularisation: { date: JOUR } }])[0]).toMatchObject({ jours: 0 });
   });
 
+  it('rappel libre à date (EF-74) : du jour J pendant 30 jours, même résilié, jamais archivé', () => {
+    const r = abo({ nom: 'Box', rappel: { date: '2026-09-11', texte: 'renégocier la box' } });
+    expect(types(alertes([r], [], ALERTES_DEFAUT, '2026-09-10'))).not.toContain('rappel');
+    const jourJ = alertes([r], [], ALERTES_DEFAUT, '2026-09-11').find((x) => x.type === 'rappel');
+    expect(jourJ).toMatchObject({
+      type: 'rappel',
+      nom: 'Box',
+      texte: 'renégocier la box',
+      jours: 0,
+      niveau: 'warn',
+      cle: cleAlerte('rappel', r.id, '2026-09-11'),
+    });
+    const apres = alertes([r], [], ALERTES_DEFAUT, '2026-10-01').find((x) => x.type === 'rappel');
+    expect(apres?.jours).toBe(-20);
+    expect(types(alertes([r], [], ALERTES_DEFAUT, '2026-10-12'))).not.toContain('rappel');
+    const resilie = {
+      ...r,
+      statut: { type: 'resilie_actif_jusquau', jusquau: '2026-12-31' } as Abonnement['statut'],
+    };
+    expect(types(alertes([resilie], [], ALERTES_DEFAUT, '2026-09-11'))).toEqual(['rappel']);
+    const archive = { ...r, statut: { type: 'archive' } as Abonnement['statut'] };
+    expect(types(alertes([archive], [], ALERTES_DEFAUT, '2026-09-11'))).toEqual([]);
+  });
+
   it('hausse annoncée : ancien et nouveau prix, variation en %, fenêtre de 30 jours', () => {
     const netflix = abo({
       nom: 'Netflix',
