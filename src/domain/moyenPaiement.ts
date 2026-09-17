@@ -4,6 +4,7 @@
  * d'expiration uniquement.
  */
 
+import { contientNumeroDeCarte } from './carte';
 import { estAnneeMois } from './dates';
 import { creerMoyenPaiement, COULEURS_MOYEN_PAIEMENT, type ContexteFabrique } from './fabriques';
 import type { Abonnement, MoyenPaiement, TypeMoyenPaiement } from './types';
@@ -17,7 +18,7 @@ export interface FormulaireMoyenPaiement {
 }
 
 export type ChampMoyenPaiement = keyof FormulaireMoyenPaiement;
-export type CodeErreurMoyenPaiement = 'requis' | 'quatre' | 'anneeMois';
+export type CodeErreurMoyenPaiement = 'requis' | 'quatre' | 'anneeMois' | 'carte';
 export type ErreursMoyenPaiement = Partial<Record<ChampMoyenPaiement, CodeErreurMoyenPaiement>>;
 
 export function formulaireMoyenPaiementVide(
@@ -53,6 +54,7 @@ export function normaliserAnneeMois(texte: string): string {
 export function validerMoyenPaiement(etat: FormulaireMoyenPaiement): ErreursMoyenPaiement {
   const erreurs: ErreursMoyenPaiement = {};
   if (etat.libelle.trim() === '') erreurs.libelle = 'requis';
+  else if (contientNumeroDeCarte(etat.libelle)) erreurs.libelle = 'carte';
   const quatre = etat.quatreDerniers.trim();
   if (quatre !== '' && !/^\d{4}$/.test(quatre)) erreurs.quatreDerniers = 'quatre';
   const exp = normaliserAnneeMois(etat.dateExpiration);

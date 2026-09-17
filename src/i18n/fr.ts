@@ -478,6 +478,10 @@ export const fr = {
   'erreur.requis': 'Champ requis',
   'erreur.quatre': 'Quatre chiffres attendus',
   'erreur.anneeMois': 'Format AAAA-MM attendu (ex. 2027-09)',
+  'erreur.carte':
+    'Ne saisissez pas un numéro de carte complet : seuls les 4 derniers chiffres sont prévus',
+  'avertissement.carte':
+    'Ce texte ressemble à un numéro de carte complet. Ne le conservez pas ici : seuls les 4 derniers chiffres du moyen de paiement sont prévus.',
   'erreur.nombre': 'Nombre invalide',
   'erreur.entier': 'Nombre entier attendu',
   'erreur.date': 'Date invalide',

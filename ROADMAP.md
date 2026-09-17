@@ -172,6 +172,9 @@ version dans l'app.
 | Store par plateforme (C19) : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil | ⬜ demande FlhFly du 2026-09-16, à prévoir plus tard |
 | Export CSV des abonnements, mêmes colonnes que l'import (EF-52) | ✅ 2026-09-16 (v1.0.19, colonnes validées par FlhFly) |
 | Import CSV : choix manuel du séparateur, de l'en-tête et des colonnes quand la détection ne convient pas (EF-52) | ✅ 2026-09-16 (v1.0.18) |
+| Revue RGPD du 2026-09-16 (1/3) : garde anti-numéro de carte (libellé bloqué, notes et référence avertis), import JSON assaini, purge des suppressions après 30 jours | ✅ 2026-09-17 (v1.0.20) |
+| Revue RGPD (2/3) : page Confidentialité dédiée ouverte depuis Réglages (comme Nouveautés : données stockées, exports en clair, hébergement GitHub Pages, e-mails de contact, droits), mentions légales, PRIVACY.md | ⬜ 1.0.21 |
+| Revue RGPD (3/3) : export JSON chiffré par mot de passe (C20), verrouillage de l'app (C8) | ⬜ candidats |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

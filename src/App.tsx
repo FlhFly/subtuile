@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import { chargerJeuDemo } from './data/fixtures/demo';
 import { nouveautesNonVues } from './data/notesDeVersion';
+import { purgerSuppressions } from './data/services/maintenance';
 import { creerStorageParDefaut } from './data/storage';
 import { BarreNavigation, type Onglet } from './ui/components/BarreNavigation';
 import { AlertesContextProvider } from './ui/contexts/AlertesContext';
@@ -84,6 +85,11 @@ function Navigation() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
   }, [ecran]);
+
+  /* Suppressions logiques de plus de 30 jours détruites à l'ouverture (§3.5, revue RGPD) */
+  useEffect(() => {
+    purgerSuppressions(storage).catch(() => undefined);
+  }, [storage]);
 
   /* Après une mise à jour, rappel des nouveautés (une fois par ouverture) ; rien à la première ouverture */
   const rappelFait = useRef(false);

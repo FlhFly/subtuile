@@ -16,6 +16,8 @@ import {
 } from '../../domain/catalogue';
 import { aujourdhui, calculerProchaineEcheance, estDateISO } from '../../domain/dates';
 import {
+  avertissementsFormulaire,
+  type Avertissements,
   abonnementDepuisFormulaire,
   compterOptionsAvancees,
   differencesFormulaire,
@@ -298,6 +300,9 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
     }
   }, [etat, existant, jour]);
 
+  const avertissements = avertissementsFormulaire(etat);
+  const avertissementCarte = (champ: keyof Avertissements) =>
+    avertissements[champ] ? t('avertissement.carte') : undefined;
   const erreur = (champ: keyof EtatFormulaire) => {
     const code = erreurs[champ];
     return code ? t(`erreur.${code}`) : undefined;
@@ -975,7 +980,10 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 ) : null}
               </Bloc>
 
-              <Champ libelle={t('edition.ref')}>
+              <Champ
+                libelle={t('edition.ref')}
+                avertissement={avertissementCarte('referenceClient')}
+              >
                 {(a) => (
                   <input
                     {...a}
@@ -1021,7 +1029,7 @@ export function Edition({ existant, serviceInitial, modele, onFermer, onEnregist
                 )}
               </Champ>
 
-              <Champ libelle={t('edition.notes')}>
+              <Champ libelle={t('edition.notes')} avertissement={avertissementCarte('notes')}>
                 {(a) => (
                   <textarea
                     {...a}

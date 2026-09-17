@@ -7,7 +7,27 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.19.
+Aucune modification depuis la version 1.0.20.
+
+## [1.0.20] — 2026-09-17 — revue RGPD (1/3) : numéro de carte, imports, purge
+
+### Protection des données (CdC v1.28, revue RGPD du 2026-09-16) (2026-09-17)
+
+#### Sécurité
+- Garde anti-numéro de carte (`src/domain/carte.ts`) : toute suite de 13 à 19 chiffres qui
+  passe la clé de Luhn est reconnue, séparateurs compris. Le libellé d'un moyen de paiement la
+  refuse (erreur bloquante) ; la référence client et les notes d'un abonnement affichent une mise
+  en garde non bloquante. Les 4 derniers chiffres restaient déjà limités à quatre chiffres exactement.
+- Import JSON assaini : les moyens de paiement importés ne gardent que les 4 derniers chiffres
+  (chiffres extraits, sinon vide), leur libellé est masqué (« ···· 1111 ») si un numéro complet s'y
+  trouve, et l'expiration est normalisée en AAAA-MM ou vidée.
+- Purge des suppressions logiques : à l'ouverture, les abonnements, moyens de paiement et
+  services proposés supprimés depuis plus de 30 jours sont détruits physiquement
+  (`purgerSuppressions`, §3.5) ; la purge promise par le CdC n'était jamais exécutée.
+
+#### Ajouté
+- Composant `Champ` : prop `avertissement` (message non bloquant, couleur d'alerte).
+
 
 ## [1.0.19] — 2026-09-16 — export CSV des abonnements
 

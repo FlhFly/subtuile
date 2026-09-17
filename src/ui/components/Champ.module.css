@@ -60,3 +60,9 @@
   color: var(--urg);
   font-weight: var(--fw-semibold);
 }
+
+.avertissement {
+  font-size: var(--fs-sm);
+  color: var(--warn);
+  font-weight: var(--fw-semibold);
+}

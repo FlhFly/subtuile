@@ -468,6 +468,9 @@ export const en: Dictionnaire = {
   'erreur.requis': 'Required',
   'erreur.quatre': 'Four digits expected',
   'erreur.anneeMois': 'YYYY-MM format expected (e.g. 2027-09)',
+  'erreur.carte': 'Do not enter a full card number: only the last 4 digits are expected',
+  'avertissement.carte':
+    'This looks like a full card number. Do not keep it here: only the last 4 digits of the payment method are expected.',
   'erreur.nombre': 'Invalid number',
   'erreur.entier': 'Whole number expected',
   'erreur.date': 'Invalid date',

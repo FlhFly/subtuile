@@ -117,6 +117,38 @@ describe('export / import JSON (EF-50)', () => {
     });
   });
 
+  it('assainit les moyens de paiement importés : 4 derniers chiffres seulement, numéro masqué, expiration normalisée', () => {
+    const apercu = lireExportJson(
+      JSON.stringify({
+        app: 'subtuile',
+        schemaVersion: SCHEMA_VERSION,
+        moyensPaiement: [
+          {
+            id: 'mp-x',
+            type: 'cb',
+            libelle: 'Visa 4111 1111 1111 1111 perso',
+            quatreDerniers: '4111111111111111',
+            dateExpiration: '09/2027',
+          },
+          {
+            id: 'mp-y',
+            type: 'cb',
+            libelle: 'Mastercard',
+            quatreDerniers: 12,
+            dateExpiration: 'bientôt',
+          },
+        ],
+      }),
+      JOUR,
+    );
+    expect(
+      apercu.donnees.moyensPaiement.map((m) => [m.libelle, m.quatreDerniers, m.dateExpiration]),
+    ).toEqual([
+      ['Visa ···· 1111 perso', '1111', '2027-09'],
+      ['Mastercard', null, null],
+    ]);
+  });
+
   it('refus : JSON illisible, fichier étranger, schéma trop récent, structure invalide', () => {
     const code = (texte: string) => {
       try {

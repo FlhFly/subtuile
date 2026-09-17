@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.20',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Protection des données : l’app refuse un numéro de carte complet, avertit dans les notes, assainit les imports et purge les suppressions après 30 jours.',
+      ],
+      en: [
+        'Data protection: the app rejects full card numbers, warns in notes, sanitises imports and purges deleted items after 30 days.',
+      ],
+    },
+  },
+  {
     version: '1.0.19',
     date: '2026-09-16',
     notes: {

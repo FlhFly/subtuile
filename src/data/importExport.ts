@@ -5,6 +5,9 @@
  * leurs valeurs par défaut, les champs techniques (§3.5) sont conservés.
  */
 
+import { masquerNumerosDeCarte, quatreDerniersDepuis } from '../domain/carte';
+import { estAnneeMois } from '../domain/dates';
+import { normaliserAnneeMois } from '../domain/moyenPaiement';
 import { creerAbonnement, creerMoyenPaiement } from '../domain/fabriques';
 import {
   DEVISES,
@@ -80,8 +83,13 @@ function normaliserMoyenPaiement(brut: unknown, i: number): MoyenPaiement {
     throw new ErreurImport('structure', `${chemin}.type`);
   }
   if (!estChaine(brut.libelle)) throw new ErreurImport('structure', `${chemin}.libelle`);
+  // revue RGPD : jamais de numéro de carte complet, même venu d'un fichier
+  const expiration = estChaine(brut.dateExpiration) ? normaliserAnneeMois(brut.dateExpiration) : '';
   const champs = {
     ...brut,
+    libelle: masquerNumerosDeCarte(brut.libelle),
+    quatreDerniers: quatreDerniersDepuis(brut.quatreDerniers),
+    dateExpiration: estAnneeMois(expiration) ? expiration : null,
     deletedAt: horodatage(brut.deletedAt) ?? null,
   } as unknown as Parameters<typeof creerMoyenPaiement>[0];
   return creerMoyenPaiement(champs, { instant: horodatage(brut.updatedAt) });

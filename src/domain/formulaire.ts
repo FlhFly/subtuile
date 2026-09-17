@@ -4,6 +4,7 @@
  * et depuis `Abonnement`. Aucun React ici : tout est testable.
  */
 
+import { contientNumeroDeCarte } from './carte';
 import { calculerProchaineEcheance, estDateISO } from './dates';
 import { creerAbonnement, type ContexteFabrique } from './fabriques';
 import type {
@@ -80,6 +81,16 @@ export type CodeErreur =
   'requis' | 'nombre' | 'entier' | 'date' | 'dateAvantDebut' | 'partSuperieure' | 'url';
 
 export type Erreurs = Partial<Record<ChampFormulaire, CodeErreur>>;
+
+/** Avertissements non bloquants : un texte libre qui ressemble à un numéro de carte (§3.3). */
+export type Avertissements = Partial<Record<'referenceClient' | 'notes', 'carte'>>;
+
+export function avertissementsFormulaire(etat: EtatFormulaire): Avertissements {
+  const avertissements: Avertissements = {};
+  if (contientNumeroDeCarte(etat.referenceClient)) avertissements.referenceClient = 'carte';
+  if (contientNumeroDeCarte(etat.notes)) avertissements.notes = 'carte';
+  return avertissements;
+}
 
 /* ---------------------------------------------------------------------------
  * Analyse des saisies

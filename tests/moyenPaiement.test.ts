@@ -80,6 +80,25 @@ describe('formulaire moyen de paiement (§3.3)', () => {
     ).toEqual({});
   });
 
+  it('refuse un numéro de carte complet dans le libellé (revue RGPD)', () => {
+    expect(
+      validerMoyenPaiement({
+        type: 'cb',
+        libelle: 'Visa 4111 1111 1111 1111',
+        quatreDerniers: '1111',
+        dateExpiration: '',
+      }).libelle,
+    ).toBe('carte');
+    expect(
+      validerMoyenPaiement({
+        type: 'cb',
+        libelle: 'Visa perso',
+        quatreDerniers: '1111',
+        dateExpiration: '',
+      }),
+    ).toEqual({});
+  });
+
   it('création : couleur du type, champs carte seulement pour une CB', () => {
     const cb = moyenPaiementDepuisFormulaire({
       type: 'cb',

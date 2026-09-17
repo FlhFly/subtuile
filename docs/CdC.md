@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.27 — 16/09/2026 (EF-52 : colonnes CSV choisies à la main, export CSV prévu ; candidat C19 store par plateforme)
+**Version :** 1.28 — 17/09/2026 (revue RGPD : garde anti-numéro de carte, imports assainis, purge des suppressions à 30 jours ; candidat C20 export chiffré)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -90,7 +90,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | dateExpiration | optionnel → déclenche l'alerte « carte expirée » |
 | couleur | pour l'affichage sur les tuiles |
 
-⚠️ **Aucune donnée bancaire réelle n'est stockée** (ni numéro complet, ni CVV). Uniquement des libellés descriptifs. Données 100 % locales → contrainte RGPD minimale.
+⚠️ **Aucune donnée bancaire réelle n'est stockée** (ni numéro complet, ni CVV). Uniquement des libellés descriptifs. Données 100 % locales → contrainte RGPD minimale. Garde locale *(v1.28, revue RGPD du 16/09/2026)* : les 4 derniers chiffres sont limités à quatre chiffres exactement ; toute suite de 13 à 19 chiffres validée par la clé de Luhn est refusée dans le libellé d'un moyen de paiement et signalée dans la référence client et les notes d'un abonnement ; les imports JSON ne conservent que les 4 derniers chiffres et masquent un numéro complet.
 
 ### 3.4 Entité `Service` (catalogue)
 
@@ -113,7 +113,7 @@ Le catalogue vit dans un **JSON embarqué** dans l'app, éditable, avec une ving
 
 ### 3.5 Champs techniques communs (préparation sync — v1.5)
 
-Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée localement après un délai). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
+Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée physiquement à l'ouverture de l'app après 30 jours *(v1.28)*). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
 
 ---
 
@@ -408,4 +408,5 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |
 | C18 | Thème sombre « OLED » : noirs purs, en troisième choix du réglage d'apparence à côté de clair / sombre / système (EF-17) ; palette à définir avant intégration *(v1.25, demande du 15/09/2026)* | Confort de lecture de nuit, autonomie sur écrans OLED |
+| C20 | Export JSON chiffré par mot de passe (AES-GCM via WebCrypto, 100 % local), en option à côté de l'export en clair ; import symétrique *(v1.28, revue RGPD du 16/09/2026)* | Sauvegardes protégées sur l'appareil |
 | C19 | Store par plateforme : détection locale de l'appareil (iOS, Android, autre) et réglage « Boutique d'applications » (Automatique / App Store / Google Play / Les deux) pour ne proposer que les formules et le canal du store de l'utilisateur, et ne comparer « moins cher en direct » qu'avec ce store ; les services sans tarif direct gardent leurs formules App Store à titre indicatif. Limite connue : le catalogue n'a pas de prix Google Play (Apple affiche le prix de chaque abonnement, Google une fourchette) *(v1.27, demande du 16/09/2026)* | Formules pertinentes selon l'appareil |
