@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.23',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Alertes : ouvrir une alerte la passe en lue ; « Tout marquer comme lu » reste disponible pour le reste.',
+      ],
+      en: [
+        'Alerts: opening an alert marks it as read; “Mark all as read” remains available for the rest.',
+      ],
+    },
+  },
+  {
     version: '1.0.22',
     date: '2026-09-17',
     notes: {

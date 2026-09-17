@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.29 — 17/09/2026 (revue RGPD : page Confidentialité dédiée et mentions légales, miroir PRIVACY.md)
+**Version :** 1.30 — 17/09/2026 (EF-31 : ouvrir une alerte la marque lue)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -163,7 +163,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 ### 4.4 Alertes d'échéance
 
 - **EF-30 [M]** — Alerte paramétrable J-X par abonnement (défaut global : J-3), alerte fin d'essai (défaut J-2), alerte date limite de préavis, alerte expiration de carte (M-1). Préréglages J-1/2/3/7/14 à la création ; chaque défaut global modifiable dans les réglages. *(précisé par la maquette v2)*
-- **EF-31 [M]** — Centre d'alertes in-app : badge + liste des alertes à l'ouverture, avec action « tout marquer comme lu ».
+- **EF-31 [M]** — Centre d'alertes in-app : badge + liste des alertes à l'ouverture, avec action « tout marquer comme lu » ; ouvrir une alerte (fiche, moyens de paiement, réglages) la marque lue à elle seule *(v1.30, retour FlhFly du 17/09/2026)*.
 - **EF-32 [S]** — Export ICS d'un rappel vers le calendrier (contournement fiable de la limitation PWA, voir §5.4).
 - **EF-33 [S]** — Notifications Web Push si un petit serveur de push est ajouté ultérieurement.
 

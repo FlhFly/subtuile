@@ -23,12 +23,13 @@ const CLASSE_NIVEAU: Record<NiveauAlerte, string> = {
 
 /**
  * Centre d'alertes (EF-31, §5.4) : liste des alertes du jour, « tout marquer
- * lu », état vide « tout est calme », rappel du fonctionnement sans push.
+ * lu », ouverture d'une alerte qui la marque lue, état vide « tout est calme »,
+ * rappel du fonctionnement sans push.
  */
 export function Alertes({ onRetour, onOuvrir }: Props) {
   const i18n = useI18n();
   const { t } = i18n;
-  const { alertes, nonLues, marquerToutesLues } = useAlertes();
+  const { alertes, nonLues, marquerToutesLues, marquerLue } = useAlertes();
   const { preferences } = usePreferences();
   const moyens = useMoyensPaiement();
   const toast = useToast();
@@ -65,7 +66,10 @@ export function Alertes({ onRetour, onOuvrir }: Props) {
                 <button
                   type="button"
                   className={a.lue ? styles.ligneLue : styles.ligne}
-                  onClick={() => onOuvrir(a)}
+                  onClick={() => {
+                    marquerLue(a);
+                    onOuvrir(a);
+                  }}
                 >
                   <span className={`${styles.pastille} ${CLASSE_NIVEAU[a.niveau]}`}>
                     {l.pastille}

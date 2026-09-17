@@ -298,6 +298,10 @@ describe('moteur d’alertes — tri, état lu (EF-31) et jeu de démo', () => {
     const limite = cleAlerte('echeance', a.id, '2026-06-13');
     const cles = clesApresMarquage(avecLues, [vieille, limite, premiere!.cle], JOUR);
     expect(cles).toEqual([limite, premiere!.cle, seconde!.cle]);
+    // ouvrir une alerte la marque lue, elle seule (v1.0.23)
+    const uneSeule = clesApresMarquage([seconde!], [], JOUR);
+    expect(uneSeule).toEqual([seconde!.cle]);
+    expect(appliquerLues([premiere!, seconde!], uneSeule).map((x) => x.lue)).toEqual([false, true]);
     expect(nettoyerCles([vieille, limite, limite], JOUR)).toEqual([limite]);
     expect(dateDeCle(cleAlerte('carte', 'demo-mp-cb', '2026-09-30'))).toBe('2026-09-30');
     // une échéance qui bouge produit une nouvelle clé, donc une alerte non lue

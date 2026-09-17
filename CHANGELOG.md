@@ -7,7 +7,18 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.22.
+Aucune modification depuis la version 1.0.23.
+
+## [1.0.23] — 2026-09-17 — une alerte ouverte est lue
+
+### Retour FlhFly du 2026-09-17 (2026-09-17)
+
+#### Corrigé
+- Centre d'alertes : ouvrir une alerte (fiche de l'abonnement, moyens de paiement pour une carte,
+  réglages pour la sauvegarde) la marque lue ; au retour, elle n'apparaît plus comme non lue et le
+  badge se décrémente. « Tout marquer comme lu » reste disponible (`marquerLue` dans le contexte
+  des alertes, même clé persistée que le marquage global).
+
 
 ## [1.0.22] — 2026-09-17 — revue RGPD (2/3) : page Confidentialité, mentions légales, PRIVACY.md
 

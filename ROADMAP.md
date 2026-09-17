@@ -176,6 +176,7 @@ version dans l'app.
 | Revue RGPD (2/3) : page Confidentialité dédiée ouverte depuis Réglages (comme Nouveautés : données stockées, exports en clair, hébergement GitHub Pages, e-mails de contact, droits), mentions légales, PRIVACY.md | ✅ 2026-09-17 (v1.0.22) |
 | Revue RGPD (3/3) : export JSON chiffré par mot de passe (C20), verrouillage de l'app (C8) | ⬜ candidats |
 | Retours FlhFly du 2026-09-17 : tiret automatique de la date d'expiration au clavier numérique ; notes de version en plusieurs points, versions récentes complétées | ✅ 2026-09-17 (v1.0.21) |
+| Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

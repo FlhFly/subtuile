@@ -18,6 +18,8 @@ interface ContexteAlertes {
   jour: DateISO;
   /** « Tout marquer comme lu » (EF-31) */
   marquerToutesLues: () => void;
+  /** une alerte ouverte est lue (EF-31, v1.30) */
+  marquerLue: (alerte: Alerte) => void;
 }
 
 const AlertesContext = createContext<ContexteAlertes | null>(null);
@@ -50,9 +52,21 @@ export function AlertesContextProvider({ children }: { children: ReactNode }) {
     });
   }, [alertes, jour]);
 
+  const marquerLue = useCallback(
+    (alerte: Alerte) => {
+      if (alerte.lue) return;
+      setLues((courantes) => {
+        const cles = clesApresMarquage([alerte], courantes, jour);
+        ecrireAlertesLues(localStorage, cles);
+        return cles;
+      });
+    },
+    [jour],
+  );
+
   const valeur = useMemo(
-    () => ({ alertes, nonLues: nombreNonLues(alertes), jour, marquerToutesLues }),
-    [alertes, jour, marquerToutesLues],
+    () => ({ alertes, nonLues: nombreNonLues(alertes), jour, marquerToutesLues, marquerLue }),
+    [alertes, jour, marquerToutesLues, marquerLue],
   );
   return <AlertesContext.Provider value={valeur}>{children}</AlertesContext.Provider>;
 }
