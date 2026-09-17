@@ -3,7 +3,7 @@
 ## Projet
 PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
-**docs/CdC.md (v1.28) fait foi** sur le périmètre ; docs/maquette-v6.html
+**docs/CdC.md (v1.29) fait foi** sur le périmètre ; docs/maquette-v6.html
 est la référence visuelle (référence, PAS une base de code).
 En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
 public/CNAME, déployé par
@@ -37,6 +37,9 @@ maquette). Pas d'autre dépendance sans validation.
 - ROADMAP.md : statut des étapes et des exigences livrées (⬜ → 🔄 → ✅,
   avec le tag ou le commit). Jamais de feature livrée sans sa case cochée ;
   toute exigence ajoutée ou déplacée entre lots y est reportée.
+- PRIVACY.md : miroir de la page Confidentialité de l'app
+  (src/data/confidentialite.ts) ; toute évolution des données traitées, des
+  flux sortants ou de l'hébergement s'y reporte, avec la même date de révision.
 - README.md : ligne « Statut » (lot livré, version, adresse en ligne) mise à
   jour à chaque tag de lot ; fonctionnalités listées = fonctionnalités réelles.
 - docs/CdC.md : cahier des charges de l'application ; toute évolution du

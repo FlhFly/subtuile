@@ -60,8 +60,7 @@ export const fr = {
     '13 abonnements et 4 moyens de paiement repris de la maquette. Recharger remplace les entrées de démo existantes, sans toucher aux vôtres.',
   'reglages.demo.charge': 'Jeu de démo chargé',
   'reglages.confidentialite': 'Confidentialité',
-  'reglages.confidentialite.texte':
-    '100 % local, hors ligne. Aucune donnée bancaire réelle — uniquement des libellés descriptifs. Rien ne quitte votre appareil.',
+  'reglages.confidentialite.sous': '100 % local — données, exports, contact, mentions légales',
   'reglages.apropos': 'À propos',
 
   /* Thème, langue, affichage, tri */
@@ -720,6 +719,10 @@ export const fr = {
   'reglages.apropos.nouveautes': 'Nouveautés',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'Nouveau',
+  'confidentialite.titre': 'Confidentialité',
+  'confidentialite.sous':
+    'Ce que l’app enregistre, ce qui ne quitte jamais votre appareil, vos droits et les mentions légales.',
+  'confidentialite.maj': 'Texte révisé le {date}',
   'nouveautes.titre': 'Nouveautés',
   'nouveautes.sous': 'Ce qui a changé, version par version.',
   'nouveautes.version': 'Version {version}',

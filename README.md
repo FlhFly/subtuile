@@ -71,6 +71,11 @@ tests, build) et pousse `dist/` (avec le fichier `CNAME`) sur la branche `gh-pag
 GitHub Pages. Prérequis, une seule fois : Settings › Pages du dépôt, source « Deploy from a
 branch », branche `gh-pages`, dossier `/ (root)`.
 
+## Confidentialité
+Tout est local ; le détail (données enregistrées, effacement, exports, e-mails de contact,
+hébergement GitHub Pages, droits) et les mentions légales sont dans [PRIVACY.md](PRIVACY.md),
+miroir de la page Confidentialité de l'app (Réglages › Données).
+
 ## Licence
 AGPL-3.0 — voir [LICENSE](LICENSE).
 

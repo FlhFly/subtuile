@@ -42,6 +42,8 @@ interface Props {
   onRevoirIntro: () => void;
   /** écran Nouveautés (notes de version) */
   onOuvrirNouveautes: () => void;
+  /** page Confidentialité et mentions légales (revue RGPD) */
+  onOuvrirConfidentialite: () => void;
 }
 
 const VERSION_APP = __APP_VERSION__;
@@ -74,6 +76,7 @@ export function Reglages({
   onOuvrirImport,
   onRevoirIntro,
   onOuvrirNouveautes,
+  onOuvrirConfidentialite,
 }: Props) {
   const i18n = useI18n();
   const { t, tn, date, changerLangue, langue } = i18n;
@@ -385,10 +388,15 @@ export function Reglages({
               <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
             </span>
           </button>
-          <div className={styles.rangeeTexte}>
-            <span className={styles.libelle}>{t('reglages.confidentialite')}</span>
-            <span className={styles.sous}>{t('reglages.confidentialite.texte')}</span>
-          </div>
+          <button type="button" className={styles.rangeeBouton} onClick={onOuvrirConfidentialite}>
+            <span className={styles.textes}>
+              <span className={styles.libelle}>{t('reglages.confidentialite')}</span>
+              <span className={styles.sous}>{t('reglages.confidentialite.sous')}</span>
+            </span>
+            <span className={styles.valeur}>
+              <Icone nom="chevronDroit" taille={13} epaisseur={3.2} />
+            </span>
+          </button>
           <button
             type="button"
             className={`${styles.rangeeBouton} ${styles.rangeeDanger}`}

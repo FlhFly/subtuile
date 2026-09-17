@@ -57,8 +57,7 @@ export const en: Dictionnaire = {
     '13 subscriptions and 4 payment methods taken from the mockup. Reloading replaces existing demo entries without touching yours.',
   'reglages.demo.charge': 'Demo data set loaded',
   'reglages.confidentialite': 'Privacy',
-  'reglages.confidentialite.texte':
-    '100% local, offline. No real banking data — descriptive labels only. Nothing leaves your device.',
+  'reglages.confidentialite.sous': '100% local — data, exports, contact, legal notice',
   'reglages.apropos': 'About',
 
   /* Theme, language, layout, sort */
@@ -707,6 +706,10 @@ export const en: Dictionnaire = {
   'reglages.apropos.nouveautes': 'What’s new',
   'reglages.apropos.nouveautes.sous': 'Version {version}',
   'reglages.apropos.nouveau': 'New',
+  'confidentialite.titre': 'Privacy',
+  'confidentialite.sous':
+    'What the app stores, what never leaves your device, your rights and the legal notice.',
+  'confidentialite.maj': 'Text revised on {date}',
   'nouveautes.titre': 'What’s new',
   'nouveautes.sous': 'What changed, version by version.',
   'nouveautes.version': 'Version {version}',

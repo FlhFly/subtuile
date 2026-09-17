@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.28 — 17/09/2026 (revue RGPD : garde anti-numéro de carte, imports assainis, purge des suppressions à 30 jours ; candidat C20 export chiffré)
+**Version :** 1.29 — 17/09/2026 (revue RGPD : page Confidentialité dédiée et mentions légales, miroir PRIVACY.md)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -309,7 +309,7 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 4. **Échéancier** — liste chronologique des prochaines échéances (groupée par mois), et vue calendrier mensuelle *(maquette v6, livrée au lot 3)*.
 5. **Finances** — totaux, répartitions, prévisionnel.
 6. **Moyens de paiement** — liste, ajout, édition, alerte expiration.
-7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, langue, format de date *(v1.16 — JJ/MM/AAAA, MM/JJ/AAAA ou AAAA-MM-JJ, pour l'affichage et la saisie ; repris à l'onboarding C7)*, export/import, catalogue, section Confidentialité (rappel : données 100 % locales).
+7. **Réglages** — devise par défaut de saisie et devise d'affichage (EF-45 / EF-45b), défauts d'alerte, thème d'apparence, langue, format de date *(v1.16 — JJ/MM/AAAA, MM/JJ/AAAA ou AAAA-MM-JJ, pour l'affichage et la saisie ; repris à l'onboarding C7)*, export/import, catalogue, rangée « Confidentialité » ouvrant une page dédiée *(v1.29, revue RGPD)* : données enregistrées et où, effacement et purge à 30 jours, exports en clair, e-mails de contact (contenu, usage, suppression sous douze mois), hébergement GitHub Pages et journaux techniques, droits, mentions légales (éditeur, hébergeur, licence) ; texte miroir dans PRIVACY.md à la racine du dépôt.
 8. **Catalogue** — consultation des services préchargés + « Proposer un service », accessible depuis les réglages. *(issu de la maquette v2)*
 9. **À propos** — licence AGPL-3.0, lien vers le dépôt public, soutien au projet (don), retours utilisateurs par e-mail *(v1.22 : « Signaler un bug ou proposer une idée » ouvre la messagerie avec version, appareil et langue pré-remplis ; l'app n'envoie rien elle-même)*, écran « Nouveautés » *(v1.19)* : notes de version dans la langue de l'interface, pastille tant que la version installée n'a pas été consultée, rappel à l'ouverture après une mise à jour. *(issu de la maquette v6)* Les réglages accueillent aussi la section « Automatisation » (avance des échéances, export ICS) — entrées push/widget masquées en V1 (§4.7).
 10. **Onboarding** *(v1.17 — C7 promu en V1, maquette v6)* — trois écrans à la première ouverture : présentation (langue en tête dès le premier écran *(v1.21)*, 100 % local, échéances, finances, alertes), devise par défaut / format de date (préférences écrites au fil des choix), puis premier abonnement (catalogue, import JSON / CSV, jeu de démonstration, ou plus tard). « Passer » à tout moment ; rejouable depuis Réglages › Général › « Revoir l'introduction ».

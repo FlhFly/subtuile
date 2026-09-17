@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.22',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Réglages › Données › Confidentialité ouvre une page dédiée : données enregistrées, effacement, exports, e-mails de contact, hébergement, droits.',
+        'Mentions légales ajoutées (éditeur, hébergeur GitHub Pages, licence) ; le même texte est publié dans le dépôt (PRIVACY.md).',
+      ],
+      en: [
+        'Settings › Data › Privacy opens a dedicated page: stored data, erasing, exports, contact e-mails, hosting, your rights.',
+        'Legal notice added (publisher, GitHub Pages host, licence); the same text is published in the repository (PRIVACY.md).',
+      ],
+    },
+  },
+  {
     version: '1.0.21',
     date: '2026-09-17',
     notes: {

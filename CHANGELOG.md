@@ -7,7 +7,24 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.21.
+Aucune modification depuis la version 1.0.22.
+
+## [1.0.22] — 2026-09-17 — revue RGPD (2/3) : page Confidentialité, mentions légales, PRIVACY.md
+
+### Information des utilisateurs (CdC v1.29, revue RGPD du 2026-09-16) (2026-09-17)
+
+#### Ajouté
+- Page « Confidentialité » dédiée, ouverte depuis Réglages › Données (rangée à chevron à la place
+  du paragraphe), dans la langue de l'interface, en huit sections : en bref, ce que l'app
+  enregistre sur l'appareil, effacement (purge à 30 jours), exports en clair, e-mails de contact
+  (contenu du message, usage, suppression sous douze mois), hébergement GitHub Pages et journaux
+  techniques, droits, mentions légales (éditeur, hébergeur, licence). Liens sortants vers la
+  politique de GitHub et le dépôt. Texte dans `src/data/confidentialite.ts`, écran
+  `Confidentialite.tsx`.
+- `PRIVACY.md` à la racine du dépôt (français puis anglais), miroir de la page, lié depuis le
+  README ; test garantissant que le fichier et la page citent le même contact, le même hébergeur
+  et la même date de révision.
+
 
 ## [1.0.21] — 2026-09-17 — date d'expiration au clavier numérique, notes de version détaillées
 

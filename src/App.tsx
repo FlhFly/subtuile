@@ -21,6 +21,7 @@ import { Fiche } from './ui/screens/Fiche';
 import { Finances } from './ui/screens/Finances';
 import { Import } from './ui/screens/Import';
 import { MoyensPaiement } from './ui/screens/MoyensPaiement';
+import { Confidentialite } from './ui/screens/Confidentialite';
 import { Nouveautes } from './ui/screens/Nouveautes';
 import { Onboarding } from './ui/screens/Onboarding';
 import { Reglages } from './ui/screens/Reglages';
@@ -36,6 +37,7 @@ type Ecran =
   | { nom: 'catalogue' }
   | { nom: 'import'; retour?: Ecran }
   | { nom: 'nouveautes'; retour?: Ecran }
+  | { nom: 'confidentialite' }
   | { nom: 'fiche'; id: string; retour?: Ecran }
   | {
       nom: 'edition';
@@ -182,6 +184,7 @@ function Navigation() {
           onOuvrirImport={() => setEcran({ nom: 'import' })}
           onRevoirIntro={() => modifier({ onboardingVu: false })}
           onOuvrirNouveautes={() => setEcran({ nom: 'nouveautes' })}
+          onOuvrirConfidentialite={() => setEcran({ nom: 'confidentialite' })}
         />
       );
       break;
@@ -200,6 +203,9 @@ function Navigation() {
       break;
     case 'nouveautes':
       contenu = <Nouveautes onRetour={() => setEcran(ecran.retour ?? { nom: 'reglages' })} />;
+      break;
+    case 'confidentialite':
+      contenu = <Confidentialite onRetour={() => setEcran({ nom: 'reglages' })} />;
       break;
     case 'catalogue':
       contenu = (
