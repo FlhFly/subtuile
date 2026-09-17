@@ -178,6 +178,7 @@ version dans l'app.
 | Retours FlhFly du 2026-09-17 : tiret automatique de la date d'expiration au clavier numérique ; notes de version en plusieurs points, versions récentes complétées | ✅ 2026-09-17 (v1.0.21) |
 | Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
 | Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
+| Découpage du bundle (étape 5 du plan du 2026-09-14) : chunks React / Dexie / date-fns / i18n / catalogue, écrans secondaires chargés à la demande, précache complet conservé | ✅ 2026-09-17 (v1.0.25) |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 

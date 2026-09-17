@@ -14,6 +14,20 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.25',
+    date: '2026-09-17',
+    notes: {
+      fr: [
+        'Chargement plus rapide et mises à jour plus légères : l’app est découpée en morceaux (bibliothèques, catalogue, écrans) mis en cache séparément.',
+        'Une mise à jour ne retélécharge plus que ce qui a changé ; tout reste disponible hors ligne.',
+      ],
+      en: [
+        'Faster loading and lighter updates: the app is split into pieces (libraries, catalog, screens) cached separately.',
+        'An update only downloads what changed; everything stays available offline.',
+      ],
+    },
+  },
+  {
     version: '1.0.24',
     date: '2026-09-17',
     notes: {

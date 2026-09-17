@@ -7,7 +7,23 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.24.
+Aucune modification depuis la version 1.0.25.
+
+## [1.0.25] — 2026-09-17 — découpage du bundle
+
+### Performance et cache (plan du 2026-09-14, étape 5) (2026-09-17)
+
+#### Modifié
+- Le bundle unique de 617 kB (180 kB compressés) est découpé : fichiers séparés pour React
+  (142 kB), Dexie (96 kB), date-fns, les dictionnaires fr / en (74 kB), le catalogue (69 kB) et le
+  code de l'app (135 kB) ; les écrans secondaires (formulaire, réglages, import, finances,
+  échéancier, catalogue, moyens de paiement, nouveautés, confidentialité) sont chargés à la
+  demande (`React.lazy` + `Suspense`), chacun avec sa feuille de style. Le service worker
+  précache les 46 fichiers : tout reste disponible hors ligne.
+- Effet : ~100 kB de moins au premier chargement (feuille de style principale 34 kB au lieu de
+  73 kB), et surtout une mise à jour de l'app ne retélécharge plus que les morceaux modifiés
+  (le code de l'app et les écrans touchés) au lieu de 617 kB.
+
 
 ## [1.0.24] — 2026-09-17 — rappel libre à une date (C14 → EF-74)
 

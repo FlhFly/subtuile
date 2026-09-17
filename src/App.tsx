@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { lazy, Suspense, useEffect, useRef, useState } from 'react';
 import { chargerJeuDemo } from './data/fixtures/demo';
 import { nouveautesNonVues } from './data/notesDeVersion';
 import { purgerSuppressions } from './data/services/maintenance';
@@ -14,17 +14,31 @@ import { useAbonnements } from './ui/hooks/useAbonnements';
 import { useCatalogue } from './ui/hooks/useCatalogue';
 import { Accueil } from './ui/screens/Accueil';
 import { Alertes } from './ui/screens/Alertes';
-import { Catalogue } from './ui/screens/Catalogue';
-import { Echeancier } from './ui/screens/Echeancier';
-import { Edition } from './ui/screens/Edition';
 import { Fiche } from './ui/screens/Fiche';
-import { Finances } from './ui/screens/Finances';
-import { Import } from './ui/screens/Import';
-import { MoyensPaiement } from './ui/screens/MoyensPaiement';
-import { Confidentialite } from './ui/screens/Confidentialite';
-import { Nouveautes } from './ui/screens/Nouveautes';
 import { Onboarding } from './ui/screens/Onboarding';
-import { Reglages } from './ui/screens/Reglages';
+
+/* Écrans secondaires chargés à la demande (v1.0.25) : chacun a son fichier, précaché par le
+   service worker, donc disponible hors ligne ; l'accueil, la fiche, les alertes et l'onboarding
+   restent dans le fichier principal. */
+const Catalogue = lazy(() =>
+  import('./ui/screens/Catalogue').then((m) => ({ default: m.Catalogue })),
+);
+const Echeancier = lazy(() =>
+  import('./ui/screens/Echeancier').then((m) => ({ default: m.Echeancier })),
+);
+const Edition = lazy(() => import('./ui/screens/Edition').then((m) => ({ default: m.Edition })));
+const Finances = lazy(() => import('./ui/screens/Finances').then((m) => ({ default: m.Finances })));
+const Import = lazy(() => import('./ui/screens/Import').then((m) => ({ default: m.Import })));
+const MoyensPaiement = lazy(() =>
+  import('./ui/screens/MoyensPaiement').then((m) => ({ default: m.MoyensPaiement })),
+);
+const Confidentialite = lazy(() =>
+  import('./ui/screens/Confidentialite').then((m) => ({ default: m.Confidentialite })),
+);
+const Nouveautes = lazy(() =>
+  import('./ui/screens/Nouveautes').then((m) => ({ default: m.Nouveautes })),
+);
+const Reglages = lazy(() => import('./ui/screens/Reglages').then((m) => ({ default: m.Reglages })));
 
 /** Écrans livrés ; navigation par état, sans routeur. */
 type Ecran =
@@ -251,7 +265,9 @@ function Navigation() {
 
   return (
     <div className="coquille">
-      <main className={avecBarre ? 'app app--barre' : 'app'}>{contenu}</main>
+      <main className={avecBarre ? 'app app--barre' : 'app'}>
+        <Suspense fallback={null}>{contenu}</Suspense>
+      </main>
       {avecBarre ? (
         <BarreNavigation
           actif={onglet}
