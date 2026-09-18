@@ -1,0 +1,167 @@
+/* Budget mensuel (EF-70) — carte dans le style des cartes de Finances */
+
+.carte {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--card);
+}
+
+.enTete {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.titre {
+  margin: 0;
+  font-size: 15px;
+  font-weight: var(--fw-bold);
+}
+
+.boutonPetit {
+  height: 28px;
+  padding: 0 12px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12px;
+  font-weight: var(--fw-bold);
+}
+
+.aide,
+.reste,
+.global {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.aide {
+  margin: 0;
+  line-height: 1.45;
+}
+
+.ligne {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.montant {
+  font-size: 17px;
+  font-weight: var(--fw-bold);
+}
+
+.jauge {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--sand);
+  overflow: hidden;
+}
+
+.jaugeValeur,
+.jaugeDepassee {
+  height: 7px;
+  border-radius: 4px;
+  transition: width var(--dur-fast) var(--ease);
+}
+
+.jaugeValeur {
+  background: var(--ok);
+}
+
+.jaugeDepassee {
+  background: var(--urg);
+}
+
+.depasse {
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+  color: var(--urg);
+}
+
+/* Saisie du plafond */
+.edition {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.libelle {
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--ls-label);
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.champ,
+.champErreur {
+  width: 100%;
+  padding: 12px 14px;
+  border: var(--border);
+  border-radius: var(--r-md);
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 14.5px;
+  font-weight: var(--fw-semibold);
+}
+
+.champErreur {
+  border-color: var(--urg);
+}
+
+.erreur {
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-semibold);
+  color: var(--urg);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.boutonPrincipal,
+.boutonSecondaire,
+.boutonDiscret {
+  height: 40px;
+  padding: 0 16px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.boutonPrincipal {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.boutonSecondaire {
+  border: 2px solid var(--line);
+  background: transparent;
+  color: var(--ink);
+}
+
+.boutonDiscret {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+.boutonPetit:focus-visible,
+.boutonPrincipal:focus-visible,
+.boutonSecondaire:focus-visible,
+.boutonDiscret:focus-visible,
+.champ:focus-visible,
+.champErreur:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

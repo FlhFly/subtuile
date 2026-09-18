@@ -11,6 +11,7 @@ import type {
   ExportJSON,
   Horodatage,
   MoyenPaiement,
+  ParametresPilotage,
   ServicePersonnalise,
 } from '../../domain/types';
 
@@ -48,6 +49,8 @@ export interface StorageProvider {
   readonly abonnements: Depot<Abonnement>;
   readonly moyensPaiement: Depot<MoyenPaiement>;
   readonly servicesPersonnalises: Depot<ServicePersonnalise>;
+  /** enregistrement unique `pilotage` (budget, objectif — lot 5) */
+  readonly parametres: Depot<ParametresPilotage>;
 
   /** EF-50 : sauvegarde complète des entités vivantes */
   exporter(): Promise<ExportJSON>;

@@ -12,6 +12,7 @@ import {
   type ExportJSON,
   type Horodatage,
   type MoyenPaiement,
+  type ParametresPilotage,
   type ServicePersonnalise,
 } from '../../domain/types';
 import type {
@@ -29,6 +30,7 @@ class SubtuileDB extends Dexie {
   declare abonnements: Table<Abonnement, string>;
   declare moyensPaiement: Table<MoyenPaiement, string>;
   declare servicesPersonnalises: Table<ServicePersonnalise, string>;
+  declare parametres: Table<ParametresPilotage, string>;
 
   constructor(nom: string) {
     super(nom);
@@ -40,6 +42,8 @@ class SubtuileDB extends Dexie {
       moyensPaiement: 'id, updatedAt',
       servicesPersonnalises: 'id, updatedAt',
     });
+    // lot 5 : paramètres de pilotage (enregistrement unique)
+    this.version(2).stores({ parametres: 'id, updatedAt' });
   }
 }
 
@@ -108,6 +112,7 @@ export class DexieProvider implements StorageProvider {
   readonly abonnements: Depot<Abonnement>;
   readonly moyensPaiement: Depot<MoyenPaiement>;
   readonly servicesPersonnalises: Depot<ServicePersonnalise>;
+  readonly parametres: Depot<ParametresPilotage>;
 
   private readonly db: SubtuileDB;
   private readonly ecouteurs = new Set<Ecouteur>();
@@ -118,6 +123,7 @@ export class DexieProvider implements StorageProvider {
     this.abonnements = new DepotDexie(this.db.abonnements, notifier);
     this.moyensPaiement = new DepotDexie(this.db.moyensPaiement, notifier);
     this.servicesPersonnalises = new DepotDexie(this.db.servicesPersonnalises, notifier);
+    this.parametres = new DepotDexie(this.db.parametres, notifier);
   }
 
   private notifier(): void {
@@ -132,10 +138,11 @@ export class DexieProvider implements StorageProvider {
   }
 
   async exporter(): Promise<ExportJSON> {
-    const [abonnements, moyensPaiement, servicesPersonnalises] = await Promise.all([
+    const [abonnements, moyensPaiement, servicesPersonnalises, parametres] = await Promise.all([
       this.abonnements.lister(),
       this.moyensPaiement.lister(),
       this.servicesPersonnalises.lister(),
+      this.parametres.lister(),
     ]);
     return {
       app: 'subtuile',
@@ -144,6 +151,7 @@ export class DexieProvider implements StorageProvider {
       abonnements,
       moyensPaiement,
       servicesPersonnalises,
+      parametres: parametres[0] ?? null,
     };
   }
 
@@ -152,9 +160,20 @@ export class DexieProvider implements StorageProvider {
     if (!Number.isInteger(donnees.schemaVersion) || donnees.schemaVersion > SCHEMA_VERSION) {
       throw new Error(`Schéma ${String(donnees.schemaVersion)} plus récent que ${SCHEMA_VERSION}`);
     }
-    const tables = [this.db.abonnements, this.db.moyensPaiement, this.db.servicesPersonnalises];
+    const tables = [
+      this.db.abonnements,
+      this.db.moyensPaiement,
+      this.db.servicesPersonnalises,
+      this.db.parametres,
+    ];
     const bilan = await this.db.transaction('rw', tables, async () => {
       if (mode === 'remplacement') await Promise.all(tables.map((t) => t.clear()));
+      // schéma 2 : paramètres de pilotage ; un fichier du schéma 1 n'en porte pas
+      await fusionner(
+        this.db.parametres,
+        donnees.parametres ? [donnees.parametres] : undefined,
+        mode,
+      );
       return {
         abonnements: await fusionner(this.db.abonnements, donnees.abonnements, mode),
         moyensPaiement: await fusionner(this.db.moyensPaiement, donnees.moyensPaiement, mode),
@@ -174,6 +193,7 @@ export class DexieProvider implements StorageProvider {
       this.db.abonnements.clear(),
       this.db.moyensPaiement.clear(),
       this.db.servicesPersonnalises.clear(),
+      this.db.parametres.clear(),
     ]);
     this.notifier();
   }

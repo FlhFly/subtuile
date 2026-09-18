@@ -3,7 +3,7 @@
 ## Projet
 PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
-**docs/CdC.md (v1.36) fait foi** sur le périmètre ; docs/maquette-v7.html
+**docs/CdC.md (v1.37) fait foi** sur le périmètre ; docs/maquette-v7.html
 est la référence visuelle (référence, PAS une base de code).
 En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
 public/CNAME, déployé par
@@ -20,6 +20,10 @@ maquette). Pas d'autre dépendance sans validation.
   UN commit avec message clair → attendre la validation de FlhFly
   avant l'étape suivante. Tag `lot-N` à la fin de chaque lot.
 - Jamais plusieurs étapes d'un coup. Jamais de commit sans tests verts.
+- Lot 5 « Pilotage » : développé sur la branche `lot-5` (package.json en 1.1.0,
+  notes de version accumulées sous 1.1.0, entrées CHANGELOG sous « Non publié ») ;
+  main reste en 1.0.x et ne reçoit que des correctifs urgents ; fusion dans main
+  et tag `lot-5` à la sortie de la 1.1.0 (décision FlhFly du 2026-09-18).
 - Réponses concises, en français.
 
 ## Fichiers à tenir à jour (dans le même commit que l'étape)

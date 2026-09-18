@@ -380,7 +380,26 @@ export interface Preferences {
  * EF-50 — Export JSON (schemaVersion, migrations locales)
  * ------------------------------------------------------------------------- */
 
-export const SCHEMA_VERSION = 1;
+/** EF-70 (lot 5) : budget mensuel global, dans la devise choisie à la saisie */
+export interface BudgetMensuel {
+  montant: number;
+  devise: Devise;
+}
+/** EF-70 (lot 5) : objectif d'économie « passer sous X d'ici [date] » (étape 2) */
+export interface ObjectifEconomie {
+  cible: number;
+  devise: Devise;
+  date: DateISO;
+}
+/** Paramètres de pilotage : enregistrement unique `pilotage` (§3.5, schéma d'export 2) */
+export interface ParametresPilotage extends EntiteTechnique {
+  id: 'pilotage';
+  budgetMensuel: BudgetMensuel | null;
+  objectif: ObjectifEconomie | null;
+}
+
+/** 1 = lot 4 ; 2 = paramètres de pilotage (lot 5). Les fichiers d'un schéma antérieur restent importables. */
+export const SCHEMA_VERSION = 2;
 
 export interface ExportJSON {
   app: 'subtuile';
@@ -389,4 +408,6 @@ export interface ExportJSON {
   abonnements: Abonnement[];
   moyensPaiement: MoyenPaiement[];
   servicesPersonnalises: ServicePersonnalise[];
+  /** paramètres de pilotage (schéma 2, lot 5) ; absent des fichiers du schéma 1 */
+  parametres?: ParametresPilotage | null;
 }

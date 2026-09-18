@@ -5,9 +5,22 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ;
 versionnage sémantique : `0.N.0` = fin du lot N (tag `lot-N`), `1.0.0` = mise en ligne.
 Chaque étape committée ajoute son entrée dans « Non publié ».
 
-## [Non publié]
+## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
-Aucune modification depuis la version 1.0.28.
+### Lot 5 — étape 1 : budget mensuel (2026-09-18)
+
+#### Ajouté
+- Finances : carte « Budget mensuel · Global » (EF-70, ex-C4) — plafond saisi dans la devise
+  d'affichage, jauge, « Il reste X sous le plafond » ou « Dépassé de X », modification et retrait
+  (`Budget.tsx`, domaine `pilotage.ts`).
+- Centre d'alertes : alerte « Budget mensuel dépassé de X » quand le total mensuel normalisé
+  dépasse le plafond, une clé par mois civil (marquée lue, elle se tait jusqu'au mois suivant) ;
+  ouvrir l'alerte mène à Finances.
+- Stockage : enregistrement unique `pilotage` (budget, futur objectif) dans une nouvelle table
+  IndexedDB (Dexie version 2), dépôt `parametres` du StorageProvider, effacé par « Effacer toutes
+  les données ». Sauvegarde JSON en schéma 2 avec `parametres` ; les fichiers du schéma 1 restent
+  importables, les champs incohérents sont ramenés à « aucun ».
+
 
 ## [1.0.28] — 2026-09-18 — mode discret (C21 → EF-75)
 

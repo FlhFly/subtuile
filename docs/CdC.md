@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.36 — 18/09/2026 (C21 promu EF-75 : mode discret, montants masqués d’un appui)
+**Version :** 1.37 — 18/09/2026 (lot 5, étape 1 : budget mensuel dans EF-70, paramètres de pilotage, schéma d’export 2)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -114,7 +114,7 @@ Le catalogue vit dans un **JSON embarqué** dans l'app, éditable, avec une ving
 
 ### 3.5 Champs techniques communs (préparation sync — v1.5)
 
-Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée physiquement à l'ouverture de l'app après 30 jours *(v1.28)*). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
+Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services », et depuis le lot 5 l’enregistrement unique `ParametresPilotage` — budget mensuel, objectif — porté par le schéma d’export 2 *(v1.37)*) porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée physiquement à l'ouverture de l'app après 30 jours *(v1.28)*). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
 
 ---
 
@@ -187,7 +187,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 
-- **EF-70 [S]** — Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire »). *(ex-C4)*
+- **EF-70 [S]** — Budget mensuel global (ex-C4) : plafond choisi dans Finances (devise d'affichage), jauge, « il reste X » / « dépassé de X », alerte de dépassement une fois par mois civil menant à Finances *(v1.37, lot 5 étape 1)*. Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire »).
 - **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.

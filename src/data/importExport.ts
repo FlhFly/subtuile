@@ -18,7 +18,9 @@ import {
   type DateISO,
   type ExportJSON,
   type MoyenPaiement,
+  type ParametresPilotage,
   type ServicePersonnalise,
+  type Devise,
 } from '../domain/types';
 import type { StorageProvider } from './storage/StorageProvider';
 
@@ -113,6 +115,35 @@ function normaliserServicePersonnalise(brut: unknown, i: number): ServicePersonn
   };
 }
 
+/** Schéma 2 : paramètres de pilotage ; tout champ incohérent est ramené à « aucun ». */
+function normaliserParametres(brut: unknown): ParametresPilotage | null {
+  if (!estObjet(brut)) return null;
+  const b = brut.budgetMensuel;
+  const budgetMensuel =
+    estObjet(b) &&
+    estNombre(b.montant) &&
+    b.montant >= 0 &&
+    (DEVISES as readonly unknown[]).includes(b.devise)
+      ? { montant: b.montant, devise: b.devise as Devise }
+      : null;
+  const o = brut.objectif;
+  const objectif =
+    estObjet(o) &&
+    estNombre(o.cible) &&
+    o.cible >= 0 &&
+    (DEVISES as readonly unknown[]).includes(o.devise) &&
+    estDateISO(o.date)
+      ? { cible: o.cible, devise: o.devise as Devise, date: o.date }
+      : null;
+  return {
+    id: 'pilotage',
+    budgetMensuel,
+    objectif,
+    updatedAt: horodatage(brut.updatedAt) ?? new Date().toISOString(),
+    deletedAt: null,
+  };
+}
+
 function liste(v: unknown, chemin: string): unknown[] {
   if (v === undefined || v === null) return [];
   if (!Array.isArray(v)) throw new ErreurImport('structure', chemin);
@@ -140,6 +171,7 @@ export function lireExportJson(texte: string, jour: DateISO): ApercuImport {
   const servicesPersonnalises = liste(brut.servicesPersonnalises, 'servicesPersonnalises').map(
     normaliserServicePersonnalise,
   );
+  const parametres = normaliserParametres(brut.parametres);
   const donnees: ExportJSON = {
     app: 'subtuile',
     schemaVersion: brut.schemaVersion as number,
@@ -147,6 +179,7 @@ export function lireExportJson(texte: string, jour: DateISO): ApercuImport {
     abonnements,
     moyensPaiement,
     servicesPersonnalises,
+    parametres,
   };
   return {
     donnees,

@@ -183,11 +183,11 @@ version dans l'app.
 | Mode discret (C21 promu EF-75) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), œil barré, préférence mémorisée, interrupteur dans Apparence | ✅ 2026-09-18 (v1.0.28) |
 | Personnalisation de l'affichage (C22) : couleur par abonnement, contenu des tuiles au choix, puis logo personnel (C10) | ⬜ demande FlhFly du 2026-09-18 |
 
-## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
+## Lot 5 — Pilotage (en cours sur la branche `lot-5`, sortie d'un bloc en 1.1.0 — décision FlhFly du 2026-09-18)
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
-| EF-70 [S] | Objectif d'économie avec progression | ⬜ |
+| EF-70 [S] | Budget mensuel global avec alerte de dépassement (ex-C4) ; objectif d'économie avec progression | 🔄 étape 1 livrée le 2026-09-18 (budget, schéma d'export 2) ; objectif à l'étape 2 |
 | EF-71 [S] | Usage déclaré & coût réel par utilisation | ⬜ |
 | EF-72 [S] | Suggestions d'économies (annuel vs mensuel, canal moins cher) via les formules du catalogue | ⬜ |
 | EF-73 [S] | Import de relevé bancaire CSV : détection locale des récurrences, doublons, ajout groupé | ⬜ |

@@ -10,6 +10,10 @@ import { aujourdhui } from '../../domain/dates';
 import type { DateISO } from '../../domain/types';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
+import { totaux } from '../../domain/finances';
+import { budgetConverti } from '../../domain/pilotage';
+import { useConversion } from '../hooks/useConversion';
+import { useParametres } from '../hooks/useParametres';
 import { usePreferences } from './PreferencesContext';
 
 interface ContexteAlertes {
@@ -39,9 +43,26 @@ export function AlertesContextProvider({ children }: { children: ReactNode }) {
   const moyensPaiement = useMemo(() => [...moyensParId.values()], [moyensParId]);
   const defauts = preferences.alertes;
   const derniereSauvegarde = preferences.derniereSauvegarde;
+  /* EF-70 : total mensuel et plafond dans la devise d'affichage */
+  const { devise, convertir } = useConversion();
+  const { parametres } = useParametres();
+  const budget = useMemo(() => {
+    const plafond = budgetConverti(parametres, convertir);
+    if (plafond === null) return null;
+    return { total: totaux(abonnements, jour, convertir).mensuel, budget: plafond, devise };
+  }, [parametres, convertir, abonnements, jour, devise]);
   const alertes = useMemo(
-    () => calculerAlertes({ abonnements, moyensPaiement, defauts, jour, lues, derniereSauvegarde }),
-    [abonnements, moyensPaiement, defauts, jour, lues, derniereSauvegarde],
+    () =>
+      calculerAlertes({
+        abonnements,
+        moyensPaiement,
+        defauts,
+        jour,
+        lues,
+        derniereSauvegarde,
+        budget,
+      }),
+    [abonnements, moyensPaiement, defauts, jour, lues, derniereSauvegarde, budget],
   );
 
   const marquerToutesLues = useCallback(() => {
