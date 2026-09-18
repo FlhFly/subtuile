@@ -9,7 +9,7 @@ import {
 } from 'react';
 import { ecrirePreferences, lirePreferences } from '../../data/preferences';
 import type { Preferences } from '../../domain/types';
-import { appliquerTheme } from '../theme/theme';
+import { appliquerCouleurBarre, appliquerTheme } from '../theme/theme';
 
 interface ContextePreferences {
   preferences: Preferences;
@@ -38,6 +38,10 @@ export function PreferencesContextProvider({ children }: { children: ReactNode }
 
   useEffect(() => {
     appliquerTheme(preferences.theme, document.documentElement);
+    appliquerCouleurBarre(
+      preferences.theme,
+      document.querySelectorAll<HTMLMetaElement>('meta[name="theme-color"]'),
+    );
   }, [preferences.theme]);
 
   useEffect(() => {

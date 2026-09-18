@@ -66,6 +66,7 @@ export const fr = {
   /* Thème, langue, affichage, tri */
   'theme.clair': 'Clair',
   'theme.sombre': 'Sombre',
+  'theme.oled': 'OLED',
   'theme.systeme': 'Système',
   'langue.fr': 'Français',
   'langue.en': 'English',

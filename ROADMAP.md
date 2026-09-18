@@ -165,7 +165,7 @@ version dans l'app.
 | Canal de retours utilisateurs (bugs, idées) : e-mail `contact@subtuile.com` (domaine subtuile.com acheté par FlhFly) ; rangée « Signaler un bug ou proposer une idée » dans À propos | ✅ 2026-09-14 (v1.0.6) |
 | Hauteur des boutons du dialogue des retours alignée sur le formulaire et la fiche | ✅ 2026-09-15 (v1.0.12) |
 | Remplacement d'une entrée « Mes services » par la version officielle quand elle rejoint le catalogue (EF-09) : proposition explicite, migration des abonnements liés, refus mémorisé | ✅ 2026-09-16 (v1.0.13, approche validée le 2026-09-15) |
-| Thème sombre « OLED » (noirs purs) en troisième choix d'apparence (C18) ; maquette possible via Claude Design avant intégration | ⬜ demande FlhFly du 2026-09-15, pas avant les lots de catalogue |
+| Thème sombre « OLED » (noirs purs) en quatrième choix d'apparence (C18, palette de la maquette v7) ; barre d'état alignée sur le thème forcé | ✅ 2026-09-18 (v1.0.27) |
 | Saisie libre : à l'enregistrement d'un service inconnu du catalogue et de « Mes services », proposer d'en créer l'entrée depuis les données saisies, puis de l'envoyer à `contact@subtuile.com` avec le message pré-rempli de la v1.0.11 (EF-09) | ✅ 2026-09-16 (v1.0.14, avec le contrôle de doublon du formulaire aligné) |
 | Domaine personnalisé subtuile.com (GitHub Pages, `public/CNAME`, build à la racine) ; ancienne adresse redirigée | ✅ 2026-09-14 |
 | Vérification du catalogue (C16, plan en 5 étapes du 2026-09-14) : script de contrôle et rapport, puis revue par lots (populaires d'abord), `verifieLe` par service | ✅ 2026-09-16 (v1.0.17, catalogue v11) : script et rapport, puis huit lots — populaires, streaming, musique, IA, cloud + productivité (2026-09-14), sport + presse, gaming + sécurité, vie courante (2026-09-16) ; 74 services sur 79 datés `verifieLe`, 233 formules ; restent indicatifs YouTube Music, Dashlane, LinkedIn, Fitness Park, L'Équipe |
@@ -213,7 +213,7 @@ version dans l'app.
 | C15 | Veille tarifaire : catalogue distant, comparaison locale des prix |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
 | C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |
-| C18 | Thème sombre « OLED » (noirs purs) en troisième choix du réglage d'apparence, à côté de clair / sombre / système — EF-17 (demande FlhFly du 2026-09-15) |
+| C18 | Thème sombre « OLED » (noirs purs) dans le réglage d'apparence — promu EF-17, ✅ 2026-09-18 (v1.0.27, palette de la maquette v7) |
 | C19 | Store par plateforme : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil (demande FlhFly du 2026-09-16) |
 | C20 | Export JSON chiffré par mot de passe (WebCrypto, 100 % local), en option à côté de l'export en clair (revue RGPD du 2026-09-16) |
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € »), un second les rétablit ; préférence mémorisée (demande FlhFly du 2026-09-18) |

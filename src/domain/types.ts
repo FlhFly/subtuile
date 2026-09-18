@@ -333,7 +333,7 @@ export type Taux = RefData<TauxChange>;
 export const LANGUES = ['fr', 'en'] as const;
 export type Langue = (typeof LANGUES)[number];
 
-export const THEMES = ['clair', 'sombre', 'systeme'] as const;
+export const THEMES = ['clair', 'sombre', 'oled', 'systeme'] as const;
 export type Theme = (typeof THEMES)[number];
 
 export const MODES_AFFICHAGE = ['grille', 'liste'] as const;

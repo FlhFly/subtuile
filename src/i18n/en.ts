@@ -63,6 +63,7 @@ export const en: Dictionnaire = {
   /* Theme, language, layout, sort */
   'theme.clair': 'Light',
   'theme.sombre': 'Dark',
+  'theme.oled': 'OLED',
   'theme.systeme': 'System',
   'langue.fr': 'Français',
   'langue.en': 'English',

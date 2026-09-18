@@ -1,10 +1,11 @@
 /*
  * Tokens de design — Subtuile
- * Extraits de la maquette de référence v6 (docs/maquette-v6.html).
+ * Extraits de la maquette de référence v7 (docs/maquette-v7.html).
  * Seules les variables vivent ici ; les styles globaux sont dans base.css.
  *
- * Thème : clair par défaut, sombre via [data-theme="sombre"] sur <html>
- * ou via la préférence système quand aucun thème n'est forcé (EF-17).
+ * Thème : clair par défaut, sombre via [data-theme="sombre"] ou noirs purs via
+ * [data-theme="oled"] sur <html> (v1.0.27, maquette v7), ou la préférence système
+ * quand aucun thème n'est forcé (EF-17).
  * Les noms de couleurs reprennent ceux de la maquette (bg, ink, sand…).
  */
 
@@ -139,4 +140,27 @@
   --trial: #dcaaf7;
   --trial-bg: #342040;
   --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.3);
+}
+
+/* Thème « OLED » forcé par l'utilisateur : noirs purs, palette de la maquette v7 (C18, v1.0.27).
+   Placé après le bloc système pour l'emporter à spécificité égale. */
+:root[data-theme='oled'] {
+  color-scheme: dark;
+  --bg: #000000;
+  --ink: #f4efe6;
+  --muted: #9c9285;
+  --sand: #131110;
+  --sand2: #242019;
+  --card: #0d0c0a;
+  --line: #f4efe6;
+  --dash: #443d32;
+  --ok: #8fdca6;
+  --ok-bg: #0d2416;
+  --warn: #f2b26b;
+  --warn-bg: #291d0b;
+  --urg: #ff9186;
+  --urg-bg: #321310;
+  --trial: #dcaaf7;
+  --trial-bg: #25122f;
+  --shadow-card: 0 8px 24px rgba(0, 0, 0, 0.5);
 }

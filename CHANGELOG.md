@@ -7,7 +7,22 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.26.
+Aucune modification depuis la version 1.0.27.
+
+## [1.0.27] — 2026-09-18 — thème OLED (C18 → EF-17)
+
+### Thème sombre à noirs purs (CdC v1.35, maquette v7) (2026-09-18)
+
+#### Ajouté
+- Réglages › Apparence : quatrième choix « OLED » entre Sombre et Système. Palette de la
+  maquette v7 (`:root[data-theme='oled']` dans `tokens.css`) : fond #000000, cartes #0d0c0a,
+  sables #131110 / #242019, encre #f4efe6, texte secondaire #9c9285, états ok / avertissement /
+  urgence / essai sur fonds assombris. Le mode Système continue de basculer entre clair et sombre
+  classique.
+- Barre d'état de l'app installée alignée sur le thème : les balises `theme-color` prennent la
+  couleur du thème forcé (clair, sombre ou OLED) et retrouvent leur couleur par media en mode
+  Système (`appliquerCouleurBarre`).
+
 
 ## [1.0.26] — 2026-09-18 — version du système dans les retours
 

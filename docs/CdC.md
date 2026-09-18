@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.34 — 18/09/2026 (maquette v7 : palette du thème OLED, C18 prêt à intégrer)
+**Version :** 1.35 — 18/09/2026 (C18 promu : thème OLED dans EF-17, barre d’état alignée sur le thème)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -149,7 +149,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-14 [S]** — Réorganisation manuelle des tuiles (drag & drop) via un mode dédié, avec tri « ordre personnalisé » persistant. *(précisé par la maquette v2)*
 - **EF-15 [S]** — Recherche textuelle.
 - **EF-16 [S]** — Page « Prochaines échéances » en liste chronologique (équivalent fonctionnel du widget, dans l'app).
-- **EF-17 [S]** — Thème d'apparence : clair / sombre / système (réglage global).
+- **EF-17 [S]** — Thème d'apparence : clair / sombre / OLED / système (réglage global). OLED = noirs purs (palette de la maquette v7, ex-C18) ; la couleur de barre d'état de l'app installée suit le thème forcé et revient au comportement système sinon *(v1.35)*.
 - **EF-17b [S]** — Interface bilingue FR/EN : dictionnaire de traduction centralisé, dates et libellés localisés (« J-X » / « D-X »), langue persistée. L'architecture de traduction se pose dès le lot 1 (rétrofit coûteux). *(issu de la maquette v4)*
 - **EF-18 [S]** — Affichage de l'ancienneté « Abonné depuis » sur la fiche détail. *(issu de la maquette v1)*
 - **EF-19 [S]** — Retour visuel systématique (toast) après chaque action : création, modification, suppression, export. *(issu de la maquette v2)*
@@ -411,7 +411,7 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C15 | Veille tarifaire : catalogue distant publié par un pipeline de collecte des prix (formules, promos, fraîcheur), comparaison 100 % locale → alertes de hausse officielles, suggestions de formule/canal moins cher, mises à jour de prix en un tap (cf. §5.6, provision §3.1/§3.4) | Données réelles à jour |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |
-| C18 | Thème sombre « OLED » : noirs purs, en troisième choix du réglage d'apparence à côté de clair / sombre / système (EF-17) ; palette à définir avant intégration *(v1.25, demande du 15/09/2026)* | Confort de lecture de nuit, autonomie sur écrans OLED |
+| C18 | Thème sombre « OLED » : noirs purs, en quatrième choix du réglage d'apparence (EF-17) *(v1.25, demande du 15/09/2026)* — **promu** : EF-17, livré en 1.0.27 avec la palette de la maquette v7 *(v1.35)* | Confort de lecture de nuit, autonomie sur écrans OLED |
 | C20 | Export JSON chiffré par mot de passe (AES-GCM via WebCrypto, 100 % local), en option à côté de l'export en clair ; import symétrique *(v1.28, revue RGPD du 16/09/2026)* | Sauvegardes protégées sur l'appareil |
 | C19 | Store par plateforme : détection locale de l'appareil (iOS, Android, autre) et réglage « Boutique d'applications » (Automatique / App Store / Google Play / Les deux) pour ne proposer que les formules et le canal du store de l'utilisateur, et ne comparer « moins cher en direct » qu'avec ce store ; les services sans tarif direct gardent leurs formules App Store à titre indicatif. Limite connue : le catalogue n'a pas de prix Google Play (Apple affiche le prix de chaque abonnement, Google une fourchette) *(v1.27, demande du 16/09/2026)* | Formules pertinentes selon l'appareil |
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € » sur les tuiles, les totaux, la fiche, les finances, l'échéancier), un second appui les rétablit ; état mémorisé en préférence, indicateur discret (œil barré) *(v1.32, demande du 18/09/2026)* | Consulter l'app en public sans exposer ses dépenses |

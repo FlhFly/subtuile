@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.27',
+    date: '2026-09-18',
+    notes: {
+      fr: [
+        'Apparence : nouveau thème OLED, à noirs purs, à côté de Clair, Sombre et Système ; la barre d’état de l’app installée suit le thème choisi.',
+      ],
+      en: [
+        'Appearance: new OLED theme with pure blacks, next to Light, Dark and System; the status bar of the installed app follows the chosen theme.',
+      ],
+    },
+  },
+  {
     version: '1.0.26',
     date: '2026-09-18',
     notes: {
