@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.33 — 18/09/2026 (retours : version du système et du navigateur dans le message ; candidats C21, C22, C23)
+**Version :** 1.34 — 18/09/2026 (maquette v7 : palette du thème OLED, C18 prêt à intégrer)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -300,6 +300,8 @@ Les lots 1 à 4 implémentent cette maquette sans redesign ; seuls des ajustemen
 **Bilan maquette v4 (21/08/2026)** — la v4 devient la **maquette de référence**. Aucun retrait par rapport à la v3 ; les logos restent en initiales conformément au §3.4. Six ajouts, intégrés au CdC : interface bilingue FR/EN (EF-17b), devise d'affichage à taux indicatifs (EF-45, **à confirmer** — révise partiellement la décision « EUR uniquement »), mode grille/liste (EF-12b), annulation généralisée par toast (EF-01b, qui réalise le C2 du backlog), persistance des préférences d'interface (§3.5), téléchargements réels des exports JSON/ICS.
 
 **Bilan maquette v6 (24/08/2026)** — la v6 devient la **maquette de référence finale**. Tous les écarts v1.9-v1.12 sont couverts : champs vie courante (montant estimé, régularisation, modes de résiliation avec démarches, référence client copiable), prix futur programmé, formules + formuleId, métadonnées catalogue/taux au contrat du §5.6 (« Catalogue v3 — tarifs indicatifs au 24/08/2026 »), écran À propos (licence AGPL-3.0, dépôt, soutien au projet). Elle maquette de plus une partie du backlog, promue en **lot 5 Pilotage** (EF-70→73) avec les extensions EF-06 (reprise auto), EF-13b, EF-43 (24 mois), EF-44b et le champ tags (§3.1). Les toggles push et widget y figurent en « démo/aperçu » : principe acté « aucune fonctionnalité factice » (§4.7).
+
+**Maquette v7 (18/09/2026)** — reprend la v6 et ajoute le thème sombre « OLED » (C18) : troisième thème `body.oled` à noirs purs (fond #000000, cartes #0d0c0a, sables #131110 / #242019, encre #f4efe6, sourdine #9c9285, tirets #443d32 ; états ok / avertissement / urgence / essai sur fonds assombris #0d2416, #291d0b, #321310, #25122f) et quatrième choix « OLED » dans Réglages › Apparence à côté de Clair / Sombre / Système. Elle devient la référence visuelle (`docs/maquette-v7.html`) ; la v6 est conservée hors dépôt.
 
 ---
 

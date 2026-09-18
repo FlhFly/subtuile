@@ -48,7 +48,7 @@ interface FR / EN, jeu de démonstration.
 
 ## Documentation
 - [Cahier des charges](docs/CdC.md) — fait foi sur le périmètre
-- [Maquette v6](docs/maquette-v6.html) — référence visuelle
+- [Maquette v7](docs/maquette-v7.html) — référence visuelle (thème OLED inclus)
 - [Roadmap](ROADMAP.md) — avancement par lot · [Changelog](CHANGELOG.md)
 
 ## Développement
