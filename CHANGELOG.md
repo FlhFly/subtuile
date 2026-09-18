@@ -7,7 +7,21 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.25.
+Aucune modification depuis la version 1.0.26.
+
+## [1.0.26] — 2026-09-18 — version du système dans les retours
+
+### Demande FlhFly du 2026-09-18 (CdC v1.33) (2026-09-18)
+
+#### Modifié
+- Message pré-rempli de « Signaler un bug ou proposer une idée » et de « Proposer un service » :
+  la ligne appareil devient « iPhone · iOS 17.5 · Safari 17.5 », « Android · Android 14 ·
+  Chrome 128 », « Windows · Edge 128 »… (`decrireAppareil`). La version du système n'est donnée
+  que lorsqu'elle est fiable (iOS, Android) ; Mac, iPad récent (annoncé comme un Mac) et
+  Windows 11 (annoncé comme Windows 10) n'en reçoivent aucune plutôt qu'une fausse. Chrome,
+  Firefox et Edge sur iOS reconnus. Rien de plus ne sort de l'appareil ; page Confidentialité et
+  PRIVACY.md mis à jour (révision du 2026-09-18).
+
 
 ## [1.0.25] — 2026-09-17 — découpage du bundle
 

@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.26',
+    date: '2026-09-18',
+    notes: {
+      fr: [
+        'Signaler un bug : le message pré-rempli indique aussi la version du système et du navigateur (ex. « iPhone · iOS 17.5 · Safari 17.5 ») pour cibler le problème.',
+      ],
+      en: [
+        'Report a bug: the pre-filled message now also states the system and browser versions (e.g. “iPhone · iOS 17.5 · Safari 17.5”) to pinpoint the issue.',
+      ],
+    },
+  },
+  {
     version: '1.0.25',
     date: '2026-09-17',
     notes: {

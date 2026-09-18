@@ -20,12 +20,23 @@ describe('retours utilisateurs par e-mail', () => {
     expect(lien).not.toContain('\n');
   });
 
-  it('décrit appareil et navigateur en clair', () => {
-    expect(decrireAppareil(IPHONE)).toBe('iPhone · Safari');
-    expect(decrireAppareil(IPAD_MAC, 5)).toBe('iPad · Safari');
-    expect(decrireAppareil(IPAD_MAC, 0)).toBe('Mac · Safari');
-    expect(decrireAppareil(ANDROID)).toBe('Android · Chrome');
-    expect(decrireAppareil(WINDOWS_EDGE)).toBe('Windows · Edge');
+  it('décrit appareil, système et navigateur en clair, sans inventer de version (v1.0.26)', () => {
+    expect(decrireAppareil(IPHONE)).toBe('iPhone · iOS 17.0 · Safari 17.0');
+    // iPad récent : annoncé comme un Mac, version du système figée → omise
+    expect(decrireAppareil(IPAD_MAC, 5)).toBe('iPad · Safari 17.0');
+    expect(decrireAppareil(IPAD_MAC, 0)).toBe('Mac · Safari 17.0');
+    expect(decrireAppareil(ANDROID)).toBe('Android · Android 14 · Chrome 120.0');
+    // Windows 11 se présente comme Windows 10 : pas de version
+    expect(decrireAppareil(WINDOWS_EDGE)).toBe('Windows · Edge 128.0');
     expect(decrireAppareil('Inconnu/1.0')).toBe('Autre · navigateur inconnu');
+    // iPhone ancien avec iOS 15.7.9 : majeure et mineure seulement ; Chrome iOS reconnu
+    expect(
+      decrireAppareil(
+        'Mozilla/5.0 (iPhone; CPU iPhone OS 15_7_9 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/118.0.5993.92 Mobile/15E148 Safari/604.1',
+      ),
+    ).toBe('iPhone · iOS 15.7 · Chrome 118.0');
+    expect(
+      decrireAppareil('Mozilla/5.0 (X11; Linux x86_64; rv:129.0) Gecko/20100101 Firefox/129.0'),
+    ).toBe('Linux · Firefox 129.0');
   });
 });

@@ -179,7 +179,7 @@ version dans l'app.
 | Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
 | Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
 | Découpage du bundle (étape 5 du plan du 2026-09-14) : chunks React / Dexie / date-fns / i18n / catalogue, écrans secondaires chargés à la demande, précache complet conservé | ✅ 2026-09-17 (v1.0.25) |
-| Retours par e-mail : ajouter la version du système et du navigateur au message pré-rempli quand le navigateur la donne (exacte sur iPhone et Android, approximative sur Mac et iPad) | ⬜ demande FlhFly du 2026-09-18, petit lot 1.0.x |
+| Retours par e-mail : version du système et du navigateur dans le message pré-rempli quand le navigateur la donne (iOS et Android exacts, rien sur Mac, iPad récent et Windows) | ✅ 2026-09-18 (v1.0.26) |
 | Mode discret (C21) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), préférence mémorisée | ⬜ demande FlhFly du 2026-09-18 |
 | Personnalisation de l'affichage (C22) : couleur par abonnement, contenu des tuiles au choix, puis logo personnel (C10) | ⬜ demande FlhFly du 2026-09-18 |
 

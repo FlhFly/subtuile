@@ -1,6 +1,6 @@
 # Confidentialité et mentions légales — Subtuile
 
-*Dernière mise à jour : 2026-09-17. Ce texte est celui de la page « Confidentialité » de
+*Dernière mise à jour : 2026-09-18. Ce texte est celui de la page « Confidentialité » de
 l'app (Réglages › Données) ; les deux évoluent ensemble.* — *English version below.*
 
 ## En bref
@@ -39,8 +39,9 @@ lit le fichier sur l'appareil ; rien n'est envoyé.
 ## Quand vous nous écrivez
 
 « Signaler un bug ou proposer une idée » et « Proposer un service » ouvrent votre messagerie avec
-un message pré-rempli : version de l'app, type d'appareil (iPhone, Android…) et langue, plus le
-nom et l'adresse du service proposé. Vous voyez tout avant d'envoyer.
+un message pré-rempli : version de l'app, type d'appareil et, quand le navigateur la donne,
+version du système et du navigateur (par exemple « iPhone · iOS 17.5 · Safari 17.5 »), langue,
+plus le nom et l'adresse du service proposé. Vous voyez tout avant d'envoyer.
 
 L'auteur reçoit alors votre adresse e-mail et votre message. Ils servent uniquement à vous
 répondre et à améliorer l'app, ne sont transmis à personne et sont supprimés au plus tard douze
@@ -75,7 +76,7 @@ d'accès, de rectification et d'effacement s'exercent à contact@subtuile.com.
 
 # Privacy and legal notice — Subtuile (English)
 
-*Last updated: 2026-09-17. Same text as the in-app “Privacy” page (Settings › Data).*
+*Last updated: 2026-09-18. Same text as the in-app “Privacy” page (Settings › Data).*
 
 **In short.** Subtuile runs entirely on your device, offline, with no account and no server. The
 app sends no data: no tracker, no advertising, no font or script loaded from outside.
@@ -97,7 +98,8 @@ ask for them. They contain your data: keep them safe and do not share them. An i
 file on the device; nothing is sent.
 
 **When you write to us.** “Report a bug or suggest an idea” and “Suggest a service” open your
-mail app with a pre-filled message (app version, device type, language, suggested service). The
+mail app with a pre-filled message (app version, device type and, when the browser provides
+them, system and browser versions, language, suggested service). The
 author then receives your e-mail address and message, uses them only to reply and improve the
 app, passes them on to no one, and deletes them at the latest twelve months after the reply.
 Write to contact@subtuile.com to read or delete them earlier.

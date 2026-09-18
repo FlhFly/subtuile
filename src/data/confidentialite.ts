@@ -9,7 +9,7 @@ import type { Langue } from '../domain/types';
 import { ADRESSE_CONTACT } from './contact';
 
 /** Date de la dernière révision du texte (ISO). */
-export const CONFIDENTIALITE_MAJ = '2026-09-17';
+export const CONFIDENTIALITE_MAJ = '2026-09-18';
 export const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 export const URL_POLITIQUE_GITHUB =
   'https://docs.github.com/site-policy/privacy-policies/github-privacy-statement';
@@ -61,7 +61,7 @@ const FR: SectionConfidentialite[] = [
   {
     titre: 'Quand vous nous écrivez',
     paragraphes: [
-      '« Signaler un bug ou proposer une idée » et « Proposer un service » ouvrent votre messagerie avec un message pré-rempli : version de l’app, type d’appareil (iPhone, Android…) et langue, plus le nom et l’adresse du service proposé. Vous voyez tout avant d’envoyer.',
+      '« Signaler un bug ou proposer une idée » et « Proposer un service » ouvrent votre messagerie avec un message pré-rempli : version de l’app, type d’appareil et, quand le navigateur la donne, version du système et du navigateur (par exemple « iPhone · iOS 17.5 · Safari 17.5 »), langue, plus le nom et l’adresse du service proposé. Vous voyez tout avant d’envoyer.',
       `L’auteur reçoit alors votre adresse e-mail et votre message. Ils servent uniquement à vous répondre et à améliorer l’app, ne sont transmis à personne et sont supprimés au plus tard douze mois après la réponse. Écrivez à ${ADRESSE_CONTACT} pour les consulter ou les faire supprimer avant.`,
     ],
   },
@@ -125,7 +125,7 @@ const EN: SectionConfidentialite[] = [
   {
     titre: 'When you write to us',
     paragraphes: [
-      '“Report a bug or suggest an idea” and “Suggest a service” open your mail app with a pre-filled message: app version, device type (iPhone, Android…) and language, plus the name and address of the suggested service. You see everything before sending.',
+      '“Report a bug or suggest an idea” and “Suggest a service” open your mail app with a pre-filled message: app version, device type and, when the browser provides them, system and browser versions (for example “iPhone · iOS 17.5 · Safari 17.5”), language, plus the name and address of the suggested service. You see everything before sending.',
       `The author then receives your e-mail address and your message. They are used only to reply and improve the app, are passed on to no one, and are deleted at the latest twelve months after the reply. Write to ${ADRESSE_CONTACT} to read or delete them earlier.`,
     ],
   },
