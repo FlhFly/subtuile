@@ -16,6 +16,7 @@ import { useAbonnements } from '../hooks/useAbonnements';
 import { useConversion } from '../hooks/useConversion';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { Budget } from './Budget';
+import { Objectif } from './Objectif';
 import styles from './Finances.module.css';
 
 interface Props {
@@ -30,8 +31,8 @@ const COULEUR_SANS_MOYEN = 'var(--dash)';
  * convertis dans la devise d'affichage (EF-45), répartition par catégorie en
  * donut (EF-41), prévisionnel 12 mois à montants réels (EF-42), dépenses
  * passées 12 mois (EF-43), répartition par moyen de paiement (EF-41), budget
- * mensuel (EF-70, lot 5). Objectif, doublons, foyer et évolution 24 mois
- * suivent dans le lot 5.
+ * mensuel et objectif d'économie (EF-70, lot 5). Doublons, foyer et évolution
+ * 24 mois suivent dans le lot 5.
  */
 export function Finances({ onOuvrirPaiements }: Props) {
   const i18n = useI18n();
@@ -94,6 +95,7 @@ export function Finances({ onOuvrirPaiements }: Props) {
       {total.estime ? <p className={styles.noteTotaux}>{t('finances.estime.note')}</p> : null}
 
       <Budget totalMensuel={total.mensuel} />
+      <Objectif totalMensuel={total.mensuel} />
 
       {vide ? (
         <section className={styles.rien}>

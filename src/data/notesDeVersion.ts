@@ -19,9 +19,11 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
     notes: {
       fr: [
         'Finances › Budget mensuel : fixez un plafond global ; jauge, marge restante ou dépassement, et alerte dans le centre d’alertes quand le plafond est dépassé.',
+        'Finances › Objectif d’économie : « passer sous X / mois d’ici le … » ; la carte suit votre progression et annonce l’objectif atteint.',
       ],
       en: [
         'Finances › Monthly budget: set an overall cap; gauge, remaining margin or overrun, and an alert in the alert centre when the cap is exceeded.',
+        'Finances › Savings goal: “get under X / month by …”; the card tracks your progress and announces when the goal is reached.',
       ],
     },
   },

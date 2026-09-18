@@ -7,6 +7,20 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 2 : objectif d'économie (2026-09-18)
+
+#### Ajouté
+- Finances : carte « Objectif d'économie » (EF-70) sous le budget — cible mensuelle (devise
+  d'affichage) et date, texte « Passer sous X / mois d'ici le … », jauge de progression
+  (cible / total, violette en cours, verte atteinte), « Encore Z à réduire », « Objectif
+  atteint — Y sous la cible » ou « Date passée — encore Z à réduire » ; modification et retrait
+  (`Objectif.tsx`, `etatObjectif` / `objectifConverti` dans `pilotage.ts`). Objectif porté par
+  l'enregistrement `pilotage` (schéma d'export 2, déjà normalisé à l'import).
+
+#### Planifié
+- Demande FlhFly du 2026-09-18 : total cumulé dépensé par abonnement depuis le début, affiché
+  avec le journal « Derniers paiements » de la fiche (EF-13b, étape 4 du lot 5).
+
 ### Lot 5 — étape 1 : budget mensuel (2026-09-18)
 
 #### Ajouté

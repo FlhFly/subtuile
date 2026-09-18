@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.37 — 18/09/2026 (lot 5, étape 1 : budget mensuel dans EF-70, paramètres de pilotage, schéma d’export 2)
+**Version :** 1.38 — 18/09/2026 (lot 5, étape 2 : objectif d’économie livré ; EF-13b étendu au total cumulé dépensé par abonnement)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -145,7 +145,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-12 [M]** — Tri : par échéance (défaut), par prix, par nom, par catégorie. Filtre par catégorie, statut, moyen de paiement.
 - **EF-12b [S]** — Mode d'affichage de l'accueil : grille de tuiles (défaut) ou liste, persisté dans les préférences. *(issu de la maquette v4)*
 - **EF-13 [M]** — Fiche détail au tap : toutes les infos + actions (modifier, se désabonner, changer statut, archiver).
-- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque). *(issu de la maquette v6 — lot 4)*
+- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque), avec le **total cumulé dépensé** depuis le début de l'abonnement *(v1.38, demande du 18/09/2026)*. *(issu de la maquette v6 — lot 4)*
 - **EF-14 [S]** — Réorganisation manuelle des tuiles (drag & drop) via un mode dédié, avec tri « ordre personnalisé » persistant. *(précisé par la maquette v2)*
 - **EF-15 [S]** — Recherche textuelle.
 - **EF-16 [S]** — Page « Prochaines échéances » en liste chronologique (équivalent fonctionnel du widget, dans l'app).
@@ -187,7 +187,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 
-- **EF-70 [S]** — Budget mensuel global (ex-C4) : plafond choisi dans Finances (devise d'affichage), jauge, « il reste X » / « dépassé de X », alerte de dépassement une fois par mois civil menant à Finances *(v1.37, lot 5 étape 1)*. Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire »).
+- **EF-70 [S]** — Budget mensuel global (ex-C4) : plafond choisi dans Finances (devise d'affichage), jauge, « il reste X » / « dépassé de X », alerte de dépassement une fois par mois civil menant à Finances *(v1.37, lot 5 étape 1)*. Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire », « date passée » sans alerte) *(v1.38, lot 5 étape 2)*.
 - **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.

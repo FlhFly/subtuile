@@ -79,6 +79,20 @@
   background: var(--urg);
 }
 
+/* Objectif en cours : progression vers la cible */
+.jaugeEnCours {
+  height: 7px;
+  border-radius: 4px;
+  background: var(--trial);
+  transition: width var(--dur-fast) var(--ease);
+}
+
+.atteint {
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+  color: var(--ok);
+}
+
 .depasse {
   font-size: 12.5px;
   font-weight: var(--fw-bold);

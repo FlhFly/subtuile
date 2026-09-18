@@ -9,7 +9,9 @@ import {
   budgetConverti,
   dateCleBudget,
   etatBudget,
+  etatObjectif,
   ID_PILOTAGE,
+  objectifConverti,
   parametresPilotageDefaut,
 } from '../src/domain/pilotage';
 import { PERIODICITES, SCHEMA_VERSION } from '../src/domain/types';
@@ -71,6 +73,35 @@ describe('budget mensuel (EF-70, lot 5) — domaine', () => {
   });
 });
 
+describe('objectif d’économie (EF-70, lot 5) — domaine', () => {
+  it('cible convertie, progression, atteint ou non, date passée', () => {
+    const convertir = convertisseurVers('EUR', {
+      base: 'EUR',
+      taux: { EUR: 1, USD: 1.1, GBP: 0.85, CHF: 0.95 },
+    });
+    expect(objectifConverti(parametresPilotageDefaut(), convertir)).toBeNull();
+    const objectif = objectifConverti(
+      { objectif: { cible: 100, devise: 'EUR', date: '2026-12-31' } },
+      convertir,
+    )!;
+    expect(objectif).toEqual({ cible: 100, date: '2026-12-31' });
+    const enCours = etatObjectif(125, objectif, '2026-09-18');
+    expect(enCours).toMatchObject({
+      ecart: 25,
+      atteint: false,
+      datePassee: false,
+      joursRestants: 104,
+    });
+    expect(enCours.progression).toBeCloseTo(0.8);
+    const atteint = etatObjectif(95.5, objectif, '2026-09-18');
+    expect(atteint).toMatchObject({ ecart: -4.5, atteint: true, progression: 1 });
+    expect(etatObjectif(100.004, objectif, '2026-09-18').atteint).toBe(true);
+    const passe = etatObjectif(125, objectif, '2027-01-02');
+    expect(passe).toMatchObject({ datePassee: true, joursRestants: -2, atteint: false });
+    expect(etatObjectif(0, objectif, '2026-09-18').progression).toBe(1);
+  });
+});
+
 describe('paramètres de pilotage — stockage et sauvegarde (schéma 2)', () => {
   let storage: DexieProvider;
   beforeEach(() => {
@@ -90,6 +121,11 @@ describe('paramètres de pilotage — stockage et sauvegarde (schéma 2)', () =>
     expect((await lireParametres(storage)).budgetMensuel).toEqual({ montant: 150, devise: 'EUR' });
     await enregistrerParametres(storage, { budgetMensuel: null });
     expect((await lireParametres(storage)).budgetMensuel).toBeNull();
+    const o = await enregistrerParametres(storage, {
+      objectif: { cible: 100, devise: 'EUR', date: '2026-12-31' },
+    });
+    expect(o.objectif).toEqual({ cible: 100, devise: 'EUR', date: '2026-12-31' });
+    expect(o.budgetMensuel).toBeNull();
   });
 
   it('export en schéma 2 avec les paramètres ; import de remplacement les restaure ; schéma 1 accepté', async () => {
