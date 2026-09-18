@@ -182,6 +182,16 @@ export function Reglages({
             </button>
           ))}
         </div>
+        <Carte>
+          <div className={styles.rangeeInterrupteur}>
+            <Interrupteur
+              libelle={t('reglages.montants')}
+              sousLibelle={t('reglages.montants.sous')}
+              actif={preferences.montantsMasques}
+              onChange={(actif) => modifier({ montantsMasques: actif })}
+            />
+          </div>
+        </Carte>
       </Section>
 
       <Section titre={t('reglages.alertes')}>

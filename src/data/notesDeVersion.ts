@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.0.28',
+    date: '2026-09-18',
+    notes: {
+      fr: [
+        'Mode discret : un appui sur le total de l’accueil masque tous les montants de l’app (« **** € ») ; un second appui les rétablit. Réglable aussi dans Apparence.',
+      ],
+      en: [
+        'Discreet mode: tapping the home total hides every amount in the app (“**** €”); tapping again shows them. Also available in Appearance settings.',
+      ],
+    },
+  },
+  {
     version: '1.0.27',
     date: '2026-09-18',
     notes: {

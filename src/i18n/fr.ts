@@ -26,6 +26,8 @@ export const fr = {
   /* Accueil */
   'accueil.titre': 'Mes abonnements',
   'accueil.totalMensuel': 'Par mois (normalisé)',
+  'accueil.montants.masquer': 'Masquer les montants',
+  'accueil.montants.afficher': 'Afficher les montants',
   'accueil.actifs.un': '{n} actif',
   'accueil.actifs.plusieurs': '{n} actifs',
   'accueil.parAn': '≈ {montant} / an',
@@ -52,6 +54,9 @@ export const fr = {
   'reglages.titre': 'Réglages',
   'reglages.apparence': 'Apparence',
   'reglages.theme': 'Thème',
+  'reglages.montants': 'Masquer les montants',
+  'reglages.montants.sous':
+    'Affiche « **** » à la place des montants dans toute l’app ; un appui sur le total de l’accueil bascule aussi.',
   'reglages.general': 'Général',
   'reglages.langue': 'Langue',
   'reglages.donnees': 'Données',

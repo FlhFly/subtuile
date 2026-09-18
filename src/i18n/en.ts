@@ -23,6 +23,8 @@ export const en: Dictionnaire = {
   /* Home */
   'accueil.titre': 'My subscriptions',
   'accueil.totalMensuel': 'Per month (normalized)',
+  'accueil.montants.masquer': 'Hide amounts',
+  'accueil.montants.afficher': 'Show amounts',
   'accueil.actifs.un': '{n} active',
   'accueil.actifs.plusieurs': '{n} active',
   'accueil.parAn': '≈ {montant} / year',
@@ -49,6 +51,9 @@ export const en: Dictionnaire = {
   'reglages.titre': 'Settings',
   'reglages.apparence': 'Appearance',
   'reglages.theme': 'Theme',
+  'reglages.montants': 'Hide amounts',
+  'reglages.montants.sous':
+    'Shows “****” instead of amounts throughout the app; tapping the home total toggles it too.',
   'reglages.general': 'General',
   'reglages.langue': 'Language',
   'reglages.donnees': 'Data',

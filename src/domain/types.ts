@@ -372,6 +372,8 @@ export interface Preferences {
   migrationsRefusees: string[];
   /** proposer d'ajouter à « Mes services » un service saisi librement et inconnu (EF-09) */
   proposerAuCatalogue: boolean;
+  /** mode discret (EF-75) : montants remplacés par « **** » dans toute l'app */
+  montantsMasques: boolean;
 }
 
 /* ---------------------------------------------------------------------------

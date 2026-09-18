@@ -36,6 +36,7 @@ describe('préférences d’interface (§3.5)', () => {
       derniereSauvegarde: null,
       migrationsRefusees: [],
       proposerAuCatalogue: true,
+      montantsMasques: false,
     });
     expect(preferencesDefaut('en-US').langue).toBe('en');
     expect(ALERTES_DEFAUT.echeanceJours).toBe(3);
@@ -85,6 +86,7 @@ describe('préférences d’interface (§3.5)', () => {
       derniereSauvegarde: null,
       migrationsRefusees: [],
       proposerAuCatalogue: true,
+      montantsMasques: false,
     });
   });
 

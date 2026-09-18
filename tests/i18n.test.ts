@@ -9,6 +9,7 @@ import {
   libelleCompteur,
   libelleDuree,
   libellePeriodicite,
+  masquerMontant,
   traduire,
   traduireNombre,
 } from '../src/i18n';
@@ -85,6 +86,19 @@ describe('détection de langue', () => {
     expect(detecterLangue(undefined)).toBe('en');
     expect(estLangue('fr')).toBe(true);
     expect(estLangue('es')).toBe(false);
+  });
+});
+
+describe('mode discret (EF-75)', () => {
+  it('masque le nombre et garde la devise dans les deux langues', () => {
+    // l'espace avant la devise est l'espace fine insécable d'Intl : comparé par motif
+    expect(masquerMontant(formaterMontant('fr', 12.99, 'EUR'))).toMatch(/^\*{4}\s€$/);
+    expect(masquerMontant(formaterMontant('fr', 1234.5, 'EUR'))).toMatch(/^\*{4}\s€$/);
+    expect(masquerMontant(formaterMontant('en', 12.99, 'EUR'))).toBe('€****');
+    // « US$ » en anglais britannique : seul le nombre est remplacé
+    expect(masquerMontant(formaterMontant('en', 1234.5, 'USD'))).toMatch(/^US?\$\*{4}$/);
+    expect(masquerMontant(formaterMontant('fr', 0, 'CHF'))).toMatch(/^\*{4}\sCHF$/);
+    expect(masquerMontant('~12,99 €')).toBe('~**** €');
   });
 });
 

@@ -106,6 +106,15 @@ export function formaterMontant(langue: Langue, montant: number, devise = 'EUR')
   return f.format(montant);
 }
 
+/**
+ * Mode discret (EF-75) : le nombre d'un montant formaté devient « **** », la
+ * devise et le reste du texte sont conservés (« 12,99 € » → « **** € »,
+ * « €12.99 » → « €**** »).
+ */
+export function masquerMontant(texte: string): string {
+  return texte.replace(/\d[\d\s\u00a0\u202f.,]*\d|\d/, '****');
+}
+
 export type StyleDate = 'court' | 'moyen' | 'long' | 'mois' | 'moisCourt' | 'semaine';
 
 const OPTIONS_DATE: Record<StyleDate, Intl.DateTimeFormatOptions> = {

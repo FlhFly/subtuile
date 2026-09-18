@@ -180,7 +180,7 @@ version dans l'app.
 | Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
 | Découpage du bundle (étape 5 du plan du 2026-09-14) : chunks React / Dexie / date-fns / i18n / catalogue, écrans secondaires chargés à la demande, précache complet conservé | ✅ 2026-09-17 (v1.0.25) |
 | Retours par e-mail : version du système et du navigateur dans le message pré-rempli quand le navigateur la donne (iOS et Android exacts, rien sur Mac, iPad récent et Windows) | ✅ 2026-09-18 (v1.0.26) |
-| Mode discret (C21) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), préférence mémorisée | ⬜ demande FlhFly du 2026-09-18 |
+| Mode discret (C21 promu EF-75) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), œil barré, préférence mémorisée, interrupteur dans Apparence | ✅ 2026-09-18 (v1.0.28) |
 | Personnalisation de l'affichage (C22) : couleur par abonnement, contenu des tuiles au choix, puis logo personnel (C10) | ⬜ demande FlhFly du 2026-09-18 |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
@@ -216,7 +216,7 @@ version dans l'app.
 | C18 | Thème sombre « OLED » (noirs purs) dans le réglage d'apparence — promu EF-17, ✅ 2026-09-18 (v1.0.27, palette de la maquette v7) |
 | C19 | Store par plateforme : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil (demande FlhFly du 2026-09-16) |
 | C20 | Export JSON chiffré par mot de passe (WebCrypto, 100 % local), en option à côté de l'export en clair (revue RGPD du 2026-09-16) |
-| C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € »), un second les rétablit ; préférence mémorisée (demande FlhFly du 2026-09-18) |
+| C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € ») — promu EF-75, ✅ 2026-09-18 (v1.0.28) |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` du modèle, sans sélecteur à ce jour), contenu des tuiles au choix, puis logo personnel (C10) (demande FlhFly du 2026-09-18) |
 | C23 | Langues et devises supplémentaires : socle i18n et liste des devises extensibles ; une langue = un dictionnaire complet et ses formats, une devise = taux indicatif et symbole ; à relier à C17. Pas une priorité (demande FlhFly du 2026-09-18) |
 

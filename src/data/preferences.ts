@@ -53,6 +53,7 @@ export function preferencesDefaut(langueNavigateur?: string): Preferences {
     derniereSauvegarde: null,
     migrationsRefusees: [],
     proposerAuCatalogue: true,
+    montantsMasques: false,
   };
 }
 
@@ -99,6 +100,8 @@ export function normaliserPreferences(brut: unknown, defaut: Preferences): Prefe
       typeof o.proposerAuCatalogue === 'boolean'
         ? o.proposerAuCatalogue
         : defaut.proposerAuCatalogue,
+    montantsMasques:
+      typeof o.montantsMasques === 'boolean' ? o.montantsMasques : defaut.montantsMasques,
   };
 }
 

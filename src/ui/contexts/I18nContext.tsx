@@ -3,6 +3,7 @@ import type { DateISO, Langue, Periodicite } from '../../domain/types';
 import {
   formaterDate,
   formaterMontant,
+  masquerMontant,
   libelleCompteur,
   libellePeriodicite,
   traduire,
@@ -30,6 +31,7 @@ export function useI18n(): I18n {
   const { preferences, modifier } = usePreferences();
   const langue = preferences.langue;
   const formatDate = preferences.formatDate;
+  const montantsMasques = preferences.montantsMasques;
 
   const changerLangue = useCallback((l: Langue) => modifier({ langue: l }), [modifier]);
 
@@ -38,12 +40,15 @@ export function useI18n(): I18n {
       langue,
       t: (cle, params) => traduire(langue, cle, params),
       tn: (cle, n, params) => traduireNombre(langue, cle, n, params),
-      montant: (valeur, devise) => formaterMontant(langue, valeur, devise),
+      montant: (valeur, devise) =>
+        montantsMasques
+          ? masquerMontant(formaterMontant(langue, valeur, devise))
+          : formaterMontant(langue, valeur, devise),
       date: (date, style) => formaterDate(langue, date, style, formatDate),
       compteur: (jours) => libelleCompteur(langue, jours),
       periodicite: (p, plafond) => libellePeriodicite(langue, p, plafond),
       changerLangue,
     }),
-    [langue, formatDate, changerLangue],
+    [langue, formatDate, montantsMasques, changerLangue],
   );
 }

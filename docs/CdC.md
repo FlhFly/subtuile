@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.35 — 18/09/2026 (C18 promu : thème OLED dans EF-17, barre d’état alignée sur le thème)
+**Version :** 1.36 — 18/09/2026 (C21 promu EF-75 : mode discret, montants masqués d’un appui)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -191,6 +191,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.
+- **EF-75 [S]** — Mode discret : un appui sur le total de l'accueil masque tous les montants affichés (« **** € », devise conservée) dans toute l'app, un second appui les rétablit ; œil barré à côté du total, préférence `montantsMasques` mémorisée, interrupteur dans Réglages › Apparence. Les exports et les champs de saisie restent en clair *(v1.36, ex-C21)*.
 - **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)*
 
 **Principe « aucune fonctionnalité factice »** *(v1.14)* : les éléments montrés en démo/aperçu dans la maquette mais irréalisables en V1 (notifications push sans serveur — §5.4, widget d'écran d'accueil natif — §2) sont **masqués en production** et n'apparaîtront que lorsqu'ils seront réellement fonctionnels.
@@ -414,6 +415,6 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C18 | Thème sombre « OLED » : noirs purs, en quatrième choix du réglage d'apparence (EF-17) *(v1.25, demande du 15/09/2026)* — **promu** : EF-17, livré en 1.0.27 avec la palette de la maquette v7 *(v1.35)* | Confort de lecture de nuit, autonomie sur écrans OLED |
 | C20 | Export JSON chiffré par mot de passe (AES-GCM via WebCrypto, 100 % local), en option à côté de l'export en clair ; import symétrique *(v1.28, revue RGPD du 16/09/2026)* | Sauvegardes protégées sur l'appareil |
 | C19 | Store par plateforme : détection locale de l'appareil (iOS, Android, autre) et réglage « Boutique d'applications » (Automatique / App Store / Google Play / Les deux) pour ne proposer que les formules et le canal du store de l'utilisateur, et ne comparer « moins cher en direct » qu'avec ce store ; les services sans tarif direct gardent leurs formules App Store à titre indicatif. Limite connue : le catalogue n'a pas de prix Google Play (Apple affiche le prix de chaque abonnement, Google une fourchette) *(v1.27, demande du 16/09/2026)* | Formules pertinentes selon l'appareil |
-| C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € » sur les tuiles, les totaux, la fiche, les finances, l'échéancier), un second appui les rétablit ; état mémorisé en préférence, indicateur discret (œil barré) *(v1.32, demande du 18/09/2026)* | Consulter l'app en public sans exposer ses dépenses |
+| C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app, un second appui les rétablit ; préférence, œil barré *(v1.32, demande du 18/09/2026)* — **promu** : EF-75, livré en 1.0.28 *(v1.36)* | Consulter l'app en public sans exposer ses dépenses |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` déjà prévu au modèle, EF-10, sans sélecteur à ce jour), contenu des tuiles au choix (prix, échéance, moyen de paiement, catégorie, badge), puis logo personnel (C10) ; réglages dans Réglages › Apparence *(v1.32, demande du 18/09/2026)* | Tuiles reconnaissables au premier coup d'œil |
 | C23 | Langues et devises supplémentaires : le socle i18n (dictionnaires, pluriels, formats de date) et les devises (`DEVISES`, `taux.json`) sont extensibles ; ajouter une langue = un dictionnaire complet et ses formats, ajouter une devise = son taux indicatif et son symbole ; à relier à C17 pour les tarifs par pays. Pas une priorité *(v1.32, demande du 18/09/2026)* | Ouverture hors francophonie et zone euro |

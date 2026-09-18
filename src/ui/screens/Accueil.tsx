@@ -272,7 +272,24 @@ export function Accueil({ onOuvrirAbonnement, onAjouter, onOuvrirAlertes }: Prop
             {t('accueil.totalMensuel')}
             {chargement ? '' : ` · ${tn('accueil.actifs', actifs.length)}`}
           </span>
-          <span className={styles.montant}>{chargement ? '…' : marquer(totalMensuel)}</span>
+          <button
+            type="button"
+            className={styles.montantBouton}
+            aria-pressed={preferences.montantsMasques}
+            aria-label={t(
+              preferences.montantsMasques
+                ? 'accueil.montants.afficher'
+                : 'accueil.montants.masquer',
+            )}
+            onClick={() => modifier({ montantsMasques: !preferences.montantsMasques })}
+          >
+            <span className={styles.montant}>{chargement ? '…' : marquer(totalMensuel)}</span>
+            {preferences.montantsMasques ? (
+              <span className={styles.oeil} aria-hidden="true">
+                <Icone nom="oeilBarre" taille={18} epaisseur={2.2} />
+              </span>
+            ) : null}
+          </button>
           <span className={styles.legende}>
             {chargement
               ? t('commun.chargement')

@@ -7,7 +7,23 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
-Aucune modification depuis la version 1.0.27.
+Aucune modification depuis la version 1.0.28.
+
+## [1.0.28] — 2026-09-18 — mode discret (C21 → EF-75)
+
+### Montants masqués d'un appui (CdC v1.36) (2026-09-18)
+
+#### Ajouté
+- Accueil : le total mensuel devient un bouton ; un appui masque tous les montants de l'app
+  (`montant()` de l'i18n renvoie « **** € » ou « €**** » en gardant la devise : tuiles, totaux,
+  fiche, finances, échéancier, alertes, aperçus du formulaire), un second appui les rétablit. Œil
+  barré à côté du total tant que le mode est actif, libellé accessible « Masquer / Afficher les
+  montants ».
+- Préférence `montantsMasques` (localStorage, défaut désactivé) et interrupteur « Masquer les
+  montants » dans Réglages › Apparence.
+- Les exports (JSON, CSV, .ics) et les champs de saisie ne sont pas concernés : seules les valeurs
+  affichées sont masquées.
+
 
 ## [1.0.27] — 2026-09-18 — thème OLED (C18 → EF-17)
 
