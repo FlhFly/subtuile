@@ -179,6 +179,9 @@ version dans l'app.
 | Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
 | Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
 | Découpage du bundle (étape 5 du plan du 2026-09-14) : chunks React / Dexie / date-fns / i18n / catalogue, écrans secondaires chargés à la demande, précache complet conservé | ✅ 2026-09-17 (v1.0.25) |
+| Retours par e-mail : ajouter la version du système et du navigateur au message pré-rempli quand le navigateur la donne (exacte sur iPhone et Android, approximative sur Mac et iPad) | ⬜ demande FlhFly du 2026-09-18, petit lot 1.0.x |
+| Mode discret (C21) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), préférence mémorisée | ⬜ demande FlhFly du 2026-09-18 |
+| Personnalisation de l'affichage (C22) : couleur par abonnement, contenu des tuiles au choix, puis logo personnel (C10) | ⬜ demande FlhFly du 2026-09-18 |
 
 ## Lot 5 — Pilotage (en attente des retours d'usage de la v1.0.0)
 
@@ -211,3 +214,12 @@ version dans l'app.
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
 | C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |
 | C18 | Thème sombre « OLED » (noirs purs) en troisième choix du réglage d'apparence, à côté de clair / sombre / système — EF-17 (demande FlhFly du 2026-09-15) |
+| C19 | Store par plateforme : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil (demande FlhFly du 2026-09-16) |
+| C20 | Export JSON chiffré par mot de passe (WebCrypto, 100 % local), en option à côté de l'export en clair (revue RGPD du 2026-09-16) |
+| C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € »), un second les rétablit ; préférence mémorisée (demande FlhFly du 2026-09-18) |
+| C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` du modèle, sans sélecteur à ce jour), contenu des tuiles au choix, puis logo personnel (C10) (demande FlhFly du 2026-09-18) |
+| C23 | Langues et devises supplémentaires : socle i18n et liste des devises extensibles ; une langue = un dictionnaire complet et ses formats, une devise = taux indicatif et symbole ; à relier à C17. Pas une priorité (demande FlhFly du 2026-09-18) |
+
+### Mesure d'audience
+
+Aucune : l'app ne fait aucune requête et GitHub Pages ne fournit ni journaux ni compteur de visites (seules les statistiques du dépôt — vues, clones, étoiles — existent dans Insights › Traffic). Les installations d'une PWA ne se comptent nulle part. Si un ordre de grandeur devient nécessaire, la seule voie compatible avec « zéro tracking » est un comptage agrégé côté hébergement, par exemple en plaçant le domaine derrière le proxy Cloudflare (visiteurs uniques par jour et par pays, sans cookie ni script) ; ce serait à déclarer dans la page Confidentialité. Décision FlhFly en attente (question du 2026-09-18).
