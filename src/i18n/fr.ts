@@ -652,6 +652,18 @@ export const fr = {
   'finances.moyenne': 'moyenne {montant} / mois',
   'finances.previsionnel.note':
     'Montants réels par mois : les abonnements annuels pèsent sur leur mois d’échéance, les hausses annoncées s’appliquent à leur date.',
+  'finances.evolution': 'Évolution 24 mois',
+  'finances.evolution.variation': '{montant} vs il y a 24 mois',
+  'finances.evolution.note':
+    'Total mensuel normalisé reconstitué, d’il y a 24 mois à aujourd’hui, au prix de l’époque.',
+  'finances.rapport': 'Rapport 12 mois',
+  'finances.rapport.total': 'Dépensé sur les 12 derniers mois',
+  'finances.rapport.hausses.un': '{n} hausse de prix subie',
+  'finances.rapport.hausses.plusieurs': '{n} hausses de prix subies',
+  'finances.rapport.hausse': '{nom} : {avant} → {apres} le {date}',
+  'finances.rapport.mouvements': 'Mouvements : {a} ajoutés, {r} arrêtés',
+  'finances.rapport.ajoutes': 'Ajoutés : {noms}',
+  'finances.rapport.arretes': 'Arrêtés : {noms}',
   'finances.passe': 'Dépenses passées',
   'finances.passe.total': '12 derniers mois · {montant}',
   'finances.passe.note':

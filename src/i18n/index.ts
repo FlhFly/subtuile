@@ -50,6 +50,7 @@ export type ClePluriel =
   | 'edition.garde.autres'
   | 'finances.payants'
   | 'finances.categories'
+  | 'finances.rapport.hausses'
   | 'import.csv.rejetees'
   | 'import.csv.importer'
   | 'toast.importeCsv';

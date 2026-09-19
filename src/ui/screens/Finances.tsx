@@ -9,6 +9,7 @@ import {
   totaux,
   type SerieMensuelle,
 } from '../../domain/finances';
+import { evolutionMensuelle, rapport12Mois } from '../../domain/rapport';
 import type { Devise } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
 import { barres, COULEURS_CATEGORIE, degradeDonut } from '../graphiques';
@@ -31,8 +32,8 @@ const COULEUR_SANS_MOYEN = 'var(--dash)';
  * convertis dans la devise d'affichage (EF-45), répartition par catégorie en
  * donut (EF-41), prévisionnel 12 mois à montants réels (EF-42), dépenses
  * passées 12 mois (EF-43), répartition par moyen de paiement (EF-41), budget
- * mensuel et objectif d'économie (EF-70, lot 5). Doublons, foyer et évolution
- * 24 mois suivent dans le lot 5.
+ * mensuel et objectif d'économie (EF-70), évolution 24 mois et rapport 12 mois
+ * (lot 5). Doublons et foyer suivent dans le lot 5.
  */
 export function Finances({ onOuvrirPaiements }: Props) {
   const i18n = useI18n();
@@ -58,6 +59,15 @@ export function Finances({ onOuvrirPaiements }: Props) {
   );
   const passe = useMemo(
     () => depensesPassees(abonnements, jour, { convertir }),
+    [abonnements, jour, convertir],
+  );
+
+  const evolution = useMemo(
+    () => evolutionMensuelle(abonnements, jour, { convertir }),
+    [abonnements, jour, convertir],
+  );
+  const rapport = useMemo(
+    () => rapport12Mois(abonnements, jour, { convertir }),
     [abonnements, jour, convertir],
   );
 
@@ -173,6 +183,67 @@ export function Finances({ onOuvrirPaiements }: Props) {
             )}
           </section>
 
+          <section className={styles.carte} aria-label={t('finances.evolution')}>
+            <div className={styles.carteEnTete}>
+              <h2 className={styles.carteTitre}>{t('finances.evolution')}</h2>
+              <span className={styles.carteComplement}>
+                {t('finances.evolution.variation', {
+                  montant: `${evolution.variation > 0 ? '+' : ''}${montant(evolution.variation)}`,
+                })}
+              </span>
+            </div>
+            <Barres i18n={i18n} devise={devise} serie={evolution.serie} variante="passe" dense />
+            <p className={styles.note}>{t('finances.evolution.note')}</p>
+          </section>
+
+          <section className={styles.carte} aria-label={t('finances.rapport')}>
+            <div className={styles.carteEnTete}>
+              <h2 className={styles.carteTitre}>{t('finances.rapport')}</h2>
+              <span className={styles.carteComplement}>
+                {t('finances.moyenne', { montant: montant(rapport.moyenne) })}
+              </span>
+            </div>
+            <div className={styles.rapportTotal}>
+              <span className={styles.rapportLegende}>{t('finances.rapport.total')}</span>
+              <span className={styles.rapportMontant}>
+                {marquer(rapport.total, rapport.estime)}
+              </span>
+            </div>
+            <div className={styles.rapportBloc}>
+              <span className={styles.rapportTitre}>
+                {tn('finances.rapport.hausses', rapport.hausses.length)}
+              </span>
+              {rapport.hausses.slice(0, 5).map((h) => (
+                <span key={`${h.abonnementId}-${h.date}`} className={styles.rapportLigne}>
+                  {t('finances.rapport.hausse', {
+                    nom: h.nom,
+                    date: date(h.date, 'moyen'),
+                    avant: i18n.montant(h.avant, h.devise),
+                    apres: i18n.montant(h.apres, h.devise),
+                  })}
+                </span>
+              ))}
+            </div>
+            <div className={styles.rapportBloc}>
+              <span className={styles.rapportTitre}>
+                {t('finances.rapport.mouvements', {
+                  a: rapport.ajoutes.length,
+                  r: rapport.arretes.length,
+                })}
+              </span>
+              {rapport.ajoutes.length > 0 ? (
+                <span className={styles.rapportLigne}>
+                  {t('finances.rapport.ajoutes', { noms: rapport.ajoutes.join(', ') })}
+                </span>
+              ) : null}
+              {rapport.arretes.length > 0 ? (
+                <span className={styles.rapportLigne}>
+                  {t('finances.rapport.arretes', { noms: rapport.arretes.join(', ') })}
+                </span>
+              ) : null}
+            </div>
+          </section>
+
           <section className={styles.carte} aria-label={t('finances.paiement')}>
             <div className={styles.carteEnTete}>
               <h2 className={styles.carteTitre}>{t('finances.paiement')}</h2>
@@ -217,22 +288,25 @@ function Barres({
   devise,
   serie,
   variante,
+  dense = false,
 }: {
   i18n: I18n;
   devise: Devise;
   serie: SerieMensuelle;
   variante: 'avenir' | 'passe';
+  /** 24 mois : barres serrées, sans étiquette de valeur, initiale un mois sur deux */
+  dense?: boolean;
 }) {
   const { date } = i18n;
   const b = barres(serie.mois.map((m) => m.montant));
   return (
-    <div className={styles.barres}>
+    <div className={dense ? styles.barresDenses : styles.barres}>
       {serie.mois.map((m, i) => {
         const barre = b[i]!;
         return (
           <div key={m.mois} className={styles.colonne}>
             <span className={styles.barreEtiquette}>
-              {barre.etiquette ? Math.round(m.montant) : ''}
+              {barre.etiquette && !dense ? Math.round(m.montant) : ''}
             </span>
             <div
               className={[
@@ -247,7 +321,9 @@ function Barres({
               title={`${date(`${m.mois}-01`, 'mois')} · ${i18n.montant(m.montant, devise)}`}
             />
             <span className={styles.barreMois}>
-              {date(`${m.mois}-01`, 'moisCourt').charAt(0).toUpperCase()}
+              {dense && i % 2 === 1
+                ? ''
+                : date(`${m.mois}-01`, 'moisCourt').charAt(0).toUpperCase()}
             </span>
           </div>
         );

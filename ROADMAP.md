@@ -193,7 +193,7 @@ version dans l'app.
 | EF-73 [S] | Import de relevé bancaire CSV : détection locale des récurrences, doublons, ajout groupé | ⬜ |
 | EF-06 | Pause avec date de reprise automatique | ✅ 2026-09-13 (v1.0.3 : date de reprise facultative choisie au moment de la pause ; la reprise automatique existait depuis le lot 3) |
 | EF-13b [S] | Journal « Derniers paiements » sur la fiche, avec le total cumulé dépensé depuis le début de l'abonnement (demande FlhFly du 2026-09-18) | ⬜ étape 4 |
-| EF-43 [S] | Historique des dépenses étendu à 24 mois | ⬜ |
+| EF-43 [S] | Évolution du total mensuel sur 24 mois et rapport 12 mois (dépensé, hausses, mouvements) | ✅ étape 3 livrée le 2026-09-19 sur la branche lot-5 |
 | EF-44b [S] | Vue « Foyer & partage » | ⬜ |
 
 ## Évolutions (hors V1, non planifiées)

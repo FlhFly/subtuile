@@ -7,6 +7,17 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 3 : évolution 24 mois et rapport 12 mois (2026-09-19)
+
+#### Ajouté
+- Domaine `rapport.ts` : `evolutionMensuelle` (total mensuel normalisé à la fin de chacun des
+  24 derniers mois et au jour courant, abonnements commencés et non terminés à la date, prix de
+  l'historique, part payée si partagé) et `rapport12Mois` (dépenses réelles EF-43, hausses de prix
+  de la période, abonnements ajoutés et arrêtés). Rien de nouveau à saisir.
+- Finances : carte « Évolution 24 mois » (25 barres serrées, « +X vs il y a 24 mois ») et carte
+  « Rapport 12 mois » (dépensé, moyenne, cinq dernières hausses « nom : avant → après le … »,
+  mouvements). Composant `Barres` : variante dense.
+
 ### Lot 5 — étape 2 : objectif d'économie (2026-09-18)
 
 #### Ajouté

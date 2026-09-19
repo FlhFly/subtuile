@@ -639,6 +639,18 @@ export const en: Dictionnaire = {
   'finances.moyenne': 'average {montant} / month',
   'finances.previsionnel.note':
     'Actual amounts per month: yearly subscriptions weigh on their renewal month, announced increases apply on their date.',
+  'finances.evolution': '24-month trend',
+  'finances.evolution.variation': '{montant} vs 24 months ago',
+  'finances.evolution.note':
+    'Normalized monthly total rebuilt from 24 months ago to today, at the prices of the time.',
+  'finances.rapport': '12-month report',
+  'finances.rapport.total': 'Spent over the last 12 months',
+  'finances.rapport.hausses.un': '{n} price increase endured',
+  'finances.rapport.hausses.plusieurs': '{n} price increases endured',
+  'finances.rapport.hausse': '{nom}: {avant} → {apres} on {date}',
+  'finances.rapport.mouvements': 'Changes: {a} added, {r} stopped',
+  'finances.rapport.ajoutes': 'Added: {noms}',
+  'finances.rapport.arretes': 'Stopped: {noms}',
   'finances.passe': 'Past spending',
   'finances.passe.total': 'last 12 months · {montant}',
   'finances.passe.note':
