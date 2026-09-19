@@ -9,6 +9,7 @@ import {
   totaux,
   type SerieMensuelle,
 } from '../../domain/finances';
+import { vueFoyer } from '../../domain/foyer';
 import { evolutionMensuelle, rapport12Mois } from '../../domain/rapport';
 import type { Devise } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
@@ -33,7 +34,7 @@ const COULEUR_SANS_MOYEN = 'var(--dash)';
  * donut (EF-41), prévisionnel 12 mois à montants réels (EF-42), dépenses
  * passées 12 mois (EF-43), répartition par moyen de paiement (EF-41), budget
  * mensuel et objectif d'économie (EF-70), évolution 24 mois et rapport 12 mois
- * (lot 5). Doublons et foyer suivent dans le lot 5.
+ * et vue « Foyer & partage » (EF-44b, lot 5). Les doublons suivent dans le lot 5.
  */
 export function Finances({ onOuvrirPaiements }: Props) {
   const i18n = useI18n();
@@ -64,6 +65,10 @@ export function Finances({ onOuvrirPaiements }: Props) {
 
   const evolution = useMemo(
     () => evolutionMensuelle(abonnements, jour, { convertir }),
+    [abonnements, jour, convertir],
+  );
+  const foyer = useMemo(
+    () => vueFoyer(abonnements, jour, convertir),
     [abonnements, jour, convertir],
   );
   const rapport = useMemo(
@@ -243,6 +248,52 @@ export function Finances({ onOuvrirPaiements }: Props) {
               ) : null}
             </div>
           </section>
+
+          {foyer.partages.length > 0 ? (
+            <section className={styles.carte} aria-label={t('finances.foyer')}>
+              <div className={styles.carteEnTete}>
+                <h2 className={styles.carteTitre}>{t('finances.foyer')}</h2>
+                <span className={styles.carteComplement}>
+                  {t('finances.foyer.resume', { montant: montant(foyer.priseEnCharge) })}
+                </span>
+              </div>
+              <div className={styles.foyerTotaux}>
+                <div className={styles.foyerTotal}>
+                  <span className={styles.rapportLegende}>{t('finances.foyer.total')}</span>
+                  <span className={styles.foyerMontant}>{montant(foyer.totalFoyer)}</span>
+                </div>
+                <div className={styles.foyerTotal}>
+                  <span className={styles.rapportLegende}>{t('finances.foyer.personnel')}</span>
+                  <span className={styles.foyerMontant}>{montant(foyer.totalPersonnel)}</span>
+                </div>
+              </div>
+              <ul className={styles.moyens}>
+                {foyer.partages.map((p) => (
+                  <li key={p.abonnementId} className={styles.moyen}>
+                    <div className={styles.moyenLigne}>
+                      <span className={styles.moyenNom}>{p.nom}</span>
+                      <span className={styles.moyenMontant}>
+                        {t('finances.foyer.part', {
+                          part: montant(p.part),
+                          plein: montant(p.plein),
+                        })}
+                      </span>
+                    </div>
+                    <div className={styles.jauge}>
+                      <div
+                        className={styles.jaugeValeur}
+                        style={{
+                          width: `${p.plein > 0 ? Math.round((p.part / p.plein) * 100) : 0}%`,
+                          background: 'var(--ink)',
+                        }}
+                      />
+                    </div>
+                  </li>
+                ))}
+              </ul>
+              <p className={styles.note}>{t('finances.foyer.note')}</p>
+            </section>
+          ) : null}
 
           <section className={styles.carte} aria-label={t('finances.paiement')}>
             <div className={styles.carteEnTete}>

@@ -656,6 +656,12 @@ export const en: Dictionnaire = {
   'finances.rapport.mouvements': 'Changes: {a} added, {r} stopped',
   'finances.rapport.ajoutes': 'Added: {noms}',
   'finances.rapport.arretes': 'Stopped: {noms}',
+  'finances.foyer': 'Household & sharing',
+  'finances.foyer.resume': '{montant} / month covered by others',
+  'finances.foyer.total': 'Household total',
+  'finances.foyer.personnel': 'Your share',
+  'finances.foyer.part': 'your share {part} of {plein}',
+  'finances.foyer.note': 'Based on shared subscriptions: share paid versus full price, per month.',
   'finances.passe': 'Past spending',
   'finances.passe.total': 'last 12 months · {montant}',
   'finances.passe.note':

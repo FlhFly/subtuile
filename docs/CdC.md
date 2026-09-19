@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.40 — 19/09/2026 (lot 5, étape 4 : journal des paiements et total cumulé sur la fiche)
+**Version :** 1.41 — 19/09/2026 (lot 5, étape 5 : vue « Foyer & partage »)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -175,7 +175,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-42 [M]** — Prévisionnel des 12 prochains mois (montants réels par mois, un abonnement annuel pèse sur son mois d'échéance).
 - **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*. Livré au lot 5 *(v1.39)* : carte « Évolution 24 mois » (total mensuel normalisé reconstitué au prix de l'époque, écart avec il y a 24 mois) et carte « Rapport 12 mois » (dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés — début de C9) ; les barres des dépenses réelles restent sur 12 mois.
 - **EF-44 [S]** — Prise en compte de partPayee pour les abonnements partagés.
-- **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel. *(issu de la maquette v6 — lot 4)*
+- **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel, montant mensuel pris en charge par les autres ; carte de Finances visible dès qu’un abonnement payant est partagé *(livré au lot 5 étape 5, v1.41)*. *(issu de la maquette v6 — lot 4)*
 - **EF-45 [S]** — Devise d'affichage (EUR/USD/GBP/CHF) : conversion des montants à des **taux figés explicitement étiquetés « indicatifs »** (aucun appel réseau). Les taux sont un **jeu de données de référence** au contrat du §5.6 *(v1.12)* : fichier versionné avec date `publieLe` (affichage « taux indicatifs au JJ/MM/AAAA »), embarqué en V1, remplaçable à distance sans release. La saisie se fait dans la devise de chaque abonnement (EF-45b), EUR par défaut. *(issu de la maquette v4, confirmé le 21/08 ; saisie multi-devise décidée le 11/09, v1.16)*
 - **EF-45b [S]** — Devise de saisie par abonnement : chaque abonnement porte sa devise (EUR / USD / GBP / CHF), par exemple un service facturé en dollars ; la devise proposée par défaut à la création est le réglage « Devise » (le même que la devise d'affichage d'EF-45 en V1 ; onboarding C7 s'il est livré). Les totaux et la vue financière convertissent vers la devise d'affichage aux taux indicatifs d'EF-45 ; un montant saisi dans une autre devise que celle d'affichage est signalé comme converti. Livré au lot 4 avec EF-45. *(v1.16, décision du 11/09/2026)*
 

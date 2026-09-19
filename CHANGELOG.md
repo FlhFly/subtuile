@@ -7,6 +7,14 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 5 : vue « Foyer & partage » (2026-09-19)
+
+#### Ajouté
+- Finances : carte « Foyer & partage » (EF-44b), affichée dès qu'un abonnement payant est
+  partagé — total du foyer (prix pleins) face à votre part (le total de l'accueil), montant
+  mensuel pris en charge par les autres, et pour chaque abonnement partagé « votre part X sur Y »
+  avec une jauge. Domaine `foyer.ts` (`vueFoyer`), montants mensuels normalisés et convertis.
+
 ### Lot 5 — étape 4 : journal des paiements et total cumulé par abonnement (2026-09-19)
 
 #### Ajouté

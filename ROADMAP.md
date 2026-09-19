@@ -194,7 +194,7 @@ version dans l'app.
 | EF-06 | Pause avec date de reprise automatique | ✅ 2026-09-13 (v1.0.3 : date de reprise facultative choisie au moment de la pause ; la reprise automatique existait depuis le lot 3) |
 | EF-13b [S] | Journal « Derniers paiements » sur la fiche, avec le total cumulé dépensé depuis le début de l'abonnement (demande FlhFly du 2026-09-18) | ✅ étape 4 livrée le 2026-09-19 sur la branche lot-5 |
 | EF-43 [S] | Évolution du total mensuel sur 24 mois et rapport 12 mois (dépensé, hausses, mouvements) | ✅ étape 3 livrée le 2026-09-19 sur la branche lot-5 |
-| EF-44b [S] | Vue « Foyer & partage » | ⬜ |
+| EF-44b [S] | Vue « Foyer & partage » | ✅ étape 5 livrée le 2026-09-19 sur la branche lot-5 |
 
 ## Évolutions (hors V1, non planifiées)
 

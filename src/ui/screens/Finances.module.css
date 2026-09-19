@@ -396,3 +396,24 @@
   color: var(--muted);
   line-height: 1.4;
 }
+
+/* Foyer & partage (EF-44b, lot 5) */
+.foyerTotaux {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.foyerTotal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--sand);
+}
+
+.foyerMontant {
+  font-size: 17px;
+  font-weight: var(--fw-bold);
+}

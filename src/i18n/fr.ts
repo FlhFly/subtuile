@@ -669,6 +669,13 @@ export const fr = {
   'finances.rapport.mouvements': 'Mouvements : {a} ajoutés, {r} arrêtés',
   'finances.rapport.ajoutes': 'Ajoutés : {noms}',
   'finances.rapport.arretes': 'Arrêtés : {noms}',
+  'finances.foyer': 'Foyer & partage',
+  'finances.foyer.resume': '{montant} / mois pris en charge par les autres',
+  'finances.foyer.total': 'Total du foyer',
+  'finances.foyer.personnel': 'Votre part',
+  'finances.foyer.part': 'votre part {part} sur {plein}',
+  'finances.foyer.note':
+    'Basé sur les abonnements partagés : part payée face au prix plein, par mois.',
   'finances.passe': 'Dépenses passées',
   'finances.passe.total': '12 derniers mois · {montant}',
   'finances.passe.note':
