@@ -18,6 +18,10 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
   « Rapport 12 mois » (dépensé, moyenne, cinq dernières hausses « nom : avant → après le … »,
   mouvements). Composant `Barres` : variante dense.
 
+#### Corrigé
+- Graphe 24 mois : une barre sur deux descendait, l'étiquette de mois vide n'ayant pas de
+  hauteur ; hauteur réservée pour toutes les étiquettes (retour FlhFly du 2026-09-19).
+
 ### Lot 5 — étape 2 : objectif d'économie (2026-09-18)
 
 #### Ajouté

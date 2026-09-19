@@ -242,7 +242,10 @@
 }
 
 .barreMois {
+  /* hauteur réservée : une étiquette vide (graphe 24 mois) ne doit pas faire descendre la barre */
+  min-height: 12px;
   font-size: 9px;
+  line-height: 12px;
   color: var(--muted);
 }
 
