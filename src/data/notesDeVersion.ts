@@ -21,11 +21,13 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
         'Finances › Budget mensuel : fixez un plafond global ; jauge, marge restante ou dépassement, et alerte dans le centre d’alertes quand le plafond est dépassé.',
         'Finances › Objectif d’économie : « passer sous X / mois d’ici le … » ; la carte suit votre progression et annonce l’objectif atteint.',
         'Finances › Évolution 24 mois du total mensuel au prix de l’époque, et Rapport 12 mois : dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés.',
+        'Fiche › Derniers paiements : chaque prélèvement passé au tarif de l’époque, et le total dépensé depuis le début de l’abonnement.',
       ],
       en: [
         'Finances › Monthly budget: set an overall cap; gauge, remaining margin or overrun, and an alert in the alert centre when the cap is exceeded.',
         'Finances › Savings goal: “get under X / month by …”; the card tracks your progress and announces when the goal is reached.',
         'Finances › 24-month trend of the monthly total at the prices of the time, and 12-month report: spent, average, price increases, added and stopped.',
+        'Details › Latest payments: every past charge at the price of the time, and the total spent since the subscription started.',
       ],
     },
   },

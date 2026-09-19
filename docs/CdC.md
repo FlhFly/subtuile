@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.39 — 19/09/2026 (lot 5, étape 3 : évolution 24 mois et rapport 12 mois)
+**Version :** 1.40 — 19/09/2026 (lot 5, étape 4 : journal des paiements et total cumulé sur la fiche)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -145,7 +145,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-12 [M]** — Tri : par échéance (défaut), par prix, par nom, par catégorie. Filtre par catégorie, statut, moyen de paiement.
 - **EF-12b [S]** — Mode d'affichage de l'accueil : grille de tuiles (défaut) ou liste, persisté dans les préférences. *(issu de la maquette v4)*
 - **EF-13 [M]** — Fiche détail au tap : toutes les infos + actions (modifier, se désabonner, changer statut, archiver).
-- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque), avec le **total cumulé dépensé** depuis le début de l'abonnement *(v1.38, demande du 18/09/2026)*. *(issu de la maquette v6 — lot 4)*
+- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque), avec le **total cumulé dépensé** depuis le début de l'abonnement *(v1.38, demande du 18/09/2026 ; livré au lot 5 étape 4, v1.40 : six derniers prélèvements puis « voir tout »)*. *(issu de la maquette v6 — lot 4)*
 - **EF-14 [S]** — Réorganisation manuelle des tuiles (drag & drop) via un mode dédié, avec tri « ordre personnalisé » persistant. *(précisé par la maquette v2)*
 - **EF-15 [S]** — Recherche textuelle.
 - **EF-16 [S]** — Page « Prochaines échéances » en liste chronologique (équivalent fonctionnel du widget, dans l'app).

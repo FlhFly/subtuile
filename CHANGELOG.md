@@ -7,6 +7,16 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 4 : journal des paiements et total cumulé par abonnement (2026-09-19)
+
+#### Ajouté
+- Fiche : section « Derniers paiements » (EF-13b) — encart « Total dépensé depuis le … » avec le
+  cumul depuis le début de l'abonnement (demande FlhFly du 2026-09-18), puis les six derniers
+  prélèvements au tarif de l'époque et « Voir les N paiements ». `journalPaiements` dans
+  `rapport.ts` : occurrences passées depuis la date de début, prix de l'historique, part payée
+  si partagé, arrêt à la résiliation, à la pause ou à l'archivage ; rien pour un abonnement à vie
+  ou à l'usage. Le mode discret masque aussi ces montants.
+
 ### Lot 5 — étape 3 : évolution 24 mois et rapport 12 mois (2026-09-19)
 
 #### Ajouté

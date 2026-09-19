@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { creerAbonnement } from '../src/domain/fabriques';
-import { evolutionMensuelle, rapport12Mois } from '../src/domain/rapport';
+import { evolutionMensuelle, journalPaiements, rapport12Mois } from '../src/domain/rapport';
 import { PERIODICITES, type Abonnement } from '../src/domain/types';
 
 const JOUR = '2026-09-19';
@@ -101,5 +101,53 @@ describe('rapport 12 mois (lot 5, début de C9)', () => {
     expect(r.arretes).toEqual(['Arrêté']);
     expect(r.total).toBeGreaterThan(0);
     expect(r.moyenne).toBeCloseTo(r.total / 12);
+  });
+});
+
+describe('journal des paiements et total cumulé (EF-13b, lot 5)', () => {
+  it('occurrences passées au prix de l’époque, du plus récent au plus ancien, cumul', () => {
+    const a = abo({
+      nom: 'Netflix',
+      prix: 15,
+      dateDebut: '2026-05-10',
+      historiquePrix: [
+        { date: '2026-05-10', prix: 12 },
+        { date: '2026-08-01', prix: 15 },
+      ],
+    });
+    const j = journalPaiements(a, JOUR);
+    expect(j.paiements).toEqual([
+      { date: '2026-09-10', montant: 15 },
+      { date: '2026-08-10', montant: 15 },
+      { date: '2026-07-10', montant: 12 },
+      { date: '2026-06-10', montant: 12 },
+      { date: '2026-05-10', montant: 12 },
+    ]);
+    expect(j.cumul).toBe(66);
+    expect(j.estime).toBe(false);
+  });
+
+  it('part payée si partagé, arrêt à la résiliation, rien pour un abonnement à vie ou à venir', () => {
+    const partage = abo({
+      nom: 'Partagé',
+      prix: 18,
+      dateDebut: '2026-07-01',
+      partage: { prixTotal: 18, partPayee: 6 },
+    });
+    expect(journalPaiements(partage, JOUR).cumul).toBe(18);
+    const resilie = abo({
+      nom: 'Résilié',
+      dateDebut: '2026-01-05',
+      statut: { type: 'resilie_actif_jusquau', jusquau: '2026-03-31' },
+    });
+    expect(journalPaiements(resilie, JOUR).paiements.map((p) => p.date)).toEqual([
+      '2026-03-05',
+      '2026-02-05',
+      '2026-01-05',
+    ]);
+    expect(
+      journalPaiements(abo({ nom: 'À vie', periodicite: PERIODICITES.aVie }), JOUR).paiements,
+    ).toEqual([]);
+    expect(journalPaiements(abo({ nom: 'Futur', dateDebut: '2026-10-01' }), JOUR).cumul).toBe(0);
   });
 });

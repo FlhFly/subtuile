@@ -51,7 +51,11 @@ import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libelleCompteur, libelleStatut } from '../libelles';
+import { journalPaiements } from '../../domain/rapport';
 import styles from './Fiche.module.css';
+
+/** Paiements affichés avant « Tout voir ». */
+const JOURNAL_MAX = 6;
 
 interface Props {
   id: string;
@@ -69,7 +73,7 @@ interface Props {
  */
 export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const i18n = useI18n();
-  const { t, montant, date, periodicite: libPeriodicite } = i18n;
+  const { t, tn, montant, date, periodicite: libPeriodicite } = i18n;
   const storage = useStorage();
   const toast = useToast();
   const { abonnements, chargement } = useAbonnements();
@@ -80,6 +84,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const [pauseDialogue, setPauseDialogue] = useState(false);
   const [repriseLe, setRepriseLe] = useState('');
   const [prixOuvert, setPrixOuvert] = useState(false);
+  const [journalComplet, setJournalComplet] = useState(false);
   const { preferences } = usePreferences();
   const { devise: deviseAffichage, convertir } = useConversion();
   const jour = aujourdhui();
@@ -97,6 +102,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   }
 
   const mp = abo.moyenPaiementId ? moyensPaiement.get(abo.moyenPaiementId) : undefined;
+  const journal = journalPaiements(abo, jour);
   const service = abo.serviceId ? services.get(abo.serviceId) : undefined;
   const modele = modeleTuile(abo, jour, mp, service);
   const formule = service ? trouverFormule(service, abo.formuleId) : undefined;
@@ -423,6 +429,43 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
                 );
               })}
             </ul>
+          </section>
+        ) : null}
+
+        {journal.paiements.length > 0 ? (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitre}>{t('fiche.paiements')}</h2>
+            <div className={styles.cumul}>
+              <span className={styles.cumulLegende}>
+                {t('fiche.paiements.cumul', { date: date(abo.dateDebut, 'moyen') })}
+              </span>
+              <span className={styles.cumulMontant}>
+                {journal.estime
+                  ? t('montant.estime', { montant: montant(journal.cumul, abo.devise) })
+                  : montant(journal.cumul, abo.devise)}
+              </span>
+            </div>
+            <ul className={styles.historique}>
+              {(journalComplet ? journal.paiements : journal.paiements.slice(0, JOURNAL_MAX)).map(
+                (p) => (
+                  <li key={p.date} className={styles.historiqueLigne}>
+                    <span>{date(p.date, 'moyen')}</span>
+                    <span>{montant(p.montant, abo.devise)}</span>
+                  </li>
+                ),
+              )}
+            </ul>
+            {journal.paiements.length > JOURNAL_MAX ? (
+              <button
+                type="button"
+                className={styles.lienJournal}
+                onClick={() => setJournalComplet((v) => !v)}
+              >
+                {journalComplet
+                  ? t('fiche.paiements.reduire')
+                  : tn('fiche.paiements.tout', journal.paiements.length)}
+              </button>
+            ) : null}
           </section>
         ) : null}
 

@@ -10,7 +10,7 @@
  *   subies et mouvements (abonnements ajoutés, arrêtés) sur la période.
  */
 
-import { comparerDates, montantMensuel } from './dates';
+import { ancrageCycle, comparerDates, montantMensuel, occurrencesEntre } from './dates';
 import { sansConversion, type Convertisseur } from './devises';
 import { bornesDuMois, decalerMois, moisDe } from './echeancier';
 import { depensesPassees, type SerieMensuelle } from './finances';
@@ -153,4 +153,45 @@ export function rapport12Mois(
       })
       .map((a) => a.nom),
   };
+}
+
+/* ---------------------------------------------------------------------------
+ * Journal des paiements d'un abonnement (EF-13b, lot 5)
+ * ------------------------------------------------------------------------- */
+
+export interface Paiement {
+  date: DateISO;
+  /** montant supporté au tarif de l'époque (part payée si partagé), dans la devise de l'abonnement */
+  montant: number;
+}
+
+export interface JournalPaiements {
+  /** du plus récent au plus ancien */
+  paiements: Paiement[];
+  /** total cumulé dépensé depuis le début de l'abonnement */
+  cumul: number;
+  estime: boolean;
+}
+
+/**
+ * Prélèvements passés d'un abonnement récurrent, reconstitués depuis sa date
+ * de début : chaque occurrence strictement avant aujourd'hui et avant la fin
+ * de charge (résiliation, pause, archivage), au prix de l'historique. Un essai
+ * gratuit en cours ou passé n'est pas distingué (V1).
+ */
+export function journalPaiements(abo: Abonnement, jour: DateISO): JournalPaiements {
+  if (abo.periodicite.type !== 'recurrente') return { paiements: [], cumul: 0, estime: false };
+  const fin = finDeCharge(abo);
+  const paiements: Paiement[] = [];
+  for (const date of occurrencesEntre(ancrageCycle(abo), abo.periodicite, abo.dateDebut, jour)) {
+    if (comparerDates(date, jour) >= 0) continue;
+    if (fin !== null && comparerDates(date, fin) >= 0) continue;
+    const montant = abo.partage
+      ? abo.partage.partPayee
+      : prixSelonHistorique(abo.historiquePrix, date, abo.prix);
+    paiements.push({ date, montant });
+  }
+  paiements.reverse();
+  const cumul = Math.round(paiements.reduce((s, p) => s + p.montant, 0) * 100) / 100;
+  return { paiements, cumul, estime: abo.montantEstime };
 }
