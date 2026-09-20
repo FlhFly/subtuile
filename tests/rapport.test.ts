@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { creerAbonnement } from '../src/domain/fabriques';
+import { depensesPassees } from '../src/domain/finances';
 import { evolutionMensuelle, journalPaiements, rapport12Mois } from '../src/domain/rapport';
 import { PERIODICITES, type Abonnement } from '../src/domain/types';
 
@@ -149,5 +150,41 @@ describe('journal des paiements et total cumulé (EF-13b, lot 5)', () => {
       journalPaiements(abo({ nom: 'À vie', periodicite: PERIODICITES.aVie }), JOUR).paiements,
     ).toEqual([]);
     expect(journalPaiements(abo({ nom: 'Futur', dateDebut: '2026-10-01' }), JOUR).cumul).toBe(0);
+  });
+});
+
+describe('essai gratuit et échéance manuelle dans les paiements passés (décision du 2026-09-20)', () => {
+  const base = { dateDebut: '2026-04-10' };
+  const essai = { dateFin: '2026-07-10', prixApres: 10 };
+
+  it('la période d’essai gratuit ne compte aucun paiement : le premier est la fin d’essai', () => {
+    const j = journalPaiements(abo({ nom: 'Essai', ...base, essai }), JOUR);
+    expect(j.paiements.map((p) => p.date)).toEqual(['2026-09-10', '2026-08-10', '2026-07-10']);
+    expect(j.cumul).toBe(30);
+  });
+
+  it('échéance manuelle : le cycle est remonté jusqu’au début, jamais dans l’essai', () => {
+    const futur = journalPaiements(
+      abo({ nom: 'Manuel', ...base, echeanceManuelle: '2026-10-15' }),
+      JOUR,
+    );
+    expect(futur.paiements).toHaveLength(6);
+    expect(futur.paiements.at(-1)!.date).toBe('2026-04-15');
+    const avecEssai = journalPaiements(
+      abo({ nom: 'Manuel + essai', ...base, essai, echeanceManuelle: '2026-05-15' }),
+      JOUR,
+    );
+    expect(avecEssai.paiements.map((p) => p.date)).toEqual([
+      '2026-09-15',
+      '2026-08-15',
+      '2026-07-15',
+    ]);
+    expect(avecEssai.cumul).toBe(30);
+    // même règle pour les dépenses passées de Finances
+    const passe = depensesPassees(
+      [abo({ nom: 'Manuel', ...base, echeanceManuelle: '2026-10-15' })],
+      JOUR,
+    );
+    expect(passe.total).toBe(50);
   });
 });

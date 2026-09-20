@@ -7,6 +7,15 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — correctif : essai gratuit et échéance manuelle dans les paiements passés (2026-09-20)
+
+#### Corrigé
+- Journal « Derniers paiements », total cumulé et « dépenses passées » de Finances : la période
+  d'essai gratuit ne compte aucun paiement, y compris quand une échéance manuelle est posée
+  (décision FlhFly du 2026-09-20 : le premier paiement est la fin d'essai).
+- Une échéance manuelle future ne vide plus le journal ni les dépenses passées : le cycle est
+  recalé sur le premier paiement possible (`ancragePasse` dans le moteur de dates).
+
 ### Lot 5 — étape 7 : doublons par catégorie et suggestions d'économies (2026-09-20)
 
 #### Ajouté

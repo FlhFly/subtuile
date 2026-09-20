@@ -10,7 +10,7 @@
  *   subies et mouvements (abonnements ajoutés, arrêtés) sur la période.
  */
 
-import { ancrageCycle, comparerDates, montantMensuel, occurrencesEntre } from './dates';
+import { ancragePasse, comparerDates, montantMensuel, occurrencesEntre } from './dates';
 import { sansConversion, type Convertisseur } from './devises';
 import { bornesDuMois, decalerMois, moisDe } from './echeancier';
 import { depensesPassees, type SerieMensuelle } from './finances';
@@ -176,14 +176,15 @@ export interface JournalPaiements {
 /**
  * Prélèvements passés d'un abonnement récurrent, reconstitués depuis sa date
  * de début : chaque occurrence strictement avant aujourd'hui et avant la fin
- * de charge (résiliation, pause, archivage), au prix de l'historique. Un essai
- * gratuit en cours ou passé n'est pas distingué (V1).
+ * de charge (résiliation, pause, archivage), au prix de l'historique. La
+ * période d'essai gratuit est exclue : le premier paiement est la fin d'essai
+ * (décision FlhFly du 2026-09-20).
  */
 export function journalPaiements(abo: Abonnement, jour: DateISO): JournalPaiements {
   if (abo.periodicite.type !== 'recurrente') return { paiements: [], cumul: 0, estime: false };
   const fin = finDeCharge(abo);
   const paiements: Paiement[] = [];
-  for (const date of occurrencesEntre(ancrageCycle(abo), abo.periodicite, abo.dateDebut, jour)) {
+  for (const date of occurrencesEntre(ancragePasse(abo), abo.periodicite, abo.dateDebut, jour)) {
     if (comparerDates(date, jour) >= 0) continue;
     if (fin !== null && comparerDates(date, fin) >= 0) continue;
     const montant = abo.partage
