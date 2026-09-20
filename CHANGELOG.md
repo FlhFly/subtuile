@@ -7,6 +7,17 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 6 : usage déclaré et coût réel (2026-09-20)
+
+#### Ajouté
+- Modèle : champ `usageParSemaine` (nombre ou null) sur l'abonnement — fabrique à null, import
+  JSON gardant un nombre positif ou nul, conservé par le formulaire d'édition.
+- Fiche : section « Usage & coût réel » (EF-71) pour les abonnements récurrents non archivés —
+  quatre choix « Jamais / 1× / 3× / 7× » par semaine (un second appui efface la déclaration),
+  puis « ≈ X par utilisation ce mois-ci » ou « Non utilisé ce mois-ci — X dépensés quand même ».
+  Domaine `usage.ts` (`coutUsage` : coût mensuel supporté ÷ utilisations par mois). Déclaratif
+  uniquement, aucune mesure automatique.
+
 ### Lot 5 — étape 5 : vue « Foyer & partage » (2026-09-19)
 
 #### Ajouté

@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.41 — 19/09/2026 (lot 5, étape 5 : vue « Foyer & partage »)
+**Version :** 1.42 — 20/09/2026 (lot 5, étape 6 : usage déclaré et coût réel)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -56,6 +56,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | montantEstime | bool *(v1.9)* | montant variable affiché « ~X € » ; les totaux incluant des montants estimés sont marqués comme tels |
 | regularisation | objet nullable *(v1.9)* | { date } — échéance annuelle de régularisation (mensualités lissées énergie), avec alerte dédiée |
 | prixFutur | objet nullable *(v1.9)* | { date, montant } — hausse annoncée : alerte à l'approche, application automatique à la date, versement dans historiquePrix |
+| usageParSemaine | nombre nullable *(v1.42)* | utilisations par semaine déclarées par l'utilisateur (0 = jamais) ; sert au coût par utilisation (EF-71) |
 | rappel | objet nullable *(v1.31)* | { date, texte } — rappel libre à une date (« renégocier la box en janvier ») : ligne sur la fiche, alerte du jour J pendant 30 jours, même résilié (ex-C14, EF-74) |
 | modeResiliation | enum *(v1.9)* | lien (défaut), telephone, courrier_recommande, espace_client — avec contact associé ; adapte le bouton « Gérer / Résilier » (EF-21b) |
 | referenceClient | string optionnel *(v1.9)* | n° client / n° de contrat, affiché en évidence sur la fiche |
@@ -188,7 +189,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 
 - **EF-70 [S]** — Budget mensuel global (ex-C4) : plafond choisi dans Finances (devise d'affichage), jauge, « il reste X » / « dépassé de X », alerte de dépassement une fois par mois civil menant à Finances *(v1.37, lot 5 étape 1)*. Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire », « date passée » sans alerte) *(v1.38, lot 5 étape 2)*.
-- **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
+- **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)* Livré au lot 5 *(v1.42)* : choix « Jamais / 1× / 3× / 7× » par semaine sur la fiche, coût = coût mensuel supporté ÷ utilisations par mois ; la suggestion de résiliation arrive avec les doublons (étape 7).
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.
 - **EF-75 [S]** — Mode discret : un appui sur le total de l'accueil masque tous les montants affichés (« **** € », devise conservée) dans toute l'app, un second appui les rétablit ; œil barré à côté du total, préférence `montantsMasques` mémorisée, interrupteur dans Réglages › Apparence. Les exports et les champs de saisie restent en clair *(v1.36, ex-C21)*.

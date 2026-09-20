@@ -73,11 +73,15 @@ function normaliserAbonnement(brut: unknown, i: number, jour: DateISO): Abonneme
     estObjet(brut.rappel) && estDateISO(brut.rappel.date) && estChaine(brut.rappel.texte)
       ? { date: brut.rappel.date, texte: brut.rappel.texte }
       : null;
+  // EF-71 : usage déclaré gardé s'il est un nombre positif ou nul
+  const usageParSemaine =
+    estNombre(brut.usageParSemaine) && brut.usageParSemaine >= 0 ? brut.usageParSemaine : null;
   const champs = {
     ...brut,
     statut,
     devise,
     rappel,
+    usageParSemaine,
     deletedAt: horodatage(brut.deletedAt) ?? null,
   } as unknown as Parameters<typeof creerAbonnement>[0];
   return creerAbonnement(champs, { jour, instant: horodatage(brut.updatedAt) });

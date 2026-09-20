@@ -52,6 +52,7 @@ import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libelleCompteur, libelleStatut } from '../libelles';
 import { journalPaiements } from '../../domain/rapport';
+import { CHOIX_USAGE, coutUsage } from '../../domain/usage';
 import styles from './Fiche.module.css';
 
 /** Paiements affichés avant « Tout voir ». */
@@ -103,6 +104,15 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
 
   const mp = abo.moyenPaiementId ? moyensPaiement.get(abo.moyenPaiementId) : undefined;
   const journal = journalPaiements(abo, jour);
+  /* EF-71 : usage déclaré (utilisations par semaine) ; un second appui sur le choix actif l'efface */
+  const usage = coutUsage(abo);
+  const declarerUsage = async (n: number) => {
+    await enregistrerAbonnement(
+      storage,
+      { ...abo, usageParSemaine: abo.usageParSemaine === n ? null : n },
+      jour,
+    );
+  };
   const service = abo.serviceId ? services.get(abo.serviceId) : undefined;
   const modele = modeleTuile(abo, jour, mp, service);
   const formule = service ? trouverFormule(service, abo.formuleId) : undefined;
@@ -429,6 +439,42 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
                 );
               })}
             </ul>
+          </section>
+        ) : null}
+
+        {abo.periodicite.type === 'recurrente' && !archive ? (
+          <section className={styles.section}>
+            <div className={styles.usageEnTete}>
+              <h2 className={styles.sectionTitre}>{t('fiche.usage')}</h2>
+              <span className={styles.usageQuestion}>{t('fiche.usage.question')}</span>
+            </div>
+            <div
+              className={styles.usageChoix}
+              role="radiogroup"
+              aria-label={t('fiche.usage.question')}
+            >
+              {CHOIX_USAGE.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  role="radio"
+                  aria-checked={abo.usageParSemaine === n}
+                  className={abo.usageParSemaine === n ? styles.usageActif : styles.usageBouton}
+                  onClick={() => void declarerUsage(n)}
+                >
+                  {n === 0 ? t('fiche.usage.jamais') : t('fiche.usage.fois', { n })}
+                </button>
+              ))}
+            </div>
+            <span className={usage?.nonUtilise ? styles.usageAlerte : styles.usageTexte}>
+              {usage === null
+                ? t('fiche.usage.aide')
+                : usage.nonUtilise
+                  ? t('fiche.usage.zero', { montant: montant(usage.mensuel, abo.devise) })
+                  : t('fiche.usage.cout', {
+                      montant: montant(usage.parUtilisation ?? 0, abo.devise),
+                    })}
+            </span>
           </section>
         ) : null}
 

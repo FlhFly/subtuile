@@ -645,3 +645,55 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Usage déclaré et coût réel (EF-71, lot 5) */
+.usageEnTete {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.usageQuestion {
+  font-size: 11px;
+  color: var(--muted);
+}
+
+.usageChoix {
+  display: flex;
+  gap: 6px;
+}
+
+.usageBouton,
+.usageActif {
+  flex: 1;
+  height: 36px;
+  border: 2px solid var(--line);
+  border-radius: 14px;
+  background: transparent;
+  color: var(--ink);
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.usageActif {
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.usageBouton:focus-visible,
+.usageActif:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.usageTexte,
+.usageAlerte {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--muted);
+}
+
+.usageAlerte {
+  color: var(--warn);
+}

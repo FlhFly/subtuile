@@ -55,6 +55,7 @@ export function creerAbonnement(champs: NouvelAbonnement, ctx: ContexteFabrique 
     regularisation: null,
     prixFutur: null,
     rappel: null,
+    usageParSemaine: null,
     modeResiliation: 'lien',
     contactResiliation: null,
     referenceClient: null,

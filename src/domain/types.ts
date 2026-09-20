@@ -201,6 +201,8 @@ export interface Abonnement extends EntiteTechnique {
   prixFutur: PrixFutur | null;
   /** EF-74 : rappel libre à une date, alerte du jour J pendant 30 jours (v1.31) */
   rappel: Rappel | null;
+  /** EF-71 : utilisations par semaine déclarées par l'utilisateur ; null = non déclaré (lot 5) */
+  usageParSemaine: number | null;
   modeResiliation: ModeResiliation;
   /** contact associé au mode de résiliation : n° de téléphone, adresse postale, URL espace client */
   contactResiliation: string | null;
