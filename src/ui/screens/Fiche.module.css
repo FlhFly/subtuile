@@ -227,6 +227,10 @@
   background: var(--warn-bg);
   color: var(--warn);
 }
+.encart_ok {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
 .encart_neutre {
   color: var(--ink);
 }

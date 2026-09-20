@@ -24,6 +24,7 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
         'Fiche › Derniers paiements : chaque prélèvement passé au tarif de l’époque, et le total dépensé depuis le début de l’abonnement.',
         'Finances › Foyer & partage : vos abonnements partagés, votre part face au prix plein, total du foyer et montant pris en charge par les autres.',
         'Fiche › Usage & coût réel : déclarez vos utilisations par semaine pour voir le coût par utilisation, ou ce qu’un abonnement inutilisé vous coûte.',
+        'Finances › Économies possibles (passer en annuel, moins cher en direct) et Doublons potentiels par catégorie, avec le moins utilisé à résilier.',
       ],
       en: [
         'Finances › Monthly budget: set an overall cap; gauge, remaining margin or overrun, and an alert in the alert centre when the cap is exceeded.',
@@ -32,6 +33,7 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
         'Details › Latest payments: every past charge at the price of the time, and the total spent since the subscription started.',
         'Finances › Household & sharing: your shared subscriptions, your share versus the full price, household total and amount covered by others.',
         'Details › Usage & real cost: declare your uses per week to see the cost per use, or what an unused subscription costs you.',
+        'Finances › Possible savings (switch to yearly, cheaper direct) and possible duplicates by category, with the least used one to cancel.',
       ],
     },
   },

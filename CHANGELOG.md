@@ -7,6 +7,20 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 7 : doublons par catégorie et suggestions d'économies (2026-09-20)
+
+#### Ajouté
+- Domaine `suggestions.ts` : `doublonsParCategorie` (au moins deux abonnements payants dans une
+  catégorie de loisirs ; candidat = le moins utilisé si un usage est déclaré, sinon le moins
+  cher ; vie courante et « autre » exclues), `suggestionAnnuel` (formule annuelle de la même
+  offre, du même canal et de la même devise, moins chère que douze fois le prix réellement payé),
+  `suggestionCanal` (même offre moins chère en direct), `suggestionsEconomies` (liste chiffrée à
+  l'année, convertie).
+- Finances : cartes « Économies possibles » (masquée sans suggestion) et « Doublons potentiels »
+  (« 3 services · Streaming — résilier le moins utilisé libérerait ~X / mois », ou « Aucun
+  doublon par catégorie ») ; chaque ligne ouvre la fiche concernée.
+- Fiche : encarts « Passer en annuel » et « Moins cher en direct » quand le catalogue le permet.
+
 ### Lot 5 — étape 6 : usage déclaré et coût réel (2026-09-20)
 
 #### Ajouté

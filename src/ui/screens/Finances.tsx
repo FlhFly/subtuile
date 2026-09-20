@@ -11,10 +11,12 @@ import {
 } from '../../domain/finances';
 import { vueFoyer } from '../../domain/foyer';
 import { evolutionMensuelle, rapport12Mois } from '../../domain/rapport';
+import { doublonsParCategorie, suggestionsEconomies } from '../../domain/suggestions';
 import type { Devise } from '../../domain/types';
 import { useI18n, type I18n } from '../contexts/I18nContext';
 import { barres, COULEURS_CATEGORIE, degradeDonut } from '../graphiques';
 import { useAbonnements } from '../hooks/useAbonnements';
+import { useCatalogue } from '../hooks/useCatalogue';
 import { useConversion } from '../hooks/useConversion';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { Budget } from './Budget';
@@ -23,6 +25,8 @@ import styles from './Finances.module.css';
 
 interface Props {
   onOuvrirPaiements: () => void;
+  /** ouvre la fiche d'un abonnement cité par une suggestion (lot 5) */
+  onOuvrirAbonnement: (id: string) => void;
 }
 
 /** Couleur d'un moyen de paiement absent (« sans moyen de paiement »). */
@@ -34,13 +38,15 @@ const COULEUR_SANS_MOYEN = 'var(--dash)';
  * donut (EF-41), prévisionnel 12 mois à montants réels (EF-42), dépenses
  * passées 12 mois (EF-43), répartition par moyen de paiement (EF-41), budget
  * mensuel et objectif d'économie (EF-70), évolution 24 mois et rapport 12 mois
- * et vue « Foyer & partage » (EF-44b, lot 5). Les doublons suivent dans le lot 5.
+ * vue « Foyer & partage » (EF-44b), suggestions d'économies et doublons par
+ * catégorie (EF-72, EF-71) — lot 5.
  */
-export function Finances({ onOuvrirPaiements }: Props) {
+export function Finances({ onOuvrirPaiements, onOuvrirAbonnement }: Props) {
   const i18n = useI18n();
   const { t, tn, date } = i18n;
   const { abonnements, chargement } = useAbonnements();
   const moyens = useMoyensPaiement();
+  const { catalogue, parId: services } = useCatalogue();
   const { devise, taux, convertir } = useConversion();
   const jour = aujourdhui();
   const montant = (v: number) => i18n.montant(v, devise);
@@ -70,6 +76,14 @@ export function Finances({ onOuvrirPaiements }: Props) {
   const foyer = useMemo(
     () => vueFoyer(abonnements, jour, convertir),
     [abonnements, jour, convertir],
+  );
+  const doublons = useMemo(
+    () => doublonsParCategorie(abonnements, jour, convertir),
+    [abonnements, jour, convertir],
+  );
+  const economies = useMemo(
+    () => suggestionsEconomies(abonnements, services, jour, convertir),
+    [abonnements, services, jour, convertir],
   );
   const rapport = useMemo(
     () => rapport12Mois(abonnements, jour, { convertir }),
@@ -247,6 +261,70 @@ export function Finances({ onOuvrirPaiements }: Props) {
                 </span>
               ) : null}
             </div>
+          </section>
+
+          {economies.length > 0 ? (
+            <section className={styles.carte} aria-label={t('finances.economies')}>
+              <h2 className={styles.carteTitre}>{t('finances.economies')}</h2>
+              <ul className={styles.suggestions}>
+                {economies.map((s) => (
+                  <li key={`${s.abonnementId}-${s.type}`}>
+                    <button
+                      type="button"
+                      className={styles.suggestion}
+                      onClick={() => onOuvrirAbonnement(s.abonnementId)}
+                    >
+                      <span className={styles.suggestionTexte}>
+                        {t(`finances.economies.${s.type}`, { nom: s.nom })}
+                      </span>
+                      <span className={styles.suggestionGain}>
+                        {t('finances.economies.gain', { montant: montant(s.economieAnnuelle) })}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+              <p className={styles.note}>
+                {t('finances.economies.note', { d: date(catalogue.publieLe, 'long') })}
+              </p>
+            </section>
+          ) : null}
+
+          <section className={styles.carte} aria-label={t('finances.doublons')}>
+            <h2 className={styles.carteTitre}>{t('finances.doublons')}</h2>
+            {doublons.length === 0 ? (
+              <p className={styles.note}>{t('finances.doublons.aucun')}</p>
+            ) : (
+              <ul className={styles.suggestions}>
+                {doublons.map((d) => (
+                  <li key={d.categorie}>
+                    <button
+                      type="button"
+                      className={styles.suggestion}
+                      onClick={() => onOuvrirAbonnement(d.candidat.id)}
+                    >
+                      <span className={styles.suggestionTexte}>
+                        {t('finances.doublons.ligne', {
+                          n: d.abonnements.length,
+                          categorie: t(`categorie.${d.categorie}`),
+                        })}
+                        <span className={styles.suggestionDetail}>
+                          {d.abonnements.map((a) => a.nom).join(', ')}
+                        </span>
+                      </span>
+                      <span className={styles.suggestionGain}>
+                        {t(
+                          d.selonUsage
+                            ? 'finances.doublons.moinsUtilise'
+                            : 'finances.doublons.moinsCher',
+                          { nom: d.candidat.nom, montant: montant(d.candidat.mensuel) },
+                        )}
+                      </span>
+                    </button>
+                  </li>
+                ))}
+              </ul>
+            )}
           </section>
 
           {foyer.partages.length > 0 ? (

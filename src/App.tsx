@@ -173,6 +173,7 @@ function Navigation() {
       contenu = (
         <Finances
           onOuvrirPaiements={() => setEcran({ nom: 'paiements', retour: { nom: 'finances' } })}
+          onOuvrirAbonnement={(id) => ouvrirFiche(id, { nom: 'finances' })}
         />
       );
       break;

@@ -52,6 +52,7 @@ import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libelleCompteur, libelleStatut } from '../libelles';
 import { journalPaiements } from '../../domain/rapport';
+import { suggestionAnnuel, suggestionCanal } from '../../domain/suggestions';
 import { CHOIX_USAGE, coutUsage } from '../../domain/usage';
 import styles from './Fiche.module.css';
 
@@ -119,6 +120,9 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const statut = abo.statut;
   const enPause = statut.type === 'en_pause';
   const archive = statut.type === 'archive';
+  /* EF-72 : économies possibles d'après les formules du catalogue */
+  const annuel = archive ? null : suggestionAnnuel(abo, service);
+  const canalDirect = archive ? null : suggestionCanal(abo, service);
   const styleTuile = { '--tuile-couleur': modele.couleur } as CSSProperties;
   const duree = libelleDuree(i18n.langue, anciennete(abo.dateDebut, jour));
   const mensuel = montantMensuel(prixEffectif(abo), abo.periodicite);
@@ -476,6 +480,24 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
                     })}
             </span>
           </section>
+        ) : null}
+
+        {annuel ? (
+          <Encart titre={t('fiche.annuel')} classe="ok">
+            {t('fiche.annuel.texte', {
+              montant: montant(annuel.economieAnnuelle, annuel.devise),
+              formule: annuel.formule.nom,
+              prix: montant(annuel.formule.prix, annuel.devise),
+            })}
+          </Encart>
+        ) : null}
+        {canalDirect ? (
+          <Encart titre={t('fiche.direct')} classe="ok">
+            {t('fiche.direct.texte', {
+              montant: montant(canalDirect.ecart, canalDirect.devise),
+              prix: montant(canalDirect.direct.prix, canalDirect.devise),
+            })}
+          </Encart>
         ) : null}
 
         {journal.paiements.length > 0 ? (
@@ -841,7 +863,7 @@ function Encart({
   children,
 }: {
   titre?: string;
-  classe: 'trial' | 'warn' | 'neutre';
+  classe: 'trial' | 'warn' | 'neutre' | 'ok';
   children: ReactNode;
 }) {
   return (

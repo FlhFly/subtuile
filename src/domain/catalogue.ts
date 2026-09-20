@@ -72,6 +72,8 @@ const memePeriodicite = (a: Periodicite, b: Periodicite): boolean =>
 
 /** Nom d'une formule sans son suffixe de canal (« Individuel — App Store » → « individuel »). */
 const nomDeBase = (f: Formule): string => (f.nom.split(' — ')[0] ?? f.nom).trim().toLowerCase();
+/** Nom de l'offre sans son suffixe de périodicité ou de canal (« Plus — annuel » → « plus »). */
+export const nomDeBaseFormule = nomDeBase;
 
 export interface ComparaisonCanaux {
   direct: Formule;
