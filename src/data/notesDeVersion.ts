@@ -15,7 +15,7 @@ export interface NoteDeVersion {
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
     version: '1.1.0',
-    date: '2026-09-18',
+    date: '2026-09-21',
     notes: {
       fr: [
         'Finances › Budget mensuel : fixez un plafond global ; jauge, marge restante ou dépassement, et alerte dans le centre d’alertes quand le plafond est dépassé.',

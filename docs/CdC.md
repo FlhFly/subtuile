@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.45 — 21/09/2026 (lot 5, étape 8 : import de relevé bancaire)
+**Version :** 1.46 — 21/09/2026 (lot 5 livré en 1.1.0)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -174,7 +174,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-40 [M]** — Total mensuel normalisé (annuel ÷ 12, etc.) et total annuel.
 - **EF-41 [M]** — Répartition par catégorie et par moyen de paiement.
 - **EF-42 [M]** — Prévisionnel des 12 prochains mois (montants réels par mois, un abonnement annuel pèse sur son mois d'échéance).
-- **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*. Livré au lot 5 *(v1.39)* : carte « Évolution 24 mois » (total mensuel normalisé reconstitué au prix de l'époque, écart avec il y a 24 mois) et carte « Rapport 12 mois » (dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés — début de C9) ; les barres des dépenses réelles restent sur 12 mois.
+- **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*. Livré au lot 5 *(v1.39)* : carte « Évolution 24 mois » (total mensuel normalisé reconstitué au prix de l'époque, écart avec il y a 24 mois) et carte « Rapport 12 mois » (dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés — début de C9) ; les barres des dépenses réelles restent sur 12 mois. Un essai gratuit ne compte pas avant sa fin ; le point d'aujourd'hui est le total mensuel affiché *(v1.46)*.
 - **EF-44 [S]** — Prise en compte de partPayee pour les abonnements partagés.
 - **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel, montant mensuel pris en charge par les autres ; carte de Finances visible dès qu’un abonnement payant est partagé *(livré au lot 5 étape 5, v1.41)*. *(issu de la maquette v6 — lot 4)*
 - **EF-45 [S]** — Devise d'affichage (EUR/USD/GBP/CHF) : conversion des montants à des **taux figés explicitement étiquetés « indicatifs »** (aucun appel réseau). Les taux sont un **jeu de données de référence** au contrat du §5.6 *(v1.12)* : fichier versionné avec date `publieLe` (affichage « taux indicatifs au JJ/MM/AAAA »), embarqué en V1, remplaçable à distance sans release. La saisie se fait dans la devise de chaque abonnement (EF-45b), EUR par défaut. *(issu de la maquette v4, confirmé le 21/08 ; saisie multi-devise décidée le 11/09, v1.16)*

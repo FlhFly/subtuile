@@ -13,7 +13,7 @@
 import { ancragePasse, comparerDates, montantMensuel, occurrencesEntre } from './dates';
 import { sansConversion, type Convertisseur } from './devises';
 import { bornesDuMois, decalerMois, moisDe } from './echeancier';
-import { depensesPassees, type SerieMensuelle } from './finances';
+import { depensesPassees, estPayant, type SerieMensuelle } from './finances';
 import { prixSelonHistorique } from './prix';
 import type { Abonnement, DateISO, Devise } from './types';
 
@@ -65,8 +65,15 @@ export function evolutionMensuelle(
     for (const abo of abonnements) {
       if (abo.deletedAt !== null || abo.periodicite.type !== 'recurrente') continue;
       if (comparerDates(abo.dateDebut, reference) > 0) continue;
-      const fin = finDeCharge(abo);
-      if (fin !== null && comparerDates(fin, reference) <= 0) continue;
+      // essai gratuit : rien n'est payé avant la fin d'essai
+      if (abo.essai !== null && comparerDates(abo.essai.dateFin, reference) >= 0) continue;
+      if (k === 0) {
+        // le point d'aujourd'hui suit la règle du total affiché (abonnements payants)
+        if (!estPayant(abo, jour)) continue;
+      } else {
+        const fin = finDeCharge(abo);
+        if (fin !== null && comparerDates(fin, reference) <= 0) continue;
+      }
       montant += mensuelALaDate(abo, reference, convertir);
       estime = estime || abo.montantEstime;
       nb += 1;

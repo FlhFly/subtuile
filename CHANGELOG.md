@@ -5,7 +5,23 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ;
 versionnage sémantique : `0.N.0` = fin du lot N (tag `lot-N`), `1.0.0` = mise en ligne.
 Chaque étape committée ajoute son entrée dans « Non publié ».
 
-## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
+## [1.1.0] — 2026-09-21 — lot 5 « Pilotage » (tag `lot-5`)
+
+### Lot 5 — étape 9 : recette et sortie (2026-09-21)
+
+#### Ajouté
+- `tests/lot5.recette.test.ts` : scénario du CdC §6 rejoué sur le jeu de démo — budget et objectif
+  fixés puis retrouvés dans la sauvegarde JSON (schéma 2), usage déclaré et coût par utilisation,
+  relevé bancaire importé deux fois sans doublon créé, suggestions recalculées à la main depuis
+  le catalogue, cohérence évolution 24 mois / rapport / journal / foyer.
+
+#### Corrigé
+- Évolution 24 mois : un essai gratuit ne compte pas avant sa fin, et le point d'aujourd'hui suit
+  la règle du total affiché (abonnements payants) — les deux montants coïncident désormais.
+
+#### Modifié
+- README (statut, fonctionnalités du lot 5), ROADMAP (lot 5 livré), note de version 1.1.0 datée
+  du 2026-09-21 ; la branche `lot-5` est fusionnée dans main.
 
 ### Lot 5 — étape 8 : import de relevé bancaire CSV (2026-09-21)
 

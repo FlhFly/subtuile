@@ -10,12 +10,14 @@ fonctionne sans réseau.
 - 🔔 Alertes fins d'essai, préavis, régularisations, hausses annoncées
 - 💳 Moyens de paiement et canal d'achat (App Store / direct)
 - 📊 Vue financière : totaux, répartitions, prévisionnel 12 mois, dépenses passées
+- 🎯 Pilotage : budget mensuel, objectif d'économie, évolution 24 mois, usage et coût réel,
+  économies possibles, doublons, import de relevé bancaire analysé sur l'appareil
 - 💱 Devises EUR / USD / GBP / CHF à taux indicatifs
 - 💾 Export / import JSON, export et import CSV, rappels calendrier .ics
 - 🌐 FR / EN — PWA installable, 100 % hors ligne
 
-**Statut : v1.0.x — lot 4/4 « Finances & données » livré, application en ligne ; corrections au
-fil des retours (voir « Nouveautés » dans l'app). Lot 5 « Pilotage » à venir.**
+**Statut : v1.1.0 — lot 5 « Pilotage » livré le 2026-09-21 (tag `lot-5`), application en ligne
+sur <https://subtuile.com> ; corrections au fil des retours (voir « Nouveautés » dans l'app).**
 
 ## Installation
 Subtuile est un site web installable (PWA). Ouvrez <https://subtuile.com> puis :
@@ -41,7 +43,11 @@ la perte de saisie ; moyens de paiement ; « Gérer / Résilier » routé selon 
 hors ligne, « résilié — actif jusqu'au » ; cycle de vie automatique (essai → payant, hausse
 appliquée, résilié archivé, pause reprise, régularisation reportée) ; toutes périodicités ;
 finances (total mensuel normalisé et annuel, répartition par catégorie et par moyen de paiement,
-prévisionnel 12 mois, dépenses passées) ; devise par abonnement et devise d'affichage à taux
+prévisionnel 12 mois, dépenses passées) ; pilotage (budget mensuel avec alerte de dépassement,
+objectif d'économie, évolution 24 mois et rapport 12 mois, journal des paiements avec total
+cumulé, vue « Foyer & partage », usage déclaré et coût par utilisation, économies possibles —
+passer en annuel, moins cher en direct —, doublons par catégorie, import de relevé bancaire CSV
+avec détection locale des paiements récurrents) ; devise par abonnement et devise d'affichage à taux
 indicatifs ; export / import JSON (fusion ou remplacement), export et import CSV ; PWA hors ligne ;
 onboarding à la première ouverture ; thème clair / sombre / système, format de date au choix,
 interface FR / EN, jeu de démonstration.

@@ -183,7 +183,9 @@ version dans l'app.
 | Mode discret (C21 promu EF-75) : appui sur le total de l'accueil pour masquer tous les montants (« **** € »), œil barré, préférence mémorisée, interrupteur dans Apparence | ✅ 2026-09-18 (v1.0.28) |
 | Personnalisation de l'affichage (C22) : couleur par abonnement, contenu des tuiles au choix, puis logo personnel (C10) | ⬜ demande FlhFly du 2026-09-18 |
 
-## Lot 5 — Pilotage (en cours sur la branche `lot-5`, sortie d'un bloc en 1.1.0 — décision FlhFly du 2026-09-18)
+## Lot 5 — Pilotage ✅ livré le 2026-09-21 (v1.1.0, tag `lot-5` ; développé sur la branche `lot-5` et sorti d'un bloc — décision FlhFly du 2026-09-18)
+
+Recette : `tests/lot5.recette.test.ts` (objectif fixé, usage déclaré, relevé importé sans doublon créé, suggestions cohérentes avec le catalogue).
 
 | Exigence | Fonctionnalité | Statut |
 |---|---|---|
