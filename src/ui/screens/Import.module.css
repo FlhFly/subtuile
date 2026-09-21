@@ -330,3 +330,120 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* Relevé bancaire (EF-73, lot 5) */
+.badgeReleve {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.releveListe {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.releveLigne {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 10px 12px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--sand);
+  color: var(--ink);
+  text-align: left;
+}
+
+.releveLigne:disabled {
+  opacity: 0.6;
+}
+
+.releveLigne:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.releveCase,
+.releveCaseCochee {
+  flex: none;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--ink);
+  border-radius: 6px;
+}
+
+.releveCaseCochee {
+  background: var(--ink);
+  box-shadow: inset 0 0 0 3px var(--sand);
+}
+
+.releveTextes {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.releveNom {
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+}
+
+.releveSous,
+.releveLibelle {
+  font-size: 11.5px;
+  color: var(--muted);
+}
+
+.releveLibelle {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.releveDroite {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+}
+
+.releveMontant {
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.etiquetteSuivi,
+.etiquetteNouveau {
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 10.5px;
+  font-weight: var(--fw-bold);
+}
+
+.etiquetteSuivi {
+  background: var(--sand2);
+  color: var(--muted);
+}
+
+.etiquetteNouveau {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.releveRien {
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+  text-align: center;
+}

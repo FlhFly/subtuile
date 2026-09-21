@@ -190,7 +190,7 @@ version dans l'app.
 | EF-70 [S] | Budget mensuel global avec alerte de dépassement (ex-C4) ; objectif d'économie avec progression | ✅ étapes 1 et 2 livrées le 2026-09-18 sur la branche lot-5 (budget, objectif, schéma d'export 2) |
 | EF-71 [S] | Usage déclaré & coût réel par utilisation | ✅ étapes 6 et 7 livrées le 2026-09-20 sur la branche lot-5 (usage sur la fiche, « résilier le moins utilisé » dans Finances) |
 | EF-72 [S] | Suggestions d'économies (annuel vs mensuel, canal moins cher) via les formules du catalogue | ✅ étape 7 livrée le 2026-09-20 sur la branche lot-5 (Finances et fiche, doublons par catégorie) |
-| EF-73 [S] | Import de relevé bancaire CSV : détection locale des récurrences, doublons, ajout groupé | ⬜ |
+| EF-73 [S] | Import de relevé bancaire CSV : détection locale des récurrences, doublons, ajout groupé | ✅ étape 8 livrée le 2026-09-21 sur la branche lot-5 |
 | EF-06 | Pause avec date de reprise automatique | ✅ 2026-09-13 (v1.0.3 : date de reprise facultative choisie au moment de la pause ; la reprise automatique existait depuis le lot 3) |
 | EF-13b [S] | Journal « Derniers paiements » sur la fiche, avec le total cumulé dépensé depuis le début de l'abonnement (demande FlhFly du 2026-09-18) | ✅ étape 4 livrée le 2026-09-19 sur la branche lot-5 ; essai gratuit exclu du cumul le 2026-09-20 |
 | EF-43 [S] | Évolution du total mensuel sur 24 mois et rapport 12 mois (dépensé, hausses, mouvements) | ✅ étape 3 livrée le 2026-09-19 sur la branche lot-5 |

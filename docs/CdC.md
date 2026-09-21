@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.44 — 20/09/2026 (lot 5 : essai gratuit exclu des paiements passés)
+**Version :** 1.45 — 21/09/2026 (lot 5, étape 8 : import de relevé bancaire)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -193,7 +193,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)* Livré au lot 5 *(v1.43)* : carte « Économies possibles » dans Finances et encarts sur la fiche, comparaison au prix réellement payé, même offre, même canal, même devise ; carte « Doublons potentiels » par catégorie de loisirs (candidat = le moins utilisé si un usage est déclaré, sinon le moins cher), qui achève C3.
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.
 - **EF-75 [S]** — Mode discret : un appui sur le total de l'accueil masque tous les montants affichés (« **** € », devise conservée) dans toute l'app, un second appui les rétablit ; œil barré à côté du total, préférence `montantsMasques` mémorisée, interrupteur dans Réglages › Apparence. Les exports et les champs de saisie restent en clair *(v1.36, ex-C21)*.
-- **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)*
+- **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)* Livré au lot 5 *(v1.45)* : troisième choix de l'écran Importer ; colonnes date / libellé / montant détectées ou réglées à la main ; récurrence = libellé rapproché, montants à ± 15 %, cadence hebdomadaire à annuelle sur deux paiements au moins ; « déjà suivi » = même service du catalogue ou nom présent dans le libellé ; le relevé n'est jamais conservé, seuls les abonnements ajoutés sont enregistrés (cycle ancré sur le dernier paiement constaté).
 
 **Principe « aucune fonctionnalité factice »** *(v1.14)* : les éléments montrés en démo/aperçu dans la maquette mais irréalisables en V1 (notifications push sans serveur — §5.4, widget d'écran d'accueil natif — §2) sont **masqués en production** et n'apparaîtront que lorsqu'ils seront réellement fonctionnels.
 

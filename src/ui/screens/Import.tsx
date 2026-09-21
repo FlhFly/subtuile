@@ -22,6 +22,7 @@ import { useToast } from '../contexts/ToastContext';
 import { useAbonnements } from '../hooks/useAbonnements';
 import { useConversion } from '../hooks/useConversion';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
+import { ImportReleve } from './ImportReleve';
 import styles from './Import.module.css';
 
 interface Props {
@@ -43,6 +44,8 @@ type Etat =
       /** panneau des colonnes : null = ouvert seulement si des lignes sont ignorées */
       colonnesOuvertes: boolean | null;
     }
+  /** relevé bancaire (EF-73) : le texte reste en mémoire le temps de l'écran, jamais enregistré */
+  | { etape: 'releve'; nomFichier: string; texte: string }
   | { etape: 'erreur'; nomFichier: string; code: ErreurImport['code'] | 'lecture'; detail: string };
 
 const APERCU_MAX = 5;
@@ -64,7 +67,7 @@ function libelleColonne(
  * Import de données (EF-50, EF-52, écran « Import de données » de la maquette) :
  * sauvegarde JSON (fusion ou remplacement, avec confirmation) ou tableur CSV
  * (aperçu des lignes reconnues, lignes ignorées expliquées). Le fichier est lu
- * sur l'appareil, rien n'est envoyé. L'import de relevé bancaire arrive au lot 5.
+ * sur l'appareil, rien n'est envoyé. Relevé bancaire (EF-73, lot 5) : voir ImportReleve.
  */
 export function Import({ onRetour, onTermine }: Props) {
   const i18n = useI18n();
@@ -80,8 +83,9 @@ export function Import({ onRetour, onTermine }: Props) {
   const [occupe, setOccupe] = useState(false);
   const entreeJson = useRef<HTMLInputElement>(null);
   const entreeCsv = useRef<HTMLInputElement>(null);
+  const entreeReleve = useRef<HTMLInputElement>(null);
 
-  const lireFichier = async (fichier: File, type: 'json' | 'csv') => {
+  const lireFichier = async (fichier: File, type: 'json' | 'csv' | 'releve') => {
     let texte: string;
     try {
       texte = await fichier.text();
@@ -89,7 +93,9 @@ export function Import({ onRetour, onTermine }: Props) {
       setEtat({ etape: 'erreur', nomFichier: fichier.name, code: 'lecture', detail: '' });
       return;
     }
-    if (type === 'json') {
+    if (type === 'releve') {
+      setEtat({ etape: 'releve', nomFichier: fichier.name, texte });
+    } else if (type === 'json') {
       try {
         const apercu = lireExportJson(texte, jour);
         setEtat({ etape: 'json', nomFichier: fichier.name, apercu, confirmation: false });
@@ -110,7 +116,7 @@ export function Import({ onRetour, onTermine }: Props) {
       });
     }
   };
-  const surChoix = (type: 'json' | 'csv') => (e: ChangeEvent<HTMLInputElement>) => {
+  const surChoix = (type: 'json' | 'csv' | 'releve') => (e: ChangeEvent<HTMLInputElement>) => {
     const fichier = e.target.files?.[0];
     e.target.value = '';
     if (fichier) void lireFichier(fichier, type);
@@ -187,6 +193,15 @@ export function Import({ onRetour, onTermine }: Props) {
         aria-hidden="true"
         tabIndex={-1}
       />
+      <input
+        ref={entreeReleve}
+        type="file"
+        accept=".csv,text/csv,text/plain"
+        className={styles.entreeFichier}
+        onChange={surChoix('releve')}
+        aria-hidden="true"
+        tabIndex={-1}
+      />
 
       {etat.etape === 'choix' ? (
         <>
@@ -208,6 +223,20 @@ export function Import({ onRetour, onTermine }: Props) {
             <span className={styles.choixTextes}>
               <span className={styles.choixTitre}>{t('import.csv.titre')}</span>
               <span className={styles.choixSous}>{t('import.csv.sous')}</span>
+            </span>
+            <Icone nom="chevronDroit" taille={14} epaisseur={3.2} />
+          </button>
+          <button
+            type="button"
+            className={styles.choix}
+            onClick={() => entreeReleve.current?.click()}
+          >
+            <span className={`${styles.badge} ${styles.badgeReleve}`}>
+              {t('import.releve.badge')}
+            </span>
+            <span className={styles.choixTextes}>
+              <span className={styles.choixTitre}>{t('import.releve.titre')}</span>
+              <span className={styles.choixSous}>{t('import.releve.sous')}</span>
             </span>
             <Icone nom="chevronDroit" taille={14} epaisseur={3.2} />
           </button>
@@ -400,6 +429,15 @@ export function Import({ onRetour, onTermine }: Props) {
         </section>
       ) : null}
 
+      {etat.etape === 'releve' ? (
+        <ImportReleve
+          nomFichier={etat.nomFichier}
+          texte={etat.texte}
+          onAutreFichier={retourChoix}
+          onTermine={onTermine}
+        />
+      ) : null}
+
       {etat.etape === 'erreur' ? (
         <section className={styles.carte}>
           <span className={styles.fichier}>{etat.nomFichier}</span>
@@ -414,7 +452,9 @@ export function Import({ onRetour, onTermine }: Props) {
         </section>
       ) : null}
 
-      <p className={styles.note}>{t('import.note')}</p>
+      <p className={styles.note}>
+        {etat.etape === 'releve' ? t('import.releve.note') : t('import.note')}
+      </p>
     </div>
   );
 }

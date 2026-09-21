@@ -7,6 +7,22 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié] — lot 5 « Pilotage » sur la branche `lot-5`, sortie prévue en 1.1.0
 
+### Lot 5 — étape 8 : import de relevé bancaire CSV (2026-09-21)
+
+#### Ajouté
+- Domaine `releve.ts` (EF-73) : `lireReleve` (séparateur et colonnes date / libellé / montant
+  détectés par l'en-tête fr / en ou par le contenu, réglables à la main ; montants avec signe,
+  parenthèses, milliers ; seuls les débits sont gardés), `detecterRecurrences` (libellé rapproché
+  sans jargon bancaire ni chiffres, montants proches à ± 15 %, cadence hebdomadaire à annuelle,
+  deux paiements au moins, abonnements arrêtés écartés), rapprochement avec le catalogue et les
+  abonnements existants (« déjà suivi »), `abonnementsDepuisReleve` (cycle ancré sur le dernier
+  paiement, service du catalogue rattaché, jamais de doublon).
+- Importer : troisième choix « Relevé bancaire » — « N opérations analysées · N paiements
+  récurrents détectés », lignes « nouveau » cochées et « déjà suivi » grisées, « Ajouter N
+  abonnements » ou « Rien à ajouter — tout est déjà suivi », réglage manuel des colonnes.
+- Confidentialité et PRIVACY.md (révision du 2026-09-21) : le relevé est analysé sur l'appareil,
+  jamais envoyé ni conservé ; seuls les abonnements ajoutés sont enregistrés.
+
 ### Lot 5 — correctif : essai gratuit et échéance manuelle dans les paiements passés (2026-09-20)
 
 #### Corrigé

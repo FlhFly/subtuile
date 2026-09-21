@@ -1,6 +1,6 @@
 # Confidentialité et mentions légales — Subtuile
 
-*Dernière mise à jour : 2026-09-18. Ce texte est celui de la page « Confidentialité » de
+*Dernière mise à jour : 2026-09-21. Ce texte est celui de la page « Confidentialité » de
 l'app (Réglages › Données) ; les deux évoluent ensemble.* — *English version below.*
 
 ## En bref
@@ -34,7 +34,9 @@ depuis l'extérieur.
 
 Les fichiers JSON, CSV et .ics sont créés sur votre appareil, en clair, uniquement quand vous le
 demandez. Ils contiennent vos données : gardez-les en lieu sûr et ne les partagez pas. Un import
-lit le fichier sur l'appareil ; rien n'est envoyé.
+lit le fichier sur l'appareil ; rien n'est envoyé. Relevé bancaire : le fichier est analysé sur
+l'appareil pour repérer les paiements récurrents, puis oublié. Ses opérations ne sont ni envoyées
+ni conservées ; seuls les abonnements que vous ajoutez sont enregistrés.
 
 ## Quand vous nous écrivez
 
@@ -76,7 +78,7 @@ d'accès, de rectification et d'effacement s'exercent à contact@subtuile.com.
 
 # Privacy and legal notice — Subtuile (English)
 
-*Last updated: 2026-09-18. Same text as the in-app “Privacy” page (Settings › Data).*
+*Last updated: 2026-09-21. Same text as the in-app “Privacy” page (Settings › Data).*
 
 **In short.** Subtuile runs entirely on your device, offline, with no account and no server. The
 app sends no data: no tracker, no advertising, no font or script loaded from outside.
@@ -95,7 +97,9 @@ uninstalling the app, erases everything.
 
 **Your exports.** JSON, CSV and .ics files are created on your device, unencrypted, only when you
 ask for them. They contain your data: keep them safe and do not share them. An import reads the
-file on the device; nothing is sent.
+file on the device; nothing is sent. Bank statement: the file is analysed on the device to spot
+recurring payments, then forgotten. Its transactions are never sent or stored; only the
+subscriptions you add are saved.
 
 **When you write to us.** “Report a bug or suggest an idea” and “Suggest a service” open your
 mail app with a pre-filled message (app version, device type and, when the browser provides

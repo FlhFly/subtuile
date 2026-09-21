@@ -25,6 +25,7 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
         'Finances › Foyer & partage : vos abonnements partagés, votre part face au prix plein, total du foyer et montant pris en charge par les autres.',
         'Fiche › Usage & coût réel : déclarez vos utilisations par semaine pour voir le coût par utilisation, ou ce qu’un abonnement inutilisé vous coûte.',
         'Finances › Économies possibles (passer en annuel, moins cher en direct) et Doublons potentiels par catégorie, avec le moins utilisé à résilier.',
+        'Importer › Relevé bancaire : le CSV de votre banque est analysé sur l’appareil, les paiements récurrents non suivis s’ajoutent en un geste. Rien n’est conservé.',
       ],
       en: [
         'Finances › Monthly budget: set an overall cap; gauge, remaining margin or overrun, and an alert in the alert centre when the cap is exceeded.',
@@ -34,6 +35,7 @@ export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
         'Finances › Household & sharing: your shared subscriptions, your share versus the full price, household total and amount covered by others.',
         'Details › Usage & real cost: declare your uses per week to see the cost per use, or what an unused subscription costs you.',
         'Finances › Possible savings (switch to yearly, cheaper direct) and possible duplicates by category, with the least used one to cancel.',
+        'Import › Bank statement: your bank’s CSV is analysed on the device, untracked recurring payments are added in one tap. Nothing is stored.',
       ],
     },
   },
