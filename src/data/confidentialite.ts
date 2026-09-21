@@ -9,7 +9,7 @@ import type { Langue } from '../domain/types';
 import { ADRESSE_CONTACT } from './contact';
 
 /** Date de la dernière révision du texte (ISO). */
-export const CONFIDENTIALITE_MAJ = '2026-09-18';
+export const CONFIDENTIALITE_MAJ = '2026-09-21';
 export const URL_DEPOT = 'https://github.com/FlhFly/subtuile';
 export const URL_POLITIQUE_GITHUB =
   'https://docs.github.com/site-policy/privacy-policies/github-privacy-statement';
@@ -56,6 +56,7 @@ const FR: SectionConfidentialite[] = [
     paragraphes: [
       'Les fichiers JSON, CSV et .ics sont créés sur votre appareil, en clair, uniquement quand vous le demandez. Ils contiennent vos données : gardez-les en lieu sûr et ne les partagez pas.',
       'Un import lit le fichier sur l’appareil ; rien n’est envoyé.',
+      'Relevé bancaire : le fichier est analysé sur l’appareil pour repérer les paiements récurrents, puis oublié. Ses opérations ne sont ni envoyées ni conservées ; seuls les abonnements que vous ajoutez sont enregistrés.',
     ],
   },
   {
@@ -120,6 +121,7 @@ const EN: SectionConfidentialite[] = [
     paragraphes: [
       'JSON, CSV and .ics files are created on your device, unencrypted, only when you ask for them. They contain your data: keep them somewhere safe and do not share them.',
       'An import reads the file on the device; nothing is sent.',
+      'Bank statement: the file is analysed on the device to spot recurring payments, then forgotten. Its transactions are never sent or stored; only the subscriptions you add are saved.',
     ],
   },
   {

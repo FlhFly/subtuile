@@ -173,6 +173,7 @@ function Navigation() {
       contenu = (
         <Finances
           onOuvrirPaiements={() => setEcran({ nom: 'paiements', retour: { nom: 'finances' } })}
+          onOuvrirAbonnement={(id) => ouvrirFiche(id, { nom: 'finances' })}
         />
       );
       break;
@@ -185,7 +186,9 @@ function Navigation() {
               ? setEcran({ nom: 'paiements', retour: { nom: 'alertes' } })
               : a.type === 'sauvegarde'
                 ? setEcran({ nom: 'reglages' })
-                : ouvrirFiche(a.abonnementId, { nom: 'alertes' })
+                : a.type === 'budget'
+                  ? setEcran({ nom: 'finances' })
+                  : ouvrirFiche(a.abonnementId, { nom: 'alertes' })
           }
         />
       );

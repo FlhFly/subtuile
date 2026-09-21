@@ -20,6 +20,7 @@
  */
 
 import {
+  ancragePasse,
   ancrageCycle,
   comparerDates,
   montantMensuel,
@@ -206,7 +207,8 @@ function serie(
       if (abo.deletedAt !== null || abo.periodicite.type !== 'recurrente') continue;
       if (!passe && abo.statut.type !== 'actif') continue;
       const limite = passe ? finPrelevements(abo) : null;
-      for (const date of occurrencesEntre(ancrageCycle(abo), abo.periodicite, debut, fin)) {
+      const ancrage = passe ? ancragePasse(abo) : ancrageCycle(abo);
+      for (const date of occurrencesEntre(ancrage, abo.periodicite, debut, fin)) {
         // passé : prélèvements strictement avant aujourd'hui et avant la fin du statut
         if (passe && comparerDates(date, jour) >= 0) continue;
         if (limite !== null && comparerDates(date, limite) >= 0) continue;

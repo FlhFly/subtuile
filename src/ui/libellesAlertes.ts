@@ -53,6 +53,12 @@ export function libellesAlerte(i18n: I18n, a: Alerte, moyenLibelle?: string): Li
             ? t('alertes.rappel.aujourdhui')
             : tn('alertes.rappel.depuis', -a.jours, { date: date(a.date, 'moyen') }),
       };
+    case 'budget':
+      return {
+        pastille: t('alertes.budget.pastille'),
+        titre: t('alertes.budget.titre', { montant: montant(a.depassement, a.devise) }),
+        sousTitre: t('alertes.budget.sous', { budget: montant(a.budget, a.devise) }),
+      };
     case 'sauvegarde':
       return {
         pastille: t('alertes.sauvegarde.pastille'),

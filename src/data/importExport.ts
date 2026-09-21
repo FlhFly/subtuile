@@ -18,7 +18,9 @@ import {
   type DateISO,
   type ExportJSON,
   type MoyenPaiement,
+  type ParametresPilotage,
   type ServicePersonnalise,
+  type Devise,
 } from '../domain/types';
 import type { StorageProvider } from './storage/StorageProvider';
 
@@ -71,11 +73,15 @@ function normaliserAbonnement(brut: unknown, i: number, jour: DateISO): Abonneme
     estObjet(brut.rappel) && estDateISO(brut.rappel.date) && estChaine(brut.rappel.texte)
       ? { date: brut.rappel.date, texte: brut.rappel.texte }
       : null;
+  // EF-71 : usage déclaré gardé s'il est un nombre positif ou nul
+  const usageParSemaine =
+    estNombre(brut.usageParSemaine) && brut.usageParSemaine >= 0 ? brut.usageParSemaine : null;
   const champs = {
     ...brut,
     statut,
     devise,
     rappel,
+    usageParSemaine,
     deletedAt: horodatage(brut.deletedAt) ?? null,
   } as unknown as Parameters<typeof creerAbonnement>[0];
   return creerAbonnement(champs, { jour, instant: horodatage(brut.updatedAt) });
@@ -113,6 +119,35 @@ function normaliserServicePersonnalise(brut: unknown, i: number): ServicePersonn
   };
 }
 
+/** Schéma 2 : paramètres de pilotage ; tout champ incohérent est ramené à « aucun ». */
+function normaliserParametres(brut: unknown): ParametresPilotage | null {
+  if (!estObjet(brut)) return null;
+  const b = brut.budgetMensuel;
+  const budgetMensuel =
+    estObjet(b) &&
+    estNombre(b.montant) &&
+    b.montant >= 0 &&
+    (DEVISES as readonly unknown[]).includes(b.devise)
+      ? { montant: b.montant, devise: b.devise as Devise }
+      : null;
+  const o = brut.objectif;
+  const objectif =
+    estObjet(o) &&
+    estNombre(o.cible) &&
+    o.cible >= 0 &&
+    (DEVISES as readonly unknown[]).includes(o.devise) &&
+    estDateISO(o.date)
+      ? { cible: o.cible, devise: o.devise as Devise, date: o.date }
+      : null;
+  return {
+    id: 'pilotage',
+    budgetMensuel,
+    objectif,
+    updatedAt: horodatage(brut.updatedAt) ?? new Date().toISOString(),
+    deletedAt: null,
+  };
+}
+
 function liste(v: unknown, chemin: string): unknown[] {
   if (v === undefined || v === null) return [];
   if (!Array.isArray(v)) throw new ErreurImport('structure', chemin);
@@ -140,6 +175,7 @@ export function lireExportJson(texte: string, jour: DateISO): ApercuImport {
   const servicesPersonnalises = liste(brut.servicesPersonnalises, 'servicesPersonnalises').map(
     normaliserServicePersonnalise,
   );
+  const parametres = normaliserParametres(brut.parametres);
   const donnees: ExportJSON = {
     app: 'subtuile',
     schemaVersion: brut.schemaVersion as number,
@@ -147,6 +183,7 @@ export function lireExportJson(texte: string, jour: DateISO): ApercuImport {
     abonnements,
     moyensPaiement,
     servicesPersonnalises,
+    parametres,
   };
   return {
     donnees,

@@ -260,6 +260,28 @@ export function ancrageCycle(
 }
 
 /**
+ * Ancrage pour reconstituer les prélèvements passés : première occurrence du
+ * cycle à partir du premier paiement possible (fin d'essai gratuit, sinon
+ * début). Sans surcharge manuelle c'est l'ancrage du cycle ; avec une échéance
+ * manuelle, le cycle est recalé sur ce plancher, sans jamais entrer dans la
+ * période d'essai (aucun paiement n'y a eu lieu).
+ */
+export function ancragePasse(
+  abo: Pick<Abonnement, 'dateDebut' | 'echeanceManuelle' | 'essai' | 'periodicite'>,
+): DateISO {
+  const ancrage = ancrageCycle(abo);
+  const p = abo.periodicite;
+  if (p.type !== 'recurrente' || abo.echeanceManuelle === null) return ancrage;
+  verifierIntervalle(p);
+  const plancher = parseDateISO(abo.essai?.dateFin ?? abo.dateDebut);
+  const a = parseDateISO(ancrage);
+  let k = 0;
+  while (occurrenceDate(a, p, k - 1) >= plancher) k -= 1;
+  while (occurrenceDate(a, p, k) < plancher) k += 1;
+  return toDateISO(occurrenceDate(a, p, k));
+}
+
+/**
  * Prochaine échéance ≥ `jour`, ou null si l'abonnement n'a pas de renouvellement
  * attendu (à vie, à l'usage, en pause, résilié, archivé).
  * Une surcharge manuelle encore à venir est renvoyée telle quelle ; passée,

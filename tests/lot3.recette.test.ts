@@ -150,7 +150,7 @@ describe('recette lot 3 — essai et préavis alertent aux bonnes dates (CdC §6
     expect(
       liste.map(
         (a) =>
-          `${a.type}:${a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' ? '' : a.nom}:${a.jours}`,
+          `${a.type}:${a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' || a.type === 'budget' ? '' : a.nom}:${a.jours}`,
       ),
     ).toEqual([
       'echeance:Netflix:3',

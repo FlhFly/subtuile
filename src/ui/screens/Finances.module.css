@@ -199,6 +199,13 @@
   height: 140px;
 }
 
+.barresDenses {
+  display: flex;
+  align-items: flex-end;
+  gap: 2px;
+  height: 140px;
+}
+
 .colonne {
   display: flex;
   flex-direction: column;
@@ -235,7 +242,10 @@
 }
 
 .barreMois {
+  /* hauteur réservée : une étiquette vide (graphe 24 mois) ne doit pas faire descendre la barre */
+  min-height: 12px;
   font-size: 9px;
+  line-height: 12px;
   color: var(--muted);
 }
 
@@ -348,4 +358,110 @@
 .rienTexte {
   font-size: 13px;
   color: var(--muted);
+}
+
+/* Rapport 12 mois (lot 5) */
+.rapportTotal {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.rapportLegende {
+  font-size: 12.5px;
+  color: var(--muted);
+}
+
+.rapportMontant {
+  font-size: 20px;
+  font-weight: var(--fw-bold);
+}
+
+.rapportBloc {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  padding-top: 10px;
+  border-top: 1px solid var(--sand);
+}
+
+.rapportTitre {
+  font-size: 13px;
+  font-weight: var(--fw-bold);
+}
+
+.rapportLigne {
+  font-size: 12.5px;
+  color: var(--muted);
+  line-height: 1.4;
+}
+
+/* Foyer & partage (EF-44b, lot 5) */
+.foyerTotaux {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.foyerTotal {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--sand);
+}
+
+.foyerMontant {
+  font-size: 17px;
+  font-weight: var(--fw-bold);
+}
+
+/* Suggestions d'économies et doublons (EF-72, EF-71, lot 5) */
+.suggestions {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.suggestion {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  width: 100%;
+  padding: 12px 14px;
+  border: 0;
+  border-radius: 14px;
+  background: var(--sand);
+  color: var(--ink);
+  text-align: left;
+}
+
+.suggestion:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
+.suggestionTexte {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+}
+
+.suggestionDetail {
+  font-size: 12px;
+  font-weight: var(--fw-medium);
+  color: var(--muted);
+}
+
+.suggestionGain {
+  font-size: 12.5px;
+  font-weight: var(--fw-semibold);
+  color: var(--ok);
 }

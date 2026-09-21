@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.36 — 18/09/2026 (C21 promu EF-75 : mode discret, montants masqués d’un appui)
+**Version :** 1.46 — 21/09/2026 (lot 5 livré en 1.1.0)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -56,6 +56,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | montantEstime | bool *(v1.9)* | montant variable affiché « ~X € » ; les totaux incluant des montants estimés sont marqués comme tels |
 | regularisation | objet nullable *(v1.9)* | { date } — échéance annuelle de régularisation (mensualités lissées énergie), avec alerte dédiée |
 | prixFutur | objet nullable *(v1.9)* | { date, montant } — hausse annoncée : alerte à l'approche, application automatique à la date, versement dans historiquePrix |
+| usageParSemaine | nombre nullable *(v1.42)* | utilisations par semaine déclarées par l'utilisateur (0 = jamais) ; sert au coût par utilisation (EF-71) |
 | rappel | objet nullable *(v1.31)* | { date, texte } — rappel libre à une date (« renégocier la box en janvier ») : ligne sur la fiche, alerte du jour J pendant 30 jours, même résilié (ex-C14, EF-74) |
 | modeResiliation | enum *(v1.9)* | lien (défaut), telephone, courrier_recommande, espace_client — avec contact associé ; adapte le bouton « Gérer / Résilier » (EF-21b) |
 | referenceClient | string optionnel *(v1.9)* | n° client / n° de contrat, affiché en évidence sur la fiche |
@@ -114,7 +115,7 @@ Le catalogue vit dans un **JSON embarqué** dans l'app, éditable, avec une ving
 
 ### 3.5 Champs techniques communs (préparation sync — v1.5)
 
-Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services ») porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée physiquement à l'ouverture de l'app après 30 jours *(v1.28)*). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
+Chaque entité (Abonnement, MoyenPaiement, entrée « Mes services », et depuis le lot 5 l’enregistrement unique `ParametresPilotage` — budget mensuel, objectif — porté par le schéma d’export 2 *(v1.37)*) porte : `id` (uuid), `updatedAt` (horodatage ISO mis à jour à chaque écriture) et `deletedAt` (suppression logique / tombstone — la suppression définitive d'EF-01 reste une suppression logique en interne, purgée physiquement à l'ouverture de l'app après 30 jours *(v1.28)*). L'export JSON porte un `schemaVersion` ; les évolutions de schéma passent par des migrations locales. Ces champs sont invisibles à l'utilisateur mais indispensables à une future synchronisation (résolution de conflits, propagation des suppressions). Les **préférences d'interface** *(v1.8)* — langue, devise d'affichage, format de date, thème, mode d'affichage, défauts d'alerte — sont persistées localement (localStorage acceptable) et restent distinctes des données métier, qui vivent dans IndexedDB derrière le StorageProvider (§5.6).
 
 ---
 
@@ -145,7 +146,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-12 [M]** — Tri : par échéance (défaut), par prix, par nom, par catégorie. Filtre par catégorie, statut, moyen de paiement.
 - **EF-12b [S]** — Mode d'affichage de l'accueil : grille de tuiles (défaut) ou liste, persisté dans les préférences. *(issu de la maquette v4)*
 - **EF-13 [M]** — Fiche détail au tap : toutes les infos + actions (modifier, se désabonner, changer statut, archiver).
-- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque). *(issu de la maquette v6 — lot 4)*
+- **EF-13b [S]** — Journal « Derniers paiements » sur la fiche : occurrences passées reconstituées (date, montant au tarif de l'époque), avec le **total cumulé dépensé** depuis le début de l'abonnement *(v1.38, demande du 18/09/2026 ; livré au lot 5 étape 4, v1.40 : six derniers prélèvements puis « voir tout »)*. La période d'essai gratuit ne compte aucun paiement : le premier prélèvement est la fin d'essai *(v1.44)*. *(issu de la maquette v6 — lot 4)*
 - **EF-14 [S]** — Réorganisation manuelle des tuiles (drag & drop) via un mode dédié, avec tri « ordre personnalisé » persistant. *(précisé par la maquette v2)*
 - **EF-15 [S]** — Recherche textuelle.
 - **EF-16 [S]** — Page « Prochaines échéances » en liste chronologique (équivalent fonctionnel du widget, dans l'app).
@@ -173,9 +174,9 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-40 [M]** — Total mensuel normalisé (annuel ÷ 12, etc.) et total annuel.
 - **EF-41 [M]** — Répartition par catégorie et par moyen de paiement.
 - **EF-42 [M]** — Prévisionnel des 12 prochains mois (montants réels par mois, un abonnement annuel pèse sur son mois d'échéance).
-- **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*.
+- **EF-43 [S]** — Historique des dépenses passées reconstitué depuis les échéances et l'historique des prix, sur **24 mois** *(porté de 12 à 24 par la maquette v6)*. Livré au lot 5 *(v1.39)* : carte « Évolution 24 mois » (total mensuel normalisé reconstitué au prix de l'époque, écart avec il y a 24 mois) et carte « Rapport 12 mois » (dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés — début de C9) ; les barres des dépenses réelles restent sur 12 mois. Un essai gratuit ne compte pas avant sa fin ; le point d'aujourd'hui est le total mensuel affiché *(v1.46)*.
 - **EF-44 [S]** — Prise en compte de partPayee pour les abonnements partagés.
-- **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel. *(issu de la maquette v6 — lot 4)*
+- **EF-44b [S]** — Vue « Foyer & partage » : abonnements partagés avec part payée vs prix plein, total du foyer vs total personnel, montant mensuel pris en charge par les autres ; carte de Finances visible dès qu’un abonnement payant est partagé *(livré au lot 5 étape 5, v1.41)*. *(issu de la maquette v6 — lot 4)*
 - **EF-45 [S]** — Devise d'affichage (EUR/USD/GBP/CHF) : conversion des montants à des **taux figés explicitement étiquetés « indicatifs »** (aucun appel réseau). Les taux sont un **jeu de données de référence** au contrat du §5.6 *(v1.12)* : fichier versionné avec date `publieLe` (affichage « taux indicatifs au JJ/MM/AAAA »), embarqué en V1, remplaçable à distance sans release. La saisie se fait dans la devise de chaque abonnement (EF-45b), EUR par défaut. *(issu de la maquette v4, confirmé le 21/08 ; saisie multi-devise décidée le 11/09, v1.16)*
 - **EF-45b [S]** — Devise de saisie par abonnement : chaque abonnement porte sa devise (EUR / USD / GBP / CHF), par exemple un service facturé en dollars ; la devise proposée par défaut à la création est le réglage « Devise » (le même que la devise d'affichage d'EF-45 en V1 ; onboarding C7 s'il est livré). Les totaux et la vue financière convertissent vers la devise d'affichage aux taux indicatifs d'EF-45 ; un montant saisi dans une autre devise que celle d'affichage est signalé comme converti. Livré au lot 4 avec EF-45. *(v1.16, décision du 11/09/2026)*
 
@@ -187,12 +188,12 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 ### 4.7 Pilotage (lot 5 — ex-backlog promu par la maquette v6)
 
-- **EF-70 [S]** — Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire »). *(ex-C4)*
-- **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)*
-- **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)*
+- **EF-70 [S]** — Budget mensuel global (ex-C4) : plafond choisi dans Finances (devise d'affichage), jauge, « il reste X » / « dépassé de X », alerte de dépassement une fois par mois civil menant à Finances *(v1.37, lot 5 étape 1)*. Objectif d'économie : cible « passer sous X €/mois d'ici [date] », progression affichée (« objectif atteint — Y € sous la cible » / « encore Z € à réduire », « date passée » sans alerte) *(v1.38, lot 5 étape 2)*.
+- **EF-71 [S]** — Usage déclaré & coût réel : saisie d'une fréquence d'utilisation (utilisations/semaine), coût par utilisation, signal « non utilisé ce mois-ci — X € dépensés quand même », suggestion « résilier le moins utilisé libérerait ~Y €/mois ». Déclaratif uniquement — aucune mesure automatique. *(ex-C5)* Livré au lot 5 *(v1.42)* : choix « Jamais / 1× / 3× / 7× » par semaine sur la fiche, coût = coût mensuel supporté ÷ utilisations par mois ; la suggestion de résiliation arrive avec les doublons (étape 7).
+- **EF-72 [S]** — Suggestions d'économies : « passer en annuel économiserait X € » via les formules du catalogue, canal moins cher (lien EF-02/EF-21). *(ex-C6)* Livré au lot 5 *(v1.43)* : carte « Économies possibles » dans Finances et encarts sur la fiche, comparaison au prix réellement payé, même offre, même canal, même devise ; carte « Doublons potentiels » par catégorie de loisirs (candidat = le moins utilisé si un usage est déclaré, sinon le moins cher), qui achève C3.
 - **EF-74 [S]** — Rappel libre à une date par abonnement : date + texte saisis dans les options avancées, affichés sur la fiche ; alerte « Rappel » du jour J pendant 30 jours pour tout abonnement non archivé ; ouvrir l'alerte mène à la fiche *(v1.31, ex-C14)*.
 - **EF-75 [S]** — Mode discret : un appui sur le total de l'accueil masque tous les montants affichés (« **** € », devise conservée) dans toute l'app, un second appui les rétablit ; œil barré à côté du total, préférence `montantsMasques` mémorisée, interrupteur dans Réglages › Apparence. Les exports et les champs de saisie restent en clair *(v1.36, ex-C21)*.
-- **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)*
+- **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)* Livré au lot 5 *(v1.45)* : troisième choix de l'écran Importer ; colonnes date / libellé / montant détectées ou réglées à la main ; récurrence = libellé rapproché, montants à ± 15 %, cadence hebdomadaire à annuelle sur deux paiements au moins ; « déjà suivi » = même service du catalogue ou nom présent dans le libellé ; le relevé n'est jamais conservé, seuls les abonnements ajoutés sont enregistrés (cycle ancré sur le dernier paiement constaté).
 
 **Principe « aucune fonctionnalité factice »** *(v1.14)* : les éléments montrés en démo/aperçu dans la maquette mais irréalisables en V1 (notifications push sans serveur — §5.4, widget d'écran d'accueil natif — §2) sont **masqués en production** et n'apparaîtront que lorsqu'ils seront réellement fonctionnels.
 

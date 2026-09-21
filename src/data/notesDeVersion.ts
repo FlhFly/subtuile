@@ -14,6 +14,32 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.1.0',
+    date: '2026-09-21',
+    notes: {
+      fr: [
+        'Finances › Budget mensuel : fixez un plafond global ; jauge, marge restante ou dépassement, et alerte dans le centre d’alertes quand le plafond est dépassé.',
+        'Finances › Objectif d’économie : « passer sous X / mois d’ici le … » ; la carte suit votre progression et annonce l’objectif atteint.',
+        'Finances › Évolution 24 mois du total mensuel au prix de l’époque, et Rapport 12 mois : dépensé, moyenne, hausses subies, abonnements ajoutés et arrêtés.',
+        'Fiche › Derniers paiements : chaque prélèvement passé au tarif de l’époque, et le total dépensé depuis le début de l’abonnement.',
+        'Finances › Foyer & partage : vos abonnements partagés, votre part face au prix plein, total du foyer et montant pris en charge par les autres.',
+        'Fiche › Usage & coût réel : déclarez vos utilisations par semaine pour voir le coût par utilisation, ou ce qu’un abonnement inutilisé vous coûte.',
+        'Finances › Économies possibles (passer en annuel, moins cher en direct) et Doublons potentiels par catégorie, avec le moins utilisé à résilier.',
+        'Importer › Relevé bancaire : le CSV de votre banque est analysé sur l’appareil, les paiements récurrents non suivis s’ajoutent en un geste. Rien n’est conservé.',
+      ],
+      en: [
+        'Finances › Monthly budget: set an overall cap; gauge, remaining margin or overrun, and an alert in the alert centre when the cap is exceeded.',
+        'Finances › Savings goal: “get under X / month by …”; the card tracks your progress and announces when the goal is reached.',
+        'Finances › 24-month trend of the monthly total at the prices of the time, and 12-month report: spent, average, price increases, added and stopped.',
+        'Details › Latest payments: every past charge at the price of the time, and the total spent since the subscription started.',
+        'Finances › Household & sharing: your shared subscriptions, your share versus the full price, household total and amount covered by others.',
+        'Details › Usage & real cost: declare your uses per week to see the cost per use, or what an unused subscription costs you.',
+        'Finances › Possible savings (switch to yearly, cheaper direct) and possible duplicates by category, with the least used one to cancel.',
+        'Import › Bank statement: your bank’s CSV is analysed on the device, untracked recurring payments are added in one tap. Nothing is stored.',
+      ],
+    },
+  },
+  {
     version: '1.0.28',
     date: '2026-09-18',
     notes: {

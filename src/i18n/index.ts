@@ -50,9 +50,13 @@ export type ClePluriel =
   | 'edition.garde.autres'
   | 'finances.payants'
   | 'finances.categories'
+  | 'finances.rapport.hausses'
+  | 'fiche.paiements.tout'
   | 'import.csv.rejetees'
   | 'import.csv.importer'
-  | 'toast.importeCsv';
+  | 'toast.importeCsv'
+  | 'toast.importeReleve'
+  | 'import.releve.ajouter';
 
 /** « 2 ans et 3 mois », « 5 mois », « 12 j », « aujourd'hui » (EF-18). */
 export function libelleDuree(

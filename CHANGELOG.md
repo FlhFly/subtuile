@@ -5,9 +5,135 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ;
 versionnage sémantique : `0.N.0` = fin du lot N (tag `lot-N`), `1.0.0` = mise en ligne.
 Chaque étape committée ajoute son entrée dans « Non publié ».
 
-## [Non publié]
+## [1.1.0] — 2026-09-21 — lot 5 « Pilotage » (tag `lot-5`)
 
-Aucune modification depuis la version 1.0.28.
+### Lot 5 — étape 9 : recette et sortie (2026-09-21)
+
+#### Ajouté
+- `tests/lot5.recette.test.ts` : scénario du CdC §6 rejoué sur le jeu de démo — budget et objectif
+  fixés puis retrouvés dans la sauvegarde JSON (schéma 2), usage déclaré et coût par utilisation,
+  relevé bancaire importé deux fois sans doublon créé, suggestions recalculées à la main depuis
+  le catalogue, cohérence évolution 24 mois / rapport / journal / foyer.
+
+#### Corrigé
+- Évolution 24 mois : un essai gratuit ne compte pas avant sa fin, et le point d'aujourd'hui suit
+  la règle du total affiché (abonnements payants) — les deux montants coïncident désormais.
+
+#### Modifié
+- README (statut, fonctionnalités du lot 5), ROADMAP (lot 5 livré), note de version 1.1.0 datée
+  du 2026-09-21 ; la branche `lot-5` est fusionnée dans main.
+
+### Lot 5 — étape 8 : import de relevé bancaire CSV (2026-09-21)
+
+#### Ajouté
+- Domaine `releve.ts` (EF-73) : `lireReleve` (séparateur et colonnes date / libellé / montant
+  détectés par l'en-tête fr / en ou par le contenu, réglables à la main ; montants avec signe,
+  parenthèses, milliers ; seuls les débits sont gardés), `detecterRecurrences` (libellé rapproché
+  sans jargon bancaire ni chiffres, montants proches à ± 15 %, cadence hebdomadaire à annuelle,
+  deux paiements au moins, abonnements arrêtés écartés), rapprochement avec le catalogue et les
+  abonnements existants (« déjà suivi »), `abonnementsDepuisReleve` (cycle ancré sur le dernier
+  paiement, service du catalogue rattaché, jamais de doublon).
+- Importer : troisième choix « Relevé bancaire » — « N opérations analysées · N paiements
+  récurrents détectés », lignes « nouveau » cochées et « déjà suivi » grisées, « Ajouter N
+  abonnements » ou « Rien à ajouter — tout est déjà suivi », réglage manuel des colonnes.
+- Confidentialité et PRIVACY.md (révision du 2026-09-21) : le relevé est analysé sur l'appareil,
+  jamais envoyé ni conservé ; seuls les abonnements ajoutés sont enregistrés.
+
+### Lot 5 — correctif : essai gratuit et échéance manuelle dans les paiements passés (2026-09-20)
+
+#### Corrigé
+- Journal « Derniers paiements », total cumulé et « dépenses passées » de Finances : la période
+  d'essai gratuit ne compte aucun paiement, y compris quand une échéance manuelle est posée
+  (décision FlhFly du 2026-09-20 : le premier paiement est la fin d'essai).
+- Une échéance manuelle future ne vide plus le journal ni les dépenses passées : le cycle est
+  recalé sur le premier paiement possible (`ancragePasse` dans le moteur de dates).
+
+### Lot 5 — étape 7 : doublons par catégorie et suggestions d'économies (2026-09-20)
+
+#### Ajouté
+- Domaine `suggestions.ts` : `doublonsParCategorie` (au moins deux abonnements payants dans une
+  catégorie de loisirs ; candidat = le moins utilisé si un usage est déclaré, sinon le moins
+  cher ; vie courante et « autre » exclues), `suggestionAnnuel` (formule annuelle de la même
+  offre, du même canal et de la même devise, moins chère que douze fois le prix réellement payé),
+  `suggestionCanal` (même offre moins chère en direct), `suggestionsEconomies` (liste chiffrée à
+  l'année, convertie).
+- Finances : cartes « Économies possibles » (masquée sans suggestion) et « Doublons potentiels »
+  (« 3 services · Streaming — résilier le moins utilisé libérerait ~X / mois », ou « Aucun
+  doublon par catégorie ») ; chaque ligne ouvre la fiche concernée.
+- Fiche : encarts « Passer en annuel » et « Moins cher en direct » quand le catalogue le permet.
+
+### Lot 5 — étape 6 : usage déclaré et coût réel (2026-09-20)
+
+#### Ajouté
+- Modèle : champ `usageParSemaine` (nombre ou null) sur l'abonnement — fabrique à null, import
+  JSON gardant un nombre positif ou nul, conservé par le formulaire d'édition.
+- Fiche : section « Usage & coût réel » (EF-71) pour les abonnements récurrents non archivés —
+  quatre choix « Jamais / 1× / 3× / 7× » par semaine (un second appui efface la déclaration),
+  puis « ≈ X par utilisation ce mois-ci » ou « Non utilisé ce mois-ci — X dépensés quand même ».
+  Domaine `usage.ts` (`coutUsage` : coût mensuel supporté ÷ utilisations par mois). Déclaratif
+  uniquement, aucune mesure automatique.
+
+### Lot 5 — étape 5 : vue « Foyer & partage » (2026-09-19)
+
+#### Ajouté
+- Finances : carte « Foyer & partage » (EF-44b), affichée dès qu'un abonnement payant est
+  partagé — total du foyer (prix pleins) face à votre part (le total de l'accueil), montant
+  mensuel pris en charge par les autres, et pour chaque abonnement partagé « votre part X sur Y »
+  avec une jauge. Domaine `foyer.ts` (`vueFoyer`), montants mensuels normalisés et convertis.
+
+### Lot 5 — étape 4 : journal des paiements et total cumulé par abonnement (2026-09-19)
+
+#### Ajouté
+- Fiche : section « Derniers paiements » (EF-13b) — encart « Total dépensé depuis le … » avec le
+  cumul depuis le début de l'abonnement (demande FlhFly du 2026-09-18), puis les six derniers
+  prélèvements au tarif de l'époque et « Voir les N paiements ». `journalPaiements` dans
+  `rapport.ts` : occurrences passées depuis la date de début, prix de l'historique, part payée
+  si partagé, arrêt à la résiliation, à la pause ou à l'archivage ; rien pour un abonnement à vie
+  ou à l'usage. Le mode discret masque aussi ces montants.
+
+### Lot 5 — étape 3 : évolution 24 mois et rapport 12 mois (2026-09-19)
+
+#### Ajouté
+- Domaine `rapport.ts` : `evolutionMensuelle` (total mensuel normalisé à la fin de chacun des
+  24 derniers mois et au jour courant, abonnements commencés et non terminés à la date, prix de
+  l'historique, part payée si partagé) et `rapport12Mois` (dépenses réelles EF-43, hausses de prix
+  de la période, abonnements ajoutés et arrêtés). Rien de nouveau à saisir.
+- Finances : carte « Évolution 24 mois » (25 barres serrées, « +X vs il y a 24 mois ») et carte
+  « Rapport 12 mois » (dépensé, moyenne, cinq dernières hausses « nom : avant → après le … »,
+  mouvements). Composant `Barres` : variante dense.
+
+#### Corrigé
+- Graphe 24 mois : une barre sur deux descendait, l'étiquette de mois vide n'ayant pas de
+  hauteur ; hauteur réservée pour toutes les étiquettes (retour FlhFly du 2026-09-19).
+
+### Lot 5 — étape 2 : objectif d'économie (2026-09-18)
+
+#### Ajouté
+- Finances : carte « Objectif d'économie » (EF-70) sous le budget — cible mensuelle (devise
+  d'affichage) et date, texte « Passer sous X / mois d'ici le … », jauge de progression
+  (cible / total, violette en cours, verte atteinte), « Encore Z à réduire », « Objectif
+  atteint — Y sous la cible » ou « Date passée — encore Z à réduire » ; modification et retrait
+  (`Objectif.tsx`, `etatObjectif` / `objectifConverti` dans `pilotage.ts`). Objectif porté par
+  l'enregistrement `pilotage` (schéma d'export 2, déjà normalisé à l'import).
+
+#### Planifié
+- Demande FlhFly du 2026-09-18 : total cumulé dépensé par abonnement depuis le début, affiché
+  avec le journal « Derniers paiements » de la fiche (EF-13b, étape 4 du lot 5).
+
+### Lot 5 — étape 1 : budget mensuel (2026-09-18)
+
+#### Ajouté
+- Finances : carte « Budget mensuel · Global » (EF-70, ex-C4) — plafond saisi dans la devise
+  d'affichage, jauge, « Il reste X sous le plafond » ou « Dépassé de X », modification et retrait
+  (`Budget.tsx`, domaine `pilotage.ts`).
+- Centre d'alertes : alerte « Budget mensuel dépassé de X » quand le total mensuel normalisé
+  dépasse le plafond, une clé par mois civil (marquée lue, elle se tait jusqu'au mois suivant) ;
+  ouvrir l'alerte mène à Finances.
+- Stockage : enregistrement unique `pilotage` (budget, futur objectif) dans une nouvelle table
+  IndexedDB (Dexie version 2), dépôt `parametres` du StorageProvider, effacé par « Effacer toutes
+  les données ». Sauvegarde JSON en schéma 2 avec `parametres` ; les fichiers du schéma 1 restent
+  importables, les champs incohérents sont ramenés à « aucun ».
+
 
 ## [1.0.28] — 2026-09-18 — mode discret (C21 → EF-75)
 

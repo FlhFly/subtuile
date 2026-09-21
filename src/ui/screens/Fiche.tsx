@@ -51,7 +51,13 @@ import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libelleCompteur, libelleStatut } from '../libelles';
+import { journalPaiements } from '../../domain/rapport';
+import { suggestionAnnuel, suggestionCanal } from '../../domain/suggestions';
+import { CHOIX_USAGE, coutUsage } from '../../domain/usage';
 import styles from './Fiche.module.css';
+
+/** Paiements affichés avant « Tout voir ». */
+const JOURNAL_MAX = 6;
 
 interface Props {
   id: string;
@@ -69,7 +75,7 @@ interface Props {
  */
 export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const i18n = useI18n();
-  const { t, montant, date, periodicite: libPeriodicite } = i18n;
+  const { t, tn, montant, date, periodicite: libPeriodicite } = i18n;
   const storage = useStorage();
   const toast = useToast();
   const { abonnements, chargement } = useAbonnements();
@@ -80,6 +86,7 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   const [pauseDialogue, setPauseDialogue] = useState(false);
   const [repriseLe, setRepriseLe] = useState('');
   const [prixOuvert, setPrixOuvert] = useState(false);
+  const [journalComplet, setJournalComplet] = useState(false);
   const { preferences } = usePreferences();
   const { devise: deviseAffichage, convertir } = useConversion();
   const jour = aujourdhui();
@@ -97,12 +104,25 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
   }
 
   const mp = abo.moyenPaiementId ? moyensPaiement.get(abo.moyenPaiementId) : undefined;
+  const journal = journalPaiements(abo, jour);
+  /* EF-71 : usage déclaré (utilisations par semaine) ; un second appui sur le choix actif l'efface */
+  const usage = coutUsage(abo);
+  const declarerUsage = async (n: number) => {
+    await enregistrerAbonnement(
+      storage,
+      { ...abo, usageParSemaine: abo.usageParSemaine === n ? null : n },
+      jour,
+    );
+  };
   const service = abo.serviceId ? services.get(abo.serviceId) : undefined;
   const modele = modeleTuile(abo, jour, mp, service);
   const formule = service ? trouverFormule(service, abo.formuleId) : undefined;
   const statut = abo.statut;
   const enPause = statut.type === 'en_pause';
   const archive = statut.type === 'archive';
+  /* EF-72 : économies possibles d'après les formules du catalogue */
+  const annuel = archive ? null : suggestionAnnuel(abo, service);
+  const canalDirect = archive ? null : suggestionCanal(abo, service);
   const styleTuile = { '--tuile-couleur': modele.couleur } as CSSProperties;
   const duree = libelleDuree(i18n.langue, anciennete(abo.dateDebut, jour));
   const mensuel = montantMensuel(prixEffectif(abo), abo.periodicite);
@@ -423,6 +443,97 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
                 );
               })}
             </ul>
+          </section>
+        ) : null}
+
+        {abo.periodicite.type === 'recurrente' && !archive ? (
+          <section className={styles.section}>
+            <div className={styles.usageEnTete}>
+              <h2 className={styles.sectionTitre}>{t('fiche.usage')}</h2>
+              <span className={styles.usageQuestion}>{t('fiche.usage.question')}</span>
+            </div>
+            <div
+              className={styles.usageChoix}
+              role="radiogroup"
+              aria-label={t('fiche.usage.question')}
+            >
+              {CHOIX_USAGE.map((n) => (
+                <button
+                  key={n}
+                  type="button"
+                  role="radio"
+                  aria-checked={abo.usageParSemaine === n}
+                  className={abo.usageParSemaine === n ? styles.usageActif : styles.usageBouton}
+                  onClick={() => void declarerUsage(n)}
+                >
+                  {n === 0 ? t('fiche.usage.jamais') : t('fiche.usage.fois', { n })}
+                </button>
+              ))}
+            </div>
+            <span className={usage?.nonUtilise ? styles.usageAlerte : styles.usageTexte}>
+              {usage === null
+                ? t('fiche.usage.aide')
+                : usage.nonUtilise
+                  ? t('fiche.usage.zero', { montant: montant(usage.mensuel, abo.devise) })
+                  : t('fiche.usage.cout', {
+                      montant: montant(usage.parUtilisation ?? 0, abo.devise),
+                    })}
+            </span>
+          </section>
+        ) : null}
+
+        {annuel ? (
+          <Encart titre={t('fiche.annuel')} classe="ok">
+            {t('fiche.annuel.texte', {
+              montant: montant(annuel.economieAnnuelle, annuel.devise),
+              formule: annuel.formule.nom,
+              prix: montant(annuel.formule.prix, annuel.devise),
+            })}
+          </Encart>
+        ) : null}
+        {canalDirect ? (
+          <Encart titre={t('fiche.direct')} classe="ok">
+            {t('fiche.direct.texte', {
+              montant: montant(canalDirect.ecart, canalDirect.devise),
+              prix: montant(canalDirect.direct.prix, canalDirect.devise),
+            })}
+          </Encart>
+        ) : null}
+
+        {journal.paiements.length > 0 ? (
+          <section className={styles.section}>
+            <h2 className={styles.sectionTitre}>{t('fiche.paiements')}</h2>
+            <div className={styles.cumul}>
+              <span className={styles.cumulLegende}>
+                {t('fiche.paiements.cumul', { date: date(abo.dateDebut, 'moyen') })}
+              </span>
+              <span className={styles.cumulMontant}>
+                {journal.estime
+                  ? t('montant.estime', { montant: montant(journal.cumul, abo.devise) })
+                  : montant(journal.cumul, abo.devise)}
+              </span>
+            </div>
+            <ul className={styles.historique}>
+              {(journalComplet ? journal.paiements : journal.paiements.slice(0, JOURNAL_MAX)).map(
+                (p) => (
+                  <li key={p.date} className={styles.historiqueLigne}>
+                    <span>{date(p.date, 'moyen')}</span>
+                    <span>{montant(p.montant, abo.devise)}</span>
+                  </li>
+                ),
+              )}
+            </ul>
+            {journal.paiements.length > JOURNAL_MAX ? (
+              <button
+                type="button"
+                className={styles.lienJournal}
+                onClick={() => setJournalComplet((v) => !v)}
+              >
+                {journalComplet
+                  ? t('fiche.paiements.reduire')
+                  : tn('fiche.paiements.tout', journal.paiements.length)}
+              </button>
+            ) : null}
           </section>
         ) : null}
 
@@ -752,7 +863,7 @@ function Encart({
   children,
 }: {
   titre?: string;
-  classe: 'trial' | 'warn' | 'neutre';
+  classe: 'trial' | 'warn' | 'neutre' | 'ok';
   children: ReactNode;
 }) {
   return (

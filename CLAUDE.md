@@ -3,7 +3,7 @@
 ## Projet
 PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
-**docs/CdC.md (v1.36) fait foi** sur le périmètre ; docs/maquette-v7.html
+**docs/CdC.md (v1.46) fait foi** sur le périmètre ; docs/maquette-v7.html
 est la référence visuelle (référence, PAS une base de code).
 En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
 public/CNAME, déployé par
@@ -20,6 +20,8 @@ maquette). Pas d'autre dépendance sans validation.
   UN commit avec message clair → attendre la validation de FlhFly
   avant l'étape suivante. Tag `lot-N` à la fin de chaque lot.
 - Jamais plusieurs étapes d'un coup. Jamais de commit sans tests verts.
+- Lot 5 « Pilotage » livré en 1.1.0 (tag `lot-5`, 2026-09-21). Entre deux lots,
+  les corrections sortent en 1.1.x sur main.
 - Réponses concises, en français.
 
 ## Fichiers à tenir à jour (dans le même commit que l'étape)
@@ -29,11 +31,11 @@ maquette). Pas d'autre dépendance sans validation.
   lot, la section devient une version : 0.N.0 = lot N, 1.0.0 = mise en
   ligne (lot 4).
 - src/data/notesDeVersion.ts : à chaque nouvelle version (tag de lot ou
-  correctif 1.0.x), notes destinées aux utilisateurs, en fr et en en : une puce par changement
+  correctif 1.1.x), notes destinées aux utilisateurs, en fr et en en : une puce par changement
   notable (2 à 6 pour une version importante), chacune ≤ 160 caractères et
   formulée pour l'utilisateur (ce qui change, où le trouver) ;
   la première entrée est la version de package.json (test). Entre deux lots,
-  les corrections sortent en 1.0.x : section CHANGELOG, sans tag.
+  les corrections sortent en 1.1.x : section CHANGELOG, sans tag.
 - ROADMAP.md : statut des étapes et des exigences livrées (⬜ → 🔄 → ✅,
   avec le tag ou le commit). Jamais de feature livrée sans sa case cochée ;
   toute exigence ajoutée ou déplacée entre lots y est reportée.

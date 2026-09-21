@@ -15,6 +15,7 @@
  * - régularisation annuelle et hausse annoncée : dans ≤ 30 jours (fenêtre
  *   d'annonce), abonnement actif ou en pause ;
  * - rappel libre (EF-74) : du jour J jusqu'à 30 jours après, sauf archivé ;
+ * - budget (EF-70) : total mensuel normalisé au-dessus du plafond, une alerte par mois civil ;
  * - jamais d'autre alerte pour un abonnement archivé ou résilié.
  */
 
@@ -29,6 +30,7 @@ import {
   niveauCompteur,
   prixEffectif,
 } from './dates';
+import { dateCleBudget } from './pilotage';
 import type {
   Abonnement,
   DateISO,
@@ -46,6 +48,7 @@ export const TYPES_ALERTE = [
   'regularisation',
   'prix_futur',
   'rappel',
+  'budget',
   'sauvegarde',
 ] as const;
 export type TypeAlerte = (typeof TYPES_ALERTE)[number];
@@ -144,6 +147,13 @@ export interface AlerteSauvegarde extends AlerteBase {
   joursDepuis: number | null;
   nbAbonnements: number;
 }
+export interface AlerteBudget extends AlerteBase {
+  type: 'budget';
+  devise: Devise;
+  budget: number;
+  total: number;
+  depassement: number;
+}
 export type Alerte =
   | AlerteEcheance
   | AlerteEssai
@@ -152,6 +162,7 @@ export type Alerte =
   | AlerteRegularisation
   | AlertePrixFutur
   | AlerteRappel
+  | AlerteBudget
   | AlerteSauvegarde;
 
 export interface ContexteAlertes {
@@ -163,6 +174,8 @@ export interface ContexteAlertes {
   lues?: readonly string[];
   /** date du dernier export JSON (rappel C1) ; absent = pas de rappel */
   derniereSauvegarde?: DateISO | null;
+  /** EF-70 : total mensuel et plafond dans la devise d'affichage ; absent ou null = pas de budget */
+  budget?: { total: number; budget: number; devise: Devise } | null;
 }
 
 export function cleAlerte(type: TypeAlerte, cibleId: string, date: DateISO): string {
@@ -180,7 +193,11 @@ export function seuilEcheance(
 const ORDRE_NIVEAU: Record<NiveauAlerte, number> = { urg: 0, trial: 1, warn: 2 };
 
 function libelleTri(a: Alerte): string {
-  return a.type === 'carte' ? a.libelle : a.type === 'sauvegarde' ? '' : a.nom;
+  return a.type === 'carte'
+    ? a.libelle
+    : a.type === 'sauvegarde' || a.type === 'budget'
+      ? ''
+      : a.nom;
 }
 
 /** Ordre du centre d'alertes : la plus proche d'abord, puis la plus grave, puis le nom. */
@@ -359,6 +376,7 @@ export function calculerAlertes(ctx: ContexteAlertes): Alerte[] {
   const alertes: Alerte[] = [
     ...vivants.flatMap((a) => alertesAbonnement(a, ctx.defauts, ctx.jour)),
     ...alertesCartes(ctx.moyensPaiement, vivants, ctx.defauts, ctx.jour),
+    ...alerteBudget(ctx.budget, ctx.jour),
     ...alerteSauvegarde(vivants, ctx.derniereSauvegarde, ctx.jour),
   ];
   return appliquerLues(alertes, ctx.lues ?? []).sort(comparerAlertes);
@@ -393,6 +411,30 @@ function alerteSauvegarde(
       derniereSauvegarde,
       joursDepuis,
       nbAbonnements,
+    },
+  ];
+}
+
+/**
+ * EF-70 : plafond mensuel dépassé. Clé stable par mois civil : marquée lue,
+ * l'alerte se tait jusqu'au mois suivant. Classée juste avant la sauvegarde.
+ */
+function alerteBudget(budget: ContexteAlertes['budget'], jour: DateISO): Alerte[] {
+  if (!budget) return [];
+  const depassement = budget.total - budget.budget;
+  if (depassement <= 0.005) return [];
+  return [
+    {
+      type: 'budget',
+      cle: cleAlerte('budget', 'global', dateCleBudget(jour)),
+      niveau: 'warn',
+      date: jour,
+      jours: Number.MAX_SAFE_INTEGER - 1,
+      lue: false,
+      devise: budget.devise,
+      budget: budget.budget,
+      total: budget.total,
+      depassement: Math.round(depassement * 100) / 100,
     },
   ];
 }
