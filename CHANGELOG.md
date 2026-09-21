@@ -5,6 +5,14 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ;
 versionnage sémantique : `0.N.0` = fin du lot N (tag `lot-N`), `1.0.0` = mise en ligne.
 Chaque étape committée ajoute son entrée dans « Non publié ».
 
+## [Non publié]
+
+### Roadmap : candidat C24 (2026-09-21)
+
+#### Ajouté
+- ROADMAP et CdC v1.47 : candidat C24 « paiement confirmé au renouvellement » (marquer une
+  échéance comme payée ; demande FlhFly du 2026-09-21). Aucun changement dans l'app.
+
 ## [1.1.0] — 2026-09-21 — lot 5 « Pilotage » (tag `lot-5`)
 
 ### Lot 5 — étape 9 : recette et sortie (2026-09-21)

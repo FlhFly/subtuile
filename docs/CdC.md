@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.46 — 21/09/2026 (lot 5 livré en 1.1.0)
+**Version :** 1.47 — 21/09/2026 (candidat C24 : paiement confirmé au renouvellement)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -419,3 +419,4 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app, un second appui les rétablit ; préférence, œil barré *(v1.32, demande du 18/09/2026)* — **promu** : EF-75, livré en 1.0.28 *(v1.36)* | Consulter l'app en public sans exposer ses dépenses |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` déjà prévu au modèle, EF-10, sans sélecteur à ce jour), contenu des tuiles au choix (prix, échéance, moyen de paiement, catégorie, badge), puis logo personnel (C10) ; réglages dans Réglages › Apparence *(v1.32, demande du 18/09/2026)* | Tuiles reconnaissables au premier coup d'œil |
 | C23 | Langues et devises supplémentaires : le socle i18n (dictionnaires, pluriels, formats de date) et les devises (`DEVISES`, `taux.json`) sont extensibles ; ajouter une langue = un dictionnaire complet et ses formats, ajouter une devise = son taux indicatif et son symbole ; à relier à C17 pour les tarifs par pays. Pas une priorité *(v1.32, demande du 18/09/2026)* | Ouverture hors francophonie et zone euro |
+| C24 | Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » (fiche, alerte de renouvellement) ; le journal EF-13b distingue les paiements confirmés des paiements reconstitués, une échéance passée non confirmée peut être signalée ; déclaratif, aucune connexion bancaire *(v1.47, demande du 21/09/2026)* | Suivi réel des paiements, confiance dans le cumul dépensé |

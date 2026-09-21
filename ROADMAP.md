@@ -221,6 +221,7 @@ Recette : `tests/lot5.recette.test.ts` (objectif fixé, usage déclaré, relevé
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € ») — promu EF-75, ✅ 2026-09-18 (v1.0.28) |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` du modèle, sans sélecteur à ce jour), contenu des tuiles au choix, puis logo personnel (C10) (demande FlhFly du 2026-09-18) |
 | C23 | Langues et devises supplémentaires : socle i18n et liste des devises extensibles ; une langue = un dictionnaire complet et ses formats, une devise = taux indicatif et symbole ; à relier à C17. Pas une priorité (demande FlhFly du 2026-09-18) |
+| C24 | Paiement confirmé au renouvellement : marquer une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; le journal « Derniers paiements » distingue alors les paiements confirmés des paiements reconstitués, et une échéance passée non confirmée peut être signalée. Déclaratif, 100 % local (demande FlhFly du 2026-09-21) |
 
 ### Mesure d'audience
 
