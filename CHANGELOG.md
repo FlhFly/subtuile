@@ -5,7 +5,24 @@ Format inspiré de [Keep a Changelog](https://keepachangelog.com/fr/1.1.0/) ;
 versionnage sémantique : `0.N.0` = fin du lot N (tag `lot-N`), `1.0.0` = mise en ligne.
 Chaque étape committée ajoute son entrée dans « Non publié ».
 
-## [Non publié]
+## [Non publié] — lot 6 « Suivi réel & protection » sur la branche `lot-6`, sortie prévue en 1.2.0
+
+### Lot 6 — étape 1 : marquer une échéance payée (2026-09-22)
+
+#### Ajouté
+- Modèle : `paiementsConfirmes` sur l'abonnement (EF-76) — liste { échéance, montant, confirmé le },
+  triée, une entrée par échéance ; vide à la création, conservée à l'édition, non recopiée à la
+  duplication, assainie à l'import JSON ; absente sur les données antérieures (lue via
+  `confirmations()`), sans changement de schéma d'export.
+- Domaine `paiements.ts` : `echeanceAConfirmer` (la prochaine échéance si elle entre dans la
+  fenêtre d'alerte de renouvellement, sinon le dernier prélèvement passé ; rien en essai gratuit ni
+  pour un archivé), `montantEcheance` (part payée, prix de l'historique ou hausse annoncée),
+  `confirmerPaiement`, `annulerConfirmation`.
+- Fiche : bandeau « Échéance du … · montant » avec « Marquer payé », puis « Payée · confirmé le … »
+  et « Annuler » ; toast annulable.
+- Centre d'alertes : bouton « Payé » à côté de l'alerte de renouvellement ; l'échéance confirmée
+  ne déclenche plus d'alerte.
+- Version 1.2.0 sur la branche `lot-6`, notes de version accumulées sous 1.2.0.
 
 ### Roadmap : lot 6 « Suivi réel & protection » planifié (2026-09-22)
 

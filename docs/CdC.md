@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.48 — 22/09/2026 (lot 6 « Suivi réel & protection » planifié : EF-76 à EF-79)
+**Version :** 1.49 — 22/09/2026 (lot 6, étape 1 : échéance marquée payée)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -56,6 +56,7 @@ L'objectif est de centraliser le suivi de tous les abonnements personnels (Strav
 | montantEstime | bool *(v1.9)* | montant variable affiché « ~X € » ; les totaux incluant des montants estimés sont marqués comme tels |
 | regularisation | objet nullable *(v1.9)* | { date } — échéance annuelle de régularisation (mensualités lissées énergie), avec alerte dédiée |
 | prixFutur | objet nullable *(v1.9)* | { date, montant } — hausse annoncée : alerte à l'approche, application automatique à la date, versement dans historiquePrix |
+| paiementsConfirmes | liste *(v1.49)* | échéances marquées payées : { echeance, montant, confirmeLe }, une par échéance, triées (EF-76) ; absente sur les données antérieures à la 1.2.0 = aucune |
 | usageParSemaine | nombre nullable *(v1.42)* | utilisations par semaine déclarées par l'utilisateur (0 = jamais) ; sert au coût par utilisation (EF-71) |
 | rappel | objet nullable *(v1.31)* | { date, texte } — rappel libre à une date (« renégocier la box en janvier ») : ligne sur la fiche, alerte du jour J pendant 30 jours, même résilié (ex-C14, EF-74) |
 | modeResiliation | enum *(v1.9)* | lien (défaut), telephone, courrier_recommande, espace_client — avec contact associé ; adapte le bouton « Gérer / Résilier » (EF-21b) |
@@ -197,7 +198,7 @@ Notation : **[M]** = must have, **[S]** = should have.
 
 ### 4.8 Suivi réel & protection (lot 6 — ex-backlog C24, C12, C9, C20) *(v1.48)*
 
-- **EF-76 [S]** — Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; la confirmation garde la date de l'échéance, le jour de confirmation et le montant. L'échéance confirmée ne déclenche plus d'alerte de renouvellement. Le journal EF-13b distingue les paiements confirmés des paiements reconstitués, permet d'ajuster le montant réellement payé (vie courante, EF-04b) et signale une échéance passée non confirmée. Déclaratif, aucune connexion bancaire. *(ex-C24)*
+- **EF-76 [S]** — Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; la confirmation garde la date de l'échéance, le jour de confirmation et le montant. L'échéance confirmée ne déclenche plus d'alerte de renouvellement. Le journal EF-13b distingue les paiements confirmés des paiements reconstitués, permet d'ajuster le montant réellement payé (vie courante, EF-04b) et signale une échéance passée non confirmée. Déclaratif, aucune connexion bancaire. *(ex-C24)* Étape 1 livrée *(v1.49)* : bandeau sur la fiche (la prochaine échéance si elle entre dans la fenêtre d'alerte de renouvellement, sinon le dernier prélèvement passé ; rien en essai gratuit ni pour un archivé), bouton « Payé » sur l'alerte de renouvellement, confirmation annulable, montant attendu enregistré (part payée, prix de l'époque ou hausse annoncée).
 - **EF-77 [S]** — Économies réalisées : cumul des mensualités évitées depuis chaque résiliation et des baisses de prix, à compter de leur date d'effet. *(ex-C12)*
 - **EF-78 [S]** — Bilan annuel exportable : dépensé par abonnement, par catégorie et par mois sur une année civile, paiements confirmés à part ; export CSV et page imprimable. *(ex-C9, prolonge le rapport 12 mois d'EF-43)*
 - **EF-79 [S]** — Export JSON chiffré par mot de passe (AES-GCM, clé dérivée par PBKDF2 via WebCrypto, 100 % local), en option à côté de l'export en clair ; l'import le reconnaît et demande le mot de passe. Un mot de passe perdu rend le fichier illisible. *(ex-C20)*

@@ -153,3 +153,38 @@
   outline: 2px solid var(--ink);
   outline-offset: 2px;
 }
+
+/* « Payé » sur l'alerte de renouvellement (EF-76, lot 6) */
+.item {
+  display: flex;
+  align-items: stretch;
+  gap: 6px;
+}
+
+.item > .ligne,
+.item > .ligneLue {
+  flex: 1;
+  min-width: 0;
+}
+
+.payer {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  min-width: 56px;
+  padding: 0 10px;
+  border: 0;
+  border-radius: 18px;
+  background: var(--ok-bg);
+  color: var(--ok);
+  font-size: 11.5px;
+  font-weight: var(--fw-bold);
+}
+
+.payer:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}

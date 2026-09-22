@@ -247,6 +247,70 @@
   font-weight: var(--fw-semibold);
 }
 
+/* Paiement confirmé au renouvellement (EF-76, lot 6) */
+.paiement,
+.paiementFait {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--r-lg);
+  background: var(--sand);
+  color: var(--ink);
+}
+
+.paiementFait {
+  background: var(--ok-bg);
+  color: var(--ok);
+}
+
+.paiementTextes {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.paiementTitre {
+  font-size: 13.5px;
+  font-weight: var(--fw-bold);
+}
+
+.paiementSous {
+  font-size: 12px;
+  font-weight: var(--fw-semibold);
+  opacity: 0.8;
+}
+
+.paiementBouton,
+.paiementAnnuler {
+  flex: none;
+  height: 36px;
+  padding: 0 14px;
+  border-radius: 14px;
+  font-size: 12.5px;
+  font-weight: var(--fw-bold);
+}
+
+.paiementBouton {
+  border: 0;
+  background: var(--ink);
+  color: var(--bg);
+}
+
+.paiementAnnuler {
+  border: 2px solid currentColor;
+  background: transparent;
+  color: inherit;
+}
+
+.paiementBouton:focus-visible,
+.paiementAnnuler:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+}
+
 /* Détails */
 .details {
   margin: 0;

@@ -14,6 +14,18 @@ export interface NoteDeVersion {
 
 export const NOTES_DE_VERSION: readonly NoteDeVersion[] = [
   {
+    version: '1.2.0',
+    date: '2026-09-22',
+    notes: {
+      fr: [
+        'Fiche et alertes › « Marquer payé » : confirmez le paiement d’une échéance ; l’alerte de renouvellement disparaît, annulable depuis la fiche.',
+      ],
+      en: [
+        'Details and alerts › “Mark as paid”: confirm a renewal payment; the renewal alert goes away, and you can undo it from the details page.',
+      ],
+    },
+  },
+  {
     version: '1.1.0',
     date: '2026-09-21',
     notes: {

@@ -2,9 +2,14 @@ import type { Alerte, NiveauAlerte } from '../../domain/alertes';
 import { EnTete } from '../components/EnTete';
 import { Icone } from '../components/Icone';
 import { useAlertes } from '../contexts/AlertesContext';
+import { enregistrerAbonnement } from '../../data/services/abonnements';
+import { aujourdhui } from '../../domain/dates';
+import { annulerConfirmation, confirmerPaiement, montantEcheance } from '../../domain/paiements';
 import { useI18n } from '../contexts/I18nContext';
+import { useStorage } from '../contexts/StorageContext';
 import { usePreferences } from '../contexts/PreferencesContext';
 import { useToast } from '../contexts/ToastContext';
+import { useAbonnements } from '../hooks/useAbonnements';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libellesAlerte } from '../libellesAlertes';
 import styles from './Alertes.module.css';
@@ -33,6 +38,29 @@ export function Alertes({ onRetour, onOuvrir }: Props) {
   const { preferences } = usePreferences();
   const moyens = useMoyensPaiement();
   const toast = useToast();
+  const storage = useStorage();
+  const { abonnements } = useAbonnements();
+
+  /* EF-76 : « Payé » confirme l'échéance de l'alerte, qui disparaît ; annulable depuis le toast */
+  const marquerPaye = async (a: Extract<Alerte, { type: 'echeance' }>) => {
+    const abo = abonnements.find((x) => x.id === a.abonnementId);
+    if (!abo) return;
+    const jour = aujourdhui();
+    marquerLue(a);
+    await enregistrerAbonnement(
+      storage,
+      confirmerPaiement(abo, a.date, montantEcheance(abo, a.date, jour), jour),
+      jour,
+    );
+    toast.afficherAvecAction(t('toast.paiementConfirme', { date: i18n.date(a.date) }), {
+      libelle: t('toast.annuler'),
+      executer: async () => {
+        const courant = await storage.abonnements.lire(abo.id);
+        if (courant)
+          await enregistrerAbonnement(storage, annulerConfirmation(courant, a.date), jour);
+      },
+    });
+  };
 
   const toutLu = () => {
     marquerToutesLues();
@@ -62,7 +90,7 @@ export function Alertes({ onRetour, onOuvrir }: Props) {
                 : undefined;
             const l = libellesAlerte(i18n, a, moyen);
             return (
-              <li key={a.cle}>
+              <li key={a.cle} className={styles.item}>
                 <button
                   type="button"
                   className={a.lue ? styles.ligneLue : styles.ligne}
@@ -82,6 +110,17 @@ export function Alertes({ onRetour, onOuvrir }: Props) {
                     <Icone nom="chevronDroit" taille={14} />
                   </span>
                 </button>
+                {a.type === 'echeance' ? (
+                  <button
+                    type="button"
+                    className={styles.payer}
+                    onClick={() => void marquerPaye(a)}
+                    aria-label={t('alertes.payer.aria', { nom: a.nom, date: i18n.date(a.date) })}
+                  >
+                    <Icone nom="coche" taille={14} />
+                    {t('alertes.payer')}
+                  </button>
+                ) : null}
               </li>
             );
           })}

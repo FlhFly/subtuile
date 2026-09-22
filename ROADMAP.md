@@ -207,7 +207,7 @@ serveur ni dépendance. Les correctifs de la 1.1.0 sortent entre-temps en 1.1.x 
 
 | Étape | Exigence | Fonctionnalité | Statut |
 |---|---|---|---|
-| 1 | EF-76 [S] | Marquer une échéance « payée » depuis la fiche ou l'alerte de renouvellement (date de confirmation et montant enregistrés) | ⬜ |
+| 1 | EF-76 [S] | Marquer une échéance « payée » depuis la fiche ou l'alerte de renouvellement (date de confirmation et montant enregistrés) | ✅ livrée le 2026-09-22 sur la branche lot-6 |
 | 2 | EF-76 [S] | Journal « Derniers paiements » : confirmé / reconstitué, montant réel modifiable, échéance passée non confirmée signalée | ⬜ |
 | 3 | EF-77 [S] | Compteur d'économies réalisées : résiliations et baisses de prix, depuis leur date d'effet (ex-C12) | ⬜ |
 | 4 | EF-78 [S] | Bilan annuel exportable (CSV et page imprimable) à partir du rapport 12 mois et des paiements confirmés (ex-C9) | ⬜ |

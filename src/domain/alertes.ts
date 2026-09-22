@@ -30,6 +30,7 @@ import {
   niveauCompteur,
   prixEffectif,
 } from './dates';
+import { confirmation } from './paiements';
 import { dateCleBudget } from './pilotage';
 import type {
   Abonnement,
@@ -234,7 +235,8 @@ function alertesAbonnement(abo: Abonnement, defauts: DefautsAlerte, jour: DateIS
       }
     } else {
       const echeance = calculerProchaineEcheance(abo, jour);
-      if (echeance !== null) {
+      // EF-76 : échéance déjà confirmée payée, plus rien à rappeler
+      if (echeance !== null && confirmation(abo, echeance) === null) {
         const jours = joursAvant(echeance, jour);
         if (jours <= seuilEcheance(abo, defauts)) {
           alertes.push({

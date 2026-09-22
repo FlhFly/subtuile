@@ -51,6 +51,8 @@ import { useAbonnements } from '../hooks/useAbonnements';
 import { useCatalogue } from '../hooks/useCatalogue';
 import { useMoyensPaiement } from '../hooks/useMoyensPaiement';
 import { libelleCompteur, libelleStatut } from '../libelles';
+import { seuilEcheance } from '../../domain/alertes';
+import { annulerConfirmation, confirmerPaiement, echeanceAConfirmer } from '../../domain/paiements';
 import { journalPaiements } from '../../domain/rapport';
 import { suggestionAnnuel, suggestionCanal } from '../../domain/suggestions';
 import { CHOIX_USAGE, coutUsage } from '../../domain/usage';
@@ -113,6 +115,25 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
       { ...abo, usageParSemaine: abo.usageParSemaine === n ? null : n },
       jour,
     );
+  };
+  /* EF-76 : échéance à confirmer (la prochaine dans la fenêtre d'alerte, sinon la dernière passée) */
+  const aConfirmer = echeanceAConfirmer(abo, jour, seuilEcheance(abo, preferences.alertes));
+  const basculerPaiement = async () => {
+    if (!aConfirmer) return;
+    const { date: echeance, montant: du } = aConfirmer;
+    if (aConfirmer.confirmation) {
+      await enregistrerAbonnement(storage, annulerConfirmation(abo, echeance), jour);
+      return;
+    }
+    await enregistrerAbonnement(storage, confirmerPaiement(abo, echeance, du, jour), jour);
+    toast.afficherAvecAction(t('toast.paiementConfirme', { date: date(echeance) }), {
+      libelle: t('toast.annuler'),
+      executer: async () => {
+        const courant = await storage.abonnements.lire(abo.id);
+        if (courant)
+          await enregistrerAbonnement(storage, annulerConfirmation(courant, echeance), jour);
+      },
+    });
   };
   const service = abo.serviceId ? services.get(abo.serviceId) : undefined;
   const modele = modeleTuile(abo, jour, mp, service);
@@ -316,6 +337,34 @@ export function Fiche({ id, onRetour, onModifier, onDupliquer }: Props) {
           </Encart>
         ) : null}
         {archive ? <Encart classe="neutre">{t('fiche.archive.texte')}</Encart> : null}
+
+        {aConfirmer ? (
+          <section
+            className={aConfirmer.confirmation ? styles.paiementFait : styles.paiement}
+            aria-label={t('paiement.titre')}
+          >
+            <span className={styles.paiementTextes}>
+              <span className={styles.paiementTitre}>
+                {t('paiement.echeance', {
+                  date: date(aConfirmer.date, 'long'),
+                  montant: montant(aConfirmer.montant, abo.devise),
+                })}
+              </span>
+              <span className={styles.paiementSous}>
+                {aConfirmer.confirmation
+                  ? t('paiement.confirme', { date: date(aConfirmer.confirmation.confirmeLe) })
+                  : t('paiement.aConfirmer')}
+              </span>
+            </span>
+            <button
+              type="button"
+              className={aConfirmer.confirmation ? styles.paiementAnnuler : styles.paiementBouton}
+              onClick={() => void basculerPaiement()}
+            >
+              {aConfirmer.confirmation ? t('paiement.annuler') : t('paiement.marquer')}
+            </button>
+          </section>
+        ) : null}
 
         <dl className={styles.details}>
           {abo.referenceClient ? (

@@ -76,12 +76,35 @@ function normaliserAbonnement(brut: unknown, i: number, jour: DateISO): Abonneme
   // EF-71 : usage déclaré gardé s'il est un nombre positif ou nul
   const usageParSemaine =
     estNombre(brut.usageParSemaine) && brut.usageParSemaine >= 0 ? brut.usageParSemaine : null;
+  // EF-76 : confirmations gardées si date ISO et montants valides, une par échéance
+  const parEcheance = new Map<string, { echeance: string; montant: number; confirmeLe: string }>();
+  for (const p of Array.isArray(brut.paiementsConfirmes) ? brut.paiementsConfirmes : []) {
+    // la première confirmation valide d'une échéance l'emporte
+    if (
+      estObjet(p) &&
+      estDateISO(p.echeance) &&
+      estDateISO(p.confirmeLe) &&
+      estNombre(p.montant) &&
+      p.montant >= 0 &&
+      !parEcheance.has(p.echeance)
+    ) {
+      parEcheance.set(p.echeance, {
+        echeance: p.echeance,
+        montant: p.montant,
+        confirmeLe: p.confirmeLe,
+      });
+    }
+  }
+  const paiementsConfirmes = [...parEcheance.values()].sort((a, b) =>
+    a.echeance.localeCompare(b.echeance),
+  );
   const champs = {
     ...brut,
     statut,
     devise,
     rappel,
     usageParSemaine,
+    paiementsConfirmes,
     deletedAt: horodatage(brut.deletedAt) ?? null,
   } as unknown as Parameters<typeof creerAbonnement>[0];
   return creerAbonnement(champs, { jour, instant: horodatage(brut.updatedAt) });

@@ -146,6 +146,15 @@ export interface Partage {
 export interface Regularisation {
   date: DateISO;
 }
+/** EF-76 : échéance marquée « payée » par l'utilisateur (lot 6) */
+export interface PaiementConfirme {
+  /** date de l'échéance confirmée */
+  echeance: DateISO;
+  /** montant payé, dans la devise de l'abonnement */
+  montant: number;
+  /** jour où l'utilisateur a confirmé */
+  confirmeLe: DateISO;
+}
 /** EF-74 : rappel libre à une date (« renégocier la box en janvier ») */
 export interface Rappel {
   date: DateISO;
@@ -203,6 +212,11 @@ export interface Abonnement extends EntiteTechnique {
   rappel: Rappel | null;
   /** EF-71 : utilisations par semaine déclarées par l'utilisateur ; null = non déclaré (lot 5) */
   usageParSemaine: number | null;
+  /**
+   * EF-76 : échéances confirmées payées, triées par date (lot 6). Absent sur les
+   * abonnements enregistrés avant la 1.2.0 : lire via `confirmations()`.
+   */
+  paiementsConfirmes?: PaiementConfirme[];
   modeResiliation: ModeResiliation;
   /** contact associé au mode de résiliation : n° de téléphone, adresse postale, URL espace client */
   contactResiliation: string | null;
