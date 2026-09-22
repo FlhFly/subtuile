@@ -7,6 +7,17 @@ Chaque étape committée ajoute son entrée dans « Non publié ».
 
 ## [Non publié]
 
+### Roadmap : lot 6 « Suivi réel & protection » planifié (2026-09-22)
+
+#### Ajouté
+- ROADMAP et CdC v1.48 (§4.8, §6) : lot 6 en six étapes, EF-76 paiement confirmé (ex-C24), EF-77
+  économies réalisées (ex-C12), EF-78 bilan annuel exportable (ex-C9), EF-79 export JSON chiffré
+  (ex-C20) ; développé sur la branche `lot-6`, sortie d'un bloc en 1.2.0.
+
+#### Modifié
+- ROADMAP : lot 5 coché dans la vue d'ensemble ; C7 (onboarding, lot 4) et C16 (revue du
+  catalogue, v1.0.17) marqués réalisés ; C8 reste candidat.
+
 ### Roadmap : candidat C24 (2026-09-21)
 
 #### Ajouté

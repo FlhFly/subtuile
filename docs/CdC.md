@@ -1,7 +1,7 @@
 # Cahier des charges — Subtuile
 *Application de suivi d'abonnements et de contrats récurrents*
 
-**Version :** 1.47 — 21/09/2026 (candidat C24 : paiement confirmé au renouvellement)
+**Version :** 1.48 — 22/09/2026 (lot 6 « Suivi réel & protection » planifié : EF-76 à EF-79)
 **Statut :** En vigueur
 **Plateforme :** Web / PWA installable
 **Usage :** Personnel (mono-utilisateur), évolutif
@@ -195,6 +195,13 @@ Notation : **[M]** = must have, **[S]** = should have.
 - **EF-75 [S]** — Mode discret : un appui sur le total de l'accueil masque tous les montants affichés (« **** € », devise conservée) dans toute l'app, un second appui les rétablit ; œil barré à côté du total, préférence `montantsMasques` mémorisée, interrupteur dans Réglages › Apparence. Les exports et les champs de saisie restent en clair *(v1.36, ex-C21)*.
 - **EF-73 [S]** — Import de relevé bancaire (CSV) : détection **100 % locale** des paiements récurrents, signalement des **doublons potentiels** (couvre l'esprit de C3), proposition groupée « ajouter N abonnement(s) », état « rien à ajouter — tout est déjà suivi ». Aucun agrégateur, aucune donnée montante. *(ex-C11 + C3)* Livré au lot 5 *(v1.45)* : troisième choix de l'écran Importer ; colonnes date / libellé / montant détectées ou réglées à la main ; récurrence = libellé rapproché, montants à ± 15 %, cadence hebdomadaire à annuelle sur deux paiements au moins ; « déjà suivi » = même service du catalogue ou nom présent dans le libellé ; le relevé n'est jamais conservé, seuls les abonnements ajoutés sont enregistrés (cycle ancré sur le dernier paiement constaté).
 
+### 4.8 Suivi réel & protection (lot 6 — ex-backlog C24, C12, C9, C20) *(v1.48)*
+
+- **EF-76 [S]** — Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; la confirmation garde la date de l'échéance, le jour de confirmation et le montant. L'échéance confirmée ne déclenche plus d'alerte de renouvellement. Le journal EF-13b distingue les paiements confirmés des paiements reconstitués, permet d'ajuster le montant réellement payé (vie courante, EF-04b) et signale une échéance passée non confirmée. Déclaratif, aucune connexion bancaire. *(ex-C24)*
+- **EF-77 [S]** — Économies réalisées : cumul des mensualités évitées depuis chaque résiliation et des baisses de prix, à compter de leur date d'effet. *(ex-C12)*
+- **EF-78 [S]** — Bilan annuel exportable : dépensé par abonnement, par catégorie et par mois sur une année civile, paiements confirmés à part ; export CSV et page imprimable. *(ex-C9, prolonge le rapport 12 mois d'EF-43)*
+- **EF-79 [S]** — Export JSON chiffré par mot de passe (AES-GCM, clé dérivée par PBKDF2 via WebCrypto, 100 % local), en option à côté de l'export en clair ; l'import le reconnaît et demande le mot de passe. Un mot de passe perdu rend le fichier illisible. *(ex-C20)*
+
 **Principe « aucune fonctionnalité factice »** *(v1.14)* : les éléments montrés en démo/aperçu dans la maquette mais irréalisables en V1 (notifications push sans serveur — §5.4, widget d'écran d'accueil natif — §2) sont **masqués en production** et n'apparaîtront que lorsqu'ils seront réellement fonctionnels.
 
 ---
@@ -263,6 +270,7 @@ Aucun backend en V1, mais l'architecture doit rendre son ajout possible sans ré
 | **3 — Cas particuliers & alertes** | Essais, engagement/préavis, statuts, archivage, centre d'alertes, export ICS (EF-04→06, 30→32) | Un essai gratuit et un préavis déclenchent les bonnes alertes aux bonnes dates |
 | **4 — Finances & données** | Vue financière complète, prévisionnel 12 mois, export/import JSON, import CSV, PWA finalisée (EF-40→52) | Totaux vérifiés à la main sur le jeu de démo ; app installée et fonctionnelle hors ligne |
 | **5 — Pilotage** | Objectif d'économie, usage & coût réel, suggestions d'économies, import relevé bancaire avec doublons, journal des paiements, vue foyer, historique 24 mois (EF-70→73, EF-13b, EF-44b, EF-43 étendu) | Scénario complet : objectif fixé, usage déclaré, relevé importé sans doublon créé, suggestions cohérentes avec le catalogue |
+| **6 — Suivi réel & protection** | Paiements confirmés, économies réalisées, bilan annuel exportable, export JSON chiffré (EF-76→79) *(v1.48)* | Scénario complet : échéances confirmées et montant ajusté visibles dans le journal et le bilan, économie d'une résiliation chiffrée, sauvegarde chiffrée relue avec le bon mot de passe et refusée avec un mauvais |
 
 ### Phase design (préalable au lot 1)
 
@@ -404,19 +412,19 @@ Pistes identifiées pour une app « complète », candidates non arbitrées :
 | C6 | Comparatif mensuel vs annuel via les tarifs du catalogue — **promu** : EF-72, lot 5 (maquette v6) | Économies concrètes |
 | C7 | Onboarding premier lancement (parcours guidé : import, catalogue, premier abonnement) — **réalisé** au lot 4 (§7.10, v1.17) | Prise en main |
 | C8 | Verrouillage optionnel de l'app (code / Face ID via WebAuthn) | Confidentialité des dépenses |
-| C9 | Rapport annuel exportable (récap des dépenses) | Bilan de fin d'année |
+| C9 | Rapport annuel exportable (récap des dépenses) — **promu** : EF-78, lot 6 *(v1.48)* | Bilan de fin d'année |
 | C10 | Logos de marques dans les tuiles (bibliothèque de pictos en dépendance npm + upload perso, cf. §3.4) — la structure `logo` évolutive est provisionnée dès le lot 1, seul le rendu « initiales » est implémenté en V1 | Identité visuelle des tuiles |
 | C11 | Détection d'abonnements depuis un export bancaire CSV : repérage local des prélèvements récurrents, proposition de création — aucun agrégateur, 100 % local *(v1.9)* — **promu** : EF-73, lot 5 (maquette v6) | Résout le vrai problème : la saisie initiale |
-| C12 | Compteur d'économies réalisées : cumul des mensualités évitées depuis chaque résiliation — brique de gamification la plus saine *(v1.9)* | Motivation, valeur perçue |
+| C12 | Compteur d'économies réalisées : cumul des mensualités évitées depuis chaque résiliation — brique de gamification la plus saine *(v1.9)* — **promu** : EF-77, lot 6 *(v1.48)* | Motivation, valeur perçue |
 | C13 | Tags libres (maison, voiture, pro…) en complément des catégories *(v1.9)* — **promu** : champ tags §3.1 + filtre EF-12, lots 1-2 (maquette v6) | Organisation, surtout avec les contrats vie courante |
 | C14 | Rappel libre à date par abonnement (« renégocier la box en janvier », « comparer les offres élec ») *(v1.9)* — **promu** : EF-74, livré en 1.0.24 *(v1.31)* | Renégociations et échéances de prix fixes |
 | C15 | Veille tarifaire : catalogue distant publié par un pipeline de collecte des prix (formules, promos, fraîcheur), comparaison 100 % locale → alertes de hausse officielles, suggestions de formule/canal moins cher, mises à jour de prix en un tap (cf. §5.6, provision §3.1/§3.4) | Données réelles à jour |
 | C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer à l'ajout tous les tiers disponibles quand l'utilisateur choisit un service *(v1.18, demande du 13/09/2026)* | Complétude du catalogue |
 | C17 | Tarifs du catalogue par pays / devise : grille de prix locale selon le pays de l'utilisateur (à choisir à l'onboarding, avec la devise) plutôt qu'une conversion de l'euro aux taux indicatifs *(v1.18, demande du 13/09/2026)* | Justesse des tarifs proposés |
 | C18 | Thème sombre « OLED » : noirs purs, en quatrième choix du réglage d'apparence (EF-17) *(v1.25, demande du 15/09/2026)* — **promu** : EF-17, livré en 1.0.27 avec la palette de la maquette v7 *(v1.35)* | Confort de lecture de nuit, autonomie sur écrans OLED |
-| C20 | Export JSON chiffré par mot de passe (AES-GCM via WebCrypto, 100 % local), en option à côté de l'export en clair ; import symétrique *(v1.28, revue RGPD du 16/09/2026)* | Sauvegardes protégées sur l'appareil |
+| C20 | Export JSON chiffré par mot de passe (AES-GCM via WebCrypto, 100 % local), en option à côté de l'export en clair ; import symétrique *(v1.28, revue RGPD du 16/09/2026)* — **promu** : EF-79, lot 6 *(v1.48)* | Sauvegardes protégées sur l'appareil |
 | C19 | Store par plateforme : détection locale de l'appareil (iOS, Android, autre) et réglage « Boutique d'applications » (Automatique / App Store / Google Play / Les deux) pour ne proposer que les formules et le canal du store de l'utilisateur, et ne comparer « moins cher en direct » qu'avec ce store ; les services sans tarif direct gardent leurs formules App Store à titre indicatif. Limite connue : le catalogue n'a pas de prix Google Play (Apple affiche le prix de chaque abonnement, Google une fourchette) *(v1.27, demande du 16/09/2026)* | Formules pertinentes selon l'appareil |
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app, un second appui les rétablit ; préférence, œil barré *(v1.32, demande du 18/09/2026)* — **promu** : EF-75, livré en 1.0.28 *(v1.36)* | Consulter l'app en public sans exposer ses dépenses |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` déjà prévu au modèle, EF-10, sans sélecteur à ce jour), contenu des tuiles au choix (prix, échéance, moyen de paiement, catégorie, badge), puis logo personnel (C10) ; réglages dans Réglages › Apparence *(v1.32, demande du 18/09/2026)* | Tuiles reconnaissables au premier coup d'œil |
 | C23 | Langues et devises supplémentaires : le socle i18n (dictionnaires, pluriels, formats de date) et les devises (`DEVISES`, `taux.json`) sont extensibles ; ajouter une langue = un dictionnaire complet et ses formats, ajouter une devise = son taux indicatif et son symbole ; à relier à C17 pour les tarifs par pays. Pas une priorité *(v1.32, demande du 18/09/2026)* | Ouverture hors francophonie et zone euro |
-| C24 | Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » (fiche, alerte de renouvellement) ; le journal EF-13b distingue les paiements confirmés des paiements reconstitués, une échéance passée non confirmée peut être signalée ; déclaratif, aucune connexion bancaire *(v1.47, demande du 21/09/2026)* | Suivi réel des paiements, confiance dans le cumul dépensé |
+| C24 | Paiement confirmé au renouvellement : l'utilisateur marque une échéance comme « payée » (fiche, alerte de renouvellement) ; le journal EF-13b distingue les paiements confirmés des paiements reconstitués, une échéance passée non confirmée peut être signalée ; déclaratif, aucune connexion bancaire *(v1.47, demande du 21/09/2026)* — **promu** : EF-76, lot 6 *(v1.48)* | Suivi réel des paiements, confiance dans le cumul dépensé |

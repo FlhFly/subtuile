@@ -3,7 +3,7 @@
 ## Projet
 PWA de suivi d'abonnements et contrats récurrents. 100 % local,
 hors ligne, zéro tracking, open source (AGPL-3.0).
-**docs/CdC.md (v1.47) fait foi** sur le périmètre ; docs/maquette-v7.html
+**docs/CdC.md (v1.48) fait foi** sur le périmètre ; docs/maquette-v7.html
 est la référence visuelle (référence, PAS une base de code).
 En ligne : https://subtuile.com (GitHub Pages, domaine personnalisé via
 public/CNAME, déployé par
@@ -22,6 +22,10 @@ maquette). Pas d'autre dépendance sans validation.
 - Jamais plusieurs étapes d'un coup. Jamais de commit sans tests verts.
 - Lot 5 « Pilotage » livré en 1.1.0 (tag `lot-5`, 2026-09-21). Entre deux lots,
   les corrections sortent en 1.1.x sur main.
+- Lot 6 « Suivi réel & protection » : développé sur la branche `lot-6`
+  (package.json en 1.2.0, notes accumulées sous 1.2.0, CHANGELOG sous « Non publié —
+  lot 6 ») ; fusion dans main et tag `lot-6` à la sortie de la 1.2.0
+  (décision FlhFly du 2026-09-22, même principe que le lot 5).
 - Réponses concises, en français.
 
 ## Fichiers à tenir à jour (dans le même commit que l'étape)

@@ -16,7 +16,8 @@ Légende : **[M]** must have · **[S]** should have · EF-xx = exigence du CdC.
 | 2 — Paiement & désabonnement | Moyens de paiement, catalogue complet, deep links, routage résiliation | 0.2.0 · tag `lot-2` | ✅ 2026-09-11 |
 | 3 — Cas particuliers & alertes | Essais, engagement/préavis, statuts, centre d'alertes, ICS | 0.3.0 · tag `lot-3` | ✅ 2026-09-12 |
 | 4 — Finances & données | Vue financière, prévisionnel, export/import, PWA, mise en ligne | 1.0.0 · tag `lot-4` | ✅ 2026-09-13 |
-| 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ⬜ prochain |
+| 5 — Pilotage | Objectif d'économie, usage & coût réel, suggestions, import relevé | 1.1.0 · tag `lot-5` | ✅ 2026-09-21 |
+| 6 — Suivi réel & protection | Paiements confirmés, économies réalisées, bilan annuel, export chiffré | 1.2.0 · tag `lot-6` | 🔄 en cours sur la branche `lot-6` |
 
 Critères de validation par lot : voir CdC §6.
 
@@ -174,7 +175,7 @@ version dans l'app.
 | Import CSV : choix manuel du séparateur, de l'en-tête et des colonnes quand la détection ne convient pas (EF-52) | ✅ 2026-09-16 (v1.0.18) |
 | Revue RGPD du 2026-09-16 (1/3) : garde anti-numéro de carte (libellé bloqué, notes et référence avertis), import JSON assaini, purge des suppressions après 30 jours | ✅ 2026-09-17 (v1.0.20) |
 | Revue RGPD (2/3) : page Confidentialité dédiée ouverte depuis Réglages (comme Nouveautés : données stockées, exports en clair, hébergement GitHub Pages, e-mails de contact, droits), mentions légales, PRIVACY.md | ✅ 2026-09-17 (v1.0.22) |
-| Revue RGPD (3/3) : export JSON chiffré par mot de passe (C20), verrouillage de l'app (C8) | ⬜ candidats |
+| Revue RGPD (3/3) : export JSON chiffré par mot de passe (C20 → EF-79, lot 6), verrouillage de l'app (C8) | 🔄 C20 planifié au lot 6 ; C8 reste candidat (un code sans chiffrement de la base ne protégerait que l'écran) |
 | Retours FlhFly du 2026-09-17 : tiret automatique de la date d'expiration au clavier numérique ; notes de version en plusieurs points, versions récentes complétées | ✅ 2026-09-17 (v1.0.21) |
 | Centre d'alertes : ouvrir une alerte la marque lue (EF-31) | ✅ 2026-09-17 (v1.0.23) |
 | Rappel libre à une date par abonnement (C14 promu EF-74) : date + texte dans les options avancées, ligne sur la fiche, alerte du jour J pendant 30 jours | ✅ 2026-09-17 (v1.0.24) |
@@ -198,6 +199,21 @@ Recette : `tests/lot5.recette.test.ts` (objectif fixé, usage déclaré, relevé
 | EF-43 [S] | Évolution du total mensuel sur 24 mois et rapport 12 mois (dépensé, hausses, mouvements) | ✅ étape 3 livrée le 2026-09-19 sur la branche lot-5 |
 | EF-44b [S] | Vue « Foyer & partage » | ✅ étape 5 livrée le 2026-09-19 sur la branche lot-5 |
 
+## Lot 6 — Suivi réel & protection (planifié le 2026-09-22, branche `lot-6`, sortie d'un bloc en 1.2.0)
+
+Décision FlhFly du 2026-09-22 : passer des paiements reconstitués aux paiements confirmés, en tirer
+les économies réalisées et un bilan annuel, puis protéger les sauvegardes. Tout reste local, sans
+serveur ni dépendance. Les correctifs de la 1.1.0 sortent entre-temps en 1.1.x sur main.
+
+| Étape | Exigence | Fonctionnalité | Statut |
+|---|---|---|---|
+| 1 | EF-76 [S] | Marquer une échéance « payée » depuis la fiche ou l'alerte de renouvellement (date de confirmation et montant enregistrés) | ⬜ |
+| 2 | EF-76 [S] | Journal « Derniers paiements » : confirmé / reconstitué, montant réel modifiable, échéance passée non confirmée signalée | ⬜ |
+| 3 | EF-77 [S] | Compteur d'économies réalisées : résiliations et baisses de prix, depuis leur date d'effet (ex-C12) | ⬜ |
+| 4 | EF-78 [S] | Bilan annuel exportable (CSV et page imprimable) à partir du rapport 12 mois et des paiements confirmés (ex-C9) | ⬜ |
+| 5 | EF-79 [S] | Export JSON chiffré par mot de passe (WebCrypto), relu par l'import (ex-C20) | ⬜ |
+| 6 | — | Recette `tests/lot6.recette.test.ts`, README, fusion dans main, tag `lot-6`, version 1.2.0 | ⬜ |
+
 ## Évolutions (hors V1, non planifiées)
 
 | Réf. | Piste |
@@ -206,22 +222,22 @@ Recette : `tests/lot5.recette.test.ts` (objectif fixé, usage déclaré, relevé
 | §5.6 | Catalogue et taux chargés à distance (lecture seule, fallback embarqué) ; synchronisation multi-appareils |
 | C1 | Rappel de sauvegarde — ✅ v1.0.3 (alerte + date du dernier export dans les réglages) ; export automatique périodique : candidat |
 | C3 | Détection de doublons à la création manuelle — ✅ v1.0.3 (avertissement « Déjà suivi ? ») |
-| C7 | Onboarding au premier lancement (dont choix de la devise par défaut, EF-45b) |
+| C7 | Onboarding au premier lancement (dont choix de la devise par défaut, EF-45b) — ✅ lot 4 (§7.10) |
 | C8 | Verrouillage de l'app (code / WebAuthn) |
-| C9 | Rapport annuel exportable |
+| C9 | Rapport annuel exportable — promu EF-78, lot 6 (début livré au lot 5 : rapport 12 mois) |
 | C10 | Pictos de marques (dépendance npm) + upload de logo personnel |
-| C12 | Compteur d'économies réalisées |
+| C12 | Compteur d'économies réalisées — promu EF-77, lot 6 |
 | C14 | Rappel libre à date par abonnement — promu EF-74, ✅ 2026-09-17 (v1.0.24) |
 | C15 | Veille tarifaire : catalogue distant, comparaison locale des prix |
-| C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) |
+| C16 | Catalogue : paliers (formules) de chaque service vérifiés et complétés dans la bibliothèque, pour proposer tous les tiers disponibles quand l'utilisateur choisit un service (demande FlhFly du 2026-09-13) — ✅ 2026-09-16 (v1.0.17, catalogue v11) |
 | C17 | Tarifs du catalogue par pays / devise : grille locale (pays choisi à l'onboarding) plutôt qu'une conversion de l'euro aux taux indicatifs (demande FlhFly du 2026-09-13) |
 | C18 | Thème sombre « OLED » (noirs purs) dans le réglage d'apparence — promu EF-17, ✅ 2026-09-18 (v1.0.27, palette de la maquette v7) |
 | C19 | Store par plateforme : détection iOS / Android, réglage « Boutique d'applications », formules et canal limités au store de l'appareil (demande FlhFly du 2026-09-16) |
-| C20 | Export JSON chiffré par mot de passe (WebCrypto, 100 % local), en option à côté de l'export en clair (revue RGPD du 2026-09-16) |
+| C20 | Export JSON chiffré par mot de passe (WebCrypto, 100 % local), en option à côté de l'export en clair (revue RGPD du 2026-09-16) — promu EF-79, lot 6 |
 | C21 | Mode discret : un appui sur le total de l'accueil masque tous les montants de l'app (« **** € ») — promu EF-75, ✅ 2026-09-18 (v1.0.28) |
 | C22 | Personnalisation de l'affichage : couleur choisie par abonnement (champ `couleur` du modèle, sans sélecteur à ce jour), contenu des tuiles au choix, puis logo personnel (C10) (demande FlhFly du 2026-09-18) |
 | C23 | Langues et devises supplémentaires : socle i18n et liste des devises extensibles ; une langue = un dictionnaire complet et ses formats, une devise = taux indicatif et symbole ; à relier à C17. Pas une priorité (demande FlhFly du 2026-09-18) |
-| C24 | Paiement confirmé au renouvellement : marquer une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; le journal « Derniers paiements » distingue alors les paiements confirmés des paiements reconstitués, et une échéance passée non confirmée peut être signalée. Déclaratif, 100 % local (demande FlhFly du 2026-09-21) |
+| C24 | Paiement confirmé au renouvellement : marquer une échéance comme « payée » depuis la fiche ou l'alerte de renouvellement ; le journal « Derniers paiements » distingue alors les paiements confirmés des paiements reconstitués, et une échéance passée non confirmée peut être signalée. Déclaratif, 100 % local (demande FlhFly du 2026-09-21) — promu EF-76, lot 6 |
 
 ### Mesure d'audience
 
